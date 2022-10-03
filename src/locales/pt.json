@@ -6,5 +6,16 @@
     "about": {
         "title": "About",
         "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut dicta incidunt ea ut commodi quidem temporibus illo quia. Et itaque deleniti veniam tempore facere ipsum animi totam culpa minima vel voluptatem adipisci natus blanditiis similique sunt expedita, ex dicta doloremque repellat vitae temporibus. Quisquam quia, accusantium blanditiis architecto facilis saepe! Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad unde laborum ut suscipit iure aliquam sapiente doloribus exercitationem nam sint."
+    },
+    "title": {
+        "wellcome": "Bem vindo, {0}!",
+        "profile": "Perfil",
+        "account": "Conta de Utilizador",
+        "setting": "Definicoes",
+        "logout": "Terminar Sessao"
+    },
+    "menus": {
+        "institution": "Instituicao",
+        "history": "Historial"
     }
 }

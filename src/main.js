@@ -18,6 +18,7 @@ import 'moment/locale/pt';
 dotenv.config();
 
 Vue.config.productionTip = false;
+Vue.prototype.$api = axios;
 Vue.use(ToggleButton);
 Vue.use(VueFuse);
 Vue.use(VModal);
