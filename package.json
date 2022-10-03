@@ -15,6 +15,7 @@
     "moment": "^2.29.4",
     "uuid": "^9.0.0",
     "vue": "^2.6.10",
+    "vue-axios": "^3.4.1",
     "vue-browser-geolocation": "^1.8.0",
     "vue-clickaway": "^2.2.2",
     "vue-fuse": "^2.1.0",
