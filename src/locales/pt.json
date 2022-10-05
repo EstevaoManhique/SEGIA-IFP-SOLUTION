@@ -16,6 +16,8 @@
     },
     "menus": {
         "institution": "Instituicao",
-        "history": "Historial"
+        "history": "Historial",
+        "about": "Sobre nos",
+        "contact": "Contacto"
     }
 }

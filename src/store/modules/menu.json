@@ -2,14 +2,14 @@
         "name": "menus.institution",
         "to": "institution",
         "sub_menus": [{
-            "name": "menus.history",
-            "to": "history",
+            "name": "menus.about",
+            "to": "about",
             "sub_menus": []
         }]
     },
     {
-        "name": "menus.history",
-        "to": "history",
+        "name": "menus.contact",
+        "to": "contact",
         "sub_menus": []
     }
 ]

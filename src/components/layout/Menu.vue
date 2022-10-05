@@ -1,9 +1,10 @@
 <template>
   <v-list nav dense flat>
     <v-list-item v-for="(menu, index) in menus" :key="index" link>
-      <v-list-item-content v-if="!menu.sub_menus">
-        <v-list-item-title>{{ $t(menu.name) | upper }}</v-list-item-title>
-      </v-list-item-content>
+      <router-link :to="{ name: menu.to }" v-if="!menu.sub_menus.length">
+        {{ $t(menu.name) | upper }}
+      </router-link>
+
       <v-list-group v-else>
         <template v-slot:activator>
           <v-list-item-content>
@@ -11,13 +12,13 @@
           </v-list-item-content>
         </template>
 
-        <v-list-item
+        <router-link
           v-for="(sub_menu, index) in menu.sub_menus"
+          :to="{ name: sub_menu.to }"
           :key="'sub' + index"
-          link
         >
-          <v-list-item-title>{{ $t(sub_menu.name) | upper }}</v-list-item-title>
-        </v-list-item>
+          {{ $t(sub_menu.name) | upper }}
+        </router-link>
       </v-list-group>
     </v-list-item>
   </v-list>

@@ -4,7 +4,7 @@ import VModal from 'vue-js-modal';
 import ToggleButton from 'vue-js-toggle-button';
 
 import App from './App.vue';
-import router from './router';
+import router from './router/router';
 import i18n from './i18n';
 import store from './store';
 import vuetify from './plugins/vuetify';

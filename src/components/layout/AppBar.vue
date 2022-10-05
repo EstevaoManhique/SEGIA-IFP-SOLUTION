@@ -11,9 +11,9 @@
 
 <script>
 import { mapActions } from 'vuex';
-import LanguageSwitcher from '@/components/layout/LanguageSwitcher.vue';
-import SocialMedia from '@/components/layout/SocialMedia.vue';
-import QAccount from '@/components/Account.vue';
+import LanguageSwitcher from './LanguageSwitcher.vue';
+import SocialMedia from './SocialMedia.vue';
+import QAccount from './Account.vue';
 
 export default {
   name: 'AppBar',
