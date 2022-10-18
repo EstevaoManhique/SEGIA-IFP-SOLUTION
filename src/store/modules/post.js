@@ -4,9 +4,10 @@ const state = {
     posts: [],
     post: {
         id: null,
-        name: '',
-        description: '',
-        price: '',
+        title: '',
+        content: '',
+        titulo: '',
+        conteudo: '',
         img: '',
         online: true,
     },
@@ -31,9 +32,10 @@ const actions = {
     },
     async addPost({ commit }, post) {
         let data = new FormData();
-        data.append('name', post.name);
-        data.append('description', post.description);
-        data.append('price', post.price);
+        data.append('title', post.title);
+        data.append('titulo', post.tituto);
+        data.append('content', post.content);
+        data.append('conteudo', post.conteudo);
         data.append('img', post.img);
         data.append('online', post.online);
 
@@ -48,9 +50,10 @@ const actions = {
     },
     async updatePost({ commit }, post) {
         let data = new FormData();
-        data.append('name', post.name);
-        data.append('description', post.description);
-        data.append('price', post.price);
+        data.append('title', post.title);
+        data.append('titulo', post.tituto);
+        data.append('content', post.content);
+        data.append('conteudo', post.conteudo);
         data.append('img', post.img);
         data.append('online', post.online);
 
@@ -74,11 +77,11 @@ const actions = {
 const mutations = {
     setPosts: (state, payload) => {
         state.posts = payload;
-        state.posts.sort((post1, post2) => post1.name.localeCompare(post2.name));
+        state.posts.sort((post1, post2) => post1.created_at - post2.created_at);
     },
     addPost(state, post) {
         state.posts.unshift(post);
-        state.posts.sort((post1, post2) => post1.name.localeCompare(post2.name));
+        state.posts.sort((post1, post2) => post1.created_at - post2.created_at);
     },
     removePost(state, id) {
         state.posts = state.posts.filter((post) => post.id != id);
@@ -93,9 +96,10 @@ const mutations = {
     resetPost(state) {
         state.post = {
             id: null,
-            name: '',
-            description: '',
-            price: '',
+            title: '',
+            content: '',
+            titulo: '',
+            conteudo: '',
             img: '',
             online: true,
         };

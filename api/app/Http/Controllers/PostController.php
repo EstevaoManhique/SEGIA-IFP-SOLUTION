@@ -47,7 +47,9 @@ class PostController extends Controller
     {
         $post = new Post;
         $post->title = $request['title'];
+        $post->titulo = $request['titulo'];
         $post->content = $request['content'];
+        $post->conteudo = $request['conteudo'];
         $post->online = isset($request['online']) ? (($request['online']) ? 1 : 0) : 1;
         $img = $request->file('img');
         if (isset($img)) {
@@ -98,7 +100,9 @@ class PostController extends Controller
         $post = Post::find($id);
         if ($post) {
             $post->title = $request['title'];
+            $post->titulo = $request['titulo'];
             $post->content = $request['content'];
+            $post->conteudo = $request['conteudo'];
             // $post->img = isset($request->post['img']) ? $request->post['img'] : '';
             $post->img = ''; // isset($request->post['img']) ? $request->post['img'] : '';
             $post->save();

@@ -3,7 +3,7 @@
     <v-row class="mt-4"> {{ $t('title.our_posts') }} </v-row>
     <v-row dense>
       <v-col
-        v-for="(card, index) in cards"
+        v-for="(card, index) in posts"
         :key="index"
         class="col-sm-6 col-md-4"
       >
@@ -14,23 +14,29 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
 import QPost from '@/components/post/Post.vue';
 export default {
   name: 'AllPost',
   components: { QPost },
-  data: () => ({
-    cards: [],
-  }),
-  async mounted() {
-    const data = await this.$api.get('posts');
-    this.cards = data.data;
-  },
   methods: {
-    async showItem(id) {
-      const data = await this.$api.get('post/' + id);
-      this.cards = data.data;
+    ...mapActions([
+      'fetchPosts',
+      'removePost',
+      'setPostDialog',
+      'setPost',
+      'resetPost',
+    ]),
+    editPost(id) {
+      this.resetPost();
+      this.setPost(id);
+      this.setPostDialog(true);
     },
   },
+  created() {
+    this.fetchPosts();
+  },
+  computed: mapGetters(['posts', 'user', 'post']),
 };
 </script>
 

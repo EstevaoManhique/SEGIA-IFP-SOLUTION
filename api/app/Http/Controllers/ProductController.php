@@ -42,7 +42,9 @@ class ProductController extends Controller
         $product = new Product;
 
         $product->name = $request['name'];
+        $product->nome = $request['nome'];
         $product->description = $request['description'];
+        $product->descricao = $request['descricao'];
         $product->price = $request['price'];
         $product->online = isset($request['online']) ? (($request['online']) ? 1 : 0) : 0;
         $img = $request->file('img');
@@ -95,7 +97,9 @@ class ProductController extends Controller
         $product = Product::find($id);
         if ($product) {
             $product->name = $request['name'];
+            $product->nome = $request['nome'];
             $product->description = $request['description'];
+            $product->descricao = $request['descricao'];
             $product->price = $request['price'];
             $product->online = isset($request['online']) ? (($request['online']) ? 1 : 0) : 0;
             $img = $request->file('img');

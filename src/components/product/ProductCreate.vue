@@ -51,7 +51,6 @@
                   class="white--text align-end col-12 col-md-6"
                   gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
                   height="300px"
-                  width="300px"
                   @click="$refs.imgInput.click()"
                   label="Img"
                 ></v-img>
@@ -202,7 +201,6 @@ export default {
       } else {
         this.addProduct(this.product);
       }
-
       this.setProductDialog(false);
       this.$refs.form.reset();
     },
@@ -212,12 +210,11 @@ export default {
       this.setProductDialog(false);
     },
     previewImg(e) {
-      this.product.img = e.target.files[0];
+      this.productt.img = e.target.files[0];
       let reader = new FileReader();
       reader.readAsDataURL(this.product.img);
       reader.onload = (e) => {
         this.imgPreview = e.target.result;
-        this.product.img = e.target.result;
       };
     },
   },
