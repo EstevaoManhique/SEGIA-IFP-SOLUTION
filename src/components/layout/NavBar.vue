@@ -8,14 +8,15 @@
   >
     <v-layout column align-center>
       <v-flex class="mt-5">
-        <v-img
-          alt="MozTop Logo"
-          class="shrink mr-2"
-          contain
-          src="assets/img/logo.png"
-          transition="scale-transition"
-          width="140"
-        />
+        <router-link :to="{ name: 'home' }">
+          <v-img
+            alt="MozTop Logo"
+            class="shrink mr-2"
+            src="http://localhost:8001/assets/img/logo/logo.png"
+            transition="scale-transition"
+            width="140"
+          />
+        </router-link>
       </v-flex>
     </v-layout>
     <v-divider></v-divider>

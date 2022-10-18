@@ -1,15 +1,43 @@
 [{
         "name": "menus.institution",
         "to": "institution",
+        "icon": "",
         "sub_menus": [{
-            "name": "menus.about",
-            "to": "about",
-            "sub_menus": []
-        }]
+                "name": "menus.about",
+                "to": "about",
+                "icon": "",
+                "sub_menus": []
+            },
+            {
+                "name": "menus.contact",
+                "to": "contact",
+                "icon": "",
+                "sub_menus": []
+            }
+        ]
     },
     {
-        "name": "menus.contact",
-        "to": "contact",
+        "name": "menus.product",
+        "to": "product",
+        "icon": "",
+        "sub_menus": []
+    },
+    {
+        "name": "menus.post",
+        "to": "post",
+        "icon": "",
+        "sub_menus": []
+    },
+    {
+        "name": "menus.service",
+        "to": "service",
+        "icon": "",
+        "sub_menus": []
+    },
+    {
+        "name": "menus.network",
+        "to": "network",
+        "icon": "",
         "sub_menus": []
     }
 ]

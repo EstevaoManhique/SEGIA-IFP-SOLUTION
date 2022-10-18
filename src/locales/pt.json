@@ -1,5 +1,6 @@
 {
     "message": "Bom dia i18n !!",
+    "copyright": "Copyright © {0} MozTop Energia. Todos Direitos Reservados!",
     "nav": {
         "features": "Features"
     },
@@ -11,13 +12,63 @@
         "wellcome": "Bem vindo, {0}!",
         "profile": "Perfil",
         "account": "Conta de Utilizador",
-        "setting": "Definicoes",
-        "logout": "Terminar Sessao"
+        "setting": "Definições",
+        "logout": "Terminar Sessão",
+        "login": "Iniciar Sessão",
+        "our_products": "Nossos Productos",
+        "create_product": "Criar Productos",
+        "recent_posts": "Artigos Recentes",
+        "our_posts": "Nossos Artigos",
+        "create_post": "Criar Artigo",
+        "our_service": "Nossos Serviços",
+        "create_service": "Criar Serviço",
+        "our_network": "Estações de abastecimento",
+        "create_network": "Criar Rede",
+        "address": "Endereço",
+        "phone": "Telefone",
+        "email": "Email",
+        "add_service": "Adicionar novo serviço",
+        "add_post": "Adicionar nova notícia",
+        "add_product": "Adicionar novo produto",
+        "add_station": "Adicionar nova estação",
+        "supply_Stations": "Estações de abastecimento",
+        "upload_img": "Carregar Imagem",
+        "pt_register": "Preencher os campos em Portugues",
+        "en_register": "Preencher os campos em Ingles"
+    },
+    "headers": {
+        "product": "Conheça os nossos productos",
+        "post": "Conheça as nossas notícias",
+        "service": "Conheça os nossos serviços",
+        "network": "Conheça as nossas estações de abastecimento",
+        "about": "Sobre nós",
+        "contact": "Conheça os nossos contactos",
+        "login": "Iniciliza a sessao"
     },
     "menus": {
-        "institution": "Instituicao",
+        "institution": "Instituição",
         "history": "Historial",
-        "about": "Sobre nos",
-        "contact": "Contacto"
+        "about": "Sobre nós",
+        "contact": "Contacto",
+        "product": "Productos",
+        "post": "Notícias",
+        "service": "Serviços",
+        "network": "Postos de Abastecimento",
+        "our_service": "Nossos Serviços",
+        "home": "Pagina Inicial"
+    },
+    "fieldes": {
+        "address": "Endereço",
+        "phone": "Telefone",
+        "email": "Email",
+        "description": "Descrição",
+        "name": "Nome",
+        "title": "Título",
+        "price": "Preço"
+    },
+    "error": {
+        "require": "Este campo é obrigatório!",
+        "password": "A senha deve conter uma letra maiúscula, um caractere numérico e um caractere especial!",
+        "email": "Por favor digite um email válido!"
     }
 }

@@ -1,5 +1,6 @@
 {
     "message": "hello i18n !!",
+    "copyright": "Copyright © {0} MozTop Energy. All rights reserved!",
     "nav": {
         "features": "Features"
     },
@@ -12,10 +13,60 @@
         "profile": "Profile",
         "account": "User Account",
         "setting": "Setting",
-        "logout": "Logout"
+        "logout": "Logout",
+        "our_products": "Our Products",
+        "create_product": "Create Product",
+        "recent_posts": "Recents Posts",
+        "our_posts": "Our Post",
+        "create_post": "Create Post",
+        "our_service": "Our Services",
+        "create_service": "Create Service",
+        "our_network": "Our Fuel Stations",
+        "create_network": "Add fuel stations",
+        "address": "Address",
+        "phone": "Phone Number",
+        "email": "E-mail",
+        "add_service": "Add new service",
+        "add_post": "Add new post",
+        "add_product": "Add new product",
+        "add_station": "Add new station",
+        "supply_Stations": "Supply stations",
+        "upload_img": "Upload Image",
+        "pt_register": "Fill in the fields in Portuguese",
+        "en_register": "Fill in the fields in English"
+    },
+    "headers": {
+        "product": "Discover our products",
+        "post": "Discover our news",
+        "service": "Discover our services",
+        "network": "Discover our fuel filling stations",
+        "about": "Know more about us",
+        "contact": "Meet our contacts",
+        "login": "login to session"
     },
     "menus": {
         "institution": "Institution",
-        "history": "History"
+        "history": "History",
+        "about": "About Us",
+        "contact": "Contact",
+        "product": "Product",
+        "post": "Post",
+        "service": "Services",
+        "network": "Fuel Stations",
+        "home": "Home"
+    },
+    "fieldes": {
+        "address": "Address",
+        "phone": "Phone Number",
+        "email": "Email",
+        "description": "Description",
+        "name": "Name",
+        "title": "Title",
+        "price": "Price"
+    },
+    "error": {
+        "require": "This field is required!",
+        "password": "The password must contain an uppercase letter, a numeric character and a special character!",
+        "email": "Por favor digite um email válido!"
     }
 }
