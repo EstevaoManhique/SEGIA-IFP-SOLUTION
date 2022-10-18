@@ -5,8 +5,10 @@ const state = {
     product: {
         id: null,
         name: '',
+        nome: '',
         description: '',
-        price: '',
+        descricao: '',
+        price: '0',
         img: '',
         online: true,
     },
@@ -26,7 +28,9 @@ const actions = {
     async addProduct({ commit }, product) {
         let data = new FormData();
         data.append('name', product.name);
+        data.append('nome', product.nome);
         data.append('description', product.description);
+        data.append('descricao', product.descricao);
         data.append('price', product.price);
         data.append('img', product.img);
         data.append('online', product.online);
@@ -43,11 +47,12 @@ const actions = {
     async updateProduct({ commit }, product) {
         let data = new FormData();
         data.append('name', product.name);
+        data.append('nome', product.nome);
         data.append('description', product.description);
+        data.append('descricao', product.descricao);
         data.append('price', product.price);
         data.append('img', product.img);
         data.append('online', product.online);
-
         if (product.id) {
             data.append('id', product.id);
         }

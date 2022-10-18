@@ -3,7 +3,9 @@
     <v-list-item v-for="(product, index) in products" :key="index" link>
       <v-list-item-content>
         <v-list-item-title class="d-flex justify-space-between"
-          >{{ product.name }}
+          >{{
+            $i18n.locale.toLowerCase() == 'en' ? product.name : product.nome
+          }}
 
           <span class="green--text">{{ product.price }} </span>
         </v-list-item-title>

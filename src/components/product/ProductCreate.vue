@@ -21,68 +21,120 @@
           </v-card-title>
           <v-spacer></v-spacer>
         </v-toolbar>
+
         <v-form
           ref="form"
           v-model="form"
           class="pa-4 pt-6"
           @submit.prevent="onSub"
         >
-          <v-row class="mb-4" justify="center">
-            <input
-              type="file"
-              name=""
-              @change="previewImg"
-              id=""
-              class="form-control"
-              enctype="multipart/form-data"
-              style="display: none"
-              ref="imgInput"
-              accept=".jpg, .png, .jpeg"
-            />
-            <v-img
-              :src="imgPreview"
-              class="white--text align-end col-12 col-md-6"
-              gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
-              height="300px"
-              width="300px"
-              @click="$refs.imgInput.click()"
-              label="Img"
-            ></v-img>
-          </v-row>
+          <v-stepper v-model="e6" vertical>
+            <v-stepper-step :complete="e6 > 1" step="1">
+              {{ $t('title.upload_img') }}
+            </v-stepper-step>
 
-          <v-text-field
-            v-model="product.name"
-            :rules="[rules.required, rules.length(100)]"
-            filled
-            color="deep-purple"
-            counter="100"
-            :label="$t('fieldes.name')"
-            style="min-height: 96px"
-            type="text"
-          ></v-text-field>
-          <v-text-field
-            v-model="product.price"
-            :rules="[rules.required]"
-            filled
-            color="deep-purple"
-            counter="100"
-            :label="$t('fieldes.price')"
-            style="min-height: 96px"
-            type="number"
-          ></v-text-field>
+            <v-stepper-content step="1">
+              <v-row class="mb-4" justify="center">
+                <input
+                  type="file"
+                  name=""
+                  @change="previewImg"
+                  id=""
+                  class="form-control"
+                  enctype="multipart/form-data"
+                  style="display: none"
+                  ref="imgInput"
+                  accept=".jpg, .png, .jpeg"
+                />
+                <v-img
+                  :src="imgPreview"
+                  class="white--text align-end col-12 col-md-6"
+                  gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
+                  height="300px"
+                  width="300px"
+                  @click="$refs.imgInput.click()"
+                  label="Img"
+                ></v-img>
+                <v-checkbox v-model="product.online" color="deep-purple">
+                  <template v-slot:label> Online &nbsp; </template>
+                </v-checkbox>
+              </v-row>
+              <v-btn color="primary" @click="e6 = 2"> Continue </v-btn>
+            </v-stepper-content>
 
-          <v-textarea
-            v-model="product.description"
-            auto-grow
-            filled
-            :rules="[rules.required]"
-            color="deep-purple"
-            :label="$t('fieldes.description')"
-          ></v-textarea>
+            <v-stepper-step :complete="e6 > 2" step="2">
+              {{ $t('title.pt_register') }}
+            </v-stepper-step>
 
-          <v-checkbox v-model="product.online" color="deep-purple">
-            <template v-slot:label> Online &nbsp; </template>
-          </v-checkbox>
+            <v-stepper-content step="2">
+              <v-text-field
+                v-model="product.name"
+                :rules="[rules.required, rules.length(100)]"
+                filled
+                color="deep-purple"
+                counter="100"
+                :label="$t('fieldes.name')"
+                style="min-height: 96px"
+                type="text"
+              ></v-text-field>
+              <v-text-field
+                v-model="product.price"
+                :rules="[rules.required]"
+                filled
+                color="deep-purple"
+                counter="100"
+                :label="$t('fieldes.price')"
+                style="min-height: 96px"
+                type="number"
+              ></v-text-field>
+              <v-textarea
+                v-model="product.description"
+                auto-grow
+                filled
+                :rules="[rules.required]"
+                color="deep-purple"
+                :label="$t('fieldes.description')"
+              ></v-textarea>
+              <v-btn color="primary" @click="e6 = 3"> Continue </v-btn>
+            </v-stepper-content>
+
+            <v-stepper-step :complete="e6 > 3" step="3">
+              {{ $t('title.en_register') }}
+            </v-stepper-step>
+
+            <v-stepper-content step="3">
+              <v-text-field
+                v-model="product.nome"
+                :rules="[rules.required, rules.length(100)]"
+                filled
+                color="deep-purple"
+                counter="100"
+                :label="$t('fieldes.name')"
+                style="min-height: 96px"
+                type="text"
+              ></v-text-field>
+              <v-text-field
+                v-model="product.price"
+                :rules="[rules.required]"
+                filled
+                color="deep-purple"
+                counter="100"
+                :label="$t('fieldes.price')"
+                style="min-height: 96px"
+                type="number"
+              ></v-text-field>
+              <v-textarea
+                v-model="product.descricao"
+                auto-grow
+                filled
+                :rules="[rules.required]"
+                color="deep-purple"
+                :label="$t('fieldes.description')"
+              ></v-textarea>
+              <v-btn color="primary" @click="e6 = 1"> Continue </v-btn>
+            </v-stepper-content>
+          </v-stepper>
+
           <v-divider></v-divider>
           <v-card-actions>
             <v-btn text @click="onClose"> Close </v-btn>
@@ -111,6 +163,7 @@ export default {
     imgPreview: null,
     form: false,
     isLoading: false,
+    e6: 1,
 
     rules: {
       email: (v) => !!(v || '').match(/@/) || 'Please enter a valid email',
@@ -121,7 +174,7 @@ export default {
           /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).+$/
         ) ||
         'Password must contain an upper case letter, a numeric character, and a special character',
-      required: (v) => !!v || this.$t('error.require'),
+      required: (v) => !!v || 'error.require',
     },
   }),
 
@@ -134,7 +187,7 @@ export default {
       'resetProduct',
     ]),
     onOpen() {
-      this.$refs.form.reset();
+      // this.$refs.form.reset();
       this.resetProduct();
       this.imgPreview = this.product.img;
       this.setProductDialog(true);
@@ -154,7 +207,7 @@ export default {
       this.$refs.form.reset();
     },
     onClose() {
-      this.$refs.form.reset();
+      // this.$refs.form.reset();
       this.resetProduct();
       this.setProductDialog(false);
     },

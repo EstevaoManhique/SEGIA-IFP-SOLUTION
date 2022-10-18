@@ -5,7 +5,6 @@
     <v-row>
       <all-product />
     </v-row>
-    <q-steeper />
   </v-container>
 </template>
 
@@ -13,7 +12,6 @@
 import ProductCreate from '@/components/product/ProductCreate.vue';
 import AllProduct from '@/components/product/AllProduct.vue';
 import QHeader from '@/components/layout/Header.vue';
-import QSteeper from '@/components/vuetify/Steeper01.vue';
 export default {
   name: 'ProductView',
   data: () => ({
@@ -27,7 +25,6 @@ export default {
     ProductCreate,
     AllProduct,
     QHeader,
-    QSteeper,
   },
   methods: {},
 };

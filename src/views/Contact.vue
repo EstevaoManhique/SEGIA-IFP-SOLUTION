@@ -1,9 +1,50 @@
 <template>
-  <div>
-    <div class="container mx-auto px-8 lg:px-48">
-      <h2 class="text-3xl font-bold">This is the contact page</h2>
+  <v-container>
+    <q-header :item="item" />
+    <v-row>
+      <v-col sm="4" class="col-12 col-sm-6 col-md-4">
+        <google-maps :link="google_link" />
+      </v-col>
 
-      <p class="mt-4">Lorem ipsum dolor sit amet <a href="#" class="text-blue-600 hover:text-blue-800">consectetur</a> adipisicing elit. Aut dicta incidunt ea ut commodi quidem temporibus illo quia. Et itaque deleniti veniam tempore facere ipsum animi totam culpa minima vel voluptatem adipisci natus blanditiis similique sunt expedita, ex dicta doloremque repellat vitae temporibus. Quisquam quia, accusantium blanditiis architecto facilis saepe! Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad unde laborum ut suscipit iure aliquam sapiente doloribus exercitationem nam sint.</p>
-    </div>
-  </div>
+      <!-- End Google Maps -->
+      <v-col sm="4" class="col-12 col-sm-6 col-md-4">
+        <main-contact :links="links" />
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
+
+<script>
+import MainContact from '@/components/contact/MainContact.vue';
+//import FormContact from '@/components/contact/FormContact.vue';
+import GoogleMaps from '@/components/layout/GoogleMaps.vue';
+import QHeader from '@/components/layout/Header.vue';
+export default {
+  name: 'ContactView',
+  components: { MainContact, GoogleMaps, QHeader },
+  data: () => ({
+    google_link:
+      'https://www.google.com/maps/d/embed?mid=1E1g5XvnXQpYZFJeBuWMYOPcRvnBOMEQ&ehbc=2E312F',
+    links: [
+      {
+        title: 'title.address',
+        icon: 'mdi-map-marker-outline',
+        value: 'Av. Agostinho Neto, 1157 Av. Moçambique Maputo',
+      },
+      {
+        title: 'title.email',
+        icon: 'mdi-email-outline',
+        value: 'info@example.com',
+      },
+      {
+        title: 'title.phone',
+        icon: 'mdi-phone',
+        value: '+258 85 024 0174',
+      },
+    ],
+    item: {
+      img: 'http://localhost:8001/assets/img/header/contact.jpg',
+    },
+  }),
+};
+</script>

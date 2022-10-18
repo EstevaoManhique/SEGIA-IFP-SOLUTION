@@ -12,7 +12,7 @@
         <v-tab-item v-for="(card, index) in cards" :key="index">
           <v-card flat class="mt-4">
             <v-row>
-              <v-col class="col-12 col-sm-6 col-md-4" sm="4">
+              <v-col class="col-12 col-sm-6 col-md-6" sm="6">
                 <v-img
                   :src="card.img"
                   class="white--text align-end"
@@ -22,7 +22,7 @@
                   <v-card-title v-text="card.name"></v-card-title>
                 </v-img>
               </v-col>
-              <v-col class="col-12 col-sm-6 col-md-8" sm="8">
+              <v-col class="col-12 col-sm-6 col-md-6" sm="6">
                 <v-card-text
                   class="text--primary"
                   v-text="card.description"

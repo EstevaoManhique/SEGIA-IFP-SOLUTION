@@ -1,0 +1,21 @@
+[{
+        "name": "Zimpeto",
+        "location": {
+            "lat": -25.83008078672241,
+            "log": 32.569973567538824
+        },
+        "link": "",
+        "img": null,
+        "description": "DSC"
+    },
+    {
+        "name": "Formula 1",
+        "location": {
+            "lat": -25.956382,
+            "log": 32.570992
+        },
+        "link": "",
+        "img": null,
+        "description": "DSC"
+    }
+]

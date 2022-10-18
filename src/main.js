@@ -14,6 +14,7 @@ import axios from './plugins/axios';
 
 import moment from 'moment';
 import 'moment/locale/pt';
+//import './plugins/vee-validate';
 
 dotenv.config();
 
