@@ -1,11 +1,13 @@
 const state = {
     productDialog: false,
     postDialog: false,
+    drawerDialog: false,
 };
 
 const getters = {
     productDialog: (state) => state.productDialog,
     postDialog: (state) => state.postDialog,
+    drawerDialog: (state) => state.drawerDialog,
 };
 
 const actions = {
@@ -14,6 +16,12 @@ const actions = {
     },
     setProductDialog({ commit }, payload) {
         commit('setProductDialog', payload);
+    },
+    createDrawerDialog({ commit }) {
+        commit('createDrawerDialog');
+    },
+    setDrawerDialog({ commit }, payload) {
+        commit('setDrawerDialog', payload);
     },
     createPostDialog({ commit }) {
         commit('createPostDialog');
@@ -28,6 +36,12 @@ const mutations = {
     },
     createProductDialog(state) {
         state.productDialog = false;
+    },
+    setDrawerDialog: (state, payload) => {
+        state.drawerDialog = payload;
+    },
+    createDrawerDialog(state) {
+        state.drawerDialog = true;
     },
     setPostDialog: (state, payload) => {
         state.postDialog = payload;

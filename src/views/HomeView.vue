@@ -1,19 +1,20 @@
 <template>
   <v-container>
     <slider />
-    <online-post />
 
     <v-row>
-      <v-col sm="6">
-        <google-maps :link="google_link" />
-      </v-col>
       <v-col sm="6">
         <our-network />
         <our-service />
       </v-col>
 
+      <v-col sm="6">
+        <google-maps :link="google_link" />
+      </v-col>
+
       <!-- <google-maps /> -->
     </v-row>
+    <online-post />
   </v-container>
 </template>
 

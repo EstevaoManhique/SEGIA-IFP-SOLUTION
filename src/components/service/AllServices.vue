@@ -1,6 +1,9 @@
 <template>
   <v-container fluid>
-    <v-row class="mt-4"> {{ $t('title.our_service') }} </v-row>
+    <div class="section-header">
+      <span>{{ $t('title.our_service') }} </span>
+      <h2>{{ $t('title.our_service') }}</h2>
+    </div>
     <v-row dense>
       <v-col v-for="(service, index) in services" :key="index" sm="6" md="6">
         <a>

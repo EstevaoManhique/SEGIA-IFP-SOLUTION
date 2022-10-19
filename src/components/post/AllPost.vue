@@ -1,11 +1,15 @@
 <template>
   <v-container fluid>
-    <v-row class="mt-4"> {{ $t('title.our_posts') }} </v-row>
+    <div class="section-header">
+      <span>{{ $t('title.our_posts') }} </span>
+      <h2>{{ $t('title.our_posts') }}</h2>
+    </div>
+
     <v-row dense>
       <v-col
         v-for="(card, index) in posts"
         :key="index"
-        class="col-sm-6 col-md-4"
+        class="col-12 col-sm-6 col-md-3"
       >
         <q-post :card="card" />
       </v-col>

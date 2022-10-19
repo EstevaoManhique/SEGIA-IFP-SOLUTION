@@ -52,17 +52,12 @@ export default {
         {
           locale: 'pt',
           icon: '/flag_pt.png',
-          title: 'Portuguese',
+          title: 'Portugues',
         },
         {
           locale: 'en',
           icon: '/flag_en.png',
-          title: 'Engles',
-        },
-        {
-          locale: 'fr',
-          icon: '/flag_fr.png',
-          title: 'French',
+          title: 'Ingles',
         },
       ],
     };

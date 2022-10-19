@@ -23,10 +23,7 @@
                 </v-img>
               </v-col>
               <v-col sm="4">
-                <v-card-text
-                  class="text--primary"
-                  v-text="card.description"
-                ></v-card-text>
+                <main-contact :links="links" />
               </v-col>
               <v-col sm="4">
                 <v-card-text>
@@ -45,18 +42,6 @@
                 </v-card-text>
               </v-col>
             </v-row>
-
-            <v-card-actions>
-              <v-btn icon>
-                <v-icon>mdi-heart</v-icon>
-              </v-btn>
-              <v-btn icon>
-                <v-icon>mdi-bookmark</v-icon>
-              </v-btn>
-              <v-btn icon>
-                <v-icon>mdi-share-variant</v-icon>
-              </v-btn>
-            </v-card-actions>
           </v-card>
         </v-tab-item>
       </v-tabs>
@@ -65,11 +50,30 @@
 </template>
 
 <script>
+import MainContact from '@/components/contact/MainContact.vue';
 export default {
   name: 'AllNetwork',
   data: () => ({
     cards: [],
+    links: [
+      {
+        title: 'title.address',
+        icon: 'mdi-map-marker-outline',
+        value: 'Av. Agostinho Neto, 1157 Av. Moçambique Maputo',
+      },
+      {
+        title: 'title.email',
+        icon: 'mdi-email-outline',
+        value: 'info@example.com',
+      },
+      {
+        title: 'title.phone',
+        icon: 'mdi-phone',
+        value: '+258 85 024 0174',
+      },
+    ],
   }),
+  components: { MainContact },
   async mounted() {
     const data = await this.$api.get('shops');
     this.cards = data.data;

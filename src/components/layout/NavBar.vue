@@ -1,7 +1,7 @@
 <template>
   <v-navigation-drawer
     app
-    v-model="drawer"
+    v-model="drawerDialog"
     dark
     class="darken-4"
     color="#c2202f"
@@ -27,16 +27,21 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import QMenu from '@/components/layout/Menu.vue';
 import OnlineProduct from '@/components/product/OnlineProduct.vue';
 
 export default {
   name: 'NavBar',
   components: { QMenu, OnlineProduct },
-  methods: {},
+  methods: {
+    ...mapActions(['createDrawerDialog', 'setDrawerDialog']),
+  },
+  created() {
+    this.createDrawerDialog();
+  },
   computed: {
-    ...mapGetters(['drawer']),
+    ...mapGetters(['drawerDialog']),
   },
 };
 </script>

@@ -33,6 +33,17 @@
       <v-btn icon>
         <v-icon>mdi-share-variant</v-icon>
       </v-btn>
+      <v-btn icon @click="editPost(card.id)" v-if="user && user.admin">
+        <v-icon>mdi-pencil</v-icon>
+      </v-btn>
+      <v-btn
+        icon
+        color="danger"
+        @click="removePost(card.id)"
+        v-if="user && user.admin"
+      >
+        <v-icon>mdi-trash-can</v-icon>
+      </v-btn>
       <router-link
         :to="{ name: 'post-item', params: { id: card.id } }"
         v-if="!is_read"
@@ -44,9 +55,26 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
 export default {
   name: 'QPost',
   props: ['card', 'is_read'],
+  methods: {
+    ...mapActions([
+      'fetchPosts',
+      'removePost',
+      'setPostDialog',
+      'setPost',
+      'resetPost',
+    ]),
+    editPost(id) {
+      this.resetPost();
+      this.setPost(id);
+      this.setPostDialog(true);
+    },
+  },
+
+  computed: mapGetters(['user']),
 };
 </script>
 
