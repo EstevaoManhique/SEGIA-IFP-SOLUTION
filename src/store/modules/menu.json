@@ -23,10 +23,15 @@
         "sub_menus": []
     },
     {
-        "name": "menus.post",
+        "name": "menus.publication",
         "to": "post",
         "icon": "",
-        "sub_menus": []
+        "sub_menus": [{
+            "name": "menus.post",
+            "to": "post",
+            "icon": "",
+            "sub_menus": []
+        }]
     },
     {
         "name": "menus.service",

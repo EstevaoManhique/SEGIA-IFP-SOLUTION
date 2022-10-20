@@ -44,12 +44,6 @@
       >
         <v-icon>mdi-trash-can</v-icon>
       </v-btn>
-      <router-link
-        :to="{ name: 'post-item', params: { id: card.id } }"
-        v-if="!is_read"
-      >
-        Ler mais
-      </router-link>
     </v-card-actions>
   </v-card>
 </template>

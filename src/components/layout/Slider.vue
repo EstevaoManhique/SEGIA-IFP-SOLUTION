@@ -26,7 +26,7 @@ export default {
     };
   },
   async mounted() {
-    const data = await this.$api.get('products');
+    const data = await this.$api.get('shops');
     this.items = data.data
       .filter((product) => product.online === 1)
       .sort((product1, product2) => product1.name.localeCompare(product2.name));

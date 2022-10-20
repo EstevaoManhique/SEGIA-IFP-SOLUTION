@@ -1,80 +1,105 @@
 <template>
-  <section id="service-details" class="service-details">
-    <div class="container" data-aos="fade-up">
-      <div class="row gy-4">
-        <div class="col-lg-4">
-          <div class="services-list">
-            <a href="#" class="active">Storage</a>
-            <a href="#">Logistics</a>
-            <a href="#">Cargo</a>
-            <a href="#">Trucking</a>
-            <a href="#">Packaging</a>
-            <a href="#">Warehousing</a>
-          </div>
-
-          <h4>Enim qui eos rerum in delectus</h4>
-          <p>
-            Nam voluptatem quasi numquam quas fugiat ex temporibus quo est. Quia
-            aut quam quod facere ut non occaecati ut aut. Nesciunt mollitia
-            illum tempore corrupti sed eum reiciendis. Maxime modi rerum.
-          </p>
-        </div>
-
-        <div class="col-lg-8">
-          <img
-            src="assets/img/service-details.jpg"
-            alt=""
-            class="img-fluid services-img"
-          />
-          <h3>
-            Temporibus et in vero dicta aut eius lidero plastis trand lined
-            voluptas dolorem ut voluptas
-          </h3>
-          <p>
-            Blanditiis voluptate odit ex error ea sed officiis deserunt.
-            Cupiditate non consequatur et doloremque consequuntur. Accusantium
-            labore reprehenderit error temporibus saepe perferendis fuga
-            doloribus vero. Qui omnis quo sit. Dolorem architecto eum et quos
-            deleniti officia qui.
-          </p>
-          <ul>
-            <li>
-              <i class="bi bi-check-circle"></i>
-              <span>Aut eum totam accusantium voluptatem.</span>
-            </li>
-            <li>
-              <i class="bi bi-check-circle"></i>
-              <span>Assumenda et porro nisi nihil nesciunt voluptatibus.</span>
-            </li>
-            <li>
-              <i class="bi bi-check-circle"></i>
-              <span>Ullamco laboris nisi ut aliquip ex ea</span>
-            </li>
-          </ul>
-          <p>
-            Est reprehenderit voluptatem necessitatibus asperiores neque sed ea
-            illo. Deleniti quam sequi optio iste veniam repellat odit. Aut
-            pariatur itaque nesciunt fuga.
-          </p>
-          <p>
-            Sunt rem odit accusantium omnis perspiciatis officia. Laboriosam aut
-            consequuntur recusandae mollitia doloremque est architecto
-            cupiditate ullam. Quia est ut occaecati fuga. Distinctio ex
-            repellendus eveniet velit sint quia sapiente cumque. Et ipsa
-            perferendis ut nihil. Laboriosam vel voluptates tenetur nostrum.
-            Eaque iusto cupiditate et totam et quia dolorum in. Sunt molestiae
-            ipsum at consequatur vero. Architecto ut pariatur autem ad non
-            cumque nesciunt qui maxime. Sunt eum quia impedit dolore alias
-            explicabo ea.
-          </p>
-        </div>
+  <v-container fluid>
+    <v-card class="mt-4">
+      <div class="section-header">
+        <span>{{ $t('title.our_service_products') }} </span>
+        <h2>{{ $t('title.our_service_products') }}</h2>
       </div>
-    </div>
-  </section>
+      <v-tabs v-model="active_tab">
+        <v-tab
+          v-for="card in services"
+          :key="card.id"
+          :activeClass="card.id == service_id"
+        >
+          {{ $i18n.locale.toLowerCase() == 'en' ? card.name : card.nome }}
+        </v-tab>
+
+        <v-tab-item v-for="(card, index) in services" :key="index">
+          <v-card flat class="mt-4">
+            <v-row>
+              <v-col sm="12">
+                <v-img
+                  :src="card.img"
+                  class="white--text align-end"
+                  gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
+                  height="200px"
+                >
+                  <v-card-title
+                    v-text="
+                      $i18n.locale.toLowerCase() == 'en' ? card.name : card.nome
+                    "
+                  ></v-card-title>
+                </v-img>
+                <v-card-content>
+                  <v-card-text
+                    class="text--primary"
+                    v-text="
+                      $i18n.locale.toLowerCase() == 'en'
+                        ? card.description
+                        : card.descricao
+                    "
+                  ></v-card-text>
+                </v-card-content>
+              </v-col>
+            </v-row>
+            <v-row>
+              <h1>{{ $t('title.our_offerings') }}</h1>
+              <v-row
+                dense
+                v-for="(product, index) in products"
+                :key="index"
+                v-show="product.service_id == card.id"
+              >
+                <q-product :card="product" :index="index" />
+              </v-row>
+            </v-row>
+          </v-card>
+        </v-tab-item>
+      </v-tabs>
+    </v-card>
+  </v-container>
 </template>
 
 <script>
-export default {};
+import { mapGetters, mapActions } from 'vuex';
+import QProduct from '@/components/product/Products.vue';
+export default {
+  name: 'ServiceDetails',
+  data: () => ({
+    active_tab: 0,
+    service_id: 0,
+  }),
+  components: { QProduct },
+
+  created() {
+    this.fetchServices();
+    this.fetchProducts();
+    this.productt(1);
+    this.active_tab = this.$route.params.id;
+  },
+  computed: mapGetters(['services', 'user', 'products']),
+  methods: {
+    ...mapActions([
+      'fetchServices',
+      'fetchProducts',
+      'removeService',
+      'setService',
+      'resetService',
+    ]),
+    productt(service_id) {
+      console.log(this.products);
+      product = this.products.filter((product) => {
+        product.service_id == service_id;
+      });
+
+      return product;
+    },
+    editService(id) {
+      this.resetService();
+      this.setService(id);
+    },
+  },
+};
 </script>
 
 <style></style>

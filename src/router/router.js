@@ -116,6 +116,16 @@ const routes = [{
                     import ('@/views/ServiceView.vue'),
             },
             {
+                path: 'service/:id',
+                name: 'service-item',
+                meta: {
+                    display: 'headers.service',
+                    display_title: 'menus.service',
+                },
+                component: () =>
+                    import ('@/components/service/ServiceDetails.vue'),
+            },
+            {
                 path: 'network',
                 name: 'network',
                 meta: {

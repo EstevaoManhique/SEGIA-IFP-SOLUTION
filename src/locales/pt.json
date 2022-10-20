@@ -34,7 +34,10 @@
         "supply_Stations": "Estações de abastecimento",
         "upload_img": "Carregar Imagem",
         "pt_register": "Preencher os campos em Portugues",
-        "en_register": "Preencher os campos em Ingles"
+        "en_register": "Preencher os campos em Ingles",
+        "our": "Nosso {0}",
+        "our_service_products": "Nossos serviços e productos",
+        "our_offerings": "Nossas Ofertas"
     },
     "headers": {
         "product": "Conheça os nossos productos",
@@ -55,7 +58,8 @@
         "service": "Serviços",
         "network": "Postos de Abastecimento",
         "our_service": "Nossos Serviços",
-        "home": "Pagina Inicial"
+        "home": "Pagina Inicial",
+        "publication": "Publicações"
     },
     "fieldes": {
         "address": "Endereço",

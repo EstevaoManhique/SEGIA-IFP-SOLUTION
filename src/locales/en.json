@@ -33,7 +33,9 @@
         "supply_Stations": "Supply stations",
         "upload_img": "Upload Image",
         "pt_register": "Fill in the fields in Portuguese",
-        "en_register": "Fill in the fields in English"
+        "en_register": "Fill in the fields in English",
+        "our": "Our {0}",
+        "our_service_products": "Our Service and Products"
     },
     "headers": {
         "product": "Discover our products",
@@ -50,10 +52,11 @@
         "about": "About Us",
         "contact": "Contact",
         "product": "Product",
-        "post": "Post",
+        "post": "News",
         "service": "Services",
         "network": "Fuel Stations",
-        "home": "Home"
+        "home": "Home",
+        "publication": "Publication"
     },
     "fieldes": {
         "address": "Address",

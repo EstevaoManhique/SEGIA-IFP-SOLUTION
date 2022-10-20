@@ -4,7 +4,6 @@
 
     <v-row>
       <v-col sm="6">
-        <our-network />
         <our-service />
       </v-col>
 
@@ -21,7 +20,7 @@
 <script>
 import OnlinePost from '@/components/post/OnlinePost.vue';
 import Slider from '@/components/layout/Slider.vue';
-import OurNetwork from '@/components/network/OurNetwork.vue';
+//import OurNetwork from '@/components/network/OurNetwork.vue';
 import OurService from '@/components/service/OurService.vue';
 //import LMap from '@/components/LMaps.vue';
 import GoogleMaps from '@/components/layout/GoogleMaps.vue';
@@ -33,7 +32,7 @@ export default {
   components: {
     OnlinePost,
     Slider,
-    OurNetwork,
+    // OurNetwork,
     OurService,
     //LMap,
     GoogleMaps,

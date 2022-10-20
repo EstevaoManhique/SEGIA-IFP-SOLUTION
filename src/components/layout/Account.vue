@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-menu offset-y v-if="user">
+    <v-menu offset-y v-if="user" color="#c2202f">
       <template v-slot:activator="{ on, attrs }">
         <v-btn icon dark v-bind="attrs" v-on="on">
           <v-icon large color="green darken-2"
@@ -8,7 +8,7 @@
           </v-icon>
         </v-btn>
       </template>
-      <v-list>
+      <v-list color="#c2202f">
         <v-list-item>
           <v-list-item-title>{{
             $t('title.wellcome', [user.name])
