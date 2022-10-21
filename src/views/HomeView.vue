@@ -3,11 +3,11 @@
     <slider />
 
     <v-row>
-      <v-col sm="6">
+      <v-col sm="6" class="col-12 col-sm-6">
         <our-service />
       </v-col>
 
-      <v-col sm="6">
+      <v-col sm="6" class="col-12 col-sm-6">
         <google-maps :link="google_link" />
       </v-col>
 

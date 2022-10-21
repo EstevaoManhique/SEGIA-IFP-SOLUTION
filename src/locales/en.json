@@ -35,7 +35,8 @@
         "pt_register": "Fill in the fields in Portuguese",
         "en_register": "Fill in the fields in English",
         "our": "Our {0}",
-        "our_service_products": "Our Service and Products"
+        "our_service_products": "Our Service and Products",
+        "our_offerings": "Our Offerings"
     },
     "headers": {
         "product": "Discover our products",

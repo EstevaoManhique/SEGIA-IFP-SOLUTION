@@ -21,7 +21,7 @@ function loadLocaleMessages() {
 }
 
 export default new VueI18n({
-    locale: process.env.APP_LOCALE || 'pt',
-    fallbackLocale: process.env.APP_LOCALE || 'pt',
+    locale: process.env.APP_LOCALE || 'en',
+    fallbackLocale: process.env.APP_LOCALE || 'en',
     messages: loadLocaleMessages(),
 });

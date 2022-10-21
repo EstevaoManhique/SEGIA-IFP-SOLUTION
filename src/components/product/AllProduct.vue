@@ -31,7 +31,11 @@
           </v-card-text>
 
           <v-card-actions>
-            <v-card-text class="text--success" v-text="product.price">
+            <v-card-text
+              class="text--success"
+              v-show="product.price != 0"
+              v-text="product.price"
+            >
             </v-card-text>
             <v-spacer></v-spacer>
             <v-btn

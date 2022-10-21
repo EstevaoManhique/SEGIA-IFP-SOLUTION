@@ -46,9 +46,8 @@
               <h1>{{ $t('title.our_offerings') }}</h1>
               <v-row
                 dense
-                v-for="(product, index) in products"
+                v-for="(product, index) in productt(card.id)"
                 :key="index"
-                v-show="product.service_id == card.id"
               >
                 <q-product :card="product" :index="index" />
               </v-row>
@@ -74,7 +73,6 @@ export default {
   created() {
     this.fetchServices();
     this.fetchProducts();
-    this.productt(1);
     this.active_tab = this.$route.params.id;
   },
   computed: mapGetters(['services', 'user', 'products']),
@@ -87,10 +85,9 @@ export default {
       'resetService',
     ]),
     productt(service_id) {
-      console.log(this.products);
-      product = this.products.filter((product) => {
-        product.service_id == service_id;
-      });
+      const product = this.products.filter(
+        (pro) => pro.service_id == service_id
+      );
 
       return product;
     },
