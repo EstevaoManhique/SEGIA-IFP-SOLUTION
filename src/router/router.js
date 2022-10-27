@@ -25,19 +25,7 @@ const routes = [{
                     display_title: 'menus.home',
                 },
             },
-            {
-                path: 'about',
-                name: 'about',
-                meta: {
-                    display: 'headers.about',
-                    display_title: 'menus.about',
-                },
-                // route level code-splitting
-                // this generates a separate chunk (about.[hash].js) for this route
-                // which is lazy-loaded when the route is visited.
-                component: () =>
-                    import ( /* webpackChunkName: "about" */ '@/views/AboutView.vue'),
-            },
+
             {
                 path: 'login',
                 name: 'login',
@@ -64,76 +52,6 @@ const routes = [{
                 // which is lazy-loaded when the route is visited.
                 component: () =>
                     import ('@/components/layout/Logout.vue'),
-            },
-            {
-                path: 'contact',
-                name: 'contact',
-                meta: {
-                    display: 'headers.contact',
-                    display_title: 'menus.contact',
-                },
-                component: () =>
-                    import ('@/views/Contact.vue'),
-            },
-            {
-                path: 'product',
-                name: 'product',
-                meta: {
-                    display: 'headers.product',
-                    display_title: 'menus.product',
-                },
-                component: () =>
-                    import ('@/views/ProductView.vue'),
-            },
-            {
-                path: 'post',
-                name: 'post',
-                meta: {
-                    display: 'headers.post',
-                    display_title: 'menus.post',
-                },
-                component: () =>
-                    import ('@/views/PostView.vue'),
-            },
-            {
-                path: 'post/:id',
-                name: 'post-item',
-                meta: {
-                    display: 'headers.post',
-                    display_title: 'menus.post',
-                },
-                component: () =>
-                    import ('@/views/PostItem.vue'),
-            },
-            {
-                path: 'service',
-                name: 'service',
-                meta: {
-                    display: 'headers.service',
-                    display_title: 'menus.service',
-                },
-                component: () =>
-                    import ('@/views/ServiceView.vue'),
-            },
-            {
-                path: 'service/:id',
-                name: 'service-item',
-                meta: {
-                    display: 'headers.service',
-                    display_title: 'menus.service',
-                },
-                component: () =>
-                    import ('@/components/service/ServiceDetails.vue'),
-            },
-            {
-                path: 'network',
-                name: 'network',
-                meta: {
-                    display: 'headers.network',
-                    display_title: 'menus.network',
-                },
-                component: () =>
-                    import ('@/views/NetworkView.vue'),
             },
         ],
     },

@@ -20,7 +20,7 @@
       </v-flex>
     </v-layout>
     <v-divider></v-divider>
-    <online-product />
+
     <q-menu />
     <!-- -->
   </v-navigation-drawer>
@@ -29,11 +29,10 @@
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import QMenu from '@/components/layout/Menu.vue';
-import OnlineProduct from '@/components/product/OnlineProduct.vue';
 
 export default {
   name: 'NavBar',
-  components: { QMenu, OnlineProduct },
+  components: { QMenu },
   methods: {
     ...mapActions(['createDrawerDialog', 'setDrawerDialog']),
   },
