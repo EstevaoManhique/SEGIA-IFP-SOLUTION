@@ -1,0 +1,992 @@
+<%-- 
+    Document   : ifp-answers
+    Created on : Sep 14, 2017, 12:26:26 PM
+    Author     : hamil
+--%>
+
+<%@page import="com.dciapps.webclient.Resposta"%>
+<%@page import="com.dciapps.webclient.Inscricao"%>
+<%@page import="java.util.Calendar"%>
+<%@page import="java.util.Date"%>
+<%@page import="com.dciapps.webclient.Notas"%>
+<%@page import="com.dciapps.webclient.Disciplina"%>
+<%@page import="com.dciapps.webclient.Curso"%>
+<%@page import="com.dciapps.webclient.Turma"%>
+<%@page import="com.dciapps.webclient.Aluno"%>
+<%@page import="com.dciapps.webclient.Presencas"%>
+<%@page import="com.dciapps.webclient.ModulosUsuario"%>
+<%@page import="com.dciapps.webclient.Funcionario"%>
+<%@page import="java.util.List"%>
+<%@page import="com.dciapps.localcontroler.StringUtils"%>
+<%@page import="com.dciapps.localcontroler.EncryptUtils"%>
+<%@page import="java.text.DecimalFormat"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="com.dciapps.webclient.Usuario"%>
+<%@page import="com.dciapps.controller.GenericHandler"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>SEGIA -  Guião de Respostas (Exames Extraodinários)</title>
+
+        <!-- Page Description, Author and Keywords -->
+        <meta name="description" content="Sistema Electrónico de Gestão de Informação Académica">
+        <meta name="author" content="Hamilton Jhonas">
+        <meta name="keywords" content="SEGIA, DC Inovaction, Software, Multimedia, Escola, School, Vendas, Stock, Market, Branding, Logo, Hotel, Hotelaria, RH, Recursos Humanos, Controlo de Acesso, Web Design, Web Marketing, Development, Hosting" />
+
+        <!-- Favicon -->
+        <%
+            String ip = "localhost";
+
+            if (session.getAttribute("ip") != null) {
+                ip = session.getAttribute("ip").toString();
+            } else {
+                response.sendRedirect("startup");
+            }
+        %>
+        <link rel="shortcut icon" href="http://<%=ip%>:8081/suc/images/favicons/governo/apple-touch-icon.png">
+
+
+
+
+        <!-- Global stylesheets -->
+        <link href="https://fonts.googleapis.com/css?family=Poppins:400,300,100,500,700,900" rel="stylesheet" type="text/css">
+        <link href="assets/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
+        <link href="assets/css/minified/bootstrap.min.css" rel="stylesheet" type="text/css">
+        <link href="assets/css/minified/core.min.css" rel="stylesheet" type="text/css">
+        <link href="assets/css/minified/components.min.css" rel="stylesheet" type="text/css">
+        <link href="assets/css/minified/colors.min.css" rel="stylesheet" type="text/css">
+        <!-- /global stylesheets -->
+
+        <!-- Core JS files -->
+        <script type="text/javascript" src="assets/js/plugins/loaders/pace.min.js"></script>
+        <script type="text/javascript" src="assets/js/core/libraries/jquery.min.js"></script>
+        <script type="text/javascript" src="assets/js/core/libraries/bootstrap.min.js"></script>
+        <script type="text/javascript" src="assets/js/plugins/loaders/blockui.min.js"></script>
+        <!-- /core JS files -->
+
+        <!-- Theme JS files -->
+        <script type="text/javascript" src="assets/js/plugins/forms/selects/select2.min.js"></script>
+        <script type="text/javascript" src="assets/js/plugins/forms/styling/uniform.min.js"></script>
+        <script type="text/javascript" src="assets/js/plugins/tables/datatables/datatables.min.js"></script>
+        <script type="text/javascript" src="assets/js/plugins/tables/datatables/extensions/fixed_columns.min.js"></script>
+
+        <script type="text/javascript" src="assets/js/core/libraries/jquery_ui/datepicker.min.js"></script>
+        <script type="text/javascript" src="assets/js/core/libraries/jquery_ui/effects.min.js"></script>
+        <script type="text/javascript" src="assets/js/plugins/ui/moment/moment.min.js"></script>
+        <script type="text/javascript" src="assets/js/plugins/pickers/daterangepicker.js"></script>
+        <script type="text/javascript" src="assets/js/plugins/pickers/pickadate/picker.js"></script>
+        <script type="text/javascript" src="assets/js/plugins/pickers/pickadate/picker.date.js"></script>
+        <script type="text/javascript" src="assets/js/plugins/visualization/echarts/echarts.js"></script>
+
+        <script type="text/javascript" src="assets/js/core/app.js"></script>
+
+
+
+        <script type="text/javascript" src="assets/js/pages/form_layouts.js"></script>
+        <script type="text/javascript" src="assets/js/pages/datatables_responsive.js"></script>
+        <!-- /theme JS files -->
+
+
+        <%
+
+            int timeout = session.getMaxInactiveInterval();
+
+            GenericHandler gh = new GenericHandler(request, response);
+            Usuario usuario = gh.loggedUser();
+
+            String nome = "";
+            String fotoPerfil = "";
+            String cargo = "";
+
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            DecimalFormat df = new DecimalFormat("#,###,##0.00");
+            EncryptUtils encryptUtils = new EncryptUtils();
+
+            List<Curso> cursos = null;
+            List<Disciplina> disciplinas = null;
+            Resposta resposta = null;
+
+            Disciplina disciplina = null;
+            Curso curso = null;
+
+            String msgErro = "";
+            String alerta = "";
+
+            ModulosUsuario mu = null;
+
+            if (usuario != null) {
+
+                nome = encryptUtils.decodeString(usuario.getPessoapess().getPessNome()) + " " + encryptUtils.decodeString(usuario.getPessoapess().getPessApelido());
+                fotoPerfil = usuario.getUsuaFotoperfil();
+                cargo = usuario.getTipoUsuariotipu().getTipuDescricao();
+
+                disciplina = (Disciplina) session.getAttribute("disciplinaSelecionada");
+                curso = (Curso) session.getAttribute("cursoSelecionado");
+
+                disciplinas = (List<Disciplina>) session.getAttribute("disciplinas");
+                cursos = (List<Curso>) session.getAttribute("cursos");
+                resposta = (Resposta) session.getAttribute("resposta");
+
+                msgErro = session.getAttribute("msgErro").toString();
+                alerta = session.getAttribute("alerta").toString();
+
+                mu = (ModulosUsuario) session.getAttribute("modulosUsuarioLogin");
+
+                response.setHeader("Refresh", timeout + "; URL =VXN1YXJpb1NlcnZsZXQjRENJ?" + encryptUtils.encodeString("accao#lockscreen&user=" + encryptUtils.decodeString(usuario.getUsuaUsuario())));
+
+            }
+        %>
+
+        <!-- START NOTIFICATION -->
+
+
+        <!-- /Notification JS files -->
+        <script type="text/javascript" src="assets/js/plugins/notifications/jgrowl.min.js"></script>
+        <script type="text/javascript" src="assets/js/plugins/notifications/sweet_alert.min.js"></script>
+        <!-- /Notification JS files -->
+        <script>
+
+            jQuery(function () {
+
+                // Defaults override - hide "close all" button
+                $.jGrowl.defaults.closer = false;
+
+                var erro = '<%=msgErro%>';
+                var bg = '<%=alerta%>';
+                var hd = "Notificação do Sistema";
+                var cl = "#66BB6A";
+                var tp = "success";
+
+                if (bg !== '')
+                {
+                    /*$.jGrowl(erro, {
+                     position: 'center',
+                     header: hd,
+                     theme: bg
+                     });*/
+
+                    if (bg === 'bg-error')
+                    {
+                        cl = "#EF5350";
+                        tp = "error";
+                    }
+
+                    if (bg === 'bg-warning')
+                    {
+                        cl = "#FF7043";
+                        tp = "warning";
+                    }
+
+
+                    swal({
+                        title: hd,
+                        text: erro,
+                        confirmButtonColor: cl,
+                        type: tp,
+                        timer: 5000
+                    });
+                }
+
+
+            });
+        </script>	
+        <!-- END NOTIFICATION -->
+
+        <%!
+            private String getString(String str) {
+                String s = str;
+                if (s == null) {
+                    s = "";
+                }
+
+                return s;
+            }
+        %>
+
+    </head>
+
+    <body oncontextmenu="return false">
+
+
+
+
+        <!-- Main navbar -->
+        <div class="navbar navbar-inverse">
+            <div class="navbar-header">
+                <h6 class="text-semibold class text-uppercase" style="margin-left: 2em;"> Sistema Electrónico de Gestão de Informação Académica </h6>
+
+                <ul class="nav navbar-nav visible-xs-block">
+                    <li><a data-toggle="collapse" data-target="#navbar-mobile"><i class="icon-tree5"></i></a></li>
+                    <li><a class="sidebar-mobile-main-toggle"><i class="icon-paragraph-justify3"></i></a></li>
+                </ul>
+            </div>
+
+            <div class="navbar-collapse collapse" id="navbar-mobile">
+
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown language-switch">
+                        <a class="dropdown-toggle" data-toggle="dropdown">
+                            <img src="assets/images/flags/mz.png" class="position-left" alt="">
+                            Português
+                            <span class="caret"></span>
+                        </a>
+
+                        <ul class="dropdown-menu">
+                            <li><a class="english"><img src="assets/images/flags/gb.png" alt=""> English</a></li>
+
+
+                        </ul>
+                    </li>
+
+                    <li class="dropdown dropdown-user">
+                        <a class="dropdown-toggle" data-toggle="dropdown">
+                            <img src="http://<%=ip%>:8081/suc/images/profile-pictures/<%=fotoPerfil%>" alt="<%=nome%>">
+                            <span class="text-bold text-uppercase"><%=nome%></span>
+                            <i class="caret"></i>
+                        </a>
+
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            <li><a href="VXN1YXJpb1NlcnZsZXQjRENJ?YWNjYW8jdmVyLXBlcmZpbA=="><i class="icon-user-plus"></i> Definições da Conta</a></li>
+                            <li class="divider"></li>
+                            <li><a href="VXN1YXJpb1NlcnZsZXQjRENJ?YWNjYW8jbG9nb3V0I0RDSQ=="><i class="icon-switch2"></i> Terminar Sessão</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- /main navbar -->
+
+
+        <!-- Page header -->
+        <div class="page-header">
+            <div class="breadcrumb-line breadcrumb-line-wide">
+
+                <%
+                    String nmEscola = "";
+
+                    if (session.getAttribute("nmEscola") != null) {
+                        nmEscola = session.getAttribute("nmEscola").toString();
+                    }
+                %>
+
+                <ul class="breadcrumb">
+                    <li><a href="#"><i class="icon-home2 position-left"></i> <%=nmEscola%></a></li>
+                </ul>
+            </div>
+
+            <div class="page-header-content">
+                <div class="page-title">
+                </div>
+
+                <div class="heading-elements">
+                    <div class="heading-btn-group">
+                        <form method="post" action="main-dashboard">
+                            <button type="submit" onclick="this.disabled = 'disabled'; this.form.submit();" class="btn btn-labeled btn-labeled-left bg-danger-400 heading-btn text-bold text-uppercase">Voltar ao painel principal<b><i class="icon-chevron-left"></i></b></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /page header -->
+
+
+        <!-- Page container -->
+        <div class="page-container">
+
+            <!-- Page content -->
+            <div class="page-content">
+
+
+                <!-- Main sidebar -->
+                <div class="sidebar sidebar-main">
+                    <div class="sidebar-fixed">
+                        <div class="sidebar-content">
+
+
+                            <!-- Main navigation -->
+                            <div class="sidebar-category sidebar-category-visible">
+                                <div class="category-title h6">
+                                    <span class="text-bold text-uppercase">Navegação Principal</span>
+                                    <ul class="icons-list">
+                                        <li><a href="#" data-action="collapse"></a></li>
+                                    </ul>
+                                </div>
+
+
+                                <!-- User menu -->
+                                <div class="category-content sidebar-user">
+                                    <div class="media">
+                                        <a href="#" class="media-left">  <img src="http://<%=ip%>:8081/suc/images/profile-pictures/<%=fotoPerfil%>" alt="<%=nome%>" class="img-circle img-sm"></a>
+                                        <div class="media-body">
+                                            <span class="media-heading text-semibold"><%=nome%></span>
+                                            <div class="text-size-mini text-muted">
+                                                <i class="icon-briefcase text-size-small"></i> <%=cargo%>
+                                            </div>
+                                        </div>
+
+                                        <div class="media-right media-middle">
+                                            <ul class="icons-list">
+                                                <li>
+                                                    <a href="#"><i class="icon-cog3"></i></a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /user menu -->
+
+                                <div class="category-content no-padding">
+                                    <ul class="navigation navigation-main navigation-accordion">
+
+                                        <!-- Main -->
+                                        <li class="navigation-header"><span>Menu Principal</span> <i class="icon-menu" title="Menu Principal"></i></li>
+                                        <li><a href="TW9kdWxvU2VydmxldCNEQ0k=?YWNjYW8jZXhhbWUtZXh0cmFvZGluYXJpbw=="><i class="icon-home4"></i> <span class="text-bold text-uppercase">Dashboard</span></a></li>
+
+                                        <!-- Exames Extraordinários-->
+                                        <li class="active">
+                                            <a href="#"><i class="icon-pencil4"></i> <span class="text-bold text-uppercase">E. Extraordinários</span></a>
+                                            <ul>
+                                                <%if (mu.isMuiIfpPeriodoInscricao()) {%><li><a href="SUZQU2VydmxldCNEQ0k=?YWNjYW8jcGVyaW9kby1pbnNjcmljYW8="><i class="icon-calendar2"></i> Periodos de Inscrição</a></li><%}%>
+                                                <%if (mu.isMuiIfpCentroExame()) {%><li><a href="SUZQU2VydmxldCNEQ0k=?YWNjYW8jY2VudHJvcw=="><i class="icon-office"></i> Centros de Exame</a></li><%}%>
+                                                <%if (mu.isMuiIfpInscrverCandidato()) {%><li><a href="SUZQU2VydmxldCNEQ0k=?YWNjYW8jaW5zY3JpY2Fv"><i class="icon-file-plus"></i> Inscrever Candidato</a></li><%}%>
+                                                <%if (mu.isMuiIfpValidarInscricao()) {%><li><a href="SUZQU2VydmxldCNEQ0k=?YWNjYW8jdmFsaWRhci1pbnNjcmljb2Vz"><i class="icon-checkmark"></i> Validar Inscrições</a></li><%}%>
+                                                <%if (mu.isMuiIfpCandidatosInscritos()) {%><li><a href="SUZQU2VydmxldCNEQ0k=?YWNjYW8jYXB1cmFkb3M="><i class="icon-user-check"></i> Candidatos Inscritos</a></li><%}%>
+                                                <%if (mu.isMuiIfpCandidatosInscritos()) {%><li><a href="SUZQU2VydmxldCNEQ0k=?YWNjYW8jYXB1cmFkb3MtZGlzY2lwbGluYQ=="><i class="icon-bookmark"></i> Candidatos Disciplina</a></li><%}%>
+                                                <%if (mu.isMuiIfpCalendarioExames()) {%><li><a href="SUZQU2VydmxldCNEQ0k=?YWNjYW8jY2FsZW5kYXJpbw=="><i class="icon-calendar3"></i> Calendário Exames</a></li><%}%>
+                                                <%if (mu.isMuiIfpCriacaoJuris()) {%><li><a href="SUZQU2VydmxldCNEQ0k=?YWNjYW8janVyaXM="><i class="icon-reading"></i> Criação de Júris</a></li><%}%>
+                                                <%if (mu.isMuiIfpCriacaoJuris()) {%><li><a href="SUZQU2VydmxldCNEQ0k=?YWNjYW8jZGlzdHJpYnVpY2FvLWp1cmlz"><i class="icon-split"></i> Distribuição por Júris</a></li><%}%>
+                                                <%if (mu.isMuiIfpSalaExame()) {%><li><a href="SUZQU2VydmxldCNEQ0k=?YWNjYW8jdHVybWFz"><i class="icon-collaboration"></i> Lista de Júris</a></li><%}%>
+                                                <%if (mu.isMuiIfpGuiaoRespostas()) {%><li class="active"><a href="SUZQU2VydmxldCNEQ0k=?YWNjYW8jZm9saGE="><i class="icon-stack-check"></i> Guião de Respostas</a></li><%}%>
+                                                <%if (mu.isMuiIfpCarregarRespostas()) {%><li><a href="SUZQU2VydmxldCNEQ0k=?YWNjYW8jZGVjb2Rlcg=="><i class="icon-download4"></i> Carregar Respostas</a></li><%}%>
+                                                <%if (mu.isMuiIfpPautas()) {%><li><a href="SUZQU2VydmxldCNEQ0k=?YWNjYW8jcHJlc2VuY2Fz"><i class="icon-exclamation"></i> Presenças/Fraudes</a></li><%}%>
+                                                <%if (mu.isMuiIfpPautas()) {%><li><a href="SUZQU2VydmxldCNEQ0k=?YWNjYW8jcGF1dGE="><i class="icon-table2"></i> Pauta de Exame</a></li><%}%>
+                                            </ul>
+                                        </li>
+                                        <!-- /exames extraordinários -->
+
+                                        <!-- Relatório -->
+                                        <%
+                                            if (mu.isMuiEstatisticas()) {
+                                        %>
+                                        <li>
+                                            <a href="#"><i class="icon-list3"></i> <span class="text-bold text-uppercase">Relatórios</span></a>
+                                            <ul>
+                                                <li><a href="SUZQU2VydmxldCNEQ0k=?YWNjYW8jbWFwYS1hdmFsaWRhZG9z"><i class="icon-bookmark4"></i> Mapa de Avaliados</a></li>
+                                                <li><a href="SUZQU2VydmxldCNEQ0k=?YWNjYW8jbWFwYS1wcmVzZW5jYXM="><i class="icon-list-numbered"></i> Mapa de Presenças</a></li>
+                                                <li><a href="SUZQU2VydmxldCNEQ0k=?YWNjYW8jbWFwYS1pbnNjcml0b3M="><i class="icon-checkmark-circle"></i> Mapa de Inscritos</a></li>
+                                            </ul>
+                                        </li>
+                                        <%
+                                            }
+                                        %>
+                                        <!-- /relatório -->
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- /main navigation -->
+                        </div>
+
+                    </div>
+                </div>
+                <!-- /main sidebar -->
+
+                <!-- Main content -->
+                <div class="content-wrapper">
+
+
+                    <!-- Toolbar -->
+                    <div class="navbar navbar-default navbar-component navbar-xs">
+                        <ul class="nav navbar-nav visible-xs-block">
+                            <li class="full-width text-center"><a data-toggle="collapse" data-target="#navbar-filter"><i class="icon-menu7"></i></a></li>
+                        </ul>
+
+                        <div class="navbar-collapse collapse" id="navbar-filter">
+                            <ul class="nav navbar-nav element-active-orange-400">
+                                <li class="active"><a href="#settings" data-toggle="tab" class="text-bold text-uppercase"><i class="icon-stack-check position-left"></i> Guião de Respostas (Exames Extraodinários)</a></li>
+                            </ul>
+
+                        </div>
+                    </div>
+                    <!-- /toolbar -->
+
+                    <div class = "row">
+                        <!-- Vertical form options -->
+                        <div class="col-md-6"> 
+                            <!-- Basic layout-->
+
+                            <form method="post" accept-charset="ISO-8859-1" action="SUZQU2VydmxldCNEQ0k=?YWNjYW8jZm9saGE=">
+                                <div class="panel panel-flat">
+                                    <div class="panel-body">
+
+                                        <div class="form-group">
+                                            <div class="col-lg-12">
+                                                <div class="row">
+
+                                                    <div class="col-md-7">
+
+                                                        <select class="select" name="idCurso" readonly>
+                                                            <optgroup label="Selecione a classe">
+
+                                                                <%
+                                                                    if (cursos != null) {
+                                                                        for (Curso c : cursos) {
+
+                                                                            int id = c.getCursId();
+                                                                            String desc = encryptUtils.decodeString(c.getCursCod()) + " - " + encryptUtils.decodeString(c.getCursDescricao());
+
+                                                                            String sel = "";
+
+                                                                            if (curso != null) {
+                                                                                if (id == curso.getCursId()) {
+                                                                                    sel = "selected";
+                                                                                }
+                                                                            }
+                                                                %>
+                                                                <option value="<%=id%>" <%=sel%>><%=desc%></option>
+                                                                <%
+                                                                        }
+                                                                    }
+                                                                %>                                                                
+
+                                                            </optgroup>
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="col-md-3">
+                                                        <button type="submit" onclick="this.disabled = 'disabled'; this.form.submit();" class="btn bg-slate-800 btn-labeled text-bold text-uppercase">
+                                                            <b><i class="icon-search4 position-right"></i></b> 
+                                                            Filtrar Classe
+                                                        </button>
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </form>
+                            <!-- /basic layout -->
+
+                        </div>
+
+
+                        <!-- Vertical form options -->
+                        <div class="col-md-6"> 
+                            <!-- Basic layout-->
+
+
+                            <form method="post" accept-charset="ISO-8859-1" action="SUZQU2VydmxldCNEQ0k=?YWNjYW8jZm9saGE=">
+                                <div class="panel panel-flat">
+                                    <div class="panel-body">
+
+                                        <div class="form-group">
+                                            <div class="col-lg-12">
+                                                <div class="row">
+
+                                                    <div class="col-md-7">
+
+
+                                                        <select class="select" name="idDisciplina">
+                                                            <optgroup label="Selecione disciplina">
+
+                                                                <%
+                                                                    if (disciplinas != null) {
+                                                                        for (Disciplina d : disciplinas) {
+
+                                                                            int id = d.getDiscId();
+                                                                            String desc = encryptUtils.decodeString(d.getDiscDescricao());
+
+                                                                            String sel = "";
+
+                                                                            if (disciplina != null) {
+                                                                                if (id == disciplina.getDiscId()) {
+                                                                                    sel = "selected";
+                                                                                }
+                                                                            }
+                                                                %>
+                                                                <option value="<%=id%>" <%=sel%>><%=desc%></option>
+                                                                <%
+                                                                        }
+                                                                    }
+                                                                %>         
+                                                            </optgroup>
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="col-md-3">
+                                                        <button type="submit" onclick="this.disabled = 'disabled'; this.form.submit();" class="btn bg-orange-600 btn-labeled text-bold text-uppercase">
+                                                            <b><i class="icon-search4 position-right"></i></b> 
+                                                            Filtrar Disciplina
+                                                        </button>
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </form>
+                            <!-- /basic layout -->
+
+                        </div>
+                        <!-- /vertical form options -->
+                    </div>
+                    <!-- /row.1-->
+
+                    <!-- User profile -->
+                    <div class="row">
+
+                        <%
+                            String cur = "";
+                            String dis = "";
+
+                            if (curso != null) {
+                                cur = encryptUtils.decodeString(curso.getCursDescricao());
+                            }
+
+                            if (disciplina != null) {
+                                dis = encryptUtils.decodeString(disciplina.getDiscDescricao());
+                            }
+
+                            String act = encryptUtils.encodeString("accao#registar-respostas");
+                        %>
+
+                        <div class="col-md-5">
+
+                            <!-- Basic layout-->
+                            <form class="form-horizontal"   method="post" accept-charset="ISO-8859-1" action="SUZQU2VydmxldCNEQ0k=?<%=act%>">
+                                <div class="panel panel-flat">
+                                    <div class="panel-heading">
+                                        <h6 class="panel-title text-bold text-uppercase">Defina as questões para a folha de resposta</h6>
+                                        <div class="heading-elements">
+                                            <ul class="icons-list">
+                                                <li><a data-action="collapse"></a></li>
+                                                <li><a data-action="reload"></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div class="panel-body">
+
+                                        <div class="form-group">
+                                            <label class="text-bold text-uppercase">Chamada:</label>
+                                            <select class="select" name="categoria">
+                                                <optgroup label="Selecione a época">
+                                                    <option value="1ª Chamada">1ª Chamada</option>
+                                                </optgroup>
+                                            </select>
+                                        </div>
+
+
+                                        <%
+                                            for (int i = 1; i <= 40; i++) {
+                                        %>
+                                        <div class="form-group">
+                                            <label class="display-block text-bold text-uppercase text-danger-600">Pergunta <%=i%>:</label>
+
+                                            <label class="radio-inline">
+                                                <input type="radio" class="styled" name="opcao<%=i%>" checked="checked" value="A">
+                                                <b>A</b>
+                                            </label>
+
+                                            <label class="radio-inline">
+                                                <input type="radio" class="styled" name="opcao<%=i%>" value="B">
+                                                <b>B</b>
+                                            </label>
+
+                                            <label class="radio-inline">
+                                                <input type="radio" class="styled" name="opcao<%=i%>" value="C">
+                                                <b>C</b>
+                                            </label>
+
+                                            <label class="radio-inline">
+                                                <input type="radio" class="styled" name="opcao<%=i%>" value="D">
+                                                <b>D</b>
+                                            </label>
+
+                                            <label class="radio-inline">
+                                                <input type="radio" class="styled" name="opcao<%=i%>" value="E">
+                                                <b>E</b>
+                                            </label>
+
+                                            <label class="radio-inline">
+                                                <input type="radio" class="styled" name="opcao<%=i%>" value="F">
+                                                <b>F</b>
+                                            </label>
+                                        </div>
+                                        <%
+                                            }
+                                        %>
+
+                                        <div class="text-right">
+                                            <button type="submit" onclick="this.disabled = 'disabled'; this.form.submit();" class="btn bg-slate-800 text-bold text-uppercase">Definir Respostas<i class="icon-file-check2 position-right"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <!-- /basic layout -->
+
+                        </div>
+
+                        <div class="col-md-7">
+                            <div class="panel panel-flat">
+                                <div class="panel-heading">
+                                    <h6 class="panel-title text-bold text-uppercase">Listagem da Folha de Respota <span class="text-danger-600">[<%=cur%> | <%=dis%>]</span></h6>
+                                    <div class="heading-elements">
+                                        <ul class="icons-list">
+                                            <li><a data-action="collapse"></a></li>
+                                            <li><a data-action="reload"></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="panel-body">
+
+                                    <table class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-bold text-uppercase">#</th>
+                                                <th class="text-bold text-uppercase">Pergunta</th>
+                                                <th class="text-bold text-uppercase text-right">Pontuação</th>
+                                                <th class="text-bold text-uppercase text-danger">Alt. Correcta</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <%
+                                                if (resposta != null) {
+
+                                                    String op1 = encryptUtils.decodeString(getString(resposta.getRespOpcao1()));
+                                                    String op2 = encryptUtils.decodeString(getString(resposta.getRespOpcao2()));
+                                                    String op3 = encryptUtils.decodeString(getString(resposta.getRespOpcao3()));
+                                                    String op4 = encryptUtils.decodeString(getString(resposta.getRespOpcao4()));
+                                                    String op5 = encryptUtils.decodeString(getString(resposta.getRespOpcao5()));
+                                                    String op6 = encryptUtils.decodeString(getString(resposta.getRespOpcao6()));
+                                                    String op7 = encryptUtils.decodeString(getString(resposta.getRespOpcao7()));
+                                                    String op8 = encryptUtils.decodeString(getString(resposta.getRespOpcao8()));
+                                                    String op9 = encryptUtils.decodeString(getString(resposta.getRespOpcao9()));
+                                                    String op10 = encryptUtils.decodeString(getString(resposta.getRespOpcao10()));
+
+                                                    String op11 = encryptUtils.decodeString(getString(resposta.getRespOpcao11()));
+                                                    String op12 = encryptUtils.decodeString(getString(resposta.getRespOpcao12()));
+                                                    String op13 = encryptUtils.decodeString(getString(resposta.getRespOpcao13()));
+                                                    String op14 = encryptUtils.decodeString(getString(resposta.getRespOpcao14()));
+                                                    String op15 = encryptUtils.decodeString(getString(resposta.getRespOpcao15()));
+                                                    String op16 = encryptUtils.decodeString(getString(resposta.getRespOpcao16()));
+                                                    String op17 = encryptUtils.decodeString(getString(resposta.getRespOpcao17()));
+                                                    String op18 = encryptUtils.decodeString(getString(resposta.getRespOpcao18()));
+                                                    String op19 = encryptUtils.decodeString(getString(resposta.getRespOpcao19()));
+                                                    String op20 = encryptUtils.decodeString(getString(resposta.getRespOpcao20()));
+
+                                                    String op21 = encryptUtils.decodeString(getString(resposta.getRespOpcao21()));
+                                                    String op22 = encryptUtils.decodeString(getString(resposta.getRespOpcao22()));
+                                                    String op23 = encryptUtils.decodeString(getString(resposta.getRespOpcao23()));
+                                                    String op24 = encryptUtils.decodeString(getString(resposta.getRespOpcao24()));
+                                                    String op25 = encryptUtils.decodeString(getString(resposta.getRespOpcao25()));
+                                                    String op26 = encryptUtils.decodeString(getString(resposta.getRespOpcao26()));
+                                                    String op27 = encryptUtils.decodeString(getString(resposta.getRespOpcao27()));
+                                                    String op28 = encryptUtils.decodeString(getString(resposta.getRespOpcao28()));
+                                                    String op29 = encryptUtils.decodeString(getString(resposta.getRespOpcao29()));
+                                                    String op30 = encryptUtils.decodeString(getString(resposta.getRespOpcao30()));
+
+                                                    String op31 = encryptUtils.decodeString(getString(resposta.getRespOpcao31()));
+                                                    String op32 = encryptUtils.decodeString(getString(resposta.getRespOpcao32()));
+                                                    String op33 = encryptUtils.decodeString(getString(resposta.getRespOpcao33()));
+                                                    String op34 = encryptUtils.decodeString(getString(resposta.getRespOpcao34()));
+                                                    String op35 = encryptUtils.decodeString(getString(resposta.getRespOpcao35()));
+                                                    String op36 = encryptUtils.decodeString(getString(resposta.getRespOpcao36()));
+                                                    String op37 = encryptUtils.decodeString(getString(resposta.getRespOpcao37()));
+                                                    String op38 = encryptUtils.decodeString(getString(resposta.getRespOpcao38()));
+                                                    String op39 = encryptUtils.decodeString(getString(resposta.getRespOpcao39()));
+                                                    String op40 = encryptUtils.decodeString(getString(resposta.getRespOpcao40()));
+
+                                                    String categoria = encryptUtils.decodeString(resposta.getRespCategoria());
+                                                    String pontuacao = df.format(resposta.getRespPontuacao());
+
+                                                    if (categoria.equals("1ª Chamada")) {
+
+                                            %>
+                                            <tr>
+                                                <td><a href="#">1</a></td>
+                                                <td class="text-bold">Pergunta 1</td>
+                                                <td class="text-bold text-right text-info-800"><%=pontuacao%></td>
+                                                <td class="text-bold text-danger-600"><%=op1%></td>
+                                            </tr>
+                                            <tr>
+                                                <td><a href="#">2</a></td>
+                                                <td class="text-bold">Pergunta 2</td>
+                                                <td class="text-bold text-right text-info-800"><%=pontuacao%></td>
+                                                <td class="text-bold text-danger-600"><%=op2%></td>
+                                            </tr>
+                                            <tr>
+                                                <td><a href="#">3</a></td>
+                                                <td class="text-bold">Pergunta 3</td>
+                                                <td class="text-bold text-right text-info-800"><%=pontuacao%></td>
+                                                <td class="text-bold text-danger-600"><%=op3%></td>
+                                            <tr>
+                                                <td><a href="#">4</a></td>
+                                                <td class="text-bold">Pergunta 4</td>
+                                                <td class="text-bold text-right text-info-800"><%=pontuacao%></td>
+                                                <td class="text-bold text-danger-600"><%=op4%></td>
+                                            <tr>
+                                                <td><a href="#">5</a></td>
+                                                <td class="text-bold">Pergunta 5</td>
+                                                <td class="text-bold text-right text-info-800"><%=pontuacao%></td>
+                                                <td class="text-bold text-danger-600"><%=op5%></td>
+                                            <tr>
+                                                <td><a href="#">6</a></td>
+                                                <td class="text-bold">Pergunta 6</td>
+                                                <td class="text-bold text-right text-info-800"><%=pontuacao%></td>
+                                                <td class="text-bold text-danger-600"><%=op6%></td>
+                                            </tr>
+                                            <tr>
+                                                <td><a href="#">7</a></td>
+                                                <td class="text-bold">Pergunta 7</td>
+                                                <td class="text-bold text-right text-info-800"><%=pontuacao%></td>
+                                                <td class="text-bold text-danger-600"><%=op7%></td>
+                                            </tr> 
+                                            <tr>
+                                                <td><a href="#">8</a></td>
+                                                <td class="text-bold">Pergunta 8</td>
+                                                <td class="text-bold text-right text-info-800"><%=pontuacao%></td>
+                                                <td class="text-bold text-danger-600"><%=op8%></td>
+                                            </tr>
+                                            <tr>
+                                                <td><a href="#">9</a></td>
+                                                <td class="text-bold">Pergunta 9</td>
+                                                <td class="text-bold text-right text-info-800"><%=pontuacao%></td>
+                                                <td class="text-bold text-danger-600"><%=op9%></td>
+                                            </tr>
+                                            <tr>
+                                                <td><a href="#">10</a></td>
+                                                <td class="text-bold">Pergunta 10</td>
+                                                <td class="text-bold text-right text-info-800"><%=pontuacao%></td>
+                                                <td class="text-bold text-danger-600"><%=op10%></td>
+                                            </tr>
+                                            <tr>
+                                                <td><a href="#">11</a></td>
+                                                <td class="text-bold">Pergunta 11</td>
+                                                <td class="text-bold text-right text-info-800"><%=pontuacao%></td>
+                                                <td class="text-bold text-danger-600"><%=op11%></td>
+                                            </tr>
+                                            <tr>
+                                                <td><a href="#">12</a></td>
+                                                <td class="text-bold">Pergunta 12</td>
+                                                <td class="text-bold text-right text-info-800"><%=pontuacao%></td>
+                                                <td class="text-bold text-danger-600"><%=op12%></td>
+                                            </tr>
+                                            <tr>
+                                                <td><a href="#">13</a></td>
+                                                <td class="text-bold">Pergunta 13</td>
+                                                <td class="text-bold text-right text-info-800"><%=pontuacao%></td>
+                                                <td class="text-bold text-danger-600"><%=op13%></td>
+                                            </tr>
+                                            <tr>
+                                                <td><a href="#">14</a></td>
+                                                <td class="text-bold">Pergunta 14</td>
+                                                <td class="text-bold text-right text-info-800"><%=pontuacao%></td>
+                                                <td class="text-bold text-danger-600"><%=op14%></td>
+                                            </tr>
+                                            <tr>
+                                                <td><a href="#">15</a></td>
+                                                <td class="text-bold">Pergunta 15</td>
+                                                <td class="text-bold text-right text-info-800"><%=pontuacao%></td>
+                                                <td class="text-bold text-danger-600"><%=op15%></td>
+                                            </tr>
+                                            <tr>
+                                                <td><a href="#">16</a></td>
+                                                <td class="text-bold">Pergunta 16</td>
+                                                <td class="text-bold text-right text-info-800"><%=pontuacao%></td>
+                                                <td class="text-bold text-danger-600"><%=op16%></td>
+                                            </tr>
+                                            <tr>
+                                                <td><a href="#">17</a></td>
+                                                <td class="text-bold">Pergunta 17</td>
+                                                <td class="text-bold text-right text-info-800"><%=pontuacao%></td>
+                                                <td class="text-bold text-danger-600"><%=op17%></td>
+                                            </tr>
+                                            <tr>
+                                                <td><a href="#">18</a></td>
+                                                <td class="text-bold">Pergunta 18</td>
+                                                <td class="text-bold text-right text-info-800"><%=pontuacao%></td>
+                                                <td class="text-bold text-danger-600"><%=op18%></td>
+                                            </tr>
+                                            <tr>
+                                                <td><a href="#">19</a></td>
+                                                <td class="text-bold">Pergunta 19</td>
+                                                <td class="text-bold text-right text-info-800"><%=pontuacao%></td>
+                                                <td class="text-bold text-danger-600"><%=op19%></td>
+                                            </tr>
+                                            <tr>
+                                                <td><a href="#">20</a></td>
+                                                <td class="text-bold">Pergunta 20</td>
+                                                <td class="text-bold text-right text-info-800"><%=pontuacao%></td>
+                                                <td class="text-bold text-danger-600"><%=op20%></td>
+                                            </tr>
+                                            <tr>
+                                                <td><a href="#">21</a></td>
+                                                <td class="text-bold">Pergunta 21</td>
+                                                <td class="text-bold text-right text-info-800"><%=pontuacao%></td>
+                                                <td class="text-bold text-danger-600"><%=op21%></td>
+                                            </tr>
+                                            <tr>
+                                                <td><a href="#">22</a></td>
+                                                <td class="text-bold">Pergunta 22</td>
+                                                <td class="text-bold text-right text-info-800"><%=pontuacao%></td>
+                                                <td class="text-bold text-danger-600"><%=op22%></td>
+                                            </tr>
+                                            <tr>
+                                                <td><a href="#">23</a></td>
+                                                <td class="text-bold">Pergunta 23</td>
+                                                <td class="text-bold text-right text-info-800"><%=pontuacao%></td>
+                                                <td class="text-bold text-danger-600"><%=op23%></td>
+                                            </tr>
+                                            <tr>
+                                                <td><a href="#">24</a></td>
+                                                <td class="text-bold">Pergunta 24</td>
+                                                <td class="text-bold text-right text-info-800"><%=pontuacao%></td>
+                                                <td class="text-bold text-danger-600"><%=op24%></td>
+                                            </tr>
+                                            <tr>
+                                                <td><a href="#">25</a></td>
+                                                <td class="text-bold">Pergunta 25</td>
+                                                <td class="text-bold text-right text-info-800"><%=pontuacao%></td>
+                                                <td class="text-bold text-danger-600"><%=op25%></td>
+                                            </tr>
+                                            <tr>
+                                                <td><a href="#">26</a></td>
+                                                <td class="text-bold">Pergunta 26</td>
+                                                <td class="text-bold text-right text-info-800"><%=pontuacao%></td>
+                                                <td class="text-bold text-danger-600"><%=op26%></td>
+                                            </tr>
+                                            <tr>
+                                                <td><a href="#">27</a></td>
+                                                <td class="text-bold">Pergunta 27</td>
+                                                <td class="text-bold text-right text-info-800"><%=pontuacao%></td>
+                                                <td class="text-bold text-danger-600"><%=op27%></td>
+                                            </tr>
+                                            <tr>
+                                                <td><a href="#">28</a></td>
+                                                <td class="text-bold">Pergunta 28</td>
+                                                <td class="text-bold text-right text-info-800"><%=pontuacao%></td>
+                                                <td class="text-bold text-danger-600"><%=op28%></td>
+                                            </tr>
+                                            <tr>
+                                                <td><a href="#">29</a></td>
+                                                <td class="text-bold">Pergunta 29</td>
+                                                <td class="text-bold text-right text-info-800"><%=pontuacao%></td>
+                                                <td class="text-bold text-danger-600"><%=op29%></td>
+                                            </tr>
+                                            <tr>
+                                                <td><a href="#">30</a></td>
+                                                <td class="text-bold">Pergunta 30</td>
+                                                <td class="text-bold text-right text-info-800"><%=pontuacao%></td>
+                                                <td class="text-bold text-danger-600"><%=op30%></td>
+                                            </tr>
+                                            <tr>
+                                                <td><a href="#">31</a></td>
+                                                <td class="text-bold">Pergunta 31</td>
+                                                <td class="text-bold text-right text-info-800"><%=pontuacao%></td>
+                                                <td class="text-bold text-danger-600"><%=op31%></td>
+                                            </tr>
+                                            <tr>
+                                                <td><a href="#">32</a></td>
+                                                <td class="text-bold">Pergunta 32</td>
+                                                <td class="text-bold text-right text-info-800"><%=pontuacao%></td>
+                                                <td class="text-bold text-danger-600"><%=op32%></td>
+                                            </tr>
+                                            <tr>
+                                                <td><a href="#">33</a></td>
+                                                <td class="text-bold">Pergunta 33</td>
+                                                <td class="text-bold text-right text-info-800"><%=pontuacao%></td>
+                                                <td class="text-bold text-danger-600"><%=op33%></td>
+                                            </tr>
+                                            <tr>
+                                                <td><a href="#">34</a></td>
+                                                <td class="text-bold">Pergunta 34</td>
+                                                <td class="text-bold text-right text-info-800"><%=pontuacao%></td>
+                                                <td class="text-bold text-danger-600"><%=op34%></td>
+                                            </tr>
+                                            <tr>
+                                                <td><a href="#">35</a></td>
+                                                <td class="text-bold">Pergunta 35</td>
+                                                <td class="text-bold text-right text-info-800"><%=pontuacao%></td>
+                                                <td class="text-bold text-danger-600"><%=op35%></td>
+                                            </tr>
+                                            <tr>
+                                                <td><a href="#">36</a></td>
+                                                <td class="text-bold">Pergunta 36</td>
+                                                <td class="text-bold text-right text-info-800"><%=pontuacao%></td>
+                                                <td class="text-bold text-danger-600"><%=op36%></td>
+                                            </tr>
+                                            <tr>
+                                                <td><a href="#">37</a></td>
+                                                <td class="text-bold">Pergunta 37</td>
+                                                <td class="text-bold text-right text-info-800"><%=pontuacao%></td>
+                                                <td class="text-bold text-danger-600"><%=op37%></td>
+                                            </tr>
+                                            <tr>
+                                                <td><a href="#">38</a></td>
+                                                <td class="text-bold">Pergunta 38</td>
+                                                <td class="text-bold text-right text-info-800"><%=pontuacao%></td>
+                                                <td class="text-bold text-danger-600"><%=op38%></td>
+                                            </tr>
+                                            <tr>
+                                                <td><a href="#">39</a></td>
+                                                <td class="text-bold">Pergunta 39</td>
+                                                <td class="text-bold text-right text-info-800"><%=pontuacao%></td>
+                                                <td class="text-bold text-danger-600"><%=op39%></td>
+                                            </tr>
+                                            <tr>
+                                                <td><a href="#">40</a></td>
+                                                <td class="text-bold">Pergunta 40</td>
+                                                <td class="text-bold text-right text-info-800"><%=pontuacao%></td>
+                                                <td class="text-bold text-danger-600"><%=op40%></td>
+                                            </tr>
+                                            <%
+                                                    }
+
+                                                }
+                                            %>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- /row.2 -->
+
+                </div>
+                <!-- /main content -->
+
+            </div>
+            <!-- /page content -->
+
+
+
+            <!-- Footer -->
+            <div class="footer text-bold">
+                <%
+                    String ano = session.getAttribute("ano").toString();
+                %>
+                &copy; <%=ano%>. <a href="#" class="text-bold">MINEDH. SEGIA</a>. Todos os direitos reservados
+            </div>
+            <!-- /footer -->
+
+        </div>
+        <!-- /page container -->
+
+        <script type="text/javascript" src="assets/js/pages/picker_date.js"></script>
+
+    </body>
+</html>
