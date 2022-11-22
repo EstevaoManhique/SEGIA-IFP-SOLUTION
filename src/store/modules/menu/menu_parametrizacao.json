@@ -1,0 +1,85 @@
+[{
+        "name": "menus.dashboard",
+        "to": "dashboard-parametrizacao",
+        "icon": "",
+        "sub_menus": []
+    },
+    {
+        "name": "menus.exames_finais",
+        "to": "dashboard-parametrizacao",
+        "icon": "",
+        "sub_menus": [{
+                "name": "menus.alunos_apurados",
+                "to": "dashboard-parametrizacao",
+                "icon": "",
+                "sub_menus": []
+            },
+            {
+                "name": "menus.calendario_exames",
+                "to": "dashboard-parametrizacao",
+                "icon": "",
+                "sub_menus": []
+            },
+            {
+                "name": "menus.criacao_juris",
+                "to": "dashboard-parametrizacao",
+                "icon": "",
+                "sub_menus": []
+            },
+            {
+                "name": "menus.lista_juris",
+                "to": "dashboard-parametrizacao",
+                "icon": "",
+                "sub_menus": []
+            },
+            {
+                "name": "menus.folha_resdashboard-parametrizacaoa",
+                "to": "dashboard-parametrizacao",
+                "icon": "",
+                "sub_menus": []
+            },
+            {
+                "name": "menus.decoder_leitura",
+                "to": "dashboard-parametrizacao",
+                "icon": "",
+                "sub_menus": []
+            },
+            {
+                "name": "menus.presenca_fraudes",
+                "to": "dashboard-parametrizacao",
+                "icon": "",
+                "sub_menus": []
+            },
+            {
+                "name": "menus.pauta_exames",
+                "to": "dashboard-parametrizacao",
+                "icon": "",
+                "sub_menus": []
+            }
+        ]
+    },
+    {
+        "name": "menus.relatorios",
+        "to": "dashboard-parametrizacao",
+        "icon": "",
+        "sub_menus": [{
+                "name": "menus.mapa_avaliados",
+                "to": "dashboard-parametrizacao",
+                "icon": "",
+                "sub_menus": []
+            },
+            {
+                "name": "menus.mapa_presenca",
+                "to": "dashboard-parametrizacao",
+                "icon": "",
+                "sub_menus": []
+            },
+            {
+                "name": "menus.mapa_inscritos",
+                "to": "dashboard-parametrizacao",
+                "icon": "",
+                "sub_menus": []
+            }
+        ]
+    }
+]

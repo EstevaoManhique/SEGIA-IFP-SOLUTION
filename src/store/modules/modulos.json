@@ -1,0 +1,50 @@
+[{
+        "name": "Gestão de Informação Académica Escolar",
+        "color": "",
+        "router": "dashboard-academico",
+        "can": "",
+        "icon": "icon-book"
+    },
+    {
+        "name": "Gestão de Exames Finais da 12ª classe",
+        "color": "",
+        "router": "dashboard-12classe",
+        "can": "",
+        "icon": "icon-magazine"
+    },
+    {
+        "name": "Gestão de Exames Extraordinários",
+        "color": "",
+        "router": "dashboard-extraudinario",
+        "can": "",
+        "icon": "icon-graduation2"
+    },
+    {
+        "name": "Gestão de Exames de Admissão aos Institutos de Formação de Professores",
+        "color": "",
+        "router": "dashboard-ifp",
+        "can": "",
+        "icon": "icon-reading"
+    },
+    {
+        "name": "Gestão de Exames dos Alunos do Ensino à Distância",
+        "color": "",
+        "router": "dashboard-ieda",
+        "can": "",
+        "icon": "icon-collaboration"
+    },
+    {
+        "name": "Configuração e Parametrização ",
+        "color": "",
+        "router": "dashboard-parametrizacao",
+        "can": "",
+        "icon": "icon-cog2 spinner"
+    },
+    {
+        "name": "Controlo de Acessos",
+        "color": "",
+        "router": "dashboard-acessos",
+        "can": "",
+        "icon": "icon-user-lock"
+    }
+]

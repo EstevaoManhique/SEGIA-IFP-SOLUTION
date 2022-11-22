@@ -1,15 +1,16 @@
 <template>
   <v-container>
-    <q-dashboard-main />
+    <nav-bar :menu_types="1" />
+    <v-container> </v-container>
   </v-container>
 </template>
 
 <script>
+import NavBar from '@/components/layout/NavBar.vue';
 import { mapGetters } from 'vuex';
-import QDashboardMain from '@/components/dashboard/Main.vue';
 export default {
   name: 'HomeView',
-  components: { QDashboardMain },
+  components: { NavBar },
   data: () => ({}),
 
   computed: {

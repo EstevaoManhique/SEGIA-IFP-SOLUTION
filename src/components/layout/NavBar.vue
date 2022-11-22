@@ -1,11 +1,5 @@
 <template>
-  <v-navigation-drawer
-    app
-    v-model="drawerDialog"
-    dark
-    class="darken-4"
-    color="#c2202f"
-  >
+  <v-navigation-drawer app v-model="drawerDialog" dark color="primary">
     <v-layout column align-center>
       <v-flex class="mt-5">
         <router-link :to="{ name: 'home' }">
@@ -21,7 +15,7 @@
     </v-layout>
     <v-divider></v-divider>
 
-    <q-menu />
+    <q-menu :menu_type="menu_types" />
     <!-- -->
   </v-navigation-drawer>
 </template>
@@ -33,6 +27,7 @@ import QMenu from '@/components/layout/Menu.vue';
 export default {
   name: 'NavBar',
   components: { QMenu },
+  props: ['menu_types'],
   methods: {
     ...mapActions(['createDrawerDialog', 'setDrawerDialog']),
   },

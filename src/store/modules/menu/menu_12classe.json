@@ -1,0 +1,85 @@
+[{
+        "name": "menus.dashboard",
+        "to": "dashboard-12classe",
+        "icon": "icon-home",
+        "sub_menus": []
+    },
+    {
+        "name": "menus.exames_finais",
+        "to": "dashboard-12classe",
+        "icon": "icon-pencil4",
+        "sub_menus": [{
+                "name": "menus.alunos_apurados",
+                "to": "dashboard-12classe1",
+                "icon": "icon-users2",
+                "sub_menus": []
+            },
+            {
+                "name": "menus.calendario_exames",
+                "to": "dashboard-12classe",
+                "icon": "icon-calendar3",
+                "sub_menus": []
+            },
+            {
+                "name": "menus.criacao_juris",
+                "to": "dashboard-12classe",
+                "icon": "icon-reading",
+                "sub_menus": []
+            },
+            {
+                "name": "menus.lista_juris",
+                "to": "dashboard-12classe",
+                "icon": "icon-collaboration",
+                "sub_menus": []
+            },
+            {
+                "name": "menus.folha_resposta",
+                "to": "dashboard-12classe",
+                "icon": "icon-stack-check",
+                "sub_menus": []
+            },
+            {
+                "name": "menus.decoder_leitura",
+                "to": "dashboard-12classe",
+                "icon": "icon-download4",
+                "sub_menus": []
+            },
+            {
+                "name": "menus.presenca_fraudes",
+                "to": "dashboard-12classe",
+                "icon": "icon-exclamation",
+                "sub_menus": []
+            },
+            {
+                "name": "menus.pauta_exames",
+                "to": "dashboard-12classe",
+                "icon": "icon-table2",
+                "sub_menus": []
+            }
+        ]
+    },
+    {
+        "name": "menus.relatorios",
+        "to": "dashboard-12classe",
+        "icon": "icon-list3",
+        "sub_menus": [{
+                "name": "menus.mapa_avaliados",
+                "to": "dashboard-12classe",
+                "icon": "icon-bookmark4",
+                "sub_menus": []
+            },
+            {
+                "name": "menus.mapa_presenca",
+                "to": "dashboard-12classe",
+                "icon": "icon-list-numbered",
+                "sub_menus": []
+            },
+            {
+                "name": "menus.mapa_inscritos",
+                "to": "dashboard-12classe",
+                "icon": "icon-checkmark-circle",
+                "sub_menus": []
+            }
+        ]
+    }
+]

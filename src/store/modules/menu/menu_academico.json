@@ -1,0 +1,289 @@
+[{
+        "name": "menus.dashboard",
+        "to": "dashboard-academico",
+        "icon": "icon-home4",
+        "sub_menus": []
+    },
+    {
+        "name": "menus.gestao_escolar",
+        "to": "dashboard-academico",
+        "icon": "icon-database-edit2",
+        "sub_menus": [{
+                "name": "menus.registar_aluno",
+                "to": "academico-registar-aluno",
+                "icon": "icon-user-plus",
+                "sub_menus": []
+            },
+            {
+                "name": "menus.importar_alunos",
+                "to": "dashboard-academico",
+                "icon": "icon-file-upload",
+                "sub_menus": []
+            },
+            {
+                "name": "menus.listagem_alunos",
+                "to": "dashboard-academico",
+                "icon": "icon-users2",
+                "sub_menus": []
+            }
+        ]
+    },
+    {
+        "name": "menus.matriculas",
+        "to": "dashboard-academico",
+        "icon": "icon-profile",
+        "sub_menus": [{
+                "name": "menus.matricular_aluno",
+                "to": "dashboard-academico",
+                "icon": "icon-profile",
+                "sub_menus": []
+            },
+            {
+                "name": "menus.ditribuir_turmas",
+                "to": "dashboard-academico",
+                "icon": "icon-align-right",
+                "sub_menus": []
+            },
+            {
+                "name": "menus.matricular_online",
+                "to": "dashboard-academico",
+                "icon": "icon-user-check",
+                "sub_menus": []
+            },
+            {
+                "name": "menus.alunos_matriculados",
+                "to": "dashboard-academico",
+                "icon": "icon-collaboration",
+                "sub_menus": []
+            },
+            {
+                "name": "menus.transferir_para_escola",
+                "to": "dashboard-academico",
+                "icon": "icon-transmission",
+                "sub_menus": []
+            },
+            {
+                "name": "menus.transferir_para_turma",
+                "to": "dashboard-academico",
+                "icon": "icon-flip-vertical4",
+                "sub_menus": []
+            }
+        ]
+    },
+    {
+        "name": "menus.sumario_planos",
+        "to": "dashboard-academico",
+        "icon": "icon-book",
+        "sub_menus": [{
+                "name": "menus.sumarios",
+                "to": "dashboard-academico",
+                "icon": "icon-archive",
+                "sub_menus": []
+            },
+            {
+                "name": "menus.definir_tema",
+                "to": "dashboard-academico",
+                "icon": "icon-target",
+                "sub_menus": []
+            },
+            {
+                "name": "menus.vizualizar_sumario",
+                "to": "dashboard-academico",
+                "icon": "icon-clipboard3",
+                "sub_menus": []
+            }
+        ]
+    },
+    {
+        "name": "menus.plano_aulas",
+        "to": "dashboard-academico",
+        "icon": "icon-bookmark",
+        "sub_menus": [{
+                "name": "menus.definir_plano",
+                "to": "dashboard-academico",
+                "icon": "icon-pencil6",
+                "sub_menus": []
+            },
+            {
+                "name": "menus.vizualizar_plano",
+                "to": "dashboard-academico",
+                "icon": "icon-books",
+                "sub_menus": []
+            }
+        ]
+    },
+    {
+        "name": "menus.calendario",
+        "to": "dashboard-academico",
+        "icon": "icon-calendar52",
+        "sub_menus": [{
+                "name": "menus.horarios",
+                "to": "dashboard-academico",
+                "icon": "icon-calendar2",
+                "sub_menus": []
+            },
+            {
+                "name": "menus.avaliacoes",
+                "to": "dashboard-academico",
+                "icon": "icon-calendar52",
+                "sub_menus": []
+            },
+            {
+                "name": "menus.exames",
+                "to": "dashboard-academico",
+                "icon": "icon-calendar",
+                "sub_menus": []
+            },
+            {
+                "name": "menus.juris_exame",
+                "to": "dashboard-academico",
+                "icon": "icon-users",
+                "sub_menus": []
+            },
+            {
+                "name": "menus.folhas_resposta",
+                "to": "dashboard-academico",
+                "icon": "icon-checkbox-checked",
+                "sub_menus": []
+            }
+        ]
+    },
+    {
+        "name": "menus.gestao_notas",
+        "to": "dashboard-academico",
+        "icon": "icon-pencil-ruler",
+        "sub_menus": [{
+                "name": "menus.lancar_notas",
+                "to": "dashboard-academico",
+                "icon": "icon-grid-alt",
+                "sub_menus": []
+            },
+            {
+                "name": "menus.importar_notas",
+                "to": "dashboard-academico",
+                "icon": "icon-upload10",
+                "sub_menus": []
+            }
+        ]
+    },
+    {
+        "name": "menus.gestao_exames",
+        "to": "dashboard-academico",
+        "icon": "icon-stack-text",
+        "sub_menus": [{
+                "name": "menus.distribuicao_alunos",
+                "to": "dashboard-academico",
+                "icon": "icon-database-edit2",
+                "sub_menus": []
+            },
+            {
+                "name": "menus.candidatos_exames",
+                "to": "dashboard-academico",
+                "icon": "icon-database-edit2",
+                "sub_menus": []
+            },
+            {
+                "name": "menus.marcar_presenca",
+                "to": "dashboard-academico",
+                "icon": "icon-database-edit2",
+                "sub_menus": []
+            },
+            {
+                "name": "menus.carregar_resposta",
+                "to": "dashboard-academico",
+                "icon": "icon-database-edit2",
+                "sub_menus": []
+            }
+        ]
+    },
+    {
+        "name": "menus.pauta_trimestral",
+        "to": "dashboard-academico",
+        "icon": "icon-database-edit2",
+        "sub_menus": []
+    },
+    {
+        "name": "menus.pauta_anual",
+        "to": "dashboard-academico",
+        "icon": "icon-database-edit2",
+        "sub_menus": []
+    },
+    {
+        "name": "menus.exames_finais",
+        "to": "dashboard-academico",
+        "icon": "icon-pencil4",
+        "sub_menus": [{
+                "name": "menus.alunos_apurados",
+                "to": "dashboard-academico",
+                "icon": "icon-users2",
+                "sub_menus": []
+            },
+            {
+                "name": "menus.calendario_exames",
+                "to": "dashboard-academico",
+                "icon": "icon-calendar3",
+                "sub_menus": []
+            },
+            {
+                "name": "menus.criacao_juris",
+                "to": "dashboard-academico",
+                "icon": "icon-reading",
+                "sub_menus": []
+            },
+            {
+                "name": "menus.lista_juris",
+                "to": "dashboard-academico",
+                "icon": "icon-collaboration",
+                "sub_menus": []
+            },
+            {
+                "name": "menus.folha_resposta",
+                "to": "dashboard-academico",
+                "icon": "icon-stack-check",
+                "sub_menus": []
+            },
+            {
+                "name": "menus.decoder_leitura",
+                "to": "dashboard-academico",
+                "icon": "icon-download4",
+                "sub_menus": []
+            },
+            {
+                "name": "menus.presenca_fraudes",
+                "to": "dashboard-academico",
+                "icon": "icon-exclamation",
+                "sub_menus": []
+            },
+            {
+                "name": "menus.pauta_exames",
+                "to": "dashboard-academico",
+                "icon": "icon-table2",
+                "sub_menus": []
+            }
+        ]
+    },
+    {
+        "name": "menus.relatorios",
+        "to": "dashboard-academico",
+        "icon": "icon-list3",
+        "sub_menus": [{
+                "name": "menus.mapa_avaliados",
+                "to": "dashboard-academico",
+                "icon": "icon-bookmark4",
+                "sub_menus": []
+            },
+            {
+                "name": "menus.mapa_presenca",
+                "to": "dashboard-academico",
+                "icon": "icon-list-numbered",
+                "sub_menus": []
+            },
+            {
+                "name": "menus.mapa_inscritos",
+                "to": "dashboard-academico",
+                "icon": "icon-checkmark-circle",
+                "sub_menus": []
+            }
+        ]
+    }
+]

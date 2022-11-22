@@ -1,0 +1,85 @@
+[{
+        "name": "menus.dashboard",
+        "to": "dashboard-ifp",
+        "icon": "",
+        "sub_menus": []
+    },
+    {
+        "name": "menus.exames_finais",
+        "to": "dashboard-ifp",
+        "icon": "",
+        "sub_menus": [{
+                "name": "menus.alunos_apurados",
+                "to": "dashboard-ifp",
+                "icon": "",
+                "sub_menus": []
+            },
+            {
+                "name": "menus.calendario_exames",
+                "to": "dashboard-ifp",
+                "icon": "",
+                "sub_menus": []
+            },
+            {
+                "name": "menus.criacao_juris",
+                "to": "dashboard-ifp",
+                "icon": "",
+                "sub_menus": []
+            },
+            {
+                "name": "menus.lista_juris",
+                "to": "dashboard-ifp",
+                "icon": "",
+                "sub_menus": []
+            },
+            {
+                "name": "menus.folha_resdashboard-ifpa",
+                "to": "dashboard-ifp",
+                "icon": "",
+                "sub_menus": []
+            },
+            {
+                "name": "menus.decoder_leitura",
+                "to": "dashboard-ifp",
+                "icon": "",
+                "sub_menus": []
+            },
+            {
+                "name": "menus.presenca_fraudes",
+                "to": "dashboard-ifp",
+                "icon": "",
+                "sub_menus": []
+            },
+            {
+                "name": "menus.pauta_exames",
+                "to": "dashboard-ifp",
+                "icon": "",
+                "sub_menus": []
+            }
+        ]
+    },
+    {
+        "name": "menus.relatorios",
+        "to": "dashboard-ifp",
+        "icon": "",
+        "sub_menus": [{
+                "name": "menus.mapa_avaliados",
+                "to": "dashboard-ifp",
+                "icon": "",
+                "sub_menus": []
+            },
+            {
+                "name": "menus.mapa_presenca",
+                "to": "dashboard-ifp",
+                "icon": "",
+                "sub_menus": []
+            },
+            {
+                "name": "menus.mapa_inscritos",
+                "to": "dashboard-ifp",
+                "icon": "",
+                "sub_menus": []
+            }
+        ]
+    }
+]

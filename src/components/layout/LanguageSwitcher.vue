@@ -50,14 +50,14 @@ export default {
       focusedIndex: 0,
       langs: [
         {
-          locale: 'pt',
-          icon: '/flag_pt.png',
-          title: 'Portugues',
+          locale: 'mz',
+          icon: '/flag_mz.png',
+          title: 'Português',
         },
         {
           locale: 'en',
           icon: '/flag_en.png',
-          title: 'Ingles',
+          title: 'English',
         },
       ],
     };
