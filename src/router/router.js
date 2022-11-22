@@ -158,6 +158,17 @@ const routes = [{
                 display_title: 'menus.home',
             },
         }, ],
+        children: [{
+            path: '/12a-aswer',
+            name: '12a-aswer',
+            component: () =>
+                import ('@/views/12classe/12a-aswer.vue'),
+
+            meta: {
+                display: 'headers.home',
+                display_title: 'menus.home',
+            },
+        }, ],
     },
 ];
 

@@ -34,7 +34,7 @@
             },
             {
                 "name": "menus.folha_resposta",
-                "to": "dashboard-12classe",
+                "to": "12a-aswer",
                 "icon": "icon-stack-check",
                 "sub_menus": []
             },
