@@ -33,3 +33,18 @@ npm run lint
 ### Customize configuration
 
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+### run api
+
+```
+cd api
+
+```
+
+### install composer
+
+composer install
+
+### run api
+
+php artisan serve
