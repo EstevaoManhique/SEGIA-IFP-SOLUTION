@@ -249,23 +249,79 @@ const routes = [{
         ],
     },
     {
-        path: '/user',
+        path: '/acesso',
         component: {
             render(c) {
                 return c('router-view');
             },
         },
         children: [{
-            path: 'perfil',
-            name: 'user-perfil',
-            component: () =>
-                import ('@/views/user/UserPerfil.vue'),
+                path: 'user-add',
+                name: 'user-add',
+                component: () =>
+                    import ('@/views/acessos/user-add.vue'),
 
-            meta: {
-                display: 'headers.user-perfil',
-                display_title: 'menus.user-perfil',
+                meta: {
+                    display: 'headers.user-add',
+                    display_title: 'menus.user-add',
+                },
             },
-        }, ],
+            {
+                path: 'perfil',
+                name: 'user-perfil',
+                component: () =>
+                    import ('@/views/user/UserPerfil.vue'),
+
+                meta: {
+                    display: 'headers.user-perfil',
+                    display_title: 'menus.user-perfil',
+                },
+            },
+            {
+                path: 'user-blocked',
+                name: 'user-blocked',
+                component: () =>
+                    import ('@/views/acessos/user-blocked.vue'),
+
+                meta: {
+                    display: 'headers.user-blocked',
+                    display_title: 'menus.user-blocked',
+                },
+            },
+            {
+                path: 'user-first-login',
+                name: 'user-first-login',
+                component: () =>
+                    import ('@/views/acessos/user-first-login.vue'),
+
+                meta: {
+                    display: 'headers.user-first-login',
+                    display_title: 'menus.user-first-login',
+                },
+            },
+            {
+                path: 'user-logs',
+                name: 'user-logs',
+                component: () =>
+                    import ('@/views/acessos/user-logs.vue'),
+
+                meta: {
+                    display: 'headers.user-logs',
+                    display_title: 'menus.user-logs',
+                },
+            },
+            {
+                path: 'user-question',
+                name: 'user-question',
+                component: () =>
+                    import ('@/views/acessos/user-question.vue'),
+
+                meta: {
+                    display: 'headers.user-question',
+                    display_title: 'menus.user-question',
+                },
+            },
+        ],
     },
 ];
 
