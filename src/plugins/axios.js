@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 //const API_URL = process.env.VUE_APP_ROOT_API;
-const API_URL = 'http://localhost:8001/api/'; //'http://localhost:8001/api/';
+const API_URL = 'http://localhost:8002/api/'; //'http://localhost:8001/api/';
 //console.log(API_URL);
 // const APP_KEY = process.env.VUE_APP_KEY
 
