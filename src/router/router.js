@@ -148,27 +148,105 @@ const routes = [{
             },
         },
         children: [{
-            path: '/',
-            name: 'home-12classe',
-            component: () =>
-                import ('@/views/12classe/12a-dashboard.vue'),
+                path: '/',
+                name: 'home-12classe',
+                component: () =>
+                    import ('@/views/12classe/12a-dashboard.vue'),
 
-            meta: {
-                display: 'headers.home',
-                display_title: 'menus.home',
+                meta: {
+                    display: 'headers.home',
+                    display_title: 'menus.home',
+                },
             },
-        }, ],
-        children: [{
-            path: '/12a-aswer',
-            name: '12a-aswer',
-            component: () =>
-                import ('@/views/12classe/12a-aswer.vue'),
+            {
+                path: '12a-aswer',
+                name: '12a-aswer',
+                component: () =>
+                    import ('@/views/12classe/12a-aswer.vue'),
 
-            meta: {
-                display: 'headers.home',
-                display_title: 'menus.home',
+                meta: {
+                    display: 'headers.home',
+                    display_title: 'menus.home',
+                },
             },
-        }, ],
+            {
+                path: '12a-calendar',
+                name: '12a-calendar',
+                component: () =>
+                    import ('@/views/12classe/12a-calendar.vue'),
+
+                meta: {
+                    display: 'headers.12a_calendar',
+                    display_title: 'menus.12a_calendar',
+                },
+            },
+            {
+                path: '12a-classroom',
+                name: '12a-classroom',
+                component: () =>
+                    import ('@/views/12classe/12a-classroom.vue'),
+
+                meta: {
+                    display: 'headers.12a-classroom',
+                    display_title: 'menus.12a-classroom',
+                },
+            },
+            {
+                path: '12a-jury',
+                name: '12a-jury',
+                component: () =>
+                    import ('@/views/12classe/12a-jury.vue'),
+
+                meta: {
+                    display: 'headers.12a-jury',
+                    display_title: 'menus.12a-jury',
+                },
+            },
+            {
+                path: '12a-list',
+                name: '12a-list',
+                component: () =>
+                    import ('@/views/12classe/12a-list.vue'),
+
+                meta: {
+                    display: 'headers.12a-list',
+                    display_title: 'menus.12a-list',
+                },
+            },
+            {
+                path: '12a-decoder',
+                name: '12a-decoder',
+                component: () =>
+                    import ('@/views/12classe/12a-decoder.vue'),
+
+                meta: {
+                    display: 'headers.12a-decoder',
+                    display_title: 'menus.12a-decoder',
+                },
+            },
+            {
+                path: '12a-guideline',
+                name: '12a-guideline',
+                component: () =>
+                    import ('@/views/12classe/12a-guideline.vue'),
+
+                meta: {
+                    display: 'headers.12a-guideline',
+                    display_title: 'menus.12a-guideline',
+                },
+            },
+            {
+                path: '12a-presences',
+                name: '12a-presences',
+                component: () =>
+                    import ('@/views/12classe/12a-presences.vue'),
+
+                meta: {
+                    display: 'headers.12a-presences',
+                    display_title: 'menus.12a-presences',
+                },
+            },
+        ],
     },
 ];
 

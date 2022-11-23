@@ -1,6 +1,6 @@
 [{
         "name": "menus.dashboard",
-        "to": "dashboard-12classe",
+        "to": "home-12classe",
         "icon": "icon-home",
         "sub_menus": []
     },
@@ -10,25 +10,25 @@
         "icon": "icon-pencil4",
         "sub_menus": [{
                 "name": "menus.alunos_apurados",
-                "to": "dashboard-12classe1",
+                "to": "12a-list",
                 "icon": "icon-users2",
                 "sub_menus": []
             },
             {
                 "name": "menus.calendario_exames",
-                "to": "dashboard-12classe",
+                "to": "12a-calendar",
                 "icon": "icon-calendar3",
                 "sub_menus": []
             },
             {
                 "name": "menus.criacao_juris",
-                "to": "dashboard-12classe",
+                "to": "12a-jury",
                 "icon": "icon-reading",
                 "sub_menus": []
             },
             {
                 "name": "menus.lista_juris",
-                "to": "dashboard-12classe",
+                "to": "12a-jury",
                 "icon": "icon-collaboration",
                 "sub_menus": []
             },
@@ -40,19 +40,19 @@
             },
             {
                 "name": "menus.decoder_leitura",
-                "to": "dashboard-12classe",
+                "to": "12a-decoder",
                 "icon": "icon-download4",
                 "sub_menus": []
             },
             {
                 "name": "menus.presenca_fraudes",
-                "to": "dashboard-12classe",
+                "to": "12a-presences",
                 "icon": "icon-exclamation",
                 "sub_menus": []
             },
             {
                 "name": "menus.pauta_exames",
-                "to": "dashboard-12classe",
+                "to": "12a-guideline",
                 "icon": "icon-table2",
                 "sub_menus": []
             }

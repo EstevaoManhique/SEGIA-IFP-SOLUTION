@@ -47,7 +47,15 @@
         "about": "Sobre nós",
         "contact": "Conheça os nossos contactos",
         "login": "Iniciliza a sessao",
-        "registar_aluno": "Registar Aluno"
+        "registar_aluno": "Registar Aluno",
+        "12a-decoder": "SEGIA - Decoder de Leitura",
+        "12a-guideline": "SEGIA - Pauta de Exame",
+        "12a-presences": "SEGIA - Marcação de Presenças/Fraudes",
+        "12a-list": "SEGIA -  Lista Apurados",
+        "12a_calendar": "SEGIA - Calendário de Exames (12ª Classe)",
+        "12a-classroom": "SEGIA - Alunos da Turma",
+        "12a-jury": "SEGIA - Criação de Júri",
+        "12a-aswer": "SEGIA - Folha de Resposta (12ª Classe)"
     },
     "menus": {
         "institution": "Instituição",
@@ -109,7 +117,14 @@
         "candidatos_exames": "Candidatos Exames",
         "marcar_presenca": "Marcar Presenca",
         "pauta_trimestral": "Pauta Trimestral",
-        "pauta_anual": "Pauta Anual"
+        "pauta_anual": "Pauta Anual",
+        "12a-decoder": "SEGIA - Decoder de Leitura",
+        "12a-guideline": "SEGIA - Pauta de Exame",
+        "12a-presences": "SEGIA - Marcação de Presenças/Fraudes",
+        "12a-list": "SEGIA -  Lista Apurados",
+        "12a_calendar": "SEGIA - Calendário de Exames (12ª Classe)",
+        "12a-classroom": "SEGIA - Alunos da Turma",
+        "12a-jury": "SEGIA - Criação de Júri"
     },
     "fieldes": {
         "address": "Endereço",
