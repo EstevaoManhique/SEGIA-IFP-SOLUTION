@@ -8,32 +8,20 @@
           </v-icon>
         </v-btn>
       </template>
-      <v-list>
+      <v-list dense>
         <v-list-item>
           <v-list-item-title>{{
             $t('title.wellcome', [user.name])
           }}</v-list-item-title>
         </v-list-item>
         <v-divider></v-divider>
-        <v-list-item>
-          <v-list-item-icon>
-            <v-icon>mdi-account</v-icon>
-          </v-list-item-icon>
-          <v-list-item-title>{{ $t('title.profile') }}</v-list-item-title>
-        </v-list-item>
-        <v-list-item>
-          <v-list-item-icon>
-            <v-icon>mdi-account</v-icon>
-          </v-list-item-icon>
-          <v-list-item-title>{{ $t('title.account') }}</v-list-item-title>
-        </v-list-item>
-        <v-list-item>
+
+        <v-list-item router :to="{ name: 'user-perfil' }">
           <v-list-item-icon>
             <v-icon>mdi-cog</v-icon>
           </v-list-item-icon>
           <v-list-item-title>{{ $t('title.setting') }}</v-list-item-title>
         </v-list-item>
-        <v-divider></v-divider>
         <v-list-item router :to="{ name: 'logout' }">
           <v-list-item-icon>
             <v-btn icon>
