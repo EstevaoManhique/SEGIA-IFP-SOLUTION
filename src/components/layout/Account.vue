@@ -8,7 +8,7 @@
           </v-icon>
         </v-btn>
       </template>
-      <v-list color="#c2202f">
+      <v-list>
         <v-list-item>
           <v-list-item-title>{{
             $t('title.wellcome', [user.name])
