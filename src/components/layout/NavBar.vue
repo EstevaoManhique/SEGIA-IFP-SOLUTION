@@ -6,7 +6,7 @@
           <v-img
             alt="MozTop Logo"
             class="shrink mr-2"
-            src="http://localhost:8001/assets/img/logo/logo.png"
+            src="http://localhost:8002/assets/img/logo/logo.png"
             transition="scale-transition"
             width="140"
           />

@@ -30,3 +30,4 @@ Route::get('user', [AuthController::class, 'user'])->middleware('auth:api');
 Route::post('register', [AuthController::class, 'register']);
 Route::post('forgot', [AuthController::class, 'forgot']);
 Route::post('reset', [AuthController::class, 'reset']);
+Route::get('users', [AuthController::class, 'users'])->name('users');

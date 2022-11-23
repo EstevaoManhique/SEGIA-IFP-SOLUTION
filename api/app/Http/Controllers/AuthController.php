@@ -122,4 +122,11 @@ class AuthController extends Controller
             $m->to($user->email, $user->name)->subject('Your Reminder!');
         });
     }
+
+    public function users()
+    {
+        $users = User::all();
+
+        return $users;
+    }
 }
