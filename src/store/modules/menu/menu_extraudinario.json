@@ -58,21 +58,21 @@
         },{
             "name": "menus.extracao_juri",
             "to": "distribution",
-            "icon": "icon-table2",
+            "icon": "icon-split",
             "sub_menus": []
         },{
             "name": "menus.visualizar_juri",
             "to": "classroom",
-            "icon": "icon-table2",
+            "icon": "icon-collaboration",
             "sub_menus": []
         },{
             "name": "menus.carregar_resposta",
             "to": "answers",
-            "icon": "icon-table2",
+            "icon": "icon-download4",
             "sub_menus": []
         },{
             "name": "menus.exames_de_desenho",
-            "to": "12a-guideline",
+            "to": "guideline",
             "icon": "icon-table2",
             "sub_menus": []
         },{
@@ -83,7 +83,7 @@
         },{
             "name": "menus.presenca_fraudes",
             "to": "presences",
-            "icon": "icon-table2",
+            "icon": "icon-exclamation",
             "sub_menus": []
         },{
             "name": "menus.pauta_exames",
