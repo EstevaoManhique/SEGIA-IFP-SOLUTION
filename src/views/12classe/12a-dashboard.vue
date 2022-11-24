@@ -86,6 +86,7 @@
           </div>
           <!-- /content area -->
         </div>
+        <span>{{ user.name }}</span>
 
         <li v-for="(student, index) in students" :key="index">
           {{ student.person.name }}
@@ -111,7 +112,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['user', 'students']),
+    ...mapGetters(['user', 'students', 'techers']),
   },
 };
 </script>

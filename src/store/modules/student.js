@@ -15,8 +15,8 @@ const state = {
 };
 
 const getters = {
-    students: state.students,
-    student: state.student,
+    students: (state) => state.students,
+    student: (state) => state.student,
 };
 
 const actions = {
