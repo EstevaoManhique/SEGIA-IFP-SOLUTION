@@ -48,16 +48,14 @@
                         <div class="col-md-7">
                           <select class="select" name="idCurso">
                             <optgroup label="Selecione a classe">
-                              <% if (cursos != null) { for (Curso c : cursos) {
+                              <!-- if (cursos != null) { for (Curso c : cursos) {
                               int id = c.getCursId(); String desc =
                               encryptUtils.decodeString(c.getCursCod()) + " - "
                               + encryptUtils.decodeString(c.getCursDescricao());
                               String sel = ""; if (curso != null) { if (id ==
-                              curso.getCursId()) { sel = "selected"; } } %>
-                              <option value="<%=id%>" <%="sel%">
-                                ><%=desc%>
-                              </option>
-                              <% } } %>
+                              curso.getCursId()) { sel = "selected"; } } -->
+                              <option value=""></option>
+                              <!-- } } -->
                             </optgroup>
                           </select>
                         </div>
@@ -99,16 +97,14 @@
                         <div class="col-md-7">
                           <select class="select" name="idDisciplina">
                             <optgroup label="Selecione disciplina">
-                              <% if (disciplinas != null) { for (Disciplina d :
+                              <!-- if (disciplinas != null) { for (Disciplina d :
                               disciplinas) { int id = d.getDiscId(); String desc
                               = encryptUtils.decodeString(d.getDiscDescricao());
                               String sel = ""; if (disciplina != null) { if (id
                               == disciplina.getDiscId()) { sel = "selected"; } }
-                              %>
-                              <option value="<%=id%>" <%="sel%">
-                                ><%=desc%>
-                              </option>
-                              <% } } %>
+                              -->
+                              <option value=""></option>
+                              <!-- } } -->
                             </optgroup>
                           </select>
                         </div>
@@ -140,14 +136,14 @@
           <div class="col-md-6">
             <!-- Basic layout-->
 
-            <% String act4 =
+            <!-- String act4 =
             encryptUtils.encodeString("accao#filtrar-salaExame&to=12a-presences");
-            %>
+            -->
 
             <form
               method="post"
               accept-charset="ISO-8859-1"
-              action="MTJDbGFzc2VTZXJ2bGV0I0RDSQ==?<%=act4%>"
+              action="MTJDbGFzc2VTZXJ2bGV0I0RDSQ==?<!--=act4-->"
             >
               <div class="panel panel-flat">
                 <div class="panel-body">
@@ -157,7 +153,7 @@
                         <div class="col-md-7">
                           <select class="select" name="idSala">
                             <optgroup label="Selecione uma Sala">
-                              <% if (salasExame != null) { for (SalaExame s :
+                              <!-- if (salasExame != null) { for (SalaExame s :
                               salasExame) { int id = s.getSalaeId(); String desc
                               =
                               encryptUtils.decodeString(s.getSala().getSalaDescricao())
@@ -165,11 +161,9 @@
                               sdf.format(s.getSalaeData().toGregorianCalendar().getTime());
                               String sel = ""; if (salaExame != null) { if (id
                               == salaExame.getSalaeId()) { sel = "selected"; } }
-                              %>
-                              <option value="<%=id%>" <%="sel%">
-                                ><%=desc%>
-                              </option>
-                              <% } } %>
+                              -->
+                              <option value=""></option>
+                              <!-- } } -->
                             </optgroup>
                           </select>
                         </div>
@@ -199,7 +193,7 @@
         <!-- /row.1-->
 
         <div class="row">
-          <% String decT = "---"; String decD = "---"; String decJ1 = "---";
+          <!-- String decT = "---"; String decD = "---"; String decJ1 = "---";
           String decJ2 = "---"; String cap = ""; int id = -1; if (salaExame !=
           null) { decT =
           encryptUtils.decodeString(salaExame.getSala().getSalaDescricao());
@@ -214,7 +208,7 @@
           + " " +
           encryptUtils.decodeString(salaExame.getJuri1().getPessoa().getPessApelido());
           cap = salaExame.getSalaeMaxAlunos() + ""; id = salaExame.getSalaeId();
-          } %>
+          } -->
           <div class="col-md-5">
             <div class="row">
               <!-- Basic table -->
@@ -237,23 +231,23 @@
                     <tbody>
                       <tr>
                         <td class="text-bold">Sala:</td>
-                        <td><%=decT%></td>
+                        <td><!--=decT--></td>
                       </tr>
                       <tr>
                         <td class="text-bold">Capacidade:</td>
-                        <td><%=cap%></td>
+                        <td><!--=cap--></td>
                       </tr>
                       <tr>
                         <td class="text-bold">Data:</td>
-                        <td><%=decD%></td>
+                        <td><!--=decD--></td>
                       </tr>
                       <tr>
                         <td class="text-bold">Júri 1:</td>
-                        <td><%=decJ1%></td>
+                        <td><!--=decJ1--></td>
                       </tr>
                       <tr>
                         <td class="text-bold">Júri 2:</td>
-                        <td><%=decJ2%></td>
+                        <td><!--=decJ2--></td>
                       </tr>
                     </tbody>
                   </table>
@@ -273,7 +267,7 @@
                   class="panel-title text-uppercase text-bold text-bold text-uppercase"
                 >
                   Lista dos alunos para marcação de presenças/fraudes
-                  <span class="text-danger">(<%=decT%>)</span>
+                  <span class="text-danger">(<!--=decT-->)</span>
                 </h6>
                 <div class="heading-elements">
                   <ul class="icons-list">
@@ -283,13 +277,13 @@
                 </div>
               </div>
 
-              <% String act =
-              encryptUtils.encodeString("accao#actualizar-presencas"); %>
+              <!-- String act =
+              encryptUtils.encodeString("accao#actualizar-presencas"); -->
 
               <form
                 method="post"
                 accept-charset="ISO-8859-1"
-                action="MTJDbGFzc2VTZXJ2bGV0I0RDSQ==?<%=act%>"
+                action="MTJDbGFzc2VTZXJ2bGV0I0RDSQ==?<!--=act-->"
               >
                 <div class="panel-body">
                   <p>
@@ -317,7 +311,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <% if (exames != null) { int x = 0; for (Exame e : exames) {
+                    <!-- if (exames != null) { int x = 0; for (Exame e : exames) {
                     x++; String ref =
                     encryptUtils.decodeString(e.getAluno().getAlunBadgnumber());
                     String nom =
@@ -331,23 +325,22 @@
                     >"; if (e.isExamPresenca()) { check = "checked"; inc = "<i
                       class="icon-check text-success-600"
                     ></i
-                    >"; } %>
+                    >"; } -->
                     <tr>
                       <td>
                         <input
                           type="checkbox"
                           name="noty_list"
-                          value="<%=idA%>"
+                          value="<!--=idA-->"
                           class="styled"
-                          <%="check%"
-                        />>
+                          >
                       </td>
-                      <td><a href="#"><%=ref%></a></td>
-                      <td><%=nom%></td>
-                      <td class="text-bold"><%=inc%></td>
+                      <td><a href="#"><!--=ref--></a></td>
+                      <td><!--=nom--></td>
+                      <td class="text-bold"><!--=inc--></td>
                     </tr>
 
-                    <% } } %>
+                    <!-- } } -->
                   </tbody>
                 </table>
               </form>

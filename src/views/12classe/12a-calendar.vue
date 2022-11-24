@@ -47,16 +47,7 @@
                         <div class="col-md-7">
                           <select class="select" name="idCurso">
                             <optgroup label="Selecione a classe">
-                              <% if (cursos != null) { for (Curso c : cursos) {
-                              int id = c.getCursId(); String desc =
-                              encryptUtils.decodeString(c.getCursCod()) + " - "
-                              + encryptUtils.decodeString(c.getCursDescricao());
-                              String sel = ""; if (curso != null) { if (id ==
-                              curso.getCursId()) { sel = "selected"; } } %>
-                              <option value="<%=id%>" <%="sel%">
-                                ><%=desc%>
-                              </option>
-                              <% } } %>
+                              <option value=""></option>
                             </optgroup>
                           </select>
                         </div>
@@ -98,16 +89,14 @@
                         <div class="col-md-7">
                           <select class="select" name="idDisciplina">
                             <optgroup label="Selecione disciplina">
-                              <% if (disciplinas != null) { for (Disciplina d :
+                              <!-- if (disciplinas != null) { for (Disciplina d :
                               disciplinas) { int id = d.getDiscId(); String desc
                               = encryptUtils.decodeString(d.getDiscDescricao());
                               String sel = ""; if (disciplina != null) { if (id
                               == disciplina.getDiscId()) { sel = "selected"; } }
-                              %>
-                              <option value="<%=id%>" <%="sel%">
-                                ><%=desc%>
-                              </option>
-                              <% } } %>
+                              -->
+                              <option value=""></option>
+                              <!-- } } -->
                             </optgroup>
                           </select>
                         </div>

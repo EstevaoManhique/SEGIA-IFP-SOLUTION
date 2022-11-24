@@ -48,16 +48,7 @@
                         <div class="col-md-8">
                           <select class="select" name="idCurso">
                             <optgroup label="Selecione a classe">
-                              <% if (cursos != null) { for (Curso c : cursos) {
-                              int id = c.getCursId(); String desc =
-                              encryptUtils.decodeString(c.getCursCod()) + " - "
-                              + encryptUtils.decodeString(c.getCursDescricao());
-                              String sel = ""; if (curso != null) { if (id ==
-                              curso.getCursId()) { sel = "selected"; } } %>
-                              <option value="<%=id%>" <%="sel%">
-                                ><%=desc%>
-                              </option>
-                              <% } } %>
+                              <option></option>
                             </optgroup>
                           </select>
                         </div>
@@ -89,14 +80,14 @@
         <!-- User profile -->
         <div class="row">
           <div class="col-md-4">
-            <% String act2 = encryptUtils.encodeString("accao#definir-juri"); %>
+            <!-- String act2 = encryptUtils.encodeString("accao#definir-juri"); -->
 
             <!-- Basic layout-->
             <form
               class="form-horizontal"
               method="post"
               accept-charset="ISO-8859-1"
-              action="MTJDbGFzc2VTZXJ2bGV0I0RDSQ==?<%=act2%>"
+              action="MTJDbGFzc2VTZXJ2bGV0I0RDSQ==?<!--=act2-->"
             >
               <div class="panel panel-flat">
                 <div class="panel-heading">
@@ -116,13 +107,13 @@
                     <label class="text-bold text-uppercase">Disciplina:</label>
                     <select class="select" name="idCalendario" required="">
                       <optgroup label="Selecione uma disciplina">
-                        <% if (calendariosExame != null) { for (CalendarioExame
+                        <!-- if (calendariosExame != null) { for (CalendarioExame
                         ce : calendariosExame) { int id = ce.getCaleeId();
                         String desc =
                         encryptUtils.decodeString(ce.getDisciplina().getDiscDescricao());
-                        %>
-                        <option value="<%=id%>"><%=desc%></option>
-                        <% } } %>
+                        -->
+                        <option value="<!--=id-->"><!--=desc--></option>
+                        <!-- } } -->
                       </optgroup>
                     </select>
                   </div>
@@ -131,11 +122,11 @@
                     <label class="text-bold text-uppercase">Sala:</label>
                     <select class="select" name="idSala" required="">
                       <optgroup label="Selecione uma sala">
-                        <% if (salas != null) { for (Sala s : salas) { int id =
+                        <!-- if (salas != null) { for (Sala s : salas) { int id =
                         s.getSalaId(); String desc =
-                        encryptUtils.decodeString(s.getSalaDescricao()); %>
-                        <option value="<%=id%>"><%=desc%></option>
-                        <% } } %>
+                        encryptUtils.decodeString(s.getSalaDescricao()); -->
+                        <option value="<!--=id-->"><!--=desc--></option>
+                        <!-- } } -->
                       </optgroup>
                     </select>
                   </div>
@@ -154,13 +145,13 @@
                     <label class="text-bold text-uppercase">Júri 1:</label>
                     <select class="select" name="idDocente1" required="">
                       <optgroup label="Selecione uma docente">
-                        <% if (docentes != null) { for (Docente d: docentes) {
+                        <!-- if (docentes != null) { for (Docente d: docentes) {
                         int id = d.getDoceId(); String desc =
                         encryptUtils.decodeString(d.getPessoa().getPessNome())+"
                         "+encryptUtils.decodeString(d.getPessoa().getPessApelido());
-                        %>
-                        <option value="<%=id%>"><%=desc%></option>
-                        <% } } %>
+                        -->
+                        <option value="<!--=id-->"><!--=desc--></option>
+                        <!-- } } -->
                       </optgroup>
                     </select>
                   </div>
@@ -169,13 +160,13 @@
                     <label class="text-bold text-uppercase">Júri 2:</label>
                     <select class="select" name="idDocente2" required="">
                       <optgroup label="Selecione uma docente">
-                        <% if (docentes != null) { for (Docente d: docentes) {
+                        <!-- if (docentes != null) { for (Docente d: docentes) {
                         int id = d.getDoceId(); String desc =
                         encryptUtils.decodeString(d.getPessoa().getPessNome())+"
                         "+encryptUtils.decodeString(d.getPessoa().getPessApelido());
-                        %>
-                        <option value="<%=id%>"><%=desc%></option>
-                        <% } } %>
+                        -->
+                        <option value="<!--=id-->"><!--=desc--></option>
+                        <!-- } } -->
                       </optgroup>
                     </select>
                   </div>
@@ -210,8 +201,8 @@
           </div>
 
           <div class="col-md-8">
-            <% String cur = ""; if (curso != null) { cur =
-            encryptUtils.decodeString(curso.getCursDescricao()); } %>
+            <!-- String cur = ""; if (curso != null) { cur =
+            encryptUtils.decodeString(curso.getCursDescricao()); } -->
             <!-- Bordered panel body table -->
             <div class="panel panel-flat">
               <div class="panel-heading">
@@ -219,7 +210,7 @@
                   class="panel-title text-uppercase text-bold text-bold text-uppercase"
                 >
                   Júris dos Exames
-                  <span class="text-danger-600">[<%=cur%>]</span>
+                  <span class="text-danger-600">[<!--=cur-->]</span>
                 </h6>
                 <div class="heading-elements">
                   <ul class="icons-list">
@@ -253,7 +244,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <% if (salasExame != null) { for (SalaExame se: salasExame)
+                    <!-- if (salasExame != null) { for (SalaExame se: salasExame)
                     { String dis =
                     encryptUtils.decodeString(se.getDisciplina().getDiscDescricao());
                     String d1 =
@@ -266,16 +257,16 @@
                     String j2 =
                     encryptUtils.decodeString(se.getJuri2().getPessoa().getPessNome())+"
                     "+encryptUtils.decodeString(se.getJuri2().getPessoa().getPessApelido());
-                    %>
+                    -->
                     <tr>
-                      <td><%=dis%></td>
-                      <td><%=sa%></td>
-                      <td><%=d1%></td>
-                      <td><%=num%></td>
-                      <td><%=j1%></td>
-                      <td><%=j2%></td>
+                      <td><!--=dis--></td>
+                      <td><!--=sa--></td>
+                      <td><!--=d1--></td>
+                      <td><!--=num--></td>
+                      <td><!--=j1--></td>
+                      <td><!--=j2--></td>
                     </tr>
-                    <% } } %>
+                    <!-- } } -->
                   </tbody>
                 </table>
               </div>

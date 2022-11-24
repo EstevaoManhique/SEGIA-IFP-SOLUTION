@@ -48,17 +48,15 @@
                         <div class="col-md-7">
                           <select class="select" name="idCurso" readonly>
                             <optgroup label="Selecione a classe">
-                              <% if (cursos !=null) { for (Curso c : cursos) {
+                              <!-- if (cursos !=null) { for (Curso c : cursos) {
                               int id=c.getCursId(); String
                               desc=encryptUtils.decodeString(c.getCursCod()) + "
                               - " +
                               encryptUtils.decodeString(c.getCursDescricao());
                               String sel="" ; if (curso !=null) { if
-                              (id==curso.getCursId()) { sel="selected" ; } } %>
-                              <option value="<%=id%>" <%="sel%">
-                                > <%=desc%>
-                              </option>
-                              <% } } %>
+                              (id==curso.getCursId()) { sel="selected" ; } } -->
+                              <option value=""></option>
+                              <!-- } } -->
                             </optgroup>
                           </select>
                         </div>
@@ -99,16 +97,14 @@
                         <div class="col-md-7">
                           <select class="select" name="idDisciplina">
                             <optgroup label="Selecione disciplina">
-                              <% if (disciplinas !=null) { for (Disciplina d :
+                              <!-- if (disciplinas !=null) { for (Disciplina d :
                               disciplinas) { int id=d.getDiscId(); String
                               desc=encryptUtils.decodeString(d.getDiscDescricao());
                               String sel="" ; if (disciplina !=null) { if
                               (id==disciplina.getDiscId()) { sel="selected" ; }
-                              } %>
-                              <option value="<%=id%>" <%="sel%">
-                                > <%=desc%>
-                              </option>
-                              <% } } %>
+                              } -->
+                              <option value=""></option>
+                              <!-- } } -->
                             </optgroup>
                           </select>
                         </div>
@@ -137,11 +133,11 @@
 
         <!-- User profile -->
         <div class="row">
-          <% String cur="" ; String dis="" ; if (curso !=null) {
+          <!-- String cur="" ; String dis="" ; if (curso !=null) {
           cur=encryptUtils.decodeString(curso.getCursDescricao()); } if
           (disciplina !=null) {
           dis=encryptUtils.decodeString(disciplina.getDiscDescricao()); } String
-          act=encryptUtils.encodeString("accao#registar-respostas"); %>
+          act=encryptUtils.encodeString("accao#registar-respostas"); -->
 
           <div class="col-md-5">
             <!-- Basic layout-->
@@ -149,7 +145,7 @@
               class="form-horizontal"
               method="post"
               accept-charset="ISO-8859-1"
-              action="MTJDbGFzc2VTZXJ2bGV0I0RDSQ==?<%=act%>"
+              action="MTJDbGFzc2VTZXJ2bGV0I0RDSQ==?<!--=act-->"
             >
               <div class="panel panel-flat">
                 <div class="panel-heading">
@@ -303,7 +299,7 @@
               <div class="panel-heading">
                 <h6 class="panel-title text-bold text-uppercase">
                   Listagem da Folha de Respota
-                  <span class="text-danger-600">[ <%=cur%> | <%=dis%> ]</span>
+                  <span class="text-danger-600">[ <!--=cur--> | <!--=dis--> ]</span>
                 </h6>
                 <div class="heading-elements">
                   <ul class="icons-list">
@@ -348,7 +344,7 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <% if (respostas !=null) { int i=0; for (Resposta r :
+                          <!-- if (respostas !=null) { int i=0; for (Resposta r :
                           respostas) { int id=r.getRespId(); i++; String
                           desc=encryptUtils.decodeString(r.getRespPergunta());
                           String
@@ -386,20 +382,20 @@
                             ><i class="icon-check"></i></span
                           >" ; } String
                           actR=encryptUtils.encodeString("accao#remover-resposta&ei="
-                          + id); if (categoria.equals(" 1ª Chamada")) { %>
+                          + id); if (categoria.equals(" 1ª Chamada")) { -->
                           <tr>
                             <td>
-                              <a href="#"> <%=i%> </a>
+                              <a href="#"> <!--=i--> </a>
                             </td>
-                            <td class="text-bold"><%=desc%></td>
+                            <td class="text-bold"><!--=desc--></td>
                             <td class="text-bold text-right text-warning">
-                              <%=pontuacao%>
+                              <!--=pontuacao-->
                             </td>
                             <td>
                               <a
                                 href="#"
                                 data-toggle="modal"
-                                data-target="#modal_resp_<%=id%>"
+                                data-target="#modal_resp_<!--=id-->"
                                 data-popup="tooltip"
                                 title="Visualizar as alternativas"
                                 ><i class="icon-info22 text-primary-600"></i
@@ -407,7 +403,7 @@
                               <a
                                 href="#"
                                 data-toggle="modal"
-                                data-target="#modal_rem_<%=id%>"
+                                data-target="#modal_rem_<!--=id-->"
                                 data-popup="tooltip"
                                 title="Remover o registo"
                                 ><i
@@ -416,7 +412,7 @@
                               ></a>
 
                               <!-- Danger modal -->
-                              <div id="modal_rem_<%=id%>" class="modal fade">
+                              <div id="modal_rem_<!--=id-->" class="modal fade">
                                 <div class="modal-dialog">
                                   <div class="modal-content">
                                     <div class="modal-header">
@@ -429,7 +425,7 @@
                                       </button>
                                       <h6 class="modal-title text-semibold">
                                         Confirma a remoção da resposta com a
-                                        referência # <%=id%> ?
+                                        referência # <!--=id--> ?
                                       </h6>
                                     </div>
                                     <div class="modal-body text-center">
@@ -451,7 +447,7 @@
                                       </button>
 
                                       <a
-                                        href="QXZhbGlhY2FvU2VydmxldCNEQ0k=?<%=actR%>"
+                                        href="QXZhbGlhY2FvU2VydmxldCNEQ0k=?<!--=actR-->"
                                         class="btn text-bold text-uppercase btn-danger"
                                         >Sim, confirmo !</a
                                       >
@@ -462,7 +458,7 @@
                               <!-- /danger modal -->
 
                               <!-- Table modal -->
-                              <div id="modal_resp_<%=id%>" class="modal fade">
+                              <div id="modal_resp_<!--=id-->" class="modal fade">
                                 <div class="modal-dialog">
                                   <div class="modal-content">
                                     <div class="modal-header">
@@ -495,20 +491,20 @@
                                         </thead>
                                         <tbody>
                                           <tr>
-                                            <td><%=r1%></td>
-                                            <td><b>a)</b> : <%=op1%></td>
+                                            <td><!--=r1--></td>
+                                            <td><b>a)</b> : <!--=op1--></td>
                                           </tr>
                                           <tr>
-                                            <td><%=r2%></td>
-                                            <td><b>b)</b> : <%=op2%></td>
+                                            <td><!--=r2--></td>
+                                            <td><b>b)</b> : <!--=op2--></td>
                                           </tr>
                                           <tr>
-                                            <td><%=r3%></td>
-                                            <td><b>c)</b> : <%=op3%></td>
+                                            <td><!--=r3--></td>
+                                            <td><b>c)</b> : <!--=op3--></td>
                                           </tr>
                                           <tr>
-                                            <td><%=r4%></td>
-                                            <td><b>d)</b> : <%=op4%></td>
+                                            <td><!--=r4--></td>
+                                            <td><b>d)</b> : <!--=op4--></td>
                                           </tr>
                                         </tbody>
                                       </table>
@@ -529,7 +525,7 @@
                               <!-- /table modal -->
                             </td>
                           </tr>
-                          <% } } } %>
+                          <!-- } } } -->
                         </tbody>
                       </table>
                     </div>
@@ -549,7 +545,7 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <% if (respostas !=null) { int i=0; for (Resposta r :
+                          <!-- if (respostas !=null) { int i=0; for (Resposta r :
                           respostas) { int id=r.getRespId(); i++; String
                           desc=encryptUtils.decodeString(r.getRespPergunta());
                           String
@@ -587,33 +583,33 @@
                             ><i class="icon-check"></i></span
                           >" ; } String
                           actR=encryptUtils.encodeString("accao#remover-resposta&ei="
-                          + id); if (categoria.equals(" 2ª Chamada")) { %>
+                          + id); if (categoria.equals(" 2ª Chamada")) { -->
                           <tr>
                             <td>
-                              <a href="#"> <%=i%> </a>
+                              <a href="#"> <!--=i--> </a>
                             </td>
-                            <td class="text-bold"><%=desc%></td>
+                            <td class="text-bold"><!--=desc--></td>
                             <td class="text-bold text-right text-warning">
-                              <%=pontuacao%>
+                              <!--=pontuacao-->
                             </td>
                             <td>
                               <a
                                 href="#"
                                 data-toggle="modal"
-                                data-target="#modal_resp_<%=id%>"
+                                data-target="#modal_resp_<!--=id-->"
                                 ><i class="icon-info22 text-primary-600"></i
                               ></a>
                               <a
                                 href="#"
                                 data-toggle="modal"
-                                data-target="#modal_rem_<%=id%>"
+                                data-target="#modal_rem_<!--=id-->"
                                 ><i
                                   class="icon-cancel-circle2 text-danger-800"
                                 ></i
                               ></a>
 
                               <!-- Danger modal -->
-                              <div id="modal_rem_<%=id%>" class="modal fade">
+                              <div id="modal_rem_<!--=id-->" class="modal fade">
                                 <div class="modal-dialog">
                                   <div class="modal-content">
                                     <div class="modal-header">
@@ -626,7 +622,7 @@
                                       </button>
                                       <h6 class="modal-title text-semibold">
                                         Confirma a remoção da resposta com a
-                                        referência # <%=id%> ?
+                                        referência # <!--=id--> ?
                                       </h6>
                                     </div>
                                     <div class="modal-body text-center">
@@ -648,7 +644,7 @@
                                       </button>
 
                                       <a
-                                        href="QXZhbGlhY2FvU2VydmxldCNEQ0k=?<%=actR%>"
+                                        href="QXZhbGlhY2FvU2VydmxldCNEQ0k=?<!--=actR-->"
                                         class="btn text-bold text-uppercase btn-danger"
                                         >Sim, confirmo !</a
                                       >
@@ -659,7 +655,7 @@
                               <!-- /danger modal -->
 
                               <!-- Table modal -->
-                              <div id="modal_resp_<%=id%>" class="modal fade">
+                              <div id="modal_resp_<!--=id-->" class="modal fade">
                                 <div class="modal-dialog">
                                   <div class="modal-content">
                                     <div class="modal-header">
@@ -672,7 +668,7 @@
                                       </button>
                                       <h6 class="modal-title text-semibold">
                                         Respostas da Pergunta com a referência #
-                                        <%=id%> ?
+                                        <!--=id--> ?
                                       </h6>
                                     </div>
                                     <div class="modal-body">
@@ -691,20 +687,20 @@
                                         </thead>
                                         <tbody>
                                           <tr>
-                                            <td><%=r1%></td>
-                                            <td><b>a)</b> : <%=op1%></td>
+                                            <td><!--=r1--></td>
+                                            <td><b>a)</b> : <!--=op1--></td>
                                           </tr>
                                           <tr>
-                                            <td><%=r2%></td>
-                                            <td><b>b)</b> : <%=op2%></td>
+                                            <td><!--=r2--></td>
+                                            <td><b>b)</b> : <!--=op2--></td>
                                           </tr>
                                           <tr>
-                                            <td><%=r3%></td>
-                                            <td><b>c)</b> : <%=op3%></td>
+                                            <td><!--=r3--></td>
+                                            <td><b>c)</b> : <!--=op3--></td>
                                           </tr>
                                           <tr>
-                                            <td><%=r4%></td>
-                                            <td><b>d)</b> : <%=op4%></td>
+                                            <td><!--=r4--></td>
+                                            <td><b>d)</b> : <!--=op4--></td>
                                           </tr>
                                         </tbody>
                                       </table>
@@ -725,7 +721,7 @@
                               <!-- /table modal -->
                             </td>
                           </tr>
-                          <% } } } %>
+                          <!-- } } } -->
                         </tbody>
                       </table>
                     </div>

@@ -63,18 +63,6 @@ const routes = [{
             display_title: 'menus.home',
         },
     },
-
-    {
-        path: 'registar-alunos',
-        name: 'academico-registar-aluno',
-        component: () =>
-            import('@/views/academico/aluno/AddStudent.vue'),
-
-        meta: {
-            display: 'headers.registar_aluno',
-            display_title: 'menus.registar_aluno',
-        },
-    },
     {
         path: 'ieda',
         name: 'dashboard-ieda',
@@ -116,7 +104,6 @@ const routes = [{
             display_title: 'menus.home',
         },
     },
-
     {
         path: 'extraudinario',
         component: {
@@ -326,7 +313,128 @@ const routes = [{
             }
         }
         ]
+    },
+    //Academico
+    {
+        path: 'academico',
+        component: {
+            render(c) {
+                return c('router-view');
+            },
+        },
+        children: [{
+            path: '/',
+            name: 'dashboard-academico',
+            component: () =>
+                import('@/views/academico/HomeView.vue'),
+
+            meta: {
+                display: 'headers.home',
+                display_title: 'menus.home',
+            }
+        },
+        {
+            path: 'registar-alunos',
+            name: 'academico-registar-aluno',
+            component: () =>
+                import('@/views/academico/aluno/AddStudent.vue'),
+    
+            meta: {
+                display: 'headers.registar_aluno',
+                display_title: 'menus.registar_aluno',
+            },
+        },
+        {
+            path: 'registar-alunos',
+            name: 'academico-registar-aluno',
+            component: () =>
+                import('@/views/academico/aluno/AddStudent.vue'),
+    
+            meta: {
+                display: 'headers.registar_aluno',
+                display_title: 'menus.registar_aluno',
+            },
+        },
+        {
+            path: 'registar-alunos',
+            name: 'academico-registar-aluno',
+            component: () =>
+                import('@/views/academico/aluno/AddStudent.vue'),
+    
+            meta: {
+                display: 'headers.registar_aluno',
+                display_title: 'menus.registar_aluno',
+            },
+        },
+        {
+            path: 'registar-alunos',
+            name: 'academico-registar-aluno',
+            component: () =>
+                import('@/views/academico/aluno/AddStudent.vue'),
+    
+            meta: {
+                display: 'headers.registar_aluno',
+                display_title: 'menus.registar_aluno',
+            },
+        },
+        {
+            path: 'registar-alunos',
+            name: 'academico-registar-aluno',
+            component: () =>
+                import('@/views/academico/aluno/AddStudent.vue'),
+    
+            meta: {
+                display: 'headers.registar_aluno',
+                display_title: 'menus.registar_aluno',
+            },
+        },
+        {
+            path: 'registar-alunos',
+            name: 'academico-registar-aluno',
+            component: () =>
+                import('@/views/academico/aluno/AddStudent.vue'),
+    
+            meta: {
+                display: 'headers.registar_aluno',
+                display_title: 'menus.registar_aluno',
+            },
+        },
+        {
+            path: 'registar-alunos',
+            name: 'academico-registar-aluno',
+            component: () =>
+                import('@/views/academico/aluno/AddStudent.vue'),
+    
+            meta: {
+                display: 'headers.registar_aluno',
+                display_title: 'menus.registar_aluno',
+            },
+        },
+        {
+            path: 'registar-alunos',
+            name: 'academico-registar-aluno',
+            component: () =>
+                import('@/views/academico/aluno/AddStudent.vue'),
+    
+            meta: {
+                display: 'headers.registar_aluno',
+                display_title: 'menus.registar_aluno',
+            },
+        },
+        {
+            path: 'registar-alunos',
+            name: 'academico-registar-aluno',
+            component: () =>
+                import('@/views/academico/aluno/AddStudent.vue'),
+    
+            meta: {
+                display: 'headers.registar_aluno',
+                display_title: 'menus.registar_aluno',
+            },
+        }
+        ]
     }
+    //Fim de Academico
     ],
 },
 {
@@ -436,17 +544,6 @@ const routes = [{
         },
     },
     ],
-},
-{
-    path: '/academico',
-    name: 'dashboard-academico',
-    component: () =>
-        import('@/views/academico/HomeView.vue'),
-
-    meta: {
-        display: 'headers.home',
-        display_title: 'menus.home',
-    }
 },
 {
     path: '/user',

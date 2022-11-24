@@ -47,16 +47,16 @@
                         <div class="col-md-7">
                           <select class="select" name="idCurso">
                             <optgroup label="Selecione a classe">
-                              <% if (cursos != null) { for (Curso c : cursos) {
+                              <!-- if (cursos != null) { for (Curso c : cursos) {
                               int id = c.getCursId(); String desc =
                               encryptUtils.decodeString(c.getCursCod()) + " - "
                               + encryptUtils.decodeString(c.getCursDescricao());
                               String sel = ""; if (curso != null) { if (id ==
-                              curso.getCursId()) { sel = "selected"; } } %>
-                              <option value="<%=id%>" <%="sel%">
-                                ><%=desc%>
+                              curso.getCursId()) { sel = "selected"; } } -->
+                              <option value="<!--=id-->">
+                                ><!--=desc-->
                               </option>
-                              <% } } %>
+                              <!-- } } -->
                             </optgroup>
                           </select>
                         </div>
@@ -98,16 +98,13 @@
                         <div class="col-md-7">
                           <select class="select" name="idDisciplina">
                             <optgroup label="Selecione disciplina">
-                              <% if (disciplinas != null) { for (Disciplina d :
+                              <!-- if (disciplinas != null) { for (Disciplina d :
                               disciplinas) { int id = d.getDiscId(); String desc
                               = encryptUtils.decodeString(d.getDiscDescricao());
                               String sel = ""; if (disciplina != null) { if (id
                               == disciplina.getDiscId()) { sel = "selected"; } }
-                              %>
-                              <option value="<%=id%>" <%="sel%">
-                                ><%=desc%>
-                              </option>
-                              <% } } %>
+                              -->
+                              <option value=""></option>                              <!-- } } -->
                             </optgroup>
                           </select>
                         </div>
@@ -136,11 +133,11 @@
 
         <!-- User profile -->
         <div class="row">
-          <% String dd = ""; String cur = ""; String di = ""; String an = ""; if
+          <!-- String dd = ""; String cur = ""; String di = ""; String an = ""; if
           (disciplina != null) { cur = "12ª Classe"; di =
           encryptUtils.decodeString(disciplina.getDiscDescricao()); } if
           (anoLectivo != null) { an =
-          encryptUtils.decodeString(anoLectivo.getAnolDescricao()); } %>
+          encryptUtils.decodeString(anoLectivo.getAnolDescricao()); } -->
 
           <div class="col-md-12">
             <!-- Basic responsive configuration -->
@@ -149,9 +146,9 @@
                 <h6 class="panel-title text-bold text-uppercase">
                   LISTA DE CANDIDATOS A EXAME
                   <span class="text-danger-600"
-                    >[<%=cur + "| Turma:" + dd%>]</span
+                    >[<!--=cur + "| Turma:" + dd-->]</span
                   >
-                  <span class="text-primary-600"> - [<%=di%>]</span>
+                  <span class="text-primary-600"> - [<!--=di-->]</span>
                 </h6>
                 <div class="heading-elements">
                   <ul class="icons-list">
@@ -166,7 +163,7 @@
                   <div class="form-group">
                     <button
                       id="btnExport"
-                      onclick="fnExcelReport('id18', 'LISTA DE CANDIDATOS A EXAME', '<%=an%>', '<%=cur%> | DISCIPLINA: <%=di%>');"
+                      onclick="fnExcelReport('id18', 'LISTA DE CANDIDATOS A EXAME', '<!--=an-->', '<!--=cur--> | DISCIPLINA: <!--=di-->');"
                       class="btn bg-success-600 btn-labeled btn-labeled-left text-bold text-uppercase"
                     >
                       <b><i class="icon-file-excel"></i></b>
@@ -193,7 +190,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <% int i = 0; if (exames != null) { for (Exame e : exames) {
+                  <!-- int i = 0; if (exames != null) { for (Exame e : exames) {
                   int id = e.getExamId(); String s1 =
                   encryptUtils.decodeString(e.getAluno().getPessoa().getPessNome())
                   + " " +
@@ -214,22 +211,22 @@
                   encryptUtils.decodeString(e.getDisciplina().getDiscDescricao());
                   String s10 =
                   encryptUtils.decodeString(e.getEntidade().getEntiNome()); i++;
-                  %>
+                  -->
                   <tr>
-                    <td class="text-bold text-primary-600"><%=i%></td>
-                    <td class="text-uppercase"><%=s3%></td>
-                    <td class="text-uppercase"><%=s10%></td>
-                    <td class="text-uppercase"><%=s4%></td>
-                    <td class="text-bold"><%=s2%></td>
-                    <td class="text-uppercase"><%=s1%></td>
-                    <td class="text-uppercase"><%=s5%></td>
-                    <td class="text-uppercase"><%=s6%></td>
-                    <td class="text-uppercase"><%=s7%></td>
-                    <td class="text-uppercase"><%=s8%></td>
-                    <td class="text-uppercase"><%=s9%></td>
+                    <td class="text-bold text-primary-600"><!--=i--></td>
+                    <td class="text-uppercase"><!--=s3--></td>
+                    <td class="text-uppercase"><!--=s10--></td>
+                    <td class="text-uppercase"><!--=s4--></td>
+                    <td class="text-bold"><!--=s2--></td>
+                    <td class="text-uppercase"><!--=s1--></td>
+                    <td class="text-uppercase"><!--=s5--></td>
+                    <td class="text-uppercase"><!--=s6--></td>
+                    <td class="text-uppercase"><!--=s7--></td>
+                    <td class="text-uppercase"><!--=s8--></td>
+                    <td class="text-uppercase"><!--=s9--></td>
                   </tr>
 
-                  <% } } %>
+                  <!-- } } -->
                 </tbody>
               </table>
 
@@ -250,7 +247,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <% i = 0; if (exames != null) { for (Exame e : exames) { int
+                  <!-- i = 0; if (exames != null) { for (Exame e : exames) { int
                   id = e.getExamId(); String s1 =
                   encryptUtils.decodeString(e.getAluno().getPessoa().getPessNome())
                   + " " +
@@ -271,22 +268,22 @@
                   encryptUtils.decodeString(e.getDisciplina().getDiscDescricao());
                   String s10 =
                   encryptUtils.decodeString(e.getEntidade().getEntiNome()); i++;
-                  %>
+                  -->
                   <tr>
-                    <td class="text-bold text-primary-600"><%=i%></td>
-                    <td class="text-uppercase"><%=s3%></td>
-                    <td class="text-uppercase"><%=s10%></td>
-                    <td class="text-uppercase"><%=s4%></td>
-                    <td class="text-bold"><%=s2%></td>
-                    <td class="text-uppercase"><%=s1%></td>
-                    <td class="text-uppercase"><%=s5%></td>
-                    <td class="text-uppercase"><%=s6%></td>
-                    <td class="text-uppercase"><%=s7%></td>
-                    <td class="text-uppercase"><%=s8%></td>
-                    <td class="text-uppercase"><%=s9%></td>
+                    <td class="text-bold text-primary-600"><!--=i--></td>
+                    <td class="text-uppercase"><!--=s3--></td>
+                    <td class="text-uppercase"><!--=s10--></td>
+                    <td class="text-uppercase"><!--=s4--></td>
+                    <td class="text-bold"><!--=s2--></td>
+                    <td class="text-uppercase"><!--=s1--></td>
+                    <td class="text-uppercase"><!--=s5--></td>
+                    <td class="text-uppercase"><!--=s6--></td>
+                    <td class="text-uppercase"><!--=s7--></td>
+                    <td class="text-uppercase"><!--=s8--></td>
+                    <td class="text-uppercase"><!--=s9--></td>
                   </tr>
 
-                  <% } } %>
+                  <!-- } } -->
                 </tbody>
               </table>
             </div>
