@@ -3,7 +3,7 @@
       <nav-bar :menu_types = "4"/>
       <v-row>
           <div class="content-wrapper">
-              <div>Schedule</div>
+                  
           </div>
       </v-row>
   </v-container>

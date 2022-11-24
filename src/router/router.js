@@ -317,7 +317,7 @@ const routes = [{
         },
         {
             path: 'schedule',
-            name: 'shedule',
+            name: 'schedule',
             component: () =>
                 import('@/views/extraudinario/ee-schedule.vue'),
             meta: {
