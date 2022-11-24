@@ -10,19 +10,25 @@
         "icon": "icon-database-edit2",
         "sub_menus": [{
                 "name": "menus.registar_aluno",
-                "to": "academico-registar-aluno",
+                "to": "addstudent",
                 "icon": "icon-user-plus",
                 "sub_menus": []
             },
             {
                 "name": "menus.importar_alunos",
-                "to": "import-a",
+                "to": "student-import",
                 "icon": "icon-file-upload",
                 "sub_menus": []
             },
             {
-                "name": "menus.listagem_alunos",
-                "to": "dashboard-academico",
+                "name": "menus.transferir_para_escola",
+                "to": "student-transfer-to-school",
+                "icon": "icon-users2",
+                "sub_menus": []
+            },
+            {
+                "name": "menus.transferir_para_turma",
+                "to": "student-transfer-to-class",
                 "icon": "icon-users2",
                 "sub_menus": []
             }
@@ -34,38 +40,26 @@
         "icon": "icon-profile",
         "sub_menus": [{
                 "name": "menus.matricular_aluno",
-                "to": "dashboard-academico",
+                "to": "student-register",
                 "icon": "icon-profile",
                 "sub_menus": []
             },
             {
                 "name": "menus.ditribuir_turmas",
-                "to": "dashboard-academico",
+                "to": "class-distribution",
                 "icon": "icon-align-right",
                 "sub_menus": []
             },
             {
                 "name": "menus.matricular_online",
-                "to": "dashboard-academico",
+                "to": "inscriptions-online",
                 "icon": "icon-user-check",
                 "sub_menus": []
             },
             {
                 "name": "menus.alunos_matriculados",
-                "to": "dashboard-academico",
+                "to": "student-inscriptions",
                 "icon": "icon-collaboration",
-                "sub_menus": []
-            },
-            {
-                "name": "menus.transferir_para_escola",
-                "to": "dashboard-academico",
-                "icon": "icon-transmission",
-                "sub_menus": []
-            },
-            {
-                "name": "menus.transferir_para_turma",
-                "to": "dashboard-academico",
-                "icon": "icon-flip-vertical4",
                 "sub_menus": []
             }
         ]
@@ -76,20 +70,14 @@
         "icon": "icon-book",
         "sub_menus": [{
                 "name": "menus.sumarios",
-                "to": "dashboard-academico",
+                "to": "summary",
                 "icon": "icon-archive",
                 "sub_menus": []
             },
             {
                 "name": "menus.definir_tema",
-                "to": "dashboard-academico",
+                "to": "thematic",
                 "icon": "icon-target",
-                "sub_menus": []
-            },
-            {
-                "name": "menus.vizualizar_sumario",
-                "to": "dashboard-academico",
-                "icon": "icon-clipboard3",
                 "sub_menus": []
             }
         ]
@@ -100,13 +88,13 @@
         "icon": "icon-bookmark",
         "sub_menus": [{
                 "name": "menus.definir_plano",
-                "to": "dashboard-academico",
+                "to": "summaries",
                 "icon": "icon-pencil6",
                 "sub_menus": []
             },
             {
                 "name": "menus.vizualizar_plano",
-                "to": "dashboard-academico",
+                "to": "define-plano",
                 "icon": "icon-books",
                 "sub_menus": []
             }
@@ -118,31 +106,31 @@
         "icon": "icon-calendar52",
         "sub_menus": [{
                 "name": "menus.horarios",
-                "to": "dashboard-academico",
+                "to": "horarios",
                 "icon": "icon-calendar2",
                 "sub_menus": []
             },
             {
                 "name": "menus.avaliacoes",
-                "to": "dashboard-academico",
+                "to": "avaliacoes",
                 "icon": "icon-calendar52",
                 "sub_menus": []
             },
             {
                 "name": "menus.exames",
-                "to": "dashboard-academico",
+                "to": "exames",
                 "icon": "icon-calendar",
                 "sub_menus": []
             },
             {
                 "name": "menus.juris_exame",
-                "to": "dashboard-academico",
+                "to": "juris-exames",
                 "icon": "icon-users",
                 "sub_menus": []
             },
             {
                 "name": "menus.folhas_resposta",
-                "to": "dashboard-academico",
+                "to": "folhas-de-resposta",
                 "icon": "icon-checkbox-checked",
                 "sub_menus": []
             }

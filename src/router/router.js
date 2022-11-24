@@ -314,7 +314,7 @@ const routes = [{
         }
         ]
     },
-    //Academico
+    /*Rotas Do Modulo Gestao De Informacao Academica Escolar */
     {
         path: 'academico',
         component: {
@@ -322,119 +322,221 @@ const routes = [{
                 return c('router-view');
             },
         },
-        children: [{
-            path: '/',
-            name: 'dashboard-academico',
-            component: () =>
-                import('@/views/academico/HomeView.vue'),
+        children: [
+            {
+                path: '/',
+                name: 'dashboard-academico',
+                component: () =>
+                    import('@/views/academico/HomeView.vue'),
 
-            meta: {
-                display: 'headers.home',
-                display_title: 'menus.home',
+                meta: {
+                    display: 'headers.home',
+                    display_title: 'menus.home',
+                }
+            },
+            /*Rota Do Sub-Menu Gestao Escolar*/
+            {
+                path: 'addstudent',
+                name: 'addstudent',
+                component: () =>
+                    import('@/views/academico/aluno/AddStudent.vue'),
+        
+                meta: {
+                    display: 'headers.registar_aluno',
+                    display_title: 'menus.registar_aluno',
+                },
+            },
+            {
+                path: 'student-import',
+                name: 'student-import',
+                component: () =>
+                    import('@/views/academico/aluno/student-import.vue'),
+        
+                meta: {
+                    display: 'headers.registar_aluno',
+                    display_title: 'menus.registar_aluno',
+                },
+            },
+            {
+                path: 'student-transfer-to-school',
+                name: 'student-transfer-to-school',
+                component: () =>
+                    import('@/views/academico/aluno/student-transfer-to-school.vue'),
+        
+                meta: {
+                    display: 'headers.registar_aluno',
+                    display_title: 'menus.registar_aluno',
+                },
+            },
+            {
+                path: 'student-transfer-to-class',
+                name: 'student-transfer-to-class',
+                component: () =>
+                    import('@/views/academico/aluno/student-transfer-to-class.vue'),
+        
+                meta: {
+                    display: 'headers.registar_aluno',
+                    display_title: 'menus.registar_aluno',
+                },
+            },
+            /*Fim Das Rotas Do Sub-Menu Gestao Escolar*/
+
+            /*Definicao De Rotas Do Sub-Menu Matriculas*/
+            {
+                path: 'student-register',
+                name: 'student-register',
+                component: () =>
+                    import('@/views/academico/aluno/student-register.vue'),
+        
+                meta: {
+                    display: 'headers.registar_aluno',
+                    display_title: 'menus.registar_aluno',
+                },
+            },{
+                path: 'class-distribution',
+                name: 'class-distribution',
+                component: () =>
+                    import('@/views/academico/aluno/class-distribution.vue'),
+        
+                meta: {
+                    display: 'headers.registar_aluno',
+                    display_title: 'menus.registar_aluno',
+                },
+            },
+            {
+                path: 'inscriptions-online',
+                name: 'inscriptions-online',
+                component: () =>
+                    import('@/views/academico/aluno/inscriptions-online.vue'),
+        
+                meta: {
+                    display: 'headers.registar_aluno',
+                    display_title: 'menus.registar_aluno',
+                },
+            },
+            {
+                path: 'student-inscriptions',
+                name: 'student-inscriptions',
+                component: () =>
+                    import('@/views/academico/aluno/student-inscriptions.vue'),
+        
+                meta: {
+                    display: 'headers.registar_aluno',
+                    display_title: 'menus.registar_aluno',
+                },
+            },
+            /*Fim Das Rotas Do Su-Menu Matriculas*/
+
+            /*Rotas Do Sumario*/
+            {
+                path: 'summary',
+                name: 'summary',
+                component: () =>
+                    import('@/views/academico/aluno/thematic.vue'),
+        
+                meta: {
+                    display: 'headers.registar_aluno',
+                    display_title: 'menus.registar_aluno',
+                },
+            },
+            {
+                path: 'thematic',
+                name: 'thematic',
+                component: () =>
+                    import('@/views/academico/aluno/summary.vue'),
+        
+                meta: {
+                    display: 'headers.registar_aluno',
+                    display_title: 'menus.registar_aluno',
+                },
+            },
+            /*Fim Das Rotas Do Sumario*/
+
+            /*Rotas Do Plano De Aula*/
+            {
+                path: 'summaries',
+                name: 'summaries',
+                component: () =>
+                    import('@/views/academico/aluno/summaries.vue'),
+        
+                meta: {
+                    display: 'headers.registar_aluno',
+                    display_title: 'menus.registar_aluno',
+                },
+            },
+            {
+                path: 'define-plano',
+                name: 'define-plano',
+                component: () =>
+                    import('@/views/academico/aluno/define-plano.vue'),
+        
+                meta: {
+                    display: 'headers.registar_aluno',
+                    display_title: 'menus.registar_aluno',
+                },
             }
-        },
-        {
-            path: 'registar-alunos',
-            name: 'academico-registar-aluno',
-            component: () =>
-                import('@/views/academico/aluno/AddStudent.vue'),
-    
-            meta: {
-                display: 'headers.registar_aluno',
-                display_title: 'menus.registar_aluno',
+            /*Fim Das Rotas Do Plano De Aula*/
+            ,
+             /*Rotas Do Calendario*/
+            {
+                path: 'horarios',
+                name: 'horarios',
+                component: () =>
+                    import('@/views/academico/aluno/horarios.vue'),
+        
+                meta: {
+                    display: 'headers.registar_aluno',
+                    display_title: 'menus.registar_aluno',
+                },
             },
-        },
-        {
-            path: 'registar-alunos',
-            name: 'academico-registar-aluno',
-            component: () =>
-                import('@/views/academico/aluno/AddStudent.vue'),
-    
-            meta: {
-                display: 'headers.registar_aluno',
-                display_title: 'menus.registar_aluno',
+            {
+                path: 'avaliacoes',
+                name: 'avaliacoes',
+                component: () =>
+                    import('@/views/academico/aluno/avaliacoes.vue'),
+        
+                meta: {
+                    display: 'headers.registar_aluno',
+                    display_title: 'menus.registar_aluno',
+                },
             },
-        },
-        {
-            path: 'registar-alunos',
-            name: 'academico-registar-aluno',
-            component: () =>
-                import('@/views/academico/aluno/AddStudent.vue'),
-    
-            meta: {
-                display: 'headers.registar_aluno',
-                display_title: 'menus.registar_aluno',
+            {
+                path: 'exames',
+                name: 'exames',
+                component: () =>
+                    import('@/views/academico/aluno/exames.vue'),
+        
+                meta: {
+                    display: 'headers.registar_aluno',
+                    display_title: 'menus.registar_aluno',
+                },
             },
-        },
-        {
-            path: 'registar-alunos',
-            name: 'academico-registar-aluno',
-            component: () =>
-                import('@/views/academico/aluno/AddStudent.vue'),
-    
-            meta: {
-                display: 'headers.registar_aluno',
-                display_title: 'menus.registar_aluno',
+            {
+                path: 'juris-exames',
+                name: 'juris-exames',
+                component: () =>
+                    import('@/views/academico/aluno/juris-exames.vue'),
+        
+                meta: {
+                    display: 'headers.registar_aluno',
+                    display_title: 'menus.registar_aluno',
+                },
             },
-        },
-        {
-            path: 'registar-alunos',
-            name: 'academico-registar-aluno',
-            component: () =>
-                import('@/views/academico/aluno/AddStudent.vue'),
-    
-            meta: {
-                display: 'headers.registar_aluno',
-                display_title: 'menus.registar_aluno',
-            },
-        },
-        {
-            path: 'registar-alunos',
-            name: 'academico-registar-aluno',
-            component: () =>
-                import('@/views/academico/aluno/AddStudent.vue'),
-    
-            meta: {
-                display: 'headers.registar_aluno',
-                display_title: 'menus.registar_aluno',
-            },
-        },
-        {
-            path: 'registar-alunos',
-            name: 'academico-registar-aluno',
-            component: () =>
-                import('@/views/academico/aluno/AddStudent.vue'),
-    
-            meta: {
-                display: 'headers.registar_aluno',
-                display_title: 'menus.registar_aluno',
-            },
-        },
-        {
-            path: 'registar-alunos',
-            name: 'academico-registar-aluno',
-            component: () =>
-                import('@/views/academico/aluno/AddStudent.vue'),
-    
-            meta: {
-                display: 'headers.registar_aluno',
-                display_title: 'menus.registar_aluno',
-            },
-        },
-        {
-            path: 'registar-alunos',
-            name: 'academico-registar-aluno',
-            component: () =>
-                import('@/views/academico/aluno/AddStudent.vue'),
-    
-            meta: {
-                display: 'headers.registar_aluno',
-                display_title: 'menus.registar_aluno',
-            },
-        }
+            {
+                path: 'folhas-de-resposta',
+                name: 'folhas-de-resposta',
+                component: () =>
+                    import('@/views/academico/aluno/folhas-de-resposta.vue'),
+        
+                meta: {
+                    display: 'headers.registar_aluno',
+                    display_title: 'menus.registar_aluno',
+                },
+            }
+            /*Fim Das Rotas Do Calendario*/
         ]
     }
-    //Fim de Academico
+    /*Fim das Rotas Do Modulo De Gestao De Informacao Academica Escolar*/
     ],
 },
 {
