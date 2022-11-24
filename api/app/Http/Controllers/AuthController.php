@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 //use Message;
 use Illuminate\Support\Facades\Mail;
 use App\Models\User;
+use App\Models\Person;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 use App\Http\Requests\ForgotRequest;
@@ -28,9 +29,10 @@ class AuthController extends Controller
                 /** @var User $user*/
                 $user = Auth::user();
                 $token = $user->createToken(name: 'app')->accessToken;
+                $data = User::with('person')->where('id', $user->id)->get();
                 return  response([
                     'message' => 'sucess login!',
-                    'user' => $user,
+                    'user' => $data,
                     'token' => $token
                 ]);
             }
@@ -45,18 +47,29 @@ class AuthController extends Controller
 
     public function user()
     {
-        if (Auth::check()) {
-            return Auth::user();
+        try {
+            if (Auth::check()) {
+                $user = Auth::user();
+                $data = User::with('person')->where('id', $user->id)->get();
+                return response()->json($data);
+            }
+            return response(['msg' => 'Not authorized'], 404);
+        } catch (\Exception $e) {
+            return response(['msg' => $e->getMessage()], $e->getCode());
         }
     }
 
 
-    public function register(UserRequest $request)
+    public function register(Request $request)
     {
         try {
+            $person = new Person();
+            $person->name = $request['name'];
+            $person->surname = $request['surname'];
+            $person->save();
 
             $user = new User();
-
+            $user->person_id = $person->id;
             $user->email = $request['email'];
             $user->name = $request['name'];
             $user->password = Hash::make($request['password']);

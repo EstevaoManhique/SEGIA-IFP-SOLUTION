@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 //use Message;
 use Illuminate\Support\Facades\Mail;
 use App\Models\User;
+use App\Models\Person;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 use App\Http\Requests\ForgotRequest;
@@ -51,18 +52,22 @@ class AuthController extends Controller
     }
 
 
-    public function register(UserRequest $request)
+    public function register(Request $request)
     {
         try {
+            $person = new Person();
+            $person->name = $request['name'];
+            $person->surname = $request['surname'];
+            $person->save();
 
             $user = new User();
-
+            $user->person_id = $person->id;
             $user->email = $request['email'];
             $user->name = $request['name'];
             $user->password = Hash::make($request['password']);
             $user->admin = isset($request['admin']) ? (($request['admin']) ? 1 : 0) : 0;
             $user->save();
-            return  $user;
+            return response()->json($user);
         } catch (\Exception $e) {
             return response(['message' => $e->getMessage()], 400);
         }

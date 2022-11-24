@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateOauthAuthCodesTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,14 @@ class CreateOauthAuthCodesTable extends Migration
      */
     public function up()
     {
-        Schema::create('oauth_auth_codes', function (Blueprint $table) {
+        Schema::create('oauth_access_tokens', function (Blueprint $table) {
             $table->string('id', 100)->primary();
-            $table->unsignedBigInteger('user_id')->index();
-            $table->unsignedBigInteger('client_id');
+            $table->unsignedBigInteger('user_id')->nullable()->index();
+            $table->uuid('client_id');
+            $table->string('name')->nullable();
             $table->text('scopes')->nullable();
             $table->boolean('revoked');
+            $table->timestamps();
             $table->dateTime('expires_at')->nullable();
         });
     }
@@ -30,6 +32,6 @@ class CreateOauthAuthCodesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('oauth_auth_codes');
+        Schema::dropIfExists('oauth_access_tokens');
     }
-}
+};

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Student;
+use App\Models\Person;
 
 class StudentController extends Controller
 {
@@ -13,7 +15,8 @@ class StudentController extends Controller
      */
     public function index()
     {
-        //
+        $students = Student::all();
+        return response()->json($students);
     }
 
     /**
@@ -34,7 +37,21 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $student = new Student();
+            $person = new Person();
+            $person->name = $request['name'];
+            $person->surname = $request['surname'];
+            $person->save();
+
+            $student->person_id = $person->id;
+            $student->school_id = $request['school_id'];
+            $student->save();
+            $data = Student::with('person')->where('id', $student->id)->get();
+            return response(['msg' => 'Student Registered!', 'data' => $data], 200);
+        } catch (\Exception $e) {
+            return response(['msg' => $e->getMessage()], $e->getCode());
+        }
     }
 
     /**
@@ -45,7 +62,9 @@ class StudentController extends Controller
      */
     public function show($id)
     {
-        //
+        $student = Student::find($id);
+
+        return response()->json($student);
     }
 
     /**
@@ -68,7 +87,23 @@ class StudentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            $student = Student::findOrFail($id);
+            if ($student) {
+                $person = Person::findOrFail($student->person_id);
+                $person->name = isset($request['name']) ? $request['name'] :  $person->name;
+                $person->surname = isset($request['surname']) ? $request['surname'] :  $person->surname;
+                $person->save();
+                $student->school_id = isset($request['school_id']) ? $request['school_id'] : $student->school_id;
+                $student->save();
+                $data = Student::with('person')->where('id', $student->id)->get();
+                return response(['msg' => 'Student Updated!', 'data' => $data], 200);
+            }
+
+            return response(['msg' => 'Student not found!'], 404);
+        } catch (\Exception $e) {
+            return response(['msg' => $e->getMessage()], $e->getCode());
+        }
     }
 
     /**
@@ -79,6 +114,14 @@ class StudentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $student = Student::findOrFail($id);
+            if ($student) {
+                $student->delete();
+                return response()->json(['msg' => 'Student deleted successfully!']);
+            }
+        } catch (\Exception $e) {
+            return response(['msg' => $e->getMessage()], $e->getCode());
+        }
     }
 }

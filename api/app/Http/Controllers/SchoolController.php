@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\School;
 
 class SchoolController extends Controller
 {
@@ -13,7 +14,8 @@ class SchoolController extends Controller
      */
     public function index()
     {
-        //
+        $schools = School::all();
+        return response()->json($schools);
     }
 
     /**
@@ -34,7 +36,24 @@ class SchoolController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $school = new School();
+            if (isset($request['id'])) {
+                $school = School::find($request['id']);
+            }
+
+            $school->esc_contacto = $request['cod_escola'];
+            $school->esc_contacto = $request['esc_contacto'];
+            $school->esc_descricao = $request['esc_descricao'];
+            $school->esc_distrito = $request['esc_distrito'];
+            $school->esc_provincia = $request['esc_provincia'];
+            $school->esc_endereco = $request['esc_endereco'];
+            $school->save();
+
+            return response(['msg' => 'School Registered', 'data' => $school], 200);
+        } catch (\Exception $e) {
+            return response(['msg' => $e->getMessage()], $e->getCode());
+        }
     }
 
     /**
@@ -45,7 +64,9 @@ class SchoolController extends Controller
      */
     public function show($id)
     {
-        //
+        $school = School::find($id);
+
+        return response()->json($school);
     }
 
     /**
@@ -68,7 +89,23 @@ class SchoolController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            $school = School::findOrFail($id);
+            if ($school) {
+                $school->esc_contacto = $request['cod_escola'];
+                $school->esc_contacto = $request['esc_contacto'];
+                $school->esc_descricao = $request['esc_descricao'];
+                $school->esc_distrito = $request['esc_distrito'];
+                $school->esc_provincia = $request['esc_provincia'];
+                $school->esc_endereco = $request['esc_endereco'];
+                $school->save();
+                return response(['msg' => 'School Updated!', 'data' => $school], 200);
+            }
+
+            return response(['msg' => 'School not found!'], 404);
+        } catch (\Exception $e) {
+            return response(['msg' => $e->getMessage()], $e->getCode());
+        }
     }
 
     /**
@@ -79,6 +116,14 @@ class SchoolController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $school = School::findOrFail($id);
+            if ($school) {
+                $school->delete();
+                return response()->json(['msg' => 'School deleted successfully!']);
+            }
+        } catch (\Exception $e) {
+            return response(['msg' => $e->getMessage()], $e->getCode());
+        }
     }
 }
