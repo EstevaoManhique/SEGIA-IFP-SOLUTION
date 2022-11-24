@@ -16,7 +16,7 @@
             },
             {
                 "name": "menus.importar_alunos",
-                "to": "dashboard-academico",
+                "to": "import-a",
                 "icon": "icon-file-upload",
                 "sub_menus": []
             },

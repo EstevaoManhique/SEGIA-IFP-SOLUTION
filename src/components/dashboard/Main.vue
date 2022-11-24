@@ -7,7 +7,8 @@
         :key="index"
       >
         <q-modulo :modulo="modulo"
-      /></v-col>
+      />
+  </v-col>
     </v-row>
   </v-container>
 </template>

@@ -37,7 +37,9 @@
         "en_register": "Preencher os campos em Ingles",
         "our": "Nosso {0}",
         "our_service_products": "Nossos serviços e productos",
-        "our_offerings": "Nossas Ofertas"
+        "our_offerings": "Nossas Ofertas",
+        "upload_desenho":"Upload Desenho",
+        "exames_de_desenho":"Exames De Desenho"
     },
     "headers": {
         "product": "Conheça os nossos productos",
@@ -74,7 +76,7 @@
         "mapa_avaliados": "Mapa de Avaliados",
         "mapa_presenca": "Mapa de Presenca",
         "mapa_inscritos": "Mapa de Inscritos",
-        "exame_extraordinario": "Exames Extraordinários",
+        "exame_extraordinario": "E. Extraordinários",
         "periodo_inscricao": "Periodo de Inscricao",
         "centro_exames": "Centro de Exames",
         "inscrever_candidato": "Inscrever Candidato",
@@ -124,7 +126,9 @@
         "12a-list": "SEGIA -  Lista Apurados",
         "12a_calendar": "SEGIA - Calendário de Exames (12ª Classe)",
         "12a-classroom": "SEGIA - Alunos da Turma",
-        "12a-jury": "SEGIA - Criação de Júri"
+        "12a-jury": "SEGIA - Criação de Júri",
+        "visualizar_juri":"Visualizar Juri",
+        "extracao_juri":"Extracao De Juris"
     },
     "fieldes": {
         "address": "Endereço",

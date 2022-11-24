@@ -1,127 +1,120 @@
 [{
-        "name": "menus.dashboard",
-        "to": "dashboard-extraudinario",
-        "icon": "icon-home",
-        "sub_menus": []
-    },
-    {
-        "name": "menus.exame_extraordinario",
-        "to": "dashboard-extraudinario",
-        "icon": "icon-pencil4",
-        "sub_menus": [{
-                "name": "menus.periodo_inscricao",
-                "to": "dashboard-extraudinario",
-                "icon": "icon-calendar2",
-                "sub_menus": []
-            },
-            {
-                "name": "menus.centro_exames",
-                "to": "dashboard-extraudinario",
-                "icon": "icon-office",
-                "sub_menus": []
-            },
-            {
-                "name": "menus.inscrever_candidato",
-                "to": "dashboard-extraudinario",
-                "icon": "icon-file-plus",
-                "sub_menus": []
-            },
-            {
-                "name": "menus.validar_inscricao",
-                "to": "dashboard-extraudinario",
-                "icon": "icon-checkmark",
-                "sub_menus": []
-            },
-            {
-                "name": "menus.candidato_inscrito",
-                "to": "dashboard-extraudinario",
-                "icon": "icon-user-check",
-                "sub_menus": []
-            },
-            {
-                "name": "menus.candidato_disciplina",
-                "to": "dashboard-extraudinario",
-                "icon": "icon-bookmark",
-                "sub_menus": []
-            },
-            {
-                "name": "menus.calendario_exames",
-                "to": "dashboard-extraudinario",
-                "icon": "icon-calendar3",
-                "sub_menus": []
-            },
-            {
-                "name": "menus.criacao_juris",
-                "to": "dashboard-extraudinario",
-                "icon": "icon-reading",
-                "sub_menus": []
-            },
-            {
-                "name": "menus.lista_juris",
-                "to": "dashboard-extraudinario",
-                "icon": "icon-collaboration",
-                "sub_menus": []
-            },
-            {
-                "name": "menus.distribuicao_juris",
-                "to": "dashboard-extraudinario",
-                "icon": "icon-split",
-                "sub_menus": []
-            },
-            {
-                "name": "menus.guiao_resposta",
-                "to": "dashboard-extraudinario",
-                "icon": "icon-stack-check",
-                "sub_menus": []
-            },
-            {
-                "name": "menus.carregar_resposta",
-                "to": "dashboard-extraudinario",
-                "icon": "icon-download4",
-                "sub_menus": []
-            },
-            {
-                "name": "menus.presenca_fraudes",
-                "to": "dashboard-extraudinario",
-                "icon": "icon-exclamation",
-                "sub_menus": []
-            },
-            {
-                "name": "menus.pauta_exames",
-                "to": "dashboard-extraudinario",
-                "icon": "icon-table2",
-                "sub_menus": []
-            }
-        ]
-    },
-    {
-        "name": "menus.relatorios",
-        "to": "dashboard-extraudinario",
-        "icon": "icon-list3",
-        "sub_menus": [{
-                "name": "menus.mapa_avaliados",
-                "to": "dashboard-extraudinario",
-                "icon": "icon-bookmark4",
-                "sub_menus": []
-            },
-            {
-                "name": "menus.mapa_presenca",
-                "to": "dashboard-extraudinario",
-                "icon": "icon-list-numbered",
-                "sub_menus": []
-            },
-            {
-                "name": "menus.mapa_inscritos",
-                "to": "dashboard-extraudinario",
-                "icon": "icon-checkmark-circle",
-                "sub_menus": []
-            },
-            {
-                "name": "menus.inscritos_disciplina",
-                "to": "dashboard-extraudinario",
-                "icon": "icon-book2",
-                "sub_menus": []
-            }
-        ]
-    }
+    "name": "menus.dashboard",
+    "to": "home-12classe",
+    "icon": "icon-home",
+    "sub_menus": []
+},
+{
+    "name": "menus.exame_extraordinario",
+    "to": "dashboard-12classe",
+    "icon": "icon-pencil4",
+    "sub_menus": [{
+            "name": "menus.periodo_inscricao",
+            "to": "12a-list",
+            "icon": "icon-users2",
+            "sub_menus": []
+        },
+        {
+            "name": "menus.centro_exames",
+            "to": "12a-calendar",
+            "icon": "icon-calendar3",
+            "sub_menus": []
+        },
+        {
+            "name": "menus.inscrever_candidato",
+            "to": "12a-jury",
+            "icon": "icon-reading",
+            "sub_menus": []
+        },
+        {
+            "name": "menus.validar_inscricao",
+            "to": "12a-jury",
+            "icon": "icon-collaboration",
+            "sub_menus": []
+        },
+        {
+            "name": "menus.candidato_inscrito",
+            "to": "12a-aswer",
+            "icon": "icon-stack-check",
+            "sub_menus": []
+        },
+        {
+            "name": "menus.candidato_disciplina",
+            "to": "12a-decoder",
+            "icon": "icon-download4",
+            "sub_menus": []
+        },
+        {
+            "name": "menus.calendario_exames",
+            "to": "12a-presences",
+            "icon": "icon-exclamation",
+            "sub_menus": []
+        },
+        {
+            "name": "menus.criacao_juris",
+            "to": "12a-guideline",
+            "icon": "icon-table2",
+            "sub_menus": []
+        },{
+            "name": "menus.extracao_juri",
+            "to": "12a-guideline",
+            "icon": "icon-table2",
+            "sub_menus": []
+        },{
+            "name": "menus.visualizar_juri",
+            "to": "12a-guideline",
+            "icon": "icon-table2",
+            "sub_menus": []
+        },{
+            "name": "menus.carregar_resposta",
+            "to": "12a-guideline",
+            "icon": "icon-table2",
+            "sub_menus": []
+        },{
+            "name": "menus.exames_de_desenho",
+            "to": "12a-guideline",
+            "icon": "icon-table2",
+            "sub_menus": []
+        },{
+            "name": "menus.upload_desenho",
+            "to": "12a-guideline",
+            "icon": "icon-table2",
+            "sub_menus": []
+        },{
+            "name": "menus.presenca_fraudes",
+            "to": "12a-guideline",
+            "icon": "icon-table2",
+            "sub_menus": []
+        },{
+            "name": "menus.pauta_exames",
+            "to": "12a-guideline",
+            "icon": "icon-table2",
+            "sub_menus": []
+        }
+    ]
+},
+{
+    "name": "menus.relatorios",
+    "to": "dashboard-12classe",
+    "icon": "icon-list3",
+    "sub_menus": [{
+            "name": "menus.mapa_avaliados",
+            "to": "dashboard-12classe",
+            "icon": "icon-bookmark4",
+            "sub_menus": []
+        },
+        {
+            "name": "menus.mapa_presenca",
+            "to": "dashboard-12classe",
+            "icon": "icon-list-numbered",
+            "sub_menus": []
+        },
+        {
+            "name": "menus.mapa_inscritos",
+            "to": "dashboard-12classe",
+            "icon": "icon-checkmark-circle",
+            "sub_menus": []
+        }
+    ]
+}
 ]

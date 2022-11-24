@@ -19,9 +19,9 @@
               <v-icon v-text="menu.icon"></v-icon>
             </v-list-item-icon>
             <v-list-item-content>
-              <v-list-item-title class="light--text">{{
-                $t(menu.name) | upper
-              }}</v-list-item-title>
+              <v-list-item-title class="light--text">
+                  {{$t(menu.name) | upper}}
+              </v-list-item-title>
             </v-list-item-content>
           </v-list-item>
         </template>
@@ -34,9 +34,9 @@
             <v-icon v-text="sub_menu.icon"></v-icon>
           </v-list-item-icon>
           <v-list-item-content>
-            <v-list-item-title class="light--text">{{
-              $t(sub_menu.name) | upper
-            }}</v-list-item-title>
+            <v-list-item-title class="light--text">
+              {{$t(sub_menu.name) | upper}}
+            </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list-group>
@@ -48,6 +48,8 @@
 import menu_academico from '@/store/modules/menu/menu_academico.json';
 import menu_12classe from '@/store/modules/menu/menu_12classe.json';
 import menu_acesso from '@/store/modules/menu/menu_acesso.json';
+import menu_extraordinario from '@/store/modules/menu/menu_extraudinario.json';
+
 export default {
   name: 'QMenu',
   props: ['menu_type'],
@@ -57,6 +59,7 @@ export default {
       menu_academico,
       menu_12classe,
       menu_acesso,
+      menu_extraordinario
     };
   },
   mounted() {
@@ -72,12 +75,11 @@ export default {
           this.menus = this.menu_acesso;
           break;
         case 4:
-          this.menus = this.menu_academico;
+          this.menus = this.menu_extraordinario;
           break;
         case 5:
           this.menus = this.menu_academico;
           break;
-
         default:
           this.menus = this.menu_academico;
           break;
