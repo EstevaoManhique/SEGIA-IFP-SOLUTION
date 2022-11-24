@@ -86,6 +86,10 @@
           </div>
           <!-- /content area -->
         </div>
+
+        <li v-for="(student, index) in students" :key="index">
+          {{ student.person.name }}
+        </li>
         <!-- /main content -->
       </div>
     </v-row>
@@ -94,14 +98,20 @@
 
 <script>
 import NavBar from '@/components/layout/NavBar.vue';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 export default {
   name: 'HomeView',
   components: { NavBar },
   data: () => ({}),
+  methods: {
+    ...mapActions(['getStudents']),
+  },
+  mounted() {
+    this.getStudents();
+  },
 
   computed: {
-    ...mapGetters(['user']),
+    ...mapGetters(['user', 'students']),
   },
 };
 </script>
