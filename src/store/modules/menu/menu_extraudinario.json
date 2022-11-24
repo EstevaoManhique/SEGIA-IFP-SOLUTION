@@ -10,64 +10,64 @@
     "icon": "icon-pencil4",
     "sub_menus": [{
             "name": "menus.periodo_inscricao",
-            "to": "12a-list",
-            "icon": "icon-users2",
+            "to": "inscription",
+            "icon": "icon-calendar2",
             "sub_menus": []
         },
         {
             "name": "menus.centro_exames",
-            "to": "12a-calendar",
-            "icon": "icon-calendar3",
+            "to": "center",
+            "icon": "icon-office",
             "sub_menus": []
         },
         {
             "name": "menus.inscrever_candidato",
-            "to": "12a-jury",
-            "icon": "icon-reading",
+            "to": "inscription-online",
+            "icon": "icon-file-plus",
             "sub_menus": []
         },
         {
             "name": "menus.validar_inscricao",
-            "to": "12a-jury",
-            "icon": "icon-collaboration",
+            "to": "inscription-validation",
+            "icon": "icon-checkmark",
             "sub_menus": []
         },
         {
             "name": "menus.candidato_inscrito",
-            "to": "12a-aswer",
-            "icon": "icon-stack-check",
+            "to": "list2",
+            "icon": "icon-user-check",
             "sub_menus": []
         },
         {
             "name": "menus.candidato_disciplina",
-            "to": "12a-decoder",
-            "icon": "icon-download4",
+            "to": "list",
+            "icon": "icon-bookmark",
             "sub_menus": []
         },
         {
             "name": "menus.calendario_exames",
-            "to": "12a-presences",
-            "icon": "icon-exclamation",
+            "to": "calendar",
+            "icon": "icon-calendar3",
             "sub_menus": []
         },
         {
             "name": "menus.criacao_juris",
-            "to": "12a-guideline",
-            "icon": "icon-table2",
+            "to": "jury",
+            "icon": "icon-reading",
             "sub_menus": []
         },{
             "name": "menus.extracao_juri",
-            "to": "12a-guideline",
+            "to": "distribution",
             "icon": "icon-table2",
             "sub_menus": []
         },{
             "name": "menus.visualizar_juri",
-            "to": "12a-guideline",
+            "to": "classroom",
             "icon": "icon-table2",
             "sub_menus": []
         },{
             "name": "menus.carregar_resposta",
-            "to": "12a-guideline",
+            "to": "answers",
             "icon": "icon-table2",
             "sub_menus": []
         },{
@@ -77,17 +77,17 @@
             "sub_menus": []
         },{
             "name": "menus.upload_desenho",
-            "to": "12a-guideline",
+            "to": "decoder",
             "icon": "icon-table2",
             "sub_menus": []
         },{
             "name": "menus.presenca_fraudes",
-            "to": "12a-guideline",
+            "to": "presences",
             "icon": "icon-table2",
             "sub_menus": []
         },{
             "name": "menus.pauta_exames",
-            "to": "12a-guideline",
+            "to": "guideline",
             "icon": "icon-table2",
             "sub_menus": []
         }

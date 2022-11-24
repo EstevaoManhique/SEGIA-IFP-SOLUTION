@@ -446,26 +446,27 @@ const routes = [{
     meta: {
         display: 'headers.home',
         display_title: 'menus.home',
-    },
-    {
-        path: '/user',
-        component: {
-            render(c) {
-                return c('router-view');
-            },
+    }
+},
+{
+    path: '/user',
+    component: {
+        render(c) {
+            return c('router-view');
         },
-        children: [{
-            path: 'perfil',
-            name: 'user-perfil',
-            component: () =>
-                import ('@/views/user/UserPerfil.vue'),
-
-            meta: {
-                display: 'headers.user-perfil',
-                display_title: 'menus.user-perfil',
-            },
-        }, ],
     },
+    children: [{
+        path: 'perfil',
+        name: 'user-perfil',
+        component: () =>
+            import('@/views/user/UserPerfil.vue'),
+
+        meta: {
+            display: 'headers.user-perfil',
+            display_title: 'menus.user-perfil',
+        },
+    },],
+},
 ];
 
 const router = new Router({

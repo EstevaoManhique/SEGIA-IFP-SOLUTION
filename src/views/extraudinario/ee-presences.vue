@@ -1,13 +1,20 @@
- <template>
-   <div>Presences</div>
- </template>
- 
- <script>
- export default {
- 
- }
- </script>
- 
- <style>
- 
- </style>
+<template>
+  <v-container>
+      <nav-bar :menu_types = "4"/>
+      <v-row>
+          <div class="content-wrapper">
+              <div>Presences</div>
+          </div>
+      </v-row>
+  </v-container>
+</template>
+
+<script>
+import NavBar from '@/components/layout/NavBar.vue';
+export default {
+  components:{NavBar}
+};
+</script>
+
+<style>
+</style>
