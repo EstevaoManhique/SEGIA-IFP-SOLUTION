@@ -114,13 +114,7 @@
                               name="documento"
                             >
                               <option></option>
-                              <% String documentos[] = {"BI", "Passaporte",
-                              "DIRE", "Cédula pessoal", "Cartão de eleitor",
-                              "Carta de condução", "Outro"}; for (String s :
-                              documentos) { String sel = ""; if (s.equals(doc))
-                              { sel = "selected"; } %>
-                              <option value="<%=s%>" <%="sel%">><%=s%></option>
-                              <% } %>
+                              <option value=""></option>
                             </select>
                           </div>
 
@@ -217,9 +211,8 @@
                               type="radio"
                               name="sexo"
                               class="styled"
-                              <%="sM%"
+                           
                             />
-                            value="Masculino"> Masculino
                           </label>
 
                           <label class="radio-inline">
@@ -227,7 +220,6 @@
                               type="radio"
                               name="sexo"
                               class="styled"
-                              <%="sF%"
                             />
                             value="Feminino"> Feminino
                           </label>
@@ -436,14 +428,7 @@
                               required=""
                             >
                               <option></option>
-                              <% String provincias[] = {"Cidade de Maputo",
-                              "Maputo", "Gaza", "Inhambane", "Manica", "Niassa",
-                              "Nampula", "Sofala", "Tete", "Zambézia", "Cabo
-                              Delgado"}; for (String s : provincias) { String
-                              sel = ""; if (prov.equals(s)) { sel = "selected";
-                              } %>
-                              <option value="<%=s%>" <%="sel%">><%=s%></option>
-                              <% } %>
+                              <option value=""></option>
                             </select>
                           </div>
 
@@ -456,14 +441,7 @@
                               required=""
                             >
                               <option></option>
-
-                              <% String distritos[] = {"KaMpfumo",
-                              "Nlhamankulu", "KaMaxaquene", "KaMavota",
-                              "KaMubukwana", "KaTembe", "KaNyaka"}; for (String
-                              s : distritos) { String sel = ""; if
-                              (distr.equals(s)) { sel = "selected"; } %>
-                              <option value="<%=s%>" <%="sel%">><%=s%></option>
-                              <% } %>
+                              <option ></option>
                             </select>
                           </div>
                         </div>
@@ -529,9 +507,7 @@
                               type="radio"
                               name="deficiencia"
                               class="styled"
-                              <%="dS%"
-                            />
-                            value="Sim"> Sim
+                             >
                           </label>
 
                           <label class="radio-inline">
@@ -539,9 +515,7 @@
                               type="radio"
                               name="deficiencia"
                               class="styled"
-                              <%="dN%"
-                            />
-                            value="Não"> Não
+                             >
                           </label>
                         </div>
                       </div>
@@ -569,15 +543,7 @@
                                 name="nivel"
                               >
                                 <option></option>
-                                <% String niveis[] = {"Ensino básico", "Ensino
-                                médio", "Ensino técnico", "Ensino técnico
-                                superior", "Ensino superior"}; for (String s :
-                                niveis) { String sel = ""; if (s.equals(niv)) {
-                                sel = "selected"; } %>
-                                <option value="<%=s%>" <%="sel%">
-                                  ><%=s%>
-                                </option>
-                                <% } %>
+                               
                               </select>
                             </div>
                           </div>
@@ -601,15 +567,7 @@
                                 name="ocupacao"
                               >
                                 <option></option>
-                                <% String ocupacoes[] = {"Estudante",
-                                "Funcionário Público", "Funcionário Privado",
-                                "Conta Própria", "Desempregado"}; for (String s
-                                : ocupacoes) { String sel = ""; if
-                                (s.equals(ocup)) { sel = "selected"; } %>
-                                <option value="<%=s%>" <%="sel%">
-                                  ><%=s%>
-                                </option>
-                                <% } %>
+                          
                               </select>
                             </div>
                           </div>
@@ -630,8 +588,7 @@
                             type="checkbox"
                             name="certificado"
                             class="styled"
-                            <%="cD%"
-                          />> Certificado/ Declaração Provisória
+                          >
                         </label>
 
                         <label class="radio-inline">
@@ -639,8 +596,7 @@
                             type="checkbox"
                             name="copiaBI"
                             class="styled"
-                            <%="cB%"
-                          />> Cópia do BI
+                          />
                         </label>
 
                         <label class="radio-inline">
@@ -648,8 +604,7 @@
                             type="checkbox"
                             name="fotos"
                             class="styled"
-                            <%="fT%"
-                          />> Fotos
+                           >
                         </label>
                       </div>
                     </div>
@@ -665,20 +620,16 @@
               </div>
 
               <div class="text-right">
-                <% if (aluno != null) { String actC =
-                encryptUtils.encodeString("accao#cancelar-edicao"); %>
                 <a
                   href="QWx1bm9TZXJ2bGV0I0RDSQ==?<%=actC%>"
                   class="btn text-bold text-uppercase bg-danger-400 btn-labeled-left ml-10"
                   ><i class="icon-cross2"></i> Cancelar edição</a
                 >
-                <% } %>
                 <button
                   type="submit"
                   onclick="this.disabled = 'disabled'; this.form.submit();"
                   class="btn text-bold text-uppercase bg-slate-800"
-                >
-                  <%=vlBtn%> <i class="icon-arrow-right14 position-right"></i>
+                ><i class="icon-arrow-right14 position-right"></i>
                 </button>
               </div>
             </div>

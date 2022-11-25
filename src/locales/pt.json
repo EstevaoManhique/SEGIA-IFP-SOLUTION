@@ -114,6 +114,7 @@
         "gestao_notas": "Gestao de Notas",
         "lancar_notas": "Lancar Notas",
         "importar_notas": "Importar Notas",
+        "importar_notas_trimestrais": "Importar Notas Trim",
         "gestao_exames": "Gestao de Exames",
         "distribuicao_alunos": "Distribuicao de Alunos",
         "candidatos_exames": "Candidatos Exames",
@@ -128,7 +129,24 @@
         "12a-classroom": "SEGIA - Alunos da Turma",
         "12a-jury": "SEGIA - Criação de Júri",
         "visualizar_juri":"Visualizar Juri",
-        "extracao_juri":"Extracao De Juris"
+        "extracao_juri":"Extracao De Juris",
+        "assiduidade":"Assiduidade",
+        "comportamento":"Comportamento",
+        "certificados":"certificados",
+        "emitir_certificados":"Emitir Certificados",
+        "validar_pedido":"validar pedido",
+        "pagamentos":"pagamentos",
+        "definir_outras_taxas":"definir outras taxas",
+        "pagamento_matriculas":"pagamento matriculas",
+        "pagamentos_online":"pagamentos online",
+        "gerar_pagamentos":"gerar pagamentos",
+        "outros_pagamentos":"outros pagamentos",
+        "situacao_pagamentos":"situacao pagamentos",
+        "conselho_de_escola":"conselho de escola",
+        "membros":"membros",
+        "emitir_notificacao":"emitir notificacao",
+        "notificacoes_emitidas":"notificacoes emitidas"
+        
     },
     "fieldes": {
         "address": "Endereço",

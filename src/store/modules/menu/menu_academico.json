@@ -142,13 +142,19 @@
         "icon": "icon-pencil-ruler",
         "sub_menus": [{
                 "name": "menus.lancar_notas",
-                "to": "dashboard-academico",
+                "to": "lancar_notas",
                 "icon": "icon-grid-alt",
                 "sub_menus": []
             },
             {
                 "name": "menus.importar_notas",
-                "to": "dashboard-academico",
+                "to": "import_notas",
+                "icon": "icon-upload10",
+                "sub_menus": []
+            },
+            {
+                "name": "menus.importar_notas_trimestrais",
+                "to": "import_notas_trimestrais",
                 "icon": "icon-upload10",
                 "sub_menus": []
             }
@@ -160,25 +166,124 @@
         "icon": "icon-stack-text",
         "sub_menus": [{
                 "name": "menus.distribuicao_alunos",
-                "to": "dashboard-academico",
+                "to": "distribuicao_de_alunos",
                 "icon": "icon-database-edit2",
                 "sub_menus": []
             },
             {
                 "name": "menus.candidatos_exames",
-                "to": "dashboard-academico",
+                "to": "candidatos_exames",
                 "icon": "icon-database-edit2",
                 "sub_menus": []
             },
             {
                 "name": "menus.marcar_presenca",
-                "to": "dashboard-academico",
+                "to": "marcar_presenca",
                 "icon": "icon-database-edit2",
                 "sub_menus": []
             },
             {
                 "name": "menus.carregar_resposta",
-                "to": "dashboard-academico",
+                "to": "carregar_resposta",
+                "icon": "icon-database-edit2",
+                "sub_menus": []
+            }
+        ]
+    },{
+        "name": "menus.assiduidade",
+        "to": "dashboard-academico",
+        "icon": "icon-stack-text",
+        "sub_menus": [{
+                "name": "menus.distribuicao_alunos",
+                "to": "faltas",
+                "icon": "icon-database-edit2",
+                "sub_menus": []
+            },
+            {
+                "name": "menus.candidatos_exames",
+                "to": "importar_faltas",
+                "icon": "icon-database-edit2",
+                "sub_menus": []
+            }
+        ]
+    },
+    {
+        "name": "menus.comportamento",
+        "to": "dashboard-academico",
+        "icon": "icon-stack-text",
+        "sub_menus":[]
+    },{
+        "name": "menus.certificados",
+        "to": "dashboard-academico",
+        "icon": "icon-stack-text",
+        "sub_menus": [{
+                "name": "menus.emitir_certificados",
+                "to": "faltas",
+                "icon": "icon-database-edit2",
+                "sub_menus": []
+            },
+            {
+                "name": "menus.validar_pedido",
+                "to": "importar_faltas",
+                "icon": "icon-database-edit2",
+                "sub_menus": []
+            }
+        ]
+    },{
+        "name": "menus.pagamentos",
+        "to": "dashboard-academico",
+        "icon": "icon-stack-text",
+        "sub_menus": [{
+                "name": "menus.definir_outras_taxas",
+                "to": "faltas",
+                "icon": "icon-database-edit2",
+                "sub_menus": []
+            },
+            {
+                "name": "menus.pagamento_matriculas",
+                "to": "importar_faltas",
+                "icon": "icon-database-edit2",
+                "sub_menus": []
+            },
+            {
+                "name": "menus.pagamentos_online",
+                "to": "importar_faltas",
+                "icon": "icon-database-edit2",
+                "sub_menus": []
+            },
+            {
+                "name": "menus.gerar_pagamentos",
+                "to": "importar_faltas",
+                "icon": "icon-database-edit2",
+                "sub_menus": []
+            },
+            {
+                "name": "menus.outros_pagamentos",
+                "to": "importar_faltas",
+                "icon": "icon-database-edit2",
+                "sub_menus": []
+            },
+            {
+                "name": "menus.situacao_pagamentos",
+                "to": "importar_faltas",
+                "icon": "icon-database-edit2",
+                "sub_menus": []
+            }
+        ]
+    }
+    ,{
+        "name": "menus.membros",
+        "to": "dashboard-academico",
+        "icon": "icon-stack-text",
+        "sub_menus": [{
+                "name": "menus.emitir_notificacao",
+                "to": "faltas",
+                "icon": "icon-database-edit2",
+                "sub_menus": []
+            },
+            {
+                "name": "menus.notificacoes_emitidas",
+                "to": "importar_faltas",
                 "icon": "icon-database-edit2",
                 "sub_menus": []
             }
@@ -254,21 +359,46 @@
         "name": "menus.relatorios",
         "to": "dashboard-academico",
         "icon": "icon-list3",
-        "sub_menus": [{
+        "sub_menus": [
+            {
                 "name": "menus.mapa_avaliados",
-                "to": "dashboard-academico",
+                "to": "mapa-de-faltas",
                 "icon": "icon-bookmark4",
                 "sub_menus": []
             },
             {
                 "name": "menus.mapa_presenca",
-                "to": "dashboard-academico",
+                "to": "aproveitamento",
                 "icon": "icon-list-numbered",
                 "sub_menus": []
             },
             {
                 "name": "menus.mapa_inscritos",
-                "to": "dashboard-academico",
+                "to": "material-distribuido",
+                "icon": "icon-checkmark-circle",
+                "sub_menus": []
+            },
+            {
+                "name": "menus.mapa_avaliados",
+                "to": "melhores-alunos",
+                "icon": "icon-bookmark4",
+                "sub_menus": []
+            },
+            {
+                "name": "menus.mapa_presenca",
+                "to": "alunos-vulneraveis",
+                "icon": "icon-list-numbered",
+                "sub_menus": []
+            },
+            {
+                "name": "menus.mapa_inscritos",
+                "to": "execucao-dos-planos",
+                "icon": "icon-checkmark-circle",
+                "sub_menus": []
+            },
+            {
+                "name": "menus.mapa_inscritos",
+                "to": "resumo-pagamentos",
                 "icon": "icon-checkmark-circle",
                 "sub_menus": []
             }

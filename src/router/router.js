@@ -534,6 +534,308 @@ const routes = [{
                 },
             }
             /*Fim Das Rotas Do Calendario*/
+            ,
+             /*Rotas De Gestao De Notas*/
+             {
+                path: 'lancar_notas',
+                name: 'lancar_notas',
+                component: () =>
+                    import('@/views/academico/aluno/lancar_notas.vue'),
+        
+                meta: {
+                    display: 'headers.registar_aluno',
+                    display_title: 'menus.registar_aluno',
+                },
+            },
+            {
+                path: 'import_notas',
+                name: 'import_notas',
+                component: () =>
+                    import('@/views/academico/aluno/import_notas.vue'),
+        
+                meta: {
+                    display: 'headers.registar_aluno',
+                    display_title: 'menus.registar_aluno',
+                },
+            },
+            {
+                path: 'import_notas_trimestrais',
+                name: 'import_notas_trimestrais',
+                component: () =>
+                    import('@/views/academico/aluno/import_notas_trimestrais.vue'),
+        
+                meta: {
+                    display: 'headers.registar_aluno',
+                    display_title: 'menus.registar_aluno',
+                },
+            }
+            /*Fim Das Rotas De Gestao De Notas*/
+            ,
+             /*Rotas De Gestao De Exames*/
+             {
+                path: 'distribuicao_de_alunos',
+                name: 'distribuicao_de_alunos',
+                component: () =>
+                    import('@/views/academico/aluno/distribuicao_de_alunos.vue'),
+        
+                meta: {
+                    display: 'headers.registar_aluno',
+                    display_title: 'menus.registar_aluno',
+                },
+            },
+            {
+                path: 'candidatos_exames',
+                name: 'candidatos_exames',
+                component: () =>
+                    import('@/views/academico/aluno/candidatos_exames.vue'),
+        
+                meta: {
+                    display: 'headers.registar_aluno',
+                    display_title: 'menus.registar_aluno',
+                },
+            },
+            {
+                path: 'marcar_presenca',
+                name: 'marcar_presenca',
+                component: () =>
+                    import('@/views/academico/aluno/marcar_presenca.vue'),
+        
+                meta: {
+                    display: 'headers.registar_aluno',
+                    display_title: 'menus.registar_aluno',
+                },
+            },
+            {
+                path: 'carregar_resposta',
+                name: 'carregar_resposta',
+                component: () =>
+                    import('@/views/academico/aluno/carregar_resposta.vue'),
+        
+                meta: {
+                    display: 'headers.registar_aluno',
+                    display_title: 'menus.registar_aluno',
+                },
+            }
+            /*Fim Das Rotas De Gestao De Exames*/
+            ,
+            /*Rotas De Assiduidade*/
+           {
+               path: 'faltas',
+               name: 'faltas',
+               component: () =>
+                   import('@/views/academico/aluno/faltas.vue'),
+       
+               meta: {
+                   display: 'headers.registar_aluno',
+                   display_title: 'menus.registar_aluno',
+               },
+           },
+           {
+               path: 'importar_faltas',
+               name: 'importar_faltas',
+               component: () =>
+                   import('@/views/academico/aluno/importar_faltas.vue'),
+       
+               meta: {
+                   display: 'headers.registar_aluno',
+                   display_title: 'menus.registar_aluno',
+               },
+           },
+           /*Fim Das Rotas De Assiduidade*/
+
+            /*Rotas De Certificado*/
+            {
+                path: 'emitir_certificados',
+                name: 'emitir_certificados',
+                component: () =>
+                    import('@/views/academico/aluno/emitir_certificados.vue'),
+        
+                meta: {
+                    display: 'headers.registar_aluno',
+                    display_title: 'menus.registar_aluno',
+                },
+            },
+            {
+                path: 'validar_pedido',
+                name: 'validar_pedido',
+                component: () =>
+                    import('@/views/academico/aluno/validar_pedido.vue'),
+        
+                meta: {
+                    display: 'headers.registar_aluno',
+                    display_title: 'menus.registar_aluno',
+                },
+            }
+            /*Fim Das Rotas De Certificado*/
+            ,
+            /*Rotas De Pagamento*/
+            {
+                path: 'definir_outras_taxas',
+                name: 'definir_outras_taxas',
+                component: () =>
+                    import('@/views/academico/aluno/definir_outras_taxas.vue'),
+        
+                meta: {
+                    display: 'headers.registar_aluno',
+                    display_title: 'menus.registar_aluno',
+                },
+            },
+            {
+                path: 'pagamento_matriculas',
+                name: 'pagamento_matriculas',
+                component: () =>
+                    import('@/views/academico/aluno/pagamento_matriculas.vue'),
+        
+                meta: {
+                    display: 'headers.registar_aluno',
+                    display_title: 'menus.registar_aluno',
+                },
+            },
+            {
+                path: 'pagamentos_online',
+                name: 'pagamentos_online',
+                component: () =>
+                    import('@/views/academico/aluno/pagamentos_online.vue'),
+        
+                meta: {
+                    display: 'headers.registar_aluno',
+                    display_title: 'menus.registar_aluno',
+                },
+            },
+            {
+                path: 'gerar_pagamentos',
+                name: 'gerar_pagamentos',
+                component: () =>
+                    import('@/views/academico/aluno/gerar_pagamentos.vue'),
+        
+                meta: {
+                    display: 'headers.registar_aluno',
+                    display_title: 'menus.registar_aluno',
+                },
+            },
+            {
+                path: 'outros_pagamentos',
+                name: 'outros_pagamentos',
+                component: () =>
+                    import('@/views/academico/aluno/outros_pagamentos.vue'),
+        
+                meta: {
+                    display: 'headers.registar_aluno',
+                    display_title: 'menus.registar_aluno',
+                },
+            }
+            /*Fim das rotas De Pagamentos*/
+            
+            /*Rotas De Membros*/
+            ,
+            {
+                path: 'emitir_notificacao',
+                name: 'emitir_notificacao',
+                component: () =>
+                    import('@/views/academico/aluno/emitir_notificacao.vue'),
+        
+                meta: {
+                    display: 'headers.registar_aluno',
+                    display_title: 'menus.registar_aluno',
+                },
+            },
+            {
+                path: 'notificacoes_emitidas',
+                name: 'notificacoes_emitidas',
+                component: () =>
+                    import('@/views/academico/aluno/notificacoes_emitidas.vue'),
+        
+                meta: {
+                    display: 'headers.registar_aluno',
+                    display_title: 'menus.registar_aluno',
+          },
+        }
+        /*Fim Das Rotas De Membros*/
+        
+            /*Rotas De Relatorio Academico*/
+            ,
+            {
+                path: 'mapa-de-faltas',
+                name: 'mapa-de-faltas',
+                component: () =>
+                    import('@/views/academico/aluno/mapa-de-faltas.vue'),
+        
+                meta: {
+                    display: 'headers.registar_aluno',
+                    display_title: 'menus.registar_aluno',
+                },
+            },
+            {
+                path: 'aproveitamento',
+                name: 'aproveitamento',
+                component: () =>
+                    import('@/views/academico/aluno/aproveitamento.vue'),
+        
+                meta: {
+                    display: 'headers.registar_aluno',
+                    display_title: 'menus.registar_aluno',
+                },
+            }
+            ,
+            {
+                path: 'material-distribuido',
+                name: 'material-distribuido',
+                component: () =>
+                    import('@/views/academico/aluno/material-distribuido.vue'),
+        
+                meta: {
+                    display: 'headers.registar_aluno',
+                    display_title: 'menus.registar_aluno',
+                },
+            },
+            {
+                path: 'melhores-alunos',
+                name: 'melhores-alunos',
+                component: () =>
+                    import('@/views/academico/aluno/melhores-alunos.vue'),
+        
+                meta: {
+                    display: 'headers.registar_aluno',
+                    display_title: 'menus.registar_aluno',
+          },
+            }
+            
+            ,
+            {
+                path: 'alunos-vulneraveis',
+                name: 'alunos-vulneraveis',
+                component: () =>
+                    import('@/views/academico/aluno/alunos-vulneraveis.vue'),
+        
+                meta: {
+                    display: 'headers.registar_aluno',
+                    display_title: 'menus.registar_aluno',
+                },
+            },
+            {
+                path: 'execucao-dos-planos',
+                name: 'execucao-dos-planos',
+                component: () =>
+                    import('@/views/academico/aluno/execucao-dos-planos.vue'),
+        
+                meta: {
+                    display: 'headers.registar_aluno',
+                    display_title: 'menus.registar_aluno',
+          },
+            }
+            ,
+            {
+                path: 'resumo-pagamentos',
+                name: 'resumo-pagamentos',
+                component: () =>
+                    import('@/views/academico/aluno/resumo-pagamentos.vue'),
+        
+                meta: {
+                    display: 'headers.registar_aluno',
+                    display_title: 'menus.registar_aluno',
+          },
+            }
+            /*Fim Das Rotas De Membros*/
         ]
     }
     /*Fim das Rotas Do Modulo De Gestao De Informacao Academica Escolar*/
