@@ -1,85 +1,31 @@
 [{
-        "name": "menus.dashboard",
+        "name": "menus.main_panel",
         "to": "dashboard-acessos",
         "icon": "icon-home",
         "sub_menus": []
     },
     {
-        "name": "menus.exames_finais",
-        "to": "dashboard-acessos",
-        "icon": "icon-pencil4",
-        "sub_menus": [{
-                "name": "menus.alunos_apurados",
-                "to": "dashboard-acessos",
-                "icon": "icon-users2",
-                "sub_menus": []
-            },
-            {
-                "name": "menus.calendario_exames",
-                "to": "dashboard-acessos",
-                "icon": "icon-calendar3",
-                "sub_menus": []
-            },
-            {
-                "name": "menus.criacao_juris",
-                "to": "dashboard-acessos",
-                "icon": "icon-reading",
-                "sub_menus": []
-            },
-            {
-                "name": "menus.lista_juris",
-                "to": "dashboard-acessos",
-                "icon": "icon-collaboration",
-                "sub_menus": []
-            },
-            {
-                "name": "menus.folha_resposta",
-                "to": "dashboard-acessos",
-                "icon": "icon-stack-check",
-                "sub_menus": []
-            },
-            {
-                "name": "menus.decoder_leitura",
-                "to": "dashboard-acessos",
-                "icon": "icon-download4",
-                "sub_menus": []
-            },
-            {
-                "name": "menus.presenca_fraudes",
-                "to": "dashboard-acessos",
-                "icon": "icon-exclamation",
-                "sub_menus": []
-            },
-            {
-                "name": "menus.pauta_exames",
-                "to": "dashboard-acessos",
-                "icon": "icon-table2",
-                "sub_menus": []
-            }
-        ]
+        "name": "menus.users",
+        "to": "users",
+        "icon": "icon-user-plus",
+        "sub_menus": []
     },
     {
-        "name": "menus.relatorios",
-        "to": "dashboard-acessos",
-        "icon": "icon-list3",
-        "sub_menus": [{
-                "name": "menus.mapa_avaliados",
-                "to": "dashboard-acessos",
-                "icon": "icon-bookmark4",
-                "sub_menus": []
-            },
-            {
-                "name": "menus.mapa_presenca",
-                "to": "dashboard-acessos",
-                "icon": "icon-list-numbered",
-                "sub_menus": []
-            },
-            {
-                "name": "menus.mapa_inscritos",
-                "to": "dashboard-acessos",
-                "icon": "icon-checkmark-circle",
-                "sub_menus": []
-            }
-        ]
+        "name": "menus.permissions",
+        "to": "user-permissions",
+        "icon": "icon-user-lock",
+        "sub_menus": []
+    },
+    {
+        "name": "menus.logs",
+        "to": "user-logs",
+        "icon": "icon-spinner10 spinner",
+        "sub_menus": []
+    },
+    {
+        "name": "menus.conected",
+        "to": "user-conected",
+        "icon": "icon-collaboration",
+        "sub_menus": []
     }
 ]

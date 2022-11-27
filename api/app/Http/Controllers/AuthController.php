@@ -29,7 +29,7 @@ class AuthController extends Controller
                 /** @var User $user*/
                 $user = Auth::user();
                 $token = $user->createToken(name: 'app')->accessToken;
-                $data = User::with('person')->where('id', $user->id)->get();
+                $data = User::with('person')->where('id', $user->id)->first();
                 return  response([
                     'message' => 'sucess login!',
                     'user' => $data,

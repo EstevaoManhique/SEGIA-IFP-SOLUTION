@@ -5,9 +5,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
-use App\Http\Controllers\ShopController;
+use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\InnstituitionController;
+use App\Http\Controllers\PersonController;
 use App\Http\Controllers\SocialMediaController;
 
 /*
@@ -55,4 +55,16 @@ Route::controller(TeacherController::class)->prefix('teacher')->group(function (
     Route::get('/{id}', 'show')->name('teacher.show');
     Route::delete('/{id}', 'destroy')->name('teacher.destroy');
     Route::put('/{id}', 'update')->name('teacher.update');
+});
+
+Route::controller(PersonController::class)->prefix('person')->group(function () {
+    Route::get('/', 'index')->name('person.index');
+    Route::post('/store', 'store')->name('person.store');
+    Route::get('/{id}', 'show')->name('person.show');
+    Route::delete('/{id}', 'destroy')->name('person.destroy');
+    Route::put('/{id}', 'update')->name('person.update');
+});
+
+Route::controller(GeneralController::class)->prefix('config')->group(function () {
+    Route::get('/nationality', 'nationalities')->name('config.nationality');
 });

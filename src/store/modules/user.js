@@ -5,11 +5,13 @@ import axios from '@/plugins/axios';
 const state = {
     users: [],
     user: null,
+    token: null,
 };
 
 const getters = {
     allUser: (state) => state.users,
     user: (state) => state.user,
+    isLoggedIn: (state) => state.token,
 };
 
 const actions = {
@@ -26,6 +28,8 @@ const actions = {
         localStorage.setItem('token', response.data.token);
 
         commit('user', response.data.user);
+
+        commit('token', response.data.token);
     },
     addUser({ commit }, user) {
         commit('addUser', user);
@@ -42,8 +46,11 @@ const actions = {
 };
 
 const mutations = {
+    token(state, token) {
+        state.token = token;
+    },
     user(state, user) {
-        state.user = user;
+        state.user = user[0];
     },
     addUser(state, payload) {
         state.users.push(payload);
