@@ -379,6 +379,17 @@ const routes = [{
                     display_title: 'menus.registar_aluno',
                 },
             },
+            {
+                path: 'listagem-alunos',
+                name: 'listagem-alunos',
+                component: () =>
+                    import('@/views/academico/aluno/listagem-alunos.vue'),
+        
+                meta: {
+                    display: 'headers.registar_aluno',
+                    display_title: 'menus.registar_aluno',
+                },
+            },
             /*Fim Das Rotas Do Sub-Menu Gestao Escolar*/
 
             /*Definicao De Rotas Do Sub-Menu Matriculas*/
@@ -829,6 +840,29 @@ const routes = [{
                 name: 'resumo-pagamentos',
                 component: () =>
                     import('@/views/academico/aluno/resumo-pagamentos.vue'),
+        
+                meta: {
+                    display: 'headers.registar_aluno',
+                    display_title: 'menus.registar_aluno',
+          },
+            }
+            ,
+            {
+                path: 'pauta-trimestral',
+                name: 'pauta-trimestral',
+                component: () =>
+                    import('@/views/academico/aluno/pauta-trimestral.vue'),
+        
+                meta: {
+                    display: 'headers.registar_aluno',
+                    display_title: 'menus.registar_aluno',
+          },
+            },
+            {
+                path: 'pauta-anual',
+                name: 'pauta-anual',
+                component: () =>
+                    import('@/views/academico/aluno/pauta-anual.vue'),
         
                 meta: {
                     display: 'headers.registar_aluno',

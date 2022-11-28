@@ -21,6 +21,12 @@
                 "sub_menus": []
             },
             {
+                "name": "menus.listagem_alunos",
+                "to": "listagem-alunos",
+                "icon": "icon-file-upload",
+                "sub_menus": []
+            },
+            {
                 "name": "menus.transferir_para_escola",
                 "to": "student-transfer-to-school",
                 "icon": "icon-users2",
@@ -65,35 +71,35 @@
         ]
     },
     {
-        "name": "menus.sumario_planos",
+        "name": "menus.plano_aulas",
         "to": "dashboard-academico",
         "icon": "icon-book",
         "sub_menus": [{
-                "name": "menus.sumarios",
-                "to": "summary",
+                "name": "menus.definir_plano",
+                "to": "thematic",
                 "icon": "icon-archive",
                 "sub_menus": []
             },
             {
-                "name": "menus.definir_tema",
-                "to": "thematic",
+                "name": "menus.vizualizar_plano",
+                "to": "summary",
                 "icon": "icon-target",
                 "sub_menus": []
             }
         ]
     },
     {
-        "name": "menus.plano_aulas",
+        "name": "menus.sumario_planos",
         "to": "dashboard-academico",
         "icon": "icon-bookmark",
         "sub_menus": [{
-                "name": "menus.definir_plano",
+                "name": "menus.sumarios",
                 "to": "summaries",
                 "icon": "icon-pencil6",
                 "sub_menus": []
             },
             {
-                "name": "menus.vizualizar_plano",
+                "name": "menus.definir_tema",
                 "to": "define-plano",
                 "icon": "icon-books",
                 "sub_menus": []
@@ -291,13 +297,13 @@
     },
     {
         "name": "menus.pauta_trimestral",
-        "to": "dashboard-academico",
+        "to": "pauta-trimestral",
         "icon": "icon-database-edit2",
         "sub_menus": []
     },
     {
         "name": "menus.pauta_anual",
-        "to": "dashboard-academico",
+        "to": "pauta-anual",
         "icon": "icon-database-edit2",
         "sub_menus": []
     },
