@@ -1,14 +1,16 @@
 <template>
   <v-container>
-    <v-row> HomeView IFP</v-row>
+    <nav-bar :menu_types = "6"/>
+    <v-row>IFP DRAW EXAM</v-row>
   </v-container>
 </template>
 
 <script>
+import NavBar from '@/components/layout/NavBar.vue';
 import { mapGetters } from 'vuex';
 export default {
   name: 'HomeView',
-  components: {},
+  components: {NavBar},
   data: () => ({}),
 
   computed: {

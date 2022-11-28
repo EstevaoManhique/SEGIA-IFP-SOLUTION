@@ -49,6 +49,7 @@ import menu_academico from '@/store/modules/menu/menu_academico.json';
 import menu_12classe from '@/store/modules/menu/menu_12classe.json';
 import menu_acesso from '@/store/modules/menu/menu_acesso.json';
 import menu_extraordinario from '@/store/modules/menu/menu_extraudinario.json';
+import menu_ifp from '@/store/modules/menu/menu_ifp.json';
 
 export default {
   name: 'QMenu',
@@ -59,7 +60,8 @@ export default {
       menu_academico,
       menu_12classe,
       menu_acesso,
-      menu_extraordinario
+      menu_extraordinario,
+      menu_ifp
     };
   },
   mounted() {
@@ -80,6 +82,9 @@ export default {
         case 5:
           this.menus = this.menu_academico;
           break;
+        case 6:
+          this.menus = this.menu_ifp;
+        break;
         default:
           this.menus = this.menu_academico;
           break;

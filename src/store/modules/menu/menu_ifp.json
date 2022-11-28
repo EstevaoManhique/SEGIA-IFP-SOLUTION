@@ -1,58 +1,83 @@
 [{
         "name": "menus.dashboard",
-        "to": "dashboard-ifp",
+        "to": "ifp-dashboard",
         "icon": "",
         "sub_menus": []
     },
     {
-        "name": "menus.exames_finais",
+        "name": "menus.formacaco_de_professores",
         "to": "dashboard-ifp",
         "icon": "",
-        "sub_menus": [{
-                "name": "menus.alunos_apurados",
-                "to": "dashboard-ifp",
+        "sub_menus": [
+            {
+                "name": "menus.periodo_inscricao",
+                "to": "ifp-schedule",
                 "icon": "",
                 "sub_menus": []
             },
             {
+                "name": "menus.centro_exames",
+                "to": "ifp-center",
+                "icon": "",
+                "sub_menus": []
+            },{
+                "name": "menus.inscrever_candidato",
+                "to": "ifp-inscription",
+                "icon": "",
+                "sub_menus": []
+            },{
+                "name": "menus.validar_inscricao",
+                "to": "ifp-inscription-validate",
+                "icon": "",
+                "sub_menus": []
+            },{
+                "name": "menus.candidato_inscrito",
+                "to": "ifp-list-2",
+                "icon": "",
+                "sub_menus": []
+            },{
+                "name": "menus.candidato_disciplina",
+                "to": "ifp-list",
+                "icon": "",
+                "sub_menus": []
+            },{
                 "name": "menus.calendario_exames",
-                "to": "dashboard-ifp",
+                "to": "ifp-calendar",
                 "icon": "",
                 "sub_menus": []
-            },
-            {
+            },{
                 "name": "menus.criacao_juris",
-                "to": "dashboard-ifp",
+                "to": "ifp-jury",
                 "icon": "",
                 "sub_menus": []
-            },
-            {
-                "name": "menus.lista_juris",
-                "to": "dashboard-ifp",
+            },{
+                "name": "menus.visualizar_juri",
+                "to": "ifp-classroom",
                 "icon": "",
                 "sub_menus": []
-            },
-            {
-                "name": "menus.folha_resdashboard-ifpa",
-                "to": "dashboard-ifp",
+            },{
+                "name": "menus.guiao_resposta",
+                "to": "ifp-answers",
                 "icon": "",
                 "sub_menus": []
-            },
-            {
-                "name": "menus.decoder_leitura",
-                "to": "dashboard-ifp",
+            },{
+                "name": "menus.exames_de_desenho",
+                "to": "ifp-draw-exam",
                 "icon": "",
                 "sub_menus": []
-            },
-            {
+            },{
+                "name": "menus.upload_desenho",
+                "to": "ifp-upload-desenho",
+                "icon": "",
+                "sub_menus": []
+            },{
                 "name": "menus.presenca_fraudes",
-                "to": "dashboard-ifp",
+                "to": "ifp-presences",
                 "icon": "",
                 "sub_menus": []
-            },
-            {
+            },{
                 "name": "menus.pauta_exames",
-                "to": "dashboard-ifp",
+                "to": "ifp-guideline",
                 "icon": "",
                 "sub_menus": []
             }

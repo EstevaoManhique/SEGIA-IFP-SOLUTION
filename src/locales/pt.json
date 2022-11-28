@@ -83,6 +83,7 @@
         "validar_inscricao": "Validar Inscricao",
         "candidato_inscrito": "Candidatos Inscritos",
         "candidato_disciplina": "Candidato Disciplina",
+        "calendario_exames":"Calendario de Exames",
         "distribuicao_juris": "Distribuicao de Juris",
         "guiao_resposta": "Guiao de Resposta",
         "carregar_resposta": "Carregar Resposta",
@@ -129,7 +130,12 @@
         "12a-classroom": "SEGIA - Alunos da Turma",
         "12a-jury": "SEGIA - Criação de Júri",
         "visualizar_juri":"Visualizar Juri",
-        "extracao_juri":"Extracao De Juris"
+        "extracao_juri":"Extracao De Juris",
+
+        "formacaco_de_professores":"E.F.Professores",
+        "upload_desenho":"upload desenho",
+        "exames_de_desenho":"Exames De Desenho"
+        
     },
     "fieldes": {
         "address": "Endereço",

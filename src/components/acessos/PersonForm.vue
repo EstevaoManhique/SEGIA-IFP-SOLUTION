@@ -230,7 +230,7 @@ export default {
           console.log(data);
         });
       else
-        this.$api.put('person/store', this.person).then((data) => {
+        this.$api.post('person/store', this.person).then((data) => {
           console.log(data);
         });
     },

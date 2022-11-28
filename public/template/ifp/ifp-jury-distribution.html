@@ -1,36 +1,36 @@
-<%-- 
+<!---- 
     Document   : ifp-jury-distribution
     Created on : Sep 14, 2017, 12:26:26 PM
     Author     : hamil
---%>
+---->
 
-<%@page import="com.dciapps.local.Estudante"%>
-<%@page import="com.dciapps.local.Tur"%>
-<%@page import="com.dciapps.webclient.EdstProvince"%>
-<%@page import="com.dciapps.webclient.AnoLectivo"%>
-<%@page import="com.dciapps.webclient.Exame"%>
-<%@page import="com.dciapps.webclient.SalaExame"%>
-<%@page import="com.dciapps.webclient.Media"%>
-<%@page import="com.dciapps.webclient.Inscricao"%>
-<%@page import="com.dciapps.local.Pauta"%>
-<%@page import="java.util.Date"%>
-<%@page import="com.dciapps.webclient.Notas"%>
-<%@page import="com.dciapps.webclient.Calendario"%>
-<%@page import="com.dciapps.webclient.Disciplina"%>
-<%@page import="com.dciapps.webclient.Curso"%>
-<%@page import="com.dciapps.webclient.Turma"%>
-<%@page import="com.dciapps.webclient.Aluno"%>
-<%@page import="com.dciapps.webclient.Presencas"%>
-<%@page import="com.dciapps.webclient.ModulosUsuario"%>
-<%@page import="com.dciapps.webclient.Funcionario"%>
-<%@page import="java.util.List"%>
-<%@page import="com.dciapps.localcontroler.StringUtils"%>
-<%@page import="com.dciapps.localcontroler.EncryptUtils"%>
-<%@page import="java.text.DecimalFormat"%>
-<%@page import="java.text.SimpleDateFormat"%>
-<%@page import="com.dciapps.webclient.Usuario"%>
-<%@page import="com.dciapps.controller.GenericHandler"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!--@page import="com.dciapps.local.Estudante"-->
+<!--@page import="com.dciapps.local.Tur"-->
+<!--@page import="com.dciapps.webclient.EdstProvince"-->
+<!--@page import="com.dciapps.webclient.AnoLectivo"-->
+<!--@page import="com.dciapps.webclient.Exame"-->
+<!--@page import="com.dciapps.webclient.SalaExame"-->
+<!--@page import="com.dciapps.webclient.Media"-->
+<!--@page import="com.dciapps.webclient.Inscricao"-->
+<!--@page import="com.dciapps.local.Pauta"-->
+<!--@page import="java.util.Date"-->
+<!--@page import="com.dciapps.webclient.Notas"-->
+<!--@page import="com.dciapps.webclient.Calendario"-->
+<!--@page import="com.dciapps.webclient.Disciplina"-->
+<!--@page import="com.dciapps.webclient.Curso"-->
+<!--@page import="com.dciapps.webclient.Turma"-->
+<!--@page import="com.dciapps.webclient.Aluno"-->
+<!--@page import="com.dciapps.webclient.Presencas"-->
+<!--@page import="com.dciapps.webclient.ModulosUsuario"-->
+<!--@page import="com.dciapps.webclient.Funcionario"-->
+<!--@page import="java.util.List"-->
+<!--@page import="com.dciapps.localcontroler.StringUtils"-->
+<!--@page import="com.dciapps.localcontroler.EncryptUtils"-->
+<!--@page import="java.text.DecimalFormat"-->
+<!--@page import="java.text.SimpleDateFormat"-->
+<!--@page import="com.dciapps.webclient.Usuario"-->
+<!--@page import="com.dciapps.controller.GenericHandler"-->
+<!--@page contentType="text/html" pageEncoding="UTF-8"-->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -46,7 +46,7 @@
         <meta name="keywords" content="SEGIA, DC Inovaction, Software, Multimedia, Escola, School, Vendas, Stock, Market, Branding, Logo, Hotel, Hotelaria, RH, Recursos Humanos, Controlo de Acesso, Web Design, Web Marketing, Development, Hosting" />
 
         <!-- Favicon -->
-        <%
+        <!--
             String ip = "localhost";
 
             if (session.getAttribute("ip") != null) {
@@ -54,8 +54,8 @@
             } else {
                 response.sendRedirect("startup");
             }
-        %>
-        <link rel="shortcut icon" href="http://<%=ip%>:8081/suc/images/favicons/governo/apple-touch-icon.png">
+        -->
+        <link rel="shortcut icon" href="http://<!--=ip-->:8081/suc/images/favicons/governo/apple-touch-icon.png">
 
 
 
@@ -99,7 +99,7 @@
         <!-- /theme JS files -->
 
 
-        <%
+        <!--
 
             int timeout = session.getMaxInactiveInterval();
 
@@ -179,7 +179,7 @@
                 response.setHeader("Refresh", timeout + "; URL =VXN1YXJpb1NlcnZsZXQjRENJ?" + encryptUtils.encodeString("accao#lockscreen&user=" + encryptUtils.decodeString(usuario.getUsuaUsuario())));
 
             }
-        %>
+        -->
 
 
 
@@ -198,8 +198,8 @@
                 // Defaults override - hide "close all" button
                 $.jGrowl.defaults.closer = false;
 
-                var erro = '<%=msgErro%>';
-                var bg = '<%=alerta%>';
+                var erro = '<!--=msgErro-->';
+                var bg = '<!--=alerta-->';
                 var hd = "Notificação do Sistema";
                 var cl = "#66BB6A";
                 var tp = "success";
@@ -278,8 +278,8 @@
 
                     <li class="dropdown dropdown-user">
                         <a class="dropdown-toggle" data-toggle="dropdown">
-                            <img src="http://<%=ip%>:8081/suc/images/profile-pictures/<%=fotoPerfil%>" alt="<%=nome%>">
-                            <span class="text-bold text-uppercase"><%=nome%></span>
+                            <img src="http://<!--=ip-->:8081/suc/images/profile-pictures/<!--=fotoPerfil-->" alt="<!--=nome-->">
+                            <span class="text-bold text-uppercase"><!--=nome--></span>
                             <i class="caret"></i>
                         </a>
 
@@ -299,16 +299,16 @@
         <div class="page-header">
             <div class="breadcrumb-line breadcrumb-line-wide">
 
-                <%
+                <!--
                     String nmEscola = "";
 
                     if (session.getAttribute("nmEscola") != null) {
                         nmEscola = session.getAttribute("nmEscola").toString();
                     }
-                %>
+                -->
 
                 <ul class="breadcrumb">
-                    <li><a href="#"><i class="icon-home2 position-left"></i> <%=nmEscola%></a></li>
+                    <li><a href="#"><i class="icon-home2 position-left"></i> <!--=nmEscola--></a></li>
                 </ul>
             </div>
 
@@ -354,11 +354,11 @@
                                 <!-- User menu -->
                                 <div class="category-content sidebar-user">
                                     <div class="media">
-                                        <a href="#" class="media-left">  <img src="http://<%=ip%>:8081/suc/images/profile-pictures/<%=fotoPerfil%>" alt="<%=nome%>" class="img-circle img-sm"></a>
+                                        <a href="#" class="media-left">  <img src="http://<!--=ip-->:8081/suc/images/profile-pictures/<!--=fotoPerfil-->" alt="<!--=nome-->" class="img-circle img-sm"></a>
                                         <div class="media-body">
-                                            <span class="media-heading text-semibold"><%=nome%></span>
+                                            <span class="media-heading text-semibold"><!--=nome--></span>
                                             <div class="text-size-mini text-muted">
-                                                <i class="icon-briefcase text-size-small"></i> <%=cargo%>
+                                                <i class="icon-briefcase text-size-small"></i> <!--=cargo-->
                                             </div>
                                         </div>
 
@@ -385,27 +385,27 @@
                                         <li class="active">
                                             <a href="#"><i class="icon-pencil4"></i> <span class="text-bold text-uppercase">E. Extraordinários</span></a>
                                             <ul>
-                                                <%if (mu.isMuiIfpPeriodoInscricao()) {%><li><a href="SUZQU2VydmxldCNEQ0k=?YWNjYW8jcGVyaW9kby1pbnNjcmljYW8="><i class="icon-calendar2"></i> Periodos de Inscrição</a></li><%}%>
-                                                <%if (mu.isMuiIfpCentroExame()) {%><li><a href="SUZQU2VydmxldCNEQ0k=?YWNjYW8jY2VudHJvcw=="><i class="icon-office"></i> Centros de Exame</a></li><%}%>
-                                                <%if (mu.isMuiIfpInscrverCandidato()) {%><li><a href="SUZQU2VydmxldCNEQ0k=?YWNjYW8jaW5zY3JpY2Fv"><i class="icon-file-plus"></i> Inscrever Candidato</a></li><%}%>
-                                                <%if (mu.isMuiIfpValidarInscricao()) {%><li><a href="SUZQU2VydmxldCNEQ0k=?YWNjYW8jdmFsaWRhci1pbnNjcmljb2Vz"><i class="icon-checkmark"></i> Validar Inscrições</a></li><%}%>
-                                                <%if (mu.isMuiIfpCandidatosInscritos()) {%><li><a href="SUZQU2VydmxldCNEQ0k=?YWNjYW8jYXB1cmFkb3M="><i class="icon-user-check"></i> Candidatos Inscritos</a></li><%}%>
-                                                <%if (mu.isMuiIfpCandidatosInscritos()) {%><li><a href="SUZQU2VydmxldCNEQ0k=?YWNjYW8jYXB1cmFkb3MtZGlzY2lwbGluYQ=="><i class="icon-bookmark"></i> Candidatos Disciplina</a></li><%}%>
-                                                <%if (mu.isMuiIfpCalendarioExames()) {%><li><a href="SUZQU2VydmxldCNEQ0k=?YWNjYW8jY2FsZW5kYXJpbw=="><i class="icon-calendar3"></i> Calendário Exames</a></li><%}%>
-                                                <%if (mu.isMuiIfpCriacaoJuris()) {%><li><a href="SUZQU2VydmxldCNEQ0k=?YWNjYW8janVyaXM="><i class="icon-reading"></i> Criação de Júris</a></li><%}%>
-                                                <%if (mu.isMuiIfpCriacaoJuris()) {%><li class="active"><a href="SUZQU2VydmxldCNEQ0k=?YWNjYW8jZGlzdHJpYnVpY2FvLWp1cmlz"><i class="icon-split"></i> Distribuição por Júris</a></li><%}%>
-                                                <%if (mu.isMuiIfpSalaExame()) {%><li><a href="SUZQU2VydmxldCNEQ0k=?YWNjYW8jdHVybWFz"><i class="icon-collaboration"></i> Lista de Júris</a></li><%}%>
-                                                <%if (mu.isMuiIfpGuiaoRespostas()) {%><li><a href="SUZQU2VydmxldCNEQ0k=?YWNjYW8jZm9saGE="><i class="icon-stack-check"></i> Guião de Respostas</a></li><%}%>
-                                                <%if (mu.isMuiIfpCarregarRespostas()) {%><li><a href="SUZQU2VydmxldCNEQ0k=?YWNjYW8jZGVjb2Rlcg=="><i class="icon-download4"></i> Carregar Respostas</a></li><%}%>
-                                                <%if (mu.isMuiIfpPautas()) {%><li><a href="SUZQU2VydmxldCNEQ0k=?YWNjYW8jcHJlc2VuY2Fz"><i class="icon-exclamation"></i> Presenças/Fraudes</a></li><%}%>
-                                                <%if (mu.isMuiIfpPautas()) {%><li><a href="SUZQU2VydmxldCNEQ0k=?YWNjYW8jcGF1dGE="><i class="icon-table2"></i> Pauta de Exame</a></li><%}%>
+                                                <!--if (mu.isMuiIfpPeriodoInscricao()) {--><li><a href="SUZQU2VydmxldCNEQ0k=?YWNjYW8jcGVyaW9kby1pbnNjcmljYW8="><i class="icon-calendar2"></i> Periodos de Inscrição</a></li><!--}-->
+                                                <!--if (mu.isMuiIfpCentroExame()) {--><li><a href="SUZQU2VydmxldCNEQ0k=?YWNjYW8jY2VudHJvcw=="><i class="icon-office"></i> Centros de Exame</a></li><!--}-->
+                                                <!--if (mu.isMuiIfpInscrverCandidato()) {--><li><a href="SUZQU2VydmxldCNEQ0k=?YWNjYW8jaW5zY3JpY2Fv"><i class="icon-file-plus"></i> Inscrever Candidato</a></li><!--}-->
+                                                <!--if (mu.isMuiIfpValidarInscricao()) {--><li><a href="SUZQU2VydmxldCNEQ0k=?YWNjYW8jdmFsaWRhci1pbnNjcmljb2Vz"><i class="icon-checkmark"></i> Validar Inscrições</a></li><!--}-->
+                                                <!--if (mu.isMuiIfpCandidatosInscritos()) {--><li><a href="SUZQU2VydmxldCNEQ0k=?YWNjYW8jYXB1cmFkb3M="><i class="icon-user-check"></i> Candidatos Inscritos</a></li><!--}-->
+                                                <!--if (mu.isMuiIfpCandidatosInscritos()) {--><li><a href="SUZQU2VydmxldCNEQ0k=?YWNjYW8jYXB1cmFkb3MtZGlzY2lwbGluYQ=="><i class="icon-bookmark"></i> Candidatos Disciplina</a></li><!--}-->
+                                                <!--if (mu.isMuiIfpCalendarioExames()) {--><li><a href="SUZQU2VydmxldCNEQ0k=?YWNjYW8jY2FsZW5kYXJpbw=="><i class="icon-calendar3"></i> Calendário Exames</a></li><!--}-->
+                                                <!--if (mu.isMuiIfpCriacaoJuris()) {--><li><a href="SUZQU2VydmxldCNEQ0k=?YWNjYW8janVyaXM="><i class="icon-reading"></i> Criação de Júris</a></li><!--}-->
+                                                <!--if (mu.isMuiIfpCriacaoJuris()) {--><li class="active"><a href="SUZQU2VydmxldCNEQ0k=?YWNjYW8jZGlzdHJpYnVpY2FvLWp1cmlz"><i class="icon-split"></i> Distribuição por Júris</a></li><!--}-->
+                                                <!--if (mu.isMuiIfpSalaExame()) {--><li><a href="SUZQU2VydmxldCNEQ0k=?YWNjYW8jdHVybWFz"><i class="icon-collaboration"></i> Lista de Júris</a></li><!--}-->
+                                                <!--if (mu.isMuiIfpGuiaoRespostas()) {--><li><a href="SUZQU2VydmxldCNEQ0k=?YWNjYW8jZm9saGE="><i class="icon-stack-check"></i> Guião de Respostas</a></li><!--}-->
+                                                <!--if (mu.isMuiIfpCarregarRespostas()) {--><li><a href="SUZQU2VydmxldCNEQ0k=?YWNjYW8jZGVjb2Rlcg=="><i class="icon-download4"></i> Carregar Respostas</a></li><!--}-->
+                                                <!--if (mu.isMuiIfpPautas()) {--><li><a href="SUZQU2VydmxldCNEQ0k=?YWNjYW8jcHJlc2VuY2Fz"><i class="icon-exclamation"></i> Presenças/Fraudes</a></li><!--}-->
+                                                <!--if (mu.isMuiIfpPautas()) {--><li><a href="SUZQU2VydmxldCNEQ0k=?YWNjYW8jcGF1dGE="><i class="icon-table2"></i> Pauta de Exame</a></li><!--}-->
                                             </ul>
                                         </li>
                                         <!-- /exames extraordinários -->
                                         <!-- Relatório -->
-                                        <%
+                                        <!--
                                             if (mu.isMuiEstatisticas()) {
-                                        %>
+                                        -->
                                         <li>
                                             <a href="#"><i class="icon-list3"></i> <span class="text-bold text-uppercase">Relatórios</span></a>
                                             <ul>
@@ -414,9 +414,9 @@
                                                 <li><a href="SUZQU2VydmxldCNEQ0k=?YWNjYW8jbWFwYS1pbnNjcml0b3M="><i class="icon-checkmark-circle"></i> Mapa de Inscritos</a></li>
                                             </ul>
                                         </li>
-                                        <%
+                                        <!--
                                             }
-                                        %>
+                                        -->
                                         <!-- /relatório -->
                                     </ul>
                                 </div>
@@ -472,7 +472,7 @@
                                                 <select class="select" name="idCurso" disabled="">
                                                     <optgroup label="Selecione a classe">
 
-                                                        <%
+                                                        <!--
                                                             if (cursos != null) {
                                                                 for (Curso c : cursos) {
 
@@ -486,12 +486,12 @@
                                                                             sel = "selected";
                                                                         }
                                                                     }
-                                                        %>
-                                                        <option value="<%=id%>" <%=sel%>><%=desc%></option>
-                                                        <%
+                                                        -->
+                                                        <option value="<!--=id-->" <!--=sel-->><!--=desc--></option>
+                                                        <!--
                                                                 }
                                                             }
-                                                        %>                                                                
+                                                        -->                                                                
 
                                                     </optgroup>
                                                 </select>
@@ -505,7 +505,7 @@
                                                     <optgroup label="Selecione a provincia">
                                                         <option></option>
 
-                                                        <%
+                                                        <!--
                                                             if (provinces != null) {
                                                                 for (EdstProvince ep : provinces) {
 
@@ -517,12 +517,12 @@
                                                                     if (desc.equals(provinciaSel)) {
                                                                         sel = "selected";
                                                                     }
-                                                        %>
-                                                        <option value="<%=desc%>" <%=sel%>><%=desc%></option>
-                                                        <%
+                                                        -->
+                                                        <option value="<!--=desc-->" <!--=sel-->><!--=desc--></option>
+                                                        <!--
                                                                 }
                                                             }
-                                                        %>                                                                
+                                                        -->                                                                
 
                                                     </optgroup>
                                                 </select>
@@ -545,7 +545,7 @@
                                                 <select class="select" name="idDisciplina">
                                                     <optgroup label="Selecione disciplina">
 
-                                                        <%
+                                                        <!--
                                                             if (disciplinas != null) {
                                                                 for (Disciplina d : disciplinas) {
 
@@ -559,12 +559,12 @@
                                                                             sel = "selected";
                                                                         }
                                                                     }
-                                                        %>
-                                                        <option value="<%=id%>" <%=sel%>><%=desc%></option>
-                                                        <%
+                                                        -->
+                                                        <option value="<!--=id-->" <!--=sel-->><!--=desc--></option>
+                                                        <!--
                                                                 }
                                                             }
-                                                        %>         
+                                                        -->         
                                                     </optgroup>
                                                 </select>
 
@@ -576,7 +576,7 @@
 
 
 
-                                            <%
+                                            <!--
                                                 String dd = "";
                                                 String cur = "";
                                                 String di = "";
@@ -591,7 +591,7 @@
                                                 if (anoLectivo != null) {
                                                     an = encryptUtils.decodeString(anoLectivo.getAnolDescricao());
                                                 }
-                                            %>
+                                            -->
 
                                             <br>
                                             <div class="col-md-12">
@@ -603,7 +603,7 @@
                                                 <br><br>
 
                                                 <h4 class="text-bold">
-                                                    <span class="text-danger-600"><%=cur%></span> <span class="text-primary-600"> - [<%=di%>]</span>  <span> - [<%=provinciaSel + " : " + escolaSel%>]</span>
+                                                    <span class="text-danger-600"><!--=cur--></span> <span class="text-primary-600"> - [<!--=di-->]</span>  <span> - [<!--=provinciaSel + " : " + escolaSel-->]</span>
                                                 </h4>
                                             </div>
                                         </div> <!-- /row.1.2-->
@@ -623,21 +623,21 @@
                     <div class="row">
 
 
-                        <%
+                        <!--
                             if (turs != null) {
 
                                 for (Tur t : turs) {
 
                                     String desc = t.getDescricao();
                                     List<Estudante> estudantes = t.getEstudantes();
-                        %>
+                        -->
 
                         <div class="col-md-6">
 
                             <!-- Basic responsive configuration -->
                             <div class="panel panel-flat">
                                 <div class="panel-heading">
-                                    <h6 class="panel-title text-bold text-uppercase"><%=desc%></h6>
+                                    <h6 class="panel-title text-bold text-uppercase"><!--=desc--></h6>
                                     <div class="heading-elements">
                                         <ul class="icons-list">
                                             <li><a data-action="collapse"></a></li>
@@ -658,7 +658,7 @@
                                     </thead>
                                     <tbody>
 
-                                        <%
+                                        <!--
 
                                             if (estudantes != null) {
                                                 int i = 0;
@@ -669,16 +669,16 @@
                                                     String nomeCompleto = e.getNome();
                                                     int idade = e.getIdade();
                                                     String cod = e.getId();
-                                        %>
+                                        -->
                                         <tr>
-                                            <td><a  href="#" class="text-bold"><%=i%></a></td>
-                                            <td><small class="text-bold text-danger"><%=cod%></small></td>
-                                            <td><small><%=nomeCompleto%></small></td>
-                                            <td class="text-primary text-right"><%=idade%></td>
+                                            <td><a  href="#" class="text-bold"><!--=i--></a></td>
+                                            <td><small class="text-bold text-danger"><!--=cod--></small></td>
+                                            <td><small><!--=nomeCompleto--></small></td>
+                                            <td class="text-primary text-right"><!--=idade--></td>
                                         </tr>
-                                        <%                                                }
+                                        <!--                                                }
                                             }
-                                        %>
+                                        -->
 
                                     </tbody>
                                 </table>
@@ -687,10 +687,10 @@
                             <!-- /basic responsive configuration -->
                         </div>
 
-                        <%
+                        <!--
                                 }
                             }
-                        %>
+                        -->
 
 
                     </div>
@@ -706,10 +706,10 @@
 
             <!-- Footer -->
             <div class="footer text-bold">
-                <%
+                <!--
                     String ano = session.getAttribute("ano").toString();
-                %>
-                &copy; <%=ano%>. <a href="#" class="text-bold">MINEDH. SEGIA</a>. Todos os direitos reservados
+                -->
+                &copy; <!--=ano-->. <a href="#" class="text-bold">MINEDH. SEGIA</a>. Todos os direitos reservados
             </div>
             <!-- /footer -->
 
@@ -720,8 +720,8 @@
         <script>
             $(function () {
                 //setup arrays
-                var schools = {<%=lblEscolas%>};
-                var desc = '<%=escolaSel%>';
+                var schools = {<!--=lblEscolas-->};
+                var desc = '<!--=escolaSel-->';
 
                 $('#make').change(function () {
                     $("#schools").html(""); //clear existing options

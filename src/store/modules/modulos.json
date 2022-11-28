@@ -22,7 +22,7 @@
     {
         "name": "Gestão de Exames de Admissão aos Institutos de Formação de Professores",
         "color": "",
-        "router": "dashboard-ifp",
+        "router": "ifp-dashboard",
         "can": "",
         "icon": "icon-reading"
     },
