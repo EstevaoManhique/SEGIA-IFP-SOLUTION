@@ -49,6 +49,7 @@ class PersonController extends Controller
             $person->numero_casa = isset($request['numero_casa']) ? $request['numero_casa'] : $person->numero_casa;
             $person->address = isset($request['address']) ? $request['address'] : $person->address;
             $person->save();
+            return $person;
         } catch (\Exception $e) {
             return response(['msg' => $e->getMessage()], $e->getCode());
         }

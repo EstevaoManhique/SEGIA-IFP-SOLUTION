@@ -30,7 +30,7 @@
                   placeholder="Introduza o nome ..."
                   required
                   name="nome"
-                  v-model="person.name"
+                  v-model="student.person.name"
                 />
               </div>
               <div class="col-md-6">
@@ -40,7 +40,7 @@
                   class="form-control"
                   placeholder="Introduza o apelido ..."
                   required
-                  v-model="person.surname"
+                  v-model="student.person.surname"
                 />
               </div>
             </div>
@@ -55,7 +55,7 @@
                   class="form-control daterange-single"
                   name="dataNascimento"
                   placeholder="Data de Nascimento..."
-                  v-model="person.birth_date"
+                  v-model="student.person.birth_date"
                 />
               </div>
               <div class="col-md-6">
@@ -94,7 +94,7 @@
                   class="form-control"
                   placeholder="Cidade"
                   name="cidade"
-                  v-model="person.city"
+                  v-model="student.person.city"
                 />
               </div>
               <div class="col-md-4">
@@ -104,7 +104,7 @@
                   class="form-control"
                   placeholder="Estado ou Pronvincia"
                   name="naturalidade"
-                  v-model="person.province"
+                  v-model="student.person.province"
                 />
               </div>
               <div class="col-md-4">
@@ -114,7 +114,7 @@
                   class="form-control"
                   placeholder="Codígo Postal"
                   name="cPostal"
-                  v-model="person.cPostal"
+                  v-model="student.person.cPostal"
                 />
               </div>
             </div>
@@ -128,7 +128,7 @@
                   type="text"
                   readonly="readonly"
                   name="email"
-                  v-model="person.email"
+                  v-model="student.person.email"
                   class="form-control"
                 />
               </div>
@@ -160,7 +160,7 @@
                   type="text"
                   class="form-control"
                   placeholder="+999-99-999-9999"
-                  v-model="person.contact"
+                  v-model="student.person.contact"
                   name="contacto"
                   required=""
                 />
@@ -175,7 +175,7 @@
                   placeholder="Introduza o endereço"
                   name="endereco"
                   required=""
-                  v-model="person.address"
+                  v-model="student.person.address"
                 />
               </div>
             </div>
@@ -214,9 +214,10 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
 export default {
-  name: 'PersonForm',
-  props: ['person'],
+  name: 'StudentForm',
+
   data() {
     return {
       nationalities: [],
@@ -225,17 +226,21 @@ export default {
   },
   methods: {
     submit() {
-      if (this.person.id)
-        this.$api.put('person/' + this.person.id, this.person).then((data) => {
-          console.log(data);
-        });
+      console.log(this.student);
+      if (this.student.id)
+        this.$api
+          .put('student/' + this.student.id, this.student)
+          .then((data) => {
+            console.log(data);
+          });
       else
-        this.$api.put('person/store', this.person).then((data) => {
+        this.$api.post('student/store', this.student).then((data) => {
           console.log(data);
         });
     },
   },
   mounted() {
+    this.student.person = this.person;
     this.$api.get('config/nationality').then((data) => {
       this.nationalities = data.data.sort((a, b) =>
         a.description.localeCompare(b.description)
@@ -244,6 +249,9 @@ export default {
         return n.description;
       });
     });
+  },
+  computed: {
+    ...mapGetters(['student', 'person']),
   },
 };
 </script>

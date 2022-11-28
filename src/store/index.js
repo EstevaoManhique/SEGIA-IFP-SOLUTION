@@ -6,6 +6,7 @@ import user from './modules/user';
 import dialog from './modules/dialog';
 import teacher from './modules/teacher';
 import student from './modules/student';
+import person from './modules/person';
 
 Vue.use(Vuex);
 
@@ -16,5 +17,6 @@ export default new Vuex.Store({
         dialog,
         teacher,
         student,
+        person,
     },
 });

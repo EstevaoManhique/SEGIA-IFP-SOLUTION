@@ -9,12 +9,16 @@ const state = {
 };
 
 const getters = {
-    allUser: (state) => state.users,
+    users: (state) => state.users,
     user: (state) => state.user,
     isLoggedIn: (state) => state.token,
 };
 
 const actions = {
+    async allUser({ commit }) {
+        let response = await axios.get('users');
+        commit('users', response.data);
+    },
     async getUser({ commit }) {
         let response = await axios.get('user');
         commit('user', response.data);
@@ -31,8 +35,15 @@ const actions = {
 
         commit('token', response.data.token);
     },
-    addUser({ commit }, user) {
-        commit('addUser', user);
+    async addUser({ commit }, user) {
+        let data = new FormData();
+        data.append('email', user.email);
+        data.append('password', user.name + '' + user.surname);
+        data.append('name', user.name);
+        data.append('surname', user.surname);
+        const response = await axios.post('register', data);
+
+        commit('addUser', response.data.data);
     },
     removeUser({ commit }, user) {
         commit('removeUser', user);
@@ -51,6 +62,9 @@ const mutations = {
     },
     user(state, user) {
         state.user = user[0];
+    },
+    users(state, users) {
+        state.users = users;
     },
     addUser(state, payload) {
         state.users.push(payload);
