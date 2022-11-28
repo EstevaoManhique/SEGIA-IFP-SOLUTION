@@ -208,20 +208,11 @@
                       <div class="col-lg-9">
                         <div class="row">
                           <label class="radio-inline">
-                            <input
-                              type="radio"
-                              name="sexo"
-                              class="styled"
-                           
-                            />
+                            <input type="radio" name="sexo" class="styled" />
                           </label>
 
                           <label class="radio-inline">
-                            <input
-                              type="radio"
-                              name="sexo"
-                              class="styled"
-                            />
+                            <input type="radio" name="sexo" class="styled" />
                             value="Feminino"> Feminino
                           </label>
                         </div>
@@ -442,7 +433,7 @@
                               required=""
                             >
                               <option></option>
-                              <option ></option>
+                              <option></option>
                             </select>
                           </div>
                         </div>
@@ -508,7 +499,7 @@
                               type="radio"
                               name="deficiencia"
                               class="styled"
-                             >
+                            />
                           </label>
 
                           <label class="radio-inline">
@@ -516,7 +507,7 @@
                               type="radio"
                               name="deficiencia"
                               class="styled"
-                             >
+                            />
                           </label>
                         </div>
                       </div>
@@ -544,7 +535,6 @@
                                 name="nivel"
                               >
                                 <option></option>
-                               
                               </select>
                             </div>
                           </div>
@@ -568,7 +558,6 @@
                                 name="ocupacao"
                               >
                                 <option></option>
-                          
                               </select>
                             </div>
                           </div>
@@ -589,7 +578,7 @@
                             type="checkbox"
                             name="certificado"
                             class="styled"
-                          >
+                          />
                         </label>
 
                         <label class="radio-inline">
@@ -601,11 +590,7 @@
                         </label>
 
                         <label class="radio-inline">
-                          <input
-                            type="checkbox"
-                            name="fotos"
-                            class="styled"
-                           >
+                          <input type="checkbox" name="fotos" class="styled" />
                         </label>
                       </div>
                     </div>
@@ -630,7 +615,8 @@
                   type="submit"
                   onclick="this.disabled = 'disabled'; this.form.submit();"
                   class="btn text-bold text-uppercase bg-slate-800"
-                ><i class="icon-arrow-right14 position-right"></i>
+                >
+                  <i class="icon-arrow-right14 position-right"></i>
                 </button>
               </div>
             </div>
@@ -639,7 +625,7 @@
       </v-row>
 
       <add-student-form />
-  </v-container>
+    </v-container>
   </v-container>
 </template>
 
