@@ -38,8 +38,8 @@
         "our": "Nosso {0}",
         "our_service_products": "Nossos serviços e productos",
         "our_offerings": "Nossas Ofertas",
-        "upload_desenho":"Upload Desenho",
-        "exames_de_desenho":"Exames De Desenho"
+        "upload_desenho": "Upload Desenho",
+        "exames_de_desenho": "Exames De Desenho"
     },
     "headers": {
         "product": "Conheça os nossos productos",
@@ -129,24 +129,7 @@
         "12a-classroom": "SEGIA - Alunos da Turma",
         "12a-jury": "SEGIA - Criação de Júri",
         "visualizar_juri":"Visualizar Juri",
-        "extracao_juri":"Extracao De Juris",
-        "assiduidade":"Assiduidade",
-        "comportamento":"Comportamento",
-        "certificados":"certificados",
-        "emitir_certificados":"Emitir Certificados",
-        "validar_pedido":"validar pedido",
-        "pagamentos":"pagamentos",
-        "definir_outras_taxas":"definir outras taxas",
-        "pagamento_matriculas":"pagamento matriculas",
-        "pagamentos_online":"pagamentos online",
-        "gerar_pagamentos":"gerar pagamentos",
-        "outros_pagamentos":"outros pagamentos",
-        "situacao_pagamentos":"situacao pagamentos",
-        "conselho_de_escola":"conselho de escola",
-        "membros":"membros",
-        "emitir_notificacao":"emitir notificacao",
-        "notificacoes_emitidas":"notificacoes emitidas"
-        
+        "extracao_juri":"Extracao De Juris"
     },
     "fieldes": {
         "address": "Endereço",

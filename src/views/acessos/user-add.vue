@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <nav-bar :menu_types="2" />
+    <nav-bar :menu_types="3" />
     <v-row>
       <!-- Main content -->
       <div class="content-wrapper">
@@ -78,7 +78,7 @@
                         LISTA DE REGISTOS
                         <span
                           class="badge bg-danger-800 badge-inline position-right"
-                          ><%=numReg%></span
+                          >{{ users.length }}</span
                         >
                       </a>
                     </li>
@@ -90,224 +90,7 @@
                 <div class="tab-pane fade active in has-padding" id="tab-demo1">
                   <!-- 2 columns form -->
 
-                  <% String act =
-                  encryptUtils.encodeString("accao#registar-usuario"); %>
-                  <!-- Basic layout-->
-                  <form
-                    class="form-horizontal"
-                    method="post"
-                    accept-charset="ISO-8859-1"
-                    action="VXN1YXJpb1NlcnZsZXQjRENJ?<%=act%>"
-                  >
-                    <div class="panel panel-flat">
-                      <div class="panel-heading">
-                        <h6 class="panel-title text-bold text-uppercase">
-                          Informe os dados do utilizador
-                        </h6>
-                        <div class="heading-elements">
-                          <ul class="icons-list">
-                            <li><a data-action="collapse"></a></li>
-                            <li><a data-action="reload"></a></li>
-                          </ul>
-                        </div>
-                      </div>
-
-                      <div class="panel-body">
-                        <div class="row">
-                          <div class="col-md-12">
-                            <fieldset>
-                              <legend class="text-semibold">
-                                <i class="icon-user-plus position-left"></i>
-                                Dados do utilizador
-                              </legend>
-
-                              <div class="form-group">
-                                <label
-                                  class="col-lg-3 control-label text-bold text-uppercase text-bold"
-                                  >Nome:</label
-                                >
-                                <div class="col-lg-9">
-                                  <div class="row">
-                                    <div class="col-md-6">
-                                      <input
-                                        type="text"
-                                        placeholder="Nome"
-                                        class="form-control"
-                                        name="nome"
-                                        required=""
-                                        value=""
-                                      />
-                                    </div>
-                                    <div class="col-md-6">
-                                      <input
-                                        type="text"
-                                        placeholder="Apelido"
-                                        class="form-control"
-                                        name="apelido"
-                                        required=""
-                                        value=""
-                                      />
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="form-group">
-                                <label
-                                  class="col-lg-3 control-label text-bold text-uppercase text-bold"
-                                  >Contacto:</label
-                                >
-                                <div class="col-lg-9">
-                                  <div class="row">
-                                    <div class="col-md-6">
-                                      <input
-                                        type="text"
-                                        placeholder="+999-99-999-9999"
-                                        class="form-control"
-                                        name="contacto"
-                                        required=""
-                                        value=""
-                                      />
-                                    </div>
-                                    <div class="col-md-6">
-                                      <input
-                                        type="email"
-                                        placeholder="Introduza o e-mail"
-                                        class="form-control"
-                                        name="email"
-                                        value=""
-                                      />
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-
-                              <div class="form-group">
-                                <label
-                                  class="col-lg-3 control-label text-bold text-uppercase text-bold"
-                                  >Cargo:</label
-                                >
-                                <div class="col-lg-9">
-                                  <div class="row">
-                                    <div class="col-md-6">
-                                      <select
-                                        class="select"
-                                        name="idTipoUsuario"
-                                        required=""
-                                      >
-                                        <optgroup label="Selecione um tipo">
-                                          <% if (tiposUsuario != null) { for
-                                          (TipoUsuario tu : tiposUsuario) { if
-                                          (!tu.getTipuDescricao().equals("Super
-                                          Administrador") &&
-                                          !tu.getTipuDescricao().equals("Cliente")
-                                          &&
-                                          !tu.getTipuDescricao().equals("Operador")
-                                          &&
-                                          !tu.getTipuDescricao().equals("Agente"))
-                                          { %>
-                                          <option value="<%=tu.getTipuId()%>">
-                                            <%=tu.getTipuDescricao()%>
-                                          </option>
-
-                                          <% } } } %> <% if
-                                          (cargo.equals("Tecnico Informatica")
-                                          || cargo.equals("Tecnico Informatica
-                                          (Distrital)")) { %>
-                                          <option value="20">
-                                            Director Pedagogico
-                                          </option>
-                                          <% } %>
-                                        </optgroup>
-                                      </select>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-
-                              <div class="form-group">
-                                <label
-                                  class="col-lg-3 control-label text-bold text-uppercase"
-                                  >Localização:</label
-                                >
-                                <div class="col-lg-9">
-                                  <div class="row">
-                                    <div class="col-md-6">
-                                      <select
-                                        id="make"
-                                        data-placeholder="Selecione a provincia"
-                                        class="select"
-                                        name="provincia"
-                                        required=""
-                                      >
-                                        <option></option>
-                                        <% for (EdstProvince s : provincias) {
-                                        String sel = ""; String desc =
-                                        s.getName(); %>
-                                        <option value="<%=desc%>" <%="sel%">
-                                          ><%=desc%>
-                                        </option>
-                                        <% } %>
-                                      </select>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                      <select
-                                        id="models"
-                                        data-placeholder="Selecione o distrito"
-                                        class="select"
-                                        name="distrito"
-                                        required=""
-                                      >
-                                        <option></option>
-                                      </select>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-
-                              <div class="form-group">
-                                <label
-                                  class="col-lg-3 control-label text-bold text-uppercase text-bold"
-                                  >Escola:</label
-                                >
-
-                                <div class="col-lg-9">
-                                  <div class="row">
-                                    <div class="col-md-12">
-                                      <select
-                                        data-placeholder="Selecione a escola"
-                                        class="select"
-                                        name="nome"
-                                        required=""
-                                        id="schools"
-                                      >
-                                        <option></option>
-                                      </select>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </fieldset>
-
-                            <div class="text-right">
-                              <button
-                                type="submit"
-                                onclick="this.disabled = 'disabled'; this.form.submit();"
-                                class="btn bg-slate-800 text-bold text-uppercase"
-                              >
-                                Gravar registo
-                                <i
-                                  class="icon-arrow-right14 position-right"
-                                ></i>
-                              </button>
-
-                              <br />
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </form>
+                  <add-account-form />
                 </div>
                 <!-- /2 columns form -->
 
@@ -365,51 +148,23 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <% if (usuarios != null) { for (Usuario u : usuarios) {
-                        String nm = "--"; String us = "--"; String tp = "---";
-                        String prov = "---"; String dist = "---"; String esc =
-                        "---"; if (u.getTipoUsuariotipu() != null) { tp =
-                        u.getTipoUsuariotipu().getTipuDescricao(); } if
-                        (!tp.equals("Super Administrador") &&
-                        !tp.equals("Cliente") && !tp.equals("Membro") &&
-                        !tp.equals("Aluno") && !tp.equals("Estudante")) { String
-                        con = "---"; nm =
-                        encryptUtils.decodeString(u.getPessoapess().getPessNome());
-                        if (u.getPessoapess().getPessApelido() != null) { nm +=
-                        " " +
-                        encryptUtils.decodeString(u.getPessoapess().getPessApelido());
-                        } us = encryptUtils.decodeString(u.getUsuaUsuario()); if
-                        (u.getPessoapess().getPessContacto() != null) { con =
-                        encryptUtils.decodeString(u.getPessoapess().getPessContacto());
-                        } String status = u.getUsuaEstado(); String lblStatus =
-                        "label-success"; int id = u.getUsuaId(); String actA =
-                        encryptUtils.encodeString("accao#alterar-estado&to=Activo&id="
-                        + us); String actI =
-                        encryptUtils.encodeString("accao#alterar-estado&to=Inactivo&id="
-                        + us); String actR =
-                        encryptUtils.encodeString("accao#remover-usuario&id=" +
-                        id); String actS =
-                        encryptUtils.encodeString("accao#reset-senha&id=" + us);
-                        if (status.equals("Inactivo")) { lblStatus =
-                        "label-danger"; } if (u.getUsuaProvincia() != null) {
-                        prov = u.getUsuaProvincia(); } if (u.getUsuaDistrito()
-                        != null) { dist = u.getUsuaDistrito(); } if
-                        (u.getEscola() != null) { esc =
-                        encryptUtils.decodeString(u.getEscola().getEscDescricao());
-                        } %>
-                        <tr>
-                          <td><a href="#"><%=id%></a></td>
-                          <td><%=nm%></td>
-                          <td><a href="#"><%=us%></a></td>
+                        <tr v-for="(user, index) in users" :key="index">
+                          <td>
+                            <a href="#">{{ user.id }}</a>
+                          </td>
+                          <td>
+                            {{ user.person.name + ' ' + user.person.surname }}
+                          </td>
+                          <td>
+                            <a href="#">{{ user.email }}</a>
+                          </td>
                           <td class="text-bold"><%=tp%></td>
-                          <td><%=con%></td>
-                          <td><%=prov%></td>
-                          <td><%=dist%></td>
+                          <td>{{ user.person.contact }}</td>
+                          <td>{{ user.province }}</td>
+                          <td>{{ user.distrit }}</td>
                           <td><%=esc%></td>
                           <td>
-                            <span class="label <%=lblStatus%>"
-                              ><%=status%></span
-                            >
+                            <span class="label">{{ user.status }}</span>
                           </td>
                           <td>
                             <div class="btn-group">
@@ -437,7 +192,7 @@
                                 "
                               >
                                 <li>
-                                  <a href="VXN1YXJpb1NlcnZsZXQjRENJ?<%=actS%>"
+                                  <a
                                     ><i
                                       class="icon-reload-alt text-blue-800"
                                     ></i>
@@ -445,30 +200,24 @@
                                   >
                                 </li>
 
-                                <% if (!status.equals("Inactivo")) { %>
-                                <li>
-                                  <a href="VXN1YXJpb1NlcnZsZXQjRENJ?<%=actI%>"
+                                <li v-if="user.status">
+                                  <a
                                     ><i class="icon-user-block text-danger"></i>
                                     Desactivar</a
                                   >
                                 </li>
-                                <% } else { %>
 
-                                <li>
-                                  <a href="VXN1YXJpb1NlcnZsZXQjRENJ?<%=actA%>"
+                                <li v-else>
+                                  <a
                                     ><i
                                       class="icon-user-check text-success"
                                     ></i>
                                     Activar</a
                                   >
                                 </li>
-                                <% } %> <% if (cargo.equals("Super
-                                Administrador") || cargo.equals("Administrador")
-                                || cargo.equals("Tecnico Informatica") ||
-                                cargo.equals("Tecnico Informatica (Distrital)"))
-                                { %>
+
                                 <li class="divider"></li>
-                                <li>
+                                <li v-if="user.admin">
                                   <a
                                     href="#"
                                     data-toggle="modal"
@@ -479,7 +228,6 @@
                                     >Remover registo</a
                                   >
                                 </li>
-                                <% } %>
                               </ul>
                             </div>
 
@@ -533,7 +281,6 @@
                             <!-- /default modal -->
                           </td>
                         </tr>
-                        <% } } } %>
                       </tbody>
                     </table>
                   </div>
@@ -552,14 +299,21 @@
 
 <script>
 import NavBar from '@/components/layout/NavBar.vue';
-import { mapGetters } from 'vuex';
+import AddAccountForm from '@/components/acessos/AddAccountForm.vue';
+import { mapGetters, mapActions } from 'vuex';
 export default {
   name: 'HomeView',
-  components: { NavBar },
+  components: { NavBar, AddAccountForm },
   data: () => ({}),
+  methods: {
+    ...mapActions(['allUser']),
+  },
+  mounted() {
+    this.allUser();
+  },
 
   computed: {
-    ...mapGetters(['user']),
+    ...mapGetters(['users']),
   },
 };
 </script>

@@ -2,332 +2,368 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Home from '@/views/HomeView.vue';
 import i18n from '@/i18n';
+import store from '@/store';
 
 Vue.use(Router);
 
 const routes = [{
-    path: '/',
-    redirect: `/${i18n.locale}`,
-},
-{
-    path: '/:lang',
-    component: {
-        render(c) {
-            return c('router-view');
-        },
-    },
-    children: [{
         path: '/',
-        name: 'home',
-        component: Home,
-        meta: {
-            display: 'headers.home',
-            display_title: 'menus.home',
-        },
+        redirect: `/${i18n.locale}`,
     },
     {
-        path: 'login',
-        name: 'login',
-        meta: {
-            display: 'headers.login',
-            display_title: 'menu.login',
-        },
-
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
-        component: () =>
-            import('@/components/layout/Login.vue'),
-    },
-    {
-        path: 'logout',
-        name: 'logout',
-        meta: {
-            display: 'headers.logout',
-            display_title: 'menus.logout',
-        },
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
-        component: () =>
-            import('@/components/layout/Logout.vue'),
-    },
-    {
-        path: '12classe',
-        name: 'dashboard-12classe',
-        component: () =>
-            import('@/views/12classe/12a-dashboard.vue'),
-
-        meta: {
-            display: 'headers.home',
-            display_title: 'menus.home',
-        },
-    },
-    {
-        path: 'ieda',
-        name: 'dashboard-ieda',
-        component: () =>
-            import('@/views/ieda/HomeView.vue'),
-
-        meta: {
-            display: 'headers.home',
-            display_title: 'menus.home',
-        },
-    },
-    {
-        path: 'ifp',
-        name: 'dashboard-ifp',
-        component: () =>
-            import('@/views/ifp/HomeView.vue'),
-        meta: {
-            display: 'headers.home',
-            display_title: 'menus.home',
-        },
-    },
-    {
-        path: 'acessos',
-        name: 'dashboard-acessos',
-        component: () =>
-            import('@/views/acessos/HomeView.vue'),
-        meta: {
-            display: 'headers.home',
-            display_title: 'menus.home',
-        },
-    },
-    {
-        path: 'parametrizacao',
-        name: 'dashboard-parametrizacao',
-        component: () =>
-            import('@/views/parametrizacao/HomeView.vue'),
-        meta: {
-            display: 'headers.home',
-            display_title: 'menus.home',
-        },
-    },
-    {
-        path: 'extraudinario',
+        path: '/:lang',
         component: {
             render(c) {
                 return c('router-view');
             },
         },
         children: [{
-            path: '/',
-            name: 'dashboard-extraudinario',
-            component: () =>
-                import('@/views/extraudinario/HomeView.vue'),
-
-            meta: {
-                display: 'headers.home',
-                display_title: 'menus.home',
-            }
-        },
-        {
-            path: 'answers',
-            name: 'answers',
-            component: () =>
-                import('@/views/extraudinario/ee-answers.vue'),
-            meta: {
-                display: 'headers.registar_aluno',
-                display_title: 'headers.registar_aluno',
-            }
-        },
-        {
-            path: 'calendar',
-            name: 'calendar',
-            component: () =>
-                import('@/views/extraudinario/ee-calendar.vue'),
-            meta: {
-                display: 'headers.registar_aluno',
-                display_title: 'headers.registar_aluno',
-            }
-        },
-        {
-            path: 'center',
-            name: 'center',
-            component: () =>
-                import('@/views/extraudinario/ee-center.vue'),
-            meta: {
-                display: 'headers.registar_aluno',
-                display_title: 'headers.registar_aluno',
-            }
-        },
-        {
-            path: 'classroom',
-            name: 'classroom',
-            component: () =>
-                import('@/views/extraudinario/ee-classroom.vue'),
-            meta: {
-                display: 'headers.registar_aluno',
-                display_title: 'headers.registar_aluno',
-            }
-        },
-        {
-            path: 'dashboard',
-            name: 'dashboard',
-            component: () =>
-                import('@/views/extraudinario/ee-dashboard.vue'),
-            meta: {
-                display: 'headers.registar_aluno',
-                display_title: 'headers.registar_aluno',
-            }
-        },
-        {
-            path: 'decoder',
-            name: 'decoder',
-            component: () =>
-                import('@/views/extraudinario/ee-decoder.vue'),
-            meta: {
-                display: 'headers.registar_aluno',
-                display_title: 'headers.registar_aluno',
-            }
-        },
-        {
-            path: 'distribution',
-            name: 'distribution',
-            component: () =>
-                import('@/views/extraudinario/ee-distribution.vue'),
-            meta: {
-                display: 'headers.registar_aluno',
-                display_title: 'headers.registar_aluno',
-            }
-        },
-        {
-            path: 'guideline',
-            name: 'guideline',
-            component: () =>
-                import('@/views/extraudinario/ee-guideline.vue'),
-            meta: {
-                display: 'headers.registar_aluno',
-                display_title: 'headers.registar_aluno',
-            }
-        },
-        {
-            path: 'inscription',
-            name: 'inscription',
-            component: () =>
-                import('@/views/extraudinario/ee-inscription.vue'),
-            meta: {
-                display: 'headers.registar_aluno',
-                display_title: 'headers.registar_aluno',
-            }
-        },
-        {
-            path: 'inscription-edit',
-            name: 'inscription-edit',
-            component: () =>
-                import('@/views/extraudinario/ee-inscription-edit.vue'),
-            meta: {
-                display: 'headers.registar_aluno',
-                display_title: 'headers.registar_aluno',
-            }
-        },
-        {
-            path: 'inscription-online',
-            name: 'inscription-online',
-            component: () =>
-                import('@/views/extraudinario/ee-inscription-online.vue'),
-            meta: {
-                display: 'headers.registar_aluno',
-                display_title: 'headers.registar_aluno',
-            }
-        },
-        {
-            path: 'inscription-validation',
-            name: 'inscription-validation',
-            component: () =>
-                import('@/views/extraudinario/ee-inscription-validation.vue'),
-            meta: {
-                display: 'headers.registar_aluno',
-                display_title: 'headers.registar_aluno',
-            }
-        },
-        {
-            path: 'jury',
-            name: 'jury',
-            component: () =>
-                import('@/views/extraudinario/ee-jury.vue'),
-            meta: {
-                display: 'headers.registar_aluno',
-                display_title: 'headers.registar_aluno',
-            }
-        },
-        {
-            path: 'list',
-            name: 'list',
-            component: () =>
-                import('@/views/extraudinario/ee-list.vue'),
-            meta: {
-                display: 'headers.registar_aluno',
-                display_title: 'headers.registar_aluno',
-            }
-        },
-        {
-            path: 'list2',
-            name: 'list2',
-            component: () =>
-                import('@/views/extraudinario/ee-list2.vue'),
-            meta: {
-                display: 'headers.registar_aluno',
-                display_title: 'headers.registar_aluno',
-            }
-        },
-        {
-            path: 'presences',
-            name: 'presences',
-            component: () =>
-                import('@/views/extraudinario/ee-presences.vue'),
-            meta: {
-                display: 'headers.registar_aluno',
-                display_title: 'headers.registar_aluno',
-            }
-        },
-        {
-            path: 'report-inscription',
-            name: 'report-inscription',
-            component: () =>
-                import('@/views/extraudinario/ee-report-inscription.vue'),
-            meta: {
-                display: 'headers.registar_aluno',
-                display_title: 'headers.registar_aluno',
-            }
-        },
-        {
-            path: 'report-inscription-subject',
-            name: 'report-inscription-subject',
-            component: () =>
-                import('@/views/extraudinario/ee-report-inscription-subject.vue'),
-            meta: {
-                display: 'headers.registar_aluno',
-                display_title: 'headers.registar_aluno',
-            }
-        },
-        {
-            path: 'schedule',
-            name: 'schedule',
-            component: () =>
-                import('@/views/extraudinario/ee-schedule.vue'),
-            meta: {
-                display: 'headers.registar_aluno',
-                display_title: 'headers.registar_aluno',
-            }
-        }
-        ]
-    },
-    /*Rotas Do Modulo Gestao De Informacao Academica Escolar */
-    {
-        path: 'academico',
-        component: {
-            render(c) {
-                return c('router-view');
-            },
-        },
-        children: [
-            {
                 path: '/',
-                name: 'dashboard-academico',
+                name: 'home',
+                component: Home,
+                meta: {
+                    display: 'headers.home',
+                    display_title: 'menus.home',
+                },
+            },
+
+            {
+                path: 'logout',
+                name: 'logout',
+                meta: {
+                    display: 'headers.logout',
+                    display_title: 'menus.logout',
+                },
+                // route level code-splitting
+                // this generates a separate chunk (about.[hash].js) for this route
+                // which is lazy-loaded when the route is visited.
                 component: () =>
-                    import('@/views/academico/HomeView.vue'),
+                    import ('@/components/layout/Logout.vue'),
+            },
+            {
+                path: '12classe',
+                name: 'dashboard-12classe',
+                component: () =>
+                    import ('@/views/12classe/12a-dashboard.vue'),
+
+                meta: {
+                    display: 'headers.home',
+                    display_title: 'menus.home',
+                },
+            },
+            {
+                path: 'ieda',
+                name: 'dashboard-ieda',
+                component: () =>
+                    import ('@/views/ieda/HomeView.vue'),
+
+                meta: {
+                    display: 'headers.home',
+                    display_title: 'menus.home',
+                },
+            },
+            {
+                path: 'ifp',
+                name: 'dashboard-ifp',
+                component: () =>
+                    import ('@/views/ifp/HomeView.vue'),
+                meta: {
+                    display: 'headers.home',
+                    display_title: 'menus.home',
+                },
+            },
+            {
+                path: 'acessos',
+                component: {
+                    render(c) {
+                        return c('router-view');
+                    },
+                },
+                children: [{
+                        path: '',
+                        name: 'dashboard-acessos',
+                        component: () =>
+                            import ('@/views/acessos/HomeView.vue'),
+                        meta: {
+                            display: 'headers.home',
+                            display_title: 'menus.home',
+                        },
+                    },
+                    {
+                        path: 'users',
+                        name: 'users',
+                        component: () =>
+                            import ('@/views/acessos/user-add.vue'),
+                        meta: {
+                            display: 'headers.home',
+                            display_title: 'menus.users',
+                        },
+                    },
+                    {
+                        path: 'user-permissions',
+                        name: 'user-permissions',
+                        component: () =>
+                            import ('@/views/acessos/user-permissions.vue'),
+                        meta: {
+                            display: 'headers.home',
+                            display_title: 'menus.permissions',
+                        },
+                    },
+                    {
+                        path: 'user-logs',
+                        name: 'user-logs',
+                        component: () =>
+                            import ('@/views/acessos/user-logs.vue'),
+                        meta: {
+                            display: 'headers.home',
+                            display_title: 'menus.logs',
+                        },
+                    },
+                    {
+                        path: 'user-conected',
+                        name: 'user-conected',
+                        component: () =>
+                            import ('@/views/acessos/user-conected.vue'),
+                        meta: {
+                            display: 'headers.home',
+                            display_title: 'menus.conected',
+                        },
+                    },
+                ],
+            },
+            {
+                path: 'parametrizacao',
+                name: 'dashboard-parametrizacao',
+                component: () =>
+                    import ('@/views/parametrizacao/HomeView.vue'),
+                meta: {
+                    display: 'headers.home',
+                    display_title: 'menus.home',
+                },
+            },
+            {
+                path: 'extraudinario',
+                component: {
+                    render(c) {
+                        return c('router-view');
+                    },
+                },
+                children: [{
+                        path: '/',
+                        name: 'dashboard-extraudinario',
+                        component: () =>
+                            import ('@/views/extraudinario/HomeView.vue'),
+
+                        meta: {
+                            display: 'headers.home',
+                            display_title: 'menus.home',
+                        },
+                    },
+                    {
+                        path: 'answers',
+                        name: 'answers',
+                        component: () =>
+                            import ('@/views/extraudinario/ee-answers.vue'),
+                        meta: {
+                            display: 'headers.registar_aluno',
+                            display_title: 'headers.registar_aluno',
+                        },
+                    },
+                    {
+                        path: 'calendar',
+                        name: 'calendar',
+                        component: () =>
+                            import ('@/views/extraudinario/ee-calendar.vue'),
+                        meta: {
+                            display: 'headers.registar_aluno',
+                            display_title: 'headers.registar_aluno',
+                        },
+                    },
+                    {
+                        path: 'center',
+                        name: 'center',
+                        component: () =>
+                            import ('@/views/extraudinario/ee-center.vue'),
+                        meta: {
+                            display: 'headers.registar_aluno',
+                            display_title: 'headers.registar_aluno',
+                        },
+                    },
+                    {
+                        path: 'classroom',
+                        name: 'classroom',
+                        component: () =>
+                            import ('@/views/extraudinario/ee-classroom.vue'),
+                        meta: {
+                            display: 'headers.registar_aluno',
+                            display_title: 'headers.registar_aluno',
+                        },
+                    },
+                    {
+                        path: 'dashboard',
+                        name: 'dashboard',
+                        component: () =>
+                            import ('@/views/extraudinario/ee-dashboard.vue'),
+                        meta: {
+                            display: 'headers.registar_aluno',
+                            display_title: 'headers.registar_aluno',
+                        },
+                    },
+                    {
+                        path: 'decoder',
+                        name: 'decoder',
+                        component: () =>
+                            import ('@/views/extraudinario/ee-decoder.vue'),
+                        meta: {
+                            display: 'headers.registar_aluno',
+                            display_title: 'headers.registar_aluno',
+                        },
+                    },
+                    {
+                        path: 'distribution',
+                        name: 'distribution',
+                        component: () =>
+                            import ('@/views/extraudinario/ee-distribution.vue'),
+                        meta: {
+                            display: 'headers.registar_aluno',
+                            display_title: 'headers.registar_aluno',
+                        },
+                    },
+                    {
+                        path: 'guideline',
+                        name: 'guideline',
+                        component: () =>
+                            import ('@/views/extraudinario/ee-guideline.vue'),
+                        meta: {
+                            display: 'headers.registar_aluno',
+                            display_title: 'headers.registar_aluno',
+                        },
+                    },
+                    {
+                        path: 'inscription',
+                        name: 'inscription',
+                        component: () =>
+                            import ('@/views/extraudinario/ee-inscription.vue'),
+                        meta: {
+                            display: 'headers.registar_aluno',
+                            display_title: 'headers.registar_aluno',
+                        },
+                    },
+                    {
+                        path: 'inscription-edit',
+                        name: 'inscription-edit',
+                        component: () =>
+                            import ('@/views/extraudinario/ee-inscription-edit.vue'),
+                        meta: {
+                            display: 'headers.registar_aluno',
+                            display_title: 'headers.registar_aluno',
+                        },
+                    },
+                    {
+                        path: 'inscription-online',
+                        name: 'inscription-online',
+                        component: () =>
+                            import ('@/views/extraudinario/ee-inscription-online.vue'),
+                        meta: {
+                            display: 'headers.registar_aluno',
+                            display_title: 'headers.registar_aluno',
+                        },
+                    },
+                    {
+                        path: 'inscription-validation',
+                        name: 'inscription-validation',
+                        component: () =>
+                            import ('@/views/extraudinario/ee-inscription-validation.vue'),
+                        meta: {
+                            display: 'headers.registar_aluno',
+                            display_title: 'headers.registar_aluno',
+                        },
+                    },
+                    {
+                        path: 'jury',
+                        name: 'jury',
+                        component: () =>
+                            import ('@/views/extraudinario/ee-jury.vue'),
+                        meta: {
+                            display: 'headers.registar_aluno',
+                            display_title: 'headers.registar_aluno',
+                        },
+                    },
+                    {
+                        path: 'list',
+                        name: 'list',
+                        component: () =>
+                            import ('@/views/extraudinario/ee-list.vue'),
+                        meta: {
+                            display: 'headers.registar_aluno',
+                            display_title: 'headers.registar_aluno',
+                        },
+                    },
+                    {
+                        path: 'list2',
+                        name: 'list2',
+                        component: () =>
+                            import ('@/views/extraudinario/ee-list2.vue'),
+                        meta: {
+                            display: 'headers.registar_aluno',
+                            display_title: 'headers.registar_aluno',
+                        },
+                    },
+                    {
+                        path: 'presences',
+                        name: 'presences',
+                        component: () =>
+                            import ('@/views/extraudinario/ee-presences.vue'),
+                        meta: {
+                            display: 'headers.registar_aluno',
+                            display_title: 'headers.registar_aluno',
+                        },
+                    },
+                    {
+                        path: 'report-inscription',
+                        name: 'report-inscription',
+                        component: () =>
+                            import ('@/views/extraudinario/ee-report-inscription.vue'),
+                        meta: {
+                            display: 'headers.registar_aluno',
+                            display_title: 'headers.registar_aluno',
+                        },
+                    },
+                    {
+                        path: 'report-inscription-subject',
+                        name: 'report-inscription-subject',
+                        component: () =>
+                            import ('@/views/extraudinario/ee-report-inscription-subject.vue'),
+                        meta: {
+                            display: 'headers.registar_aluno',
+                            display_title: 'headers.registar_aluno',
+                        },
+                    },
+                    {
+                        path: 'schedule',
+                        name: 'schedule',
+                        component: () =>
+                            import ('@/views/extraudinario/ee-schedule.vue'),
+                        meta: {
+                            display: 'headers.registar_aluno',
+                            display_title: 'headers.registar_aluno',
+                        },
+                    },
+                ],
+            },
+            /*Rotas Do Modulo Gestao De Informacao Academica Escolar */
+            {
+                path: 'academico',
+                component: {
+                    render(c) {
+                        return c('router-view');
+                    },
+                },
+                children: [{
+                        path: '/',
+                        name: 'dashboard-academico',
+                        component: () =>
+                            import ('@/views/academico/HomeView.vue'),
 
                 meta: {
                     display: 'headers.home',
@@ -379,89 +415,79 @@ const routes = [{
                     display_title: 'menus.registar_aluno',
                 },
             },
-            {
-                path: 'listagem-alunos',
-                name: 'listagem-alunos',
-                component: () =>
-                    import('@/views/academico/aluno/listagem-alunos.vue'),
-        
-                meta: {
-                    display: 'headers.registar_aluno',
-                    display_title: 'menus.registar_aluno',
-                },
-            },
             /*Fim Das Rotas Do Sub-Menu Gestao Escolar*/
 
-            /*Definicao De Rotas Do Sub-Menu Matriculas*/
-            {
-                path: 'student-register',
-                name: 'student-register',
-                component: () =>
-                    import('@/views/academico/aluno/student-register.vue'),
-        
-                meta: {
-                    display: 'headers.registar_aluno',
-                    display_title: 'menus.registar_aluno',
-                },
-            },{
-                path: 'class-distribution',
-                name: 'class-distribution',
-                component: () =>
-                    import('@/views/academico/aluno/class-distribution.vue'),
-        
-                meta: {
-                    display: 'headers.registar_aluno',
-                    display_title: 'menus.registar_aluno',
-                },
-            },
-            {
-                path: 'inscriptions-online',
-                name: 'inscriptions-online',
-                component: () =>
-                    import('@/views/academico/aluno/inscriptions-online.vue'),
-        
-                meta: {
-                    display: 'headers.registar_aluno',
-                    display_title: 'menus.registar_aluno',
-                },
-            },
-            {
-                path: 'student-inscriptions',
-                name: 'student-inscriptions',
-                component: () =>
-                    import('@/views/academico/aluno/student-inscriptions.vue'),
-        
-                meta: {
-                    display: 'headers.registar_aluno',
-                    display_title: 'menus.registar_aluno',
-                },
-            },
-            /*Fim Das Rotas Do Su-Menu Matriculas*/
+                    /*Definicao De Rotas Do Sub-Menu Matriculas*/
+                    {
+                        path: 'student-register',
+                        name: 'student-register',
+                        component: () =>
+                            import ('@/views/academico/aluno/student-register.vue'),
 
-            /*Rotas Do Sumario*/
-            {
-                path: 'summary',
-                name: 'summary',
-                component: () =>
-                    import('@/views/academico/aluno/thematic.vue'),
-        
-                meta: {
-                    display: 'headers.registar_aluno',
-                    display_title: 'menus.registar_aluno',
-                },
-            },
-            {
-                path: 'thematic',
-                name: 'thematic',
-                component: () =>
-                    import('@/views/academico/aluno/summary.vue'),
-        
-                meta: {
-                    display: 'headers.registar_aluno',
-                    display_title: 'menus.registar_aluno',
-                },
-            },
-            /*Fim Das Rotas Do Sumario*/
+                        meta: {
+                            display: 'headers.registar_aluno',
+                            display_title: 'menus.registar_aluno',
+                        },
+                    },
+                    {
+                        path: 'class-distribution',
+                        name: 'class-distribution',
+                        component: () =>
+                            import ('@/views/academico/aluno/class-distribution.vue'),
+
+                        meta: {
+                            display: 'headers.registar_aluno',
+                            display_title: 'menus.registar_aluno',
+                        },
+                    },
+                    {
+                        path: 'inscriptions-online',
+                        name: 'inscriptions-online',
+                        component: () =>
+                            import ('@/views/academico/aluno/inscriptions-online.vue'),
+
+                        meta: {
+                            display: 'headers.registar_aluno',
+                            display_title: 'menus.registar_aluno',
+                        },
+                    },
+                    {
+                        path: 'student-inscriptions',
+                        name: 'student-inscriptions',
+                        component: () =>
+                            import ('@/views/academico/aluno/student-inscriptions.vue'),
+
+                        meta: {
+                            display: 'headers.registar_aluno',
+                            display_title: 'menus.registar_aluno',
+                        },
+                    },
+                    /*Fim Das Rotas Do Su-Menu Matriculas*/
+
+                    /*Rotas Do Sumario*/
+                    {
+                        path: 'summary',
+                        name: 'summary',
+                        component: () =>
+                            import ('@/views/academico/aluno/thematic.vue'),
+
+                        meta: {
+                            display: 'headers.registar_aluno',
+                            display_title: 'menus.registar_aluno',
+                        },
+                    },
+                    {
+                        path: 'thematic',
+                        name: 'thematic',
+                        component: () =>
+                            import ('@/views/academico/aluno/summary.vue'),
+
+                        meta: {
+                            display: 'headers.registar_aluno',
+                            display_title: 'menus.registar_aluno',
+                        },
+                    },
+                    /*Fim Das Rotas Do Sumario*/
 
             /*Rotas Do Plano De Aula*/
             {
@@ -545,331 +571,6 @@ const routes = [{
                 },
             }
             /*Fim Das Rotas Do Calendario*/
-            ,
-             /*Rotas De Gestao De Notas*/
-             {
-                path: 'lancar_notas',
-                name: 'lancar_notas',
-                component: () =>
-                    import('@/views/academico/aluno/lancar_notas.vue'),
-        
-                meta: {
-                    display: 'headers.registar_aluno',
-                    display_title: 'menus.registar_aluno',
-                },
-            },
-            {
-                path: 'import_notas',
-                name: 'import_notas',
-                component: () =>
-                    import('@/views/academico/aluno/import_notas.vue'),
-        
-                meta: {
-                    display: 'headers.registar_aluno',
-                    display_title: 'menus.registar_aluno',
-                },
-            },
-            {
-                path: 'import_notas_trimestrais',
-                name: 'import_notas_trimestrais',
-                component: () =>
-                    import('@/views/academico/aluno/import_notas_trimestrais.vue'),
-        
-                meta: {
-                    display: 'headers.registar_aluno',
-                    display_title: 'menus.registar_aluno',
-                },
-            }
-            /*Fim Das Rotas De Gestao De Notas*/
-            ,
-             /*Rotas De Gestao De Exames*/
-             {
-                path: 'distribuicao_de_alunos',
-                name: 'distribuicao_de_alunos',
-                component: () =>
-                    import('@/views/academico/aluno/distribuicao_de_alunos.vue'),
-        
-                meta: {
-                    display: 'headers.registar_aluno',
-                    display_title: 'menus.registar_aluno',
-                },
-            },
-            {
-                path: 'candidatos_exames',
-                name: 'candidatos_exames',
-                component: () =>
-                    import('@/views/academico/aluno/candidatos_exames.vue'),
-        
-                meta: {
-                    display: 'headers.registar_aluno',
-                    display_title: 'menus.registar_aluno',
-                },
-            },
-            {
-                path: 'marcar_presenca',
-                name: 'marcar_presenca',
-                component: () =>
-                    import('@/views/academico/aluno/marcar_presenca.vue'),
-        
-                meta: {
-                    display: 'headers.registar_aluno',
-                    display_title: 'menus.registar_aluno',
-                },
-            },
-            {
-                path: 'carregar_resposta',
-                name: 'carregar_resposta',
-                component: () =>
-                    import('@/views/academico/aluno/carregar_resposta.vue'),
-        
-                meta: {
-                    display: 'headers.registar_aluno',
-                    display_title: 'menus.registar_aluno',
-                },
-            }
-            /*Fim Das Rotas De Gestao De Exames*/
-            ,
-            /*Rotas De Assiduidade*/
-           {
-               path: 'faltas',
-               name: 'faltas',
-               component: () =>
-                   import('@/views/academico/aluno/faltas.vue'),
-       
-               meta: {
-                   display: 'headers.registar_aluno',
-                   display_title: 'menus.registar_aluno',
-               },
-           },
-           {
-               path: 'importar_faltas',
-               name: 'importar_faltas',
-               component: () =>
-                   import('@/views/academico/aluno/importar_faltas.vue'),
-       
-               meta: {
-                   display: 'headers.registar_aluno',
-                   display_title: 'menus.registar_aluno',
-               },
-           },
-           /*Fim Das Rotas De Assiduidade*/
-
-            /*Rotas De Certificado*/
-            {
-                path: 'emitir_certificados',
-                name: 'emitir_certificados',
-                component: () =>
-                    import('@/views/academico/aluno/emitir_certificados.vue'),
-        
-                meta: {
-                    display: 'headers.registar_aluno',
-                    display_title: 'menus.registar_aluno',
-                },
-            },
-            {
-                path: 'validar_pedido',
-                name: 'validar_pedido',
-                component: () =>
-                    import('@/views/academico/aluno/validar_pedido.vue'),
-        
-                meta: {
-                    display: 'headers.registar_aluno',
-                    display_title: 'menus.registar_aluno',
-                },
-            }
-            /*Fim Das Rotas De Certificado*/
-            ,
-            /*Rotas De Pagamento*/
-            {
-                path: 'definir_outras_taxas',
-                name: 'definir_outras_taxas',
-                component: () =>
-                    import('@/views/academico/aluno/definir_outras_taxas.vue'),
-        
-                meta: {
-                    display: 'headers.registar_aluno',
-                    display_title: 'menus.registar_aluno',
-                },
-            },
-            {
-                path: 'pagamento_matriculas',
-                name: 'pagamento_matriculas',
-                component: () =>
-                    import('@/views/academico/aluno/pagamento_matriculas.vue'),
-        
-                meta: {
-                    display: 'headers.registar_aluno',
-                    display_title: 'menus.registar_aluno',
-                },
-            },
-            {
-                path: 'pagamentos_online',
-                name: 'pagamentos_online',
-                component: () =>
-                    import('@/views/academico/aluno/pagamentos_online.vue'),
-        
-                meta: {
-                    display: 'headers.registar_aluno',
-                    display_title: 'menus.registar_aluno',
-                },
-            },
-            {
-                path: 'gerar_pagamentos',
-                name: 'gerar_pagamentos',
-                component: () =>
-                    import('@/views/academico/aluno/gerar_pagamentos.vue'),
-        
-                meta: {
-                    display: 'headers.registar_aluno',
-                    display_title: 'menus.registar_aluno',
-                },
-            },
-            {
-                path: 'outros_pagamentos',
-                name: 'outros_pagamentos',
-                component: () =>
-                    import('@/views/academico/aluno/outros_pagamentos.vue'),
-        
-                meta: {
-                    display: 'headers.registar_aluno',
-                    display_title: 'menus.registar_aluno',
-                },
-            }
-            /*Fim das rotas De Pagamentos*/
-            
-            /*Rotas De Membros*/
-            ,
-            {
-                path: 'emitir_notificacao',
-                name: 'emitir_notificacao',
-                component: () =>
-                    import('@/views/academico/aluno/emitir_notificacao.vue'),
-        
-                meta: {
-                    display: 'headers.registar_aluno',
-                    display_title: 'menus.registar_aluno',
-                },
-            },
-            {
-                path: 'notificacoes_emitidas',
-                name: 'notificacoes_emitidas',
-                component: () =>
-                    import('@/views/academico/aluno/notificacoes_emitidas.vue'),
-        
-                meta: {
-                    display: 'headers.registar_aluno',
-                    display_title: 'menus.registar_aluno',
-          },
-        }
-        /*Fim Das Rotas De Membros*/
-        
-            /*Rotas De Relatorio Academico*/
-            ,
-            {
-                path: 'mapa-de-faltas',
-                name: 'mapa-de-faltas',
-                component: () =>
-                    import('@/views/academico/aluno/mapa-de-faltas.vue'),
-        
-                meta: {
-                    display: 'headers.registar_aluno',
-                    display_title: 'menus.registar_aluno',
-                },
-            },
-            {
-                path: 'aproveitamento',
-                name: 'aproveitamento',
-                component: () =>
-                    import('@/views/academico/aluno/aproveitamento.vue'),
-        
-                meta: {
-                    display: 'headers.registar_aluno',
-                    display_title: 'menus.registar_aluno',
-                },
-            }
-            ,
-            {
-                path: 'material-distribuido',
-                name: 'material-distribuido',
-                component: () =>
-                    import('@/views/academico/aluno/material-distribuido.vue'),
-        
-                meta: {
-                    display: 'headers.registar_aluno',
-                    display_title: 'menus.registar_aluno',
-                },
-            },
-            {
-                path: 'melhores-alunos',
-                name: 'melhores-alunos',
-                component: () =>
-                    import('@/views/academico/aluno/melhores-alunos.vue'),
-        
-                meta: {
-                    display: 'headers.registar_aluno',
-                    display_title: 'menus.registar_aluno',
-          },
-            }
-            
-            ,
-            {
-                path: 'alunos-vulneraveis',
-                name: 'alunos-vulneraveis',
-                component: () =>
-                    import('@/views/academico/aluno/alunos-vulneraveis.vue'),
-        
-                meta: {
-                    display: 'headers.registar_aluno',
-                    display_title: 'menus.registar_aluno',
-                },
-            },
-            {
-                path: 'execucao-dos-planos',
-                name: 'execucao-dos-planos',
-                component: () =>
-                    import('@/views/academico/aluno/execucao-dos-planos.vue'),
-        
-                meta: {
-                    display: 'headers.registar_aluno',
-                    display_title: 'menus.registar_aluno',
-          },
-            }
-            ,
-            {
-                path: 'resumo-pagamentos',
-                name: 'resumo-pagamentos',
-                component: () =>
-                    import('@/views/academico/aluno/resumo-pagamentos.vue'),
-        
-                meta: {
-                    display: 'headers.registar_aluno',
-                    display_title: 'menus.registar_aluno',
-          },
-            }
-            ,
-            {
-                path: 'pauta-trimestral',
-                name: 'pauta-trimestral',
-                component: () =>
-                    import('@/views/academico/aluno/pauta-trimestral.vue'),
-        
-                meta: {
-                    display: 'headers.registar_aluno',
-                    display_title: 'menus.registar_aluno',
-          },
-            },
-            {
-                path: 'pauta-anual',
-                name: 'pauta-anual',
-                component: () =>
-                    import('@/views/academico/aluno/pauta-anual.vue'),
-        
-                meta: {
-                    display: 'headers.registar_aluno',
-                    display_title: 'menus.registar_aluno',
-          },
-            }
-            /*Fim Das Rotas De Membros*/
         ]
     }
     /*Fim das Rotas Do Modulo De Gestao De Informacao Academica Escolar*/
@@ -881,127 +582,140 @@ const routes = [{
         render(c) {
             return c('router-view');
         },
-    },
-    children: [{
-        path: '/',
-        name: 'home-12classe',
-        component: () =>
-            import('@/views/12classe/12a-dashboard.vue'),
+        children: [{
+                path: '/',
+                name: 'home-12classe',
+                component: () =>
+                    import ('@/views/12classe/12a-dashboard.vue'),
 
-        meta: {
-            display: 'headers.home',
-            display_title: 'menus.home',
-        },
+                meta: {
+                    display: 'headers.home',
+                    display_title: 'menus.home',
+                },
+            },
+            {
+                path: '12a-aswer',
+                name: '12a-aswer',
+                component: () =>
+                    import ('@/views/12classe/12a-aswer.vue'),
+
+                meta: {
+                    display: 'headers.home',
+                    display_title: 'menus.home',
+                },
+            },
+            {
+                path: '12a-calendar',
+                name: '12a-calendar',
+                component: () =>
+                    import ('@/views/12classe/12a-calendar.vue'),
+
+                meta: {
+                    display: 'headers.12a_calendar',
+                    display_title: 'menus.12a_calendar',
+                },
+            },
+            {
+                path: '12a-classroom',
+                name: '12a-classroom',
+                component: () =>
+                    import ('@/views/12classe/12a-classroom.vue'),
+
+                meta: {
+                    display: 'headers.12a-classroom',
+                    display_title: 'menus.12a-classroom',
+                },
+            },
+            {
+                path: '12a-jury',
+                name: '12a-jury',
+                component: () =>
+                    import ('@/views/12classe/12a-jury.vue'),
+
+                meta: {
+                    display: 'headers.12a-jury',
+                    display_title: 'menus.12a-jury',
+                },
+            },
+            {
+                path: '12a-list',
+                name: '12a-list',
+                component: () =>
+                    import ('@/views/12classe/12a-list.vue'),
+
+                meta: {
+                    display: 'headers.12a-list',
+                    display_title: 'menus.12a-list',
+                },
+            },
+            {
+                path: '12a-decoder',
+                name: '12a-decoder',
+                component: () =>
+                    import ('@/views/12classe/12a-decoder.vue'),
+
+                meta: {
+                    display: 'headers.12a-decoder',
+                    display_title: 'menus.12a-decoder',
+                },
+            },
+            {
+                path: '12a-guideline',
+                name: '12a-guideline',
+                component: () =>
+                    import ('@/views/12classe/12a-guideline.vue'),
+
+                meta: {
+                    display: 'headers.12a-guideline',
+                    display_title: 'menus.12a-guideline',
+                },
+            },
+            {
+                path: '12a-presences',
+                name: '12a-presences',
+                component: () =>
+                    import ('@/views/12classe/12a-presences.vue'),
+
+                meta: {
+                    display: 'headers.12a-presences',
+                    display_title: 'menus.12a-presences',
+                },
+            },
+        ],
     },
     {
-        path: '12a-aswer',
-        name: '12a-aswer',
-        component: () =>
-            import('@/views/12classe/12a-aswer.vue'),
-
-        meta: {
-            display: 'headers.home',
-            display_title: 'menus.home',
+        path: '/user',
+        component: {
+            render(c) {
+                return c('router-view');
+            },
         },
+        children: [{
+            path: 'perfil',
+            name: 'user-perfil',
+            component: () =>
+                import ('@/views/user/UserPerfil.vue'),
+
+            meta: {
+                display: 'headers.user-perfil',
+                display_title: 'menus.user-perfil',
+            },
+        }, ],
     },
     {
-        path: '12a-calendar',
-        name: '12a-calendar',
-        component: () =>
-            import('@/views/12classe/12a-calendar.vue'),
-
+        path: 'login',
+        name: 'login',
         meta: {
-            display: 'headers.12a_calendar',
-            display_title: 'menus.12a_calendar',
+            display: 'headers.login',
+            display_title: 'menu.login',
         },
-    },
-    {
-        path: '12a-classroom',
-        name: '12a-classroom',
-        component: () =>
-            import('@/views/12classe/12a-classroom.vue'),
 
-        meta: {
-            display: 'headers.12a-classroom',
-            display_title: 'menus.12a-classroom',
-        },
-    },
-    {
-        path: '12a-jury',
-        name: '12a-jury',
+        // route level code-splitting
+        // this generates a separate chunk (about.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
         component: () =>
-            import('@/views/12classe/12a-jury.vue'),
-
-        meta: {
-            display: 'headers.12a-jury',
-            display_title: 'menus.12a-jury',
-        },
+            import ('@/components/layout/Login.vue'),
     },
-    {
-        path: '12a-list',
-        name: '12a-list',
-        component: () =>
-            import('@/views/12classe/12a-list.vue'),
-
-        meta: {
-            display: 'headers.12a-list',
-            display_title: 'menus.12a-list',
-        },
-    },
-    {
-        path: '12a-decoder',
-        name: '12a-decoder',
-        component: () =>
-            import('@/views/12classe/12a-decoder.vue'),
-
-        meta: {
-            display: 'headers.12a-decoder',
-            display_title: 'menus.12a-decoder',
-        },
-    },
-    {
-        path: '12a-guideline',
-        name: '12a-guideline',
-        component: () =>
-            import('@/views/12classe/12a-guideline.vue'),
-
-        meta: {
-            display: 'headers.12a-guideline',
-            display_title: 'menus.12a-guideline',
-        },
-    },
-    {
-        path: '12a-presences',
-        name: '12a-presences',
-        component: () =>
-            import('@/views/12classe/12a-presences.vue'),
-
-        meta: {
-            display: 'headers.12a-presences',
-            display_title: 'menus.12a-presences',
-        },
-    },
-    ],
-},
-{
-    path: '/user',
-    component: {
-        render(c) {
-            return c('router-view');
-        },
-    },
-    children: [{
-        path: 'perfil',
-        name: 'user-perfil',
-        component: () =>
-            import('@/views/user/UserPerfil.vue'),
-
-        meta: {
-            display: 'headers.user-perfil',
-            display_title: 'menus.user-perfil',
-        },
-    },],
-},
 ];
 
 const router = new Router({
@@ -1026,5 +740,40 @@ router.afterEach((to) => {
             process.env.APP_NAME;
     }
 });
+/* router.beforeEach((to, from, next) => {
+                //const token = localStorage.getItem('token');
+                if (store.getters.isLoggedIn && to.name != 'login') {
+                    next();
+
+                    return;
+                } else {
+                    next({ name: 'login' });
+                    return;
+                }
+            }); */
+
+/* router.beforeEach((to, from, next) => {
+                        const token = localStorage.getItem('token');
+
+                        //if not logged in, redirect to Login page
+                        if (!token) next({ name: 'login' });
+                        //else continue
+                        else next();
+
+                          if (to.path === '/login' && auth.currentUser) {
+                                          next('/');
+                                          return;
+                                      }
+
+                                      if (
+                                          to.matched.some((record) => record.meta.requiresAuth) &&
+                                          !auth.currentUser
+                                      ) {
+                                          next('/login');
+                                          return;
+                                      }
+
+                                      next();
+                    }); */
 
 export default router;

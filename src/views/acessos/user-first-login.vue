@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <nav-bar :menu_types="2" />
+    <nav-bar :menu_types="3" />
     <v-row>
       <!-- Main content -->
       <div class="content-wrapper">

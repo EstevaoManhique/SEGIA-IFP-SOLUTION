@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Student;
 use App\Models\Person;
+use App\Http\Controllers\PersonController;
 
 class StudentController extends Controller
 {
@@ -40,12 +41,16 @@ class StudentController extends Controller
         try {
             $student = new Student();
             $person = new Person();
-            $person->name = $request['name'];
-            $person->surname = $request['surname'];
+
+            $person->name = isset($request['person']['name']) ? $request['person']['name'] : $person->name;
+            $person->surname = isset($request['person']['surname']) ? $request['person']['surname'] : $person->surname;
+            $person->genre = isset($request['person']['genre']) ? $request['person']['genre'] : $person->genre;
+            $person->birth_date = isset($request['person']['birth_date']) ? $request['person']['birth_date'] : $person->genre;
+            $person->contact = isset($request['person']['contact']) ? $request['person']['contact'] : $person->contact;
             $person->save();
 
             $student->person_id = $person->id;
-            $student->school_id = $request['school_id'];
+            $student->school_id = 1;
             $student->save();
             $data = Student::with('person')->where('id', $student->id)->get();
             return response(['msg' => 'Student Registered!', 'data' => $data], 200);

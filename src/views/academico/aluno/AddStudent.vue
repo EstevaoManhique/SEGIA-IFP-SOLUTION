@@ -26,6 +26,7 @@
           </ul>
         </div>
       </v-row>
+
       <v-form v-model="valid">
         <v-container>
           <v-row>
@@ -636,16 +637,19 @@
           </div>
         </form>
       </v-row>
-    </v-container>
+
+      <add-student-form />
+  </v-container>
   </v-container>
 </template>
 
 <script>
 import NavBar from '@/components/layout/NavBar.vue';
+import AddStudentForm from '@/components/academico/AddStudentForm.vue';
 import { mapGetters } from 'vuex';
 export default {
   name: 'AddStudent',
-  components: { NavBar },
+  components: { NavBar, AddStudentForm },
   data: () => ({}),
 
   computed: {

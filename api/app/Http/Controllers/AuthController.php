@@ -29,7 +29,7 @@ class AuthController extends Controller
                 /** @var User $user*/
                 $user = Auth::user();
                 $token = $user->createToken(name: 'app')->accessToken;
-                $data = User::with('person')->where('id', $user->id)->get();
+                $data = User::with('person')->where('id', $user->id)->first();
                 return  response([
                     'message' => 'sucess login!',
                     'user' => $data,
@@ -75,7 +75,8 @@ class AuthController extends Controller
             $user->password = Hash::make($request['password']);
             $user->admin = isset($request['admin']) ? (($request['admin']) ? 1 : 0) : 0;
             $user->save();
-            return  $user;
+            $data = User::with('person')->where('id',  $user->id)->first();
+            return response(['msg' => 'User Registered!', 'data' => $data], 200);
         } catch (\Exception $e) {
             return response(['message' => $e->getMessage()], 400);
         }
@@ -138,7 +139,7 @@ class AuthController extends Controller
 
     public function users()
     {
-        $users = User::all();
+        $users = User::with('person')->get();
 
         return $users;
     }
