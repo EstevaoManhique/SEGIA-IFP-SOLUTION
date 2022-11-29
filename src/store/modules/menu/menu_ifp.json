@@ -12,53 +12,53 @@
             {
                 "name": "menus.periodo_inscricao",
                 "to": "ifp-schedule",
-                "icon": "",
+                "icon": "icon-calendar2",
                 "sub_menus": []
             },
             {
                 "name": "menus.centro_exames",
                 "to": "ifp-center",
-                "icon": "",
+                "icon": "icon-office",
                 "sub_menus": []
             },{
                 "name": "menus.inscrever_candidato",
                 "to": "ifp-inscription",
-                "icon": "",
+                "icon": "icon-file-plus",
                 "sub_menus": []
             },{
                 "name": "menus.validar_inscricao",
                 "to": "ifp-inscription-validate",
-                "icon": "",
+                "icon": "icon-checkmark",
                 "sub_menus": []
             },{
                 "name": "menus.candidato_inscrito",
                 "to": "ifp-list-2",
-                "icon": "",
+                "icon": "icon-user-check",
                 "sub_menus": []
             },{
                 "name": "menus.candidato_disciplina",
                 "to": "ifp-list",
-                "icon": "",
+                "icon": "icon-bookmark",
                 "sub_menus": []
             },{
                 "name": "menus.calendario_exames",
                 "to": "ifp-calendar",
-                "icon": "",
+                "icon": "icon-calendar3",
                 "sub_menus": []
             },{
                 "name": "menus.criacao_juris",
                 "to": "ifp-jury",
-                "icon": "",
+                "icon": "icon-reading",
                 "sub_menus": []
             },{
                 "name": "menus.visualizar_juri",
                 "to": "ifp-classroom",
-                "icon": "",
+                "icon": "icon-split",
                 "sub_menus": []
             },{
                 "name": "menus.guiao_resposta",
                 "to": "ifp-answers",
-                "icon": "",
+                "icon": "icon-collaboration",
                 "sub_menus": []
             },{
                 "name": "menus.exames_de_desenho",
@@ -73,12 +73,12 @@
             },{
                 "name": "menus.presenca_fraudes",
                 "to": "ifp-presences",
-                "icon": "",
+                "icon": "icon-exclamation",
                 "sub_menus": []
             },{
                 "name": "menus.pauta_exames",
                 "to": "ifp-guideline",
-                "icon": "",
+                "icon": "icon-table2",
                 "sub_menus": []
             }
         ]
