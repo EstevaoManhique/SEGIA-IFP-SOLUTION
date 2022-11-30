@@ -28,16 +28,16 @@
           </thead>
           <tbody>
             <tr v-for="(calendar,index) in calendars" :key="index">
-              <td class="text-blue-700 text-bold">{{calendar.id_shedule_exam}}</td>
+              <td class="text-blue-700 text-bold">{{calendar.id}}</td>
               <td class="text-bold">{{calendar.description}}</td>
               <td>{{calendar.start_date | date_with_week}}</td>
               <td>{{calendar.end_date | date_with_week}}</td>
               <td>
-                  <button  @click="removCalendar(calendar.id_shedule_exam)">
+                  <button  @click="removCalendar(calendar.id)">
                     <v-icon color="red">mdi-trash-can-outline</v-icon>
                   </button>
-                  <button  @click="removCalendar(calendar.id_shedule_exam)">
-                    <v-icon color="bg-red">mdi-application-edit</v-icon>
+                  <button  @click="edit(calendar)">
+                    <v-icon >mdi-application-edit</v-icon>
                   </button>
                 </td>
             </tr>
@@ -60,18 +60,25 @@ export default {
      
   }),
   methods : {
-   ...mapActions(['getCalendars','removeCalendar']),
+   ...mapActions(['getCalendars','removeCalendar', 'editCalendar','setCalendar']),
       removCalendar(id){
         if(confirm("Tem Certeza Que Deseja Eliminar?")){
             this.removeCalendar(id)
         }
+      },
+      edit(calendar){
+        console.log(this.calendar);
+        //this.calendar=calendar;
+        this.setCalendar(calendar);
+        console.log(this.calendar);
+        this.editCalendar(calendar)
       }
   },
   mounted () {
     this.getCalendars();
   },
   computed: {
-    ...mapGetters(["calendars"]),
+    ...mapGetters(["calendars","calendar"]),
   },
 };
 </script>

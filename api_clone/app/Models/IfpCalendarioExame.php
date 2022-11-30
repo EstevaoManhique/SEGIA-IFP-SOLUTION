@@ -22,7 +22,7 @@ use Illuminate\Database\Eloquent\Model;
 class IfpCalendarioExame extends Model
 {
 	protected $table = 'ifp_calendario_exames';
-	protected $primaryKey = 'id_shedule_exam';
+	protected $primaryKey = 'id';
 	public $timestamps = false;
 
 	protected $dates = [

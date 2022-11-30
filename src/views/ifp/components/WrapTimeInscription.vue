@@ -74,33 +74,59 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 export default {
   name: 'WrapTimeInscription',
   components: {},
   data: () => ({
-    calendar:{
-        start_date:null,
-        end_date:null,
-    }
+    
   }),
   methods: {
-    ...mapActions(['addCalendar'], ['removeCalendar']),
+    ...mapActions(['addCalendar','removeCalendar','editCalendar', 'setCalendar','empyCalendar']),
+    
     submit() {
-      console.log(this.calendar);
       const x= new Date(this.calendar.start_date).getTime();
       const y= new Date(this.calendar.end_date).getTime();
-      if(x && y){
-        if(x<=y){
-            this.addCalendar(this.calendar)
-            alert("Calendario Registrado com sucesso!")
-        }else{
-          alert("A data de inicio deve ser antes da dat de termino!")
-        }
+      if(!this.calendar.id){
+          if(x && y){
+            if(x<=y){
+                this.addCalendar(this.calendar)
+                alert("Calendario Registrado com sucesso!")
+                this.calendar = {
+                  id: null,
+                  start_date: null,
+                  end_date: null,
+                  description: null
+                }
+                console.log(this.calendar)
+                this.setCalendar(this.calendar)
+            }else{
+              alert("A data de inicio deve ser antes da dat de termino!")
+            }
+          }else{
+            alert("Preencha todos campos")
+          }
       }else{
-        alert("Preencha todos campos")
+        if(x && y){
+            if(x<=y){
+                this.editCalendar(this.calendar)
+                alert("Calendario Editado com sucesso!");
+                this.empyCalendar();
+               
+            }else{
+              alert("A data de inicio deve ser antes da dat de termino!")
+            }
+          }else{
+            alert("Preencha todos campos")
+          }
       }
     }
+  },
+  mounted(){
+    this.calendar();
+  },
+  computed: {
+    ...mapGetters(["calendar",'empycalendar']),
   },
 };
 </script>
