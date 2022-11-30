@@ -92,14 +92,7 @@ export default {
             if(x<=y){
                 this.addCalendar(this.calendar)
                 alert("Calendario Registrado com sucesso!")
-                this.calendar = {
-                  id: null,
-                  start_date: null,
-                  end_date: null,
-                  description: null
-                }
-                console.log(this.calendar)
-                this.setCalendar(this.calendar)
+                this.empyCalendar();
             }else{
               alert("A data de inicio deve ser antes da dat de termino!")
             }
