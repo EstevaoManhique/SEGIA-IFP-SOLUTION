@@ -112,7 +112,7 @@
                     <div class="panel-body">
                       <p>
                         <a
-                          href="VXN1YXJpb1NlcnZsZXQjRENJ?YWNjYW8jaW1wcmltaXItdXN1YXJpb3M="
+                          href=""
                           target="_blank"
                           class="btn bg-grey-300 btn-labeled btn-lg text-bold text-uppercase"
                         >
@@ -121,7 +121,7 @@
                         </a>
 
                         <a
-                          href="VXN1YXJpb1NlcnZsZXQjRENJ?YWNjYW8jZW52aWFyLWxpc3RhLXVzdWFyaW9z"
+                          href=""
                           class="btn bg-danger-300 btn-labeled btn-lg text-bold text-uppercase"
                         >
                           <b><i class="icon-envelop5"></i></b>
@@ -129,160 +129,88 @@
                         </a>
                       </p>
                     </div>
-
-                    <table class="table datatable-responsive">
-                      <thead>
-                        <tr>
-                          <th class="text-bold text-uppercase">#</th>
-                          <th class="text-bold text-uppercase">Denominação</th>
-                          <th class="text-bold text-uppercase">Utilizador</th>
-                          <th class="text-bold text-uppercase">Grupo</th>
-                          <th class="text-bold text-uppercase">Contacto</th>
-                          <th class="text-bold text-uppercase">Província</th>
-                          <th class="text-bold text-uppercase">Distrito</th>
-                          <th class="text-bold text-uppercase">Escola</th>
-                          <th class="text-bold text-uppercase">Estado</th>
-                          <th class="text-bold text-uppercase text-danger-400">
-                            Opções
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr v-for="(user, index) in users" :key="index">
-                          <td>
-                            <a href="#">{{ user.id }}</a>
-                          </td>
-                          <td>
-                            {{ user.person.name + ' ' + user.person.surname }}
-                          </td>
-                          <td>
-                            <a href="#">{{ user.email }}</a>
-                          </td>
-                          <td class="text-bold"><%=tp%></td>
-                          <td>{{ user.person.contact }}</td>
-                          <td>{{ user.province }}</td>
-                          <td>{{ user.distrit }}</td>
-                          <td><%=esc%></td>
-                          <td>
-                            <span class="label">{{ user.status }}</span>
-                          </td>
-                          <td>
-                            <div class="btn-group">
-                              <button
-                                type="button"
-                                class="btn bg-grey-600 btn-icon dropdown-toggle"
-                                data-toggle="dropdown"
-                              >
-                                <i class="icon-menu7"></i> &nbsp;<span
-                                  class="caret"
-                                ></span>
-                              </button>
-
-                              <ul
-                                class="dropdown-menu dropdown-menu-right"
-                                style="
-                                  width: 12em;
-                                  height: 3em;
-                                  line-height: 2em;
-                                  border: 1px solid #ccc;
-                                  padding: 0;
-                                  margin: 0;
-                                  overflow: scroll;
-                                  overflow-x: hidden;
-                                "
-                              >
-                                <li>
-                                  <a
-                                    ><i
-                                      class="icon-reload-alt text-blue-800"
-                                    ></i>
-                                    Redefinir senha</a
-                                  >
-                                </li>
-
-                                <li v-if="user.status">
-                                  <a
-                                    ><i class="icon-user-block text-danger"></i>
-                                    Desactivar</a
-                                  >
-                                </li>
-
-                                <li v-else>
-                                  <a
-                                    ><i
-                                      class="icon-user-check text-success"
-                                    ></i>
-                                    Activar</a
-                                  >
-                                </li>
-
-                                <li class="divider"></li>
-                                <li v-if="user.admin">
-                                  <a
-                                    href="#"
-                                    data-toggle="modal"
-                                    data-target="#modal_rem_<%=id%>"
-                                    ><i
-                                      class="icon-cancel-circle2 text-danger-800"
-                                    ></i
-                                    >Remover registo</a
-                                  >
-                                </li>
-                              </ul>
-                            </div>
-
-                            <!-- Danger modal -->
-                            <div
-                              id="modal_rem_<%=id%>"
-                              class="modal fade text-center"
+                    <v-row>
+                      <v-data-table
+                        :headers="headers"
+                        :items="users"
+                        class="elevation-1"
+                        calculate-widths="false"
+                      >
+                        <template v-slot:item.estado="{ item }">
+                          <v-chip v-if="item.status" color="success"
+                            >Activo</v-chip
+                          >
+                          <v-chip v-else color="warning">Inactivo</v-chip>
+                        </template>
+                        <template v-slot:item.actions="{ item }">
+                          <div class="btn-group">
+                            <button
+                              type="button"
+                              class="btn bg-grey-600 btn-icon dropdown-toggle"
+                              data-toggle="dropdown"
                             >
-                              <div class="modal-dialog">
-                                <div class="modal-content">
-                                  <div class="modal-header">
-                                    <button
-                                      type="button"
-                                      class="close"
-                                      data-dismiss="modal"
-                                    >
-                                      &times;
-                                    </button>
-                                    <h6 class="modal-title text-semibold">
-                                      Confirma a remoção do utilizador com a
-                                      referência #<%=id%> ?
-                                    </h6>
-                                  </div>
-                                  <div class="modal-body">
-                                    <h6 class="text-bold text-danger">
-                                      <i
-                                        class="icon-question6 text-danger"
-                                        style="font-size: 100px"
-                                      ></i>
-                                    </h6>
-                                  </div>
+                              <i class="icon-menu7"></i> &nbsp;<span
+                                class="caret"
+                              ></span>
+                            </button>
 
-                                  <div class="modal-footer">
-                                    <button
-                                      type="button"
-                                      class="btn btn-link"
-                                      data-dismiss="modal"
-                                    >
-                                      Cancelar
-                                    </button>
+                            <ul
+                              class="dropdown-menu dropdown-menu-right"
+                              style="
+                                width: 12em;
+                                height: 3em;
+                                line-height: 2em;
+                                border: 1px solid #ccc;
+                                padding: 0;
+                                margin: 0;
+                                overflow: scroll;
+                                overflow-x: hidden;
+                              "
+                            >
+                              <li>
+                                <a
+                                  ><i class="icon-reload-alt text-blue-800"></i>
+                                  Redefinir senha</a
+                                >
+                              </li>
+                              <li>
+                                <a
+                                  ><i class="icon-reload-alt text-blue-800"></i>
+                                  Editar</a
+                                >
+                              </li>
 
-                                    <a
-                                      href="VXN1YXJpb1NlcnZsZXQjRENJ?<%=actR%>"
-                                      class="btn btn-danger text-bold text-uppercase"
-                                      >Sim, confirmo !</a
-                                    >
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            <!-- /default modal -->
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
+                              <li v-if="item.status">
+                                <a @click="changeStatus(item)"
+                                  ><i class="icon-user-block text-danger"></i>
+                                  Desactivar</a
+                                >
+                              </li>
+
+                              <li v-else>
+                                <a @click="changeStatus(item)"
+                                  ><i class="icon-user-check text-success"></i>
+                                  Activar</a
+                                >
+                              </li>
+
+                              <li class="divider"></li>
+                              <li>
+                                <a
+                                  href="#"
+                                  data-toggle="modal"
+                                  @click="deleteUser(item)"
+                                  ><i
+                                    class="icon-cancel-circle2 text-danger-800"
+                                  ></i
+                                  >Remover registo</a
+                                >
+                              </li>
+                            </ul>
+                          </div>
+                        </template>
+                      </v-data-table>
+                    </v-row>
                   </div>
                   <!-- /basic responsive configuration -->
                 </div>
@@ -304,9 +232,29 @@ import { mapGetters, mapActions } from 'vuex';
 export default {
   name: 'HomeView',
   components: { NavBar, AddAccountForm },
-  data: () => ({}),
+  data: () => ({
+    headers: [
+      { text: '#', value: 'id' },
+      { text: 'Denominação', value: 'name' },
+      { text: 'Utilizador', value: 'email' },
+      { text: 'Grupo', value: 'group' },
+      { text: 'Contacto', value: 'person.contact' },
+      { text: 'Província', value: 'province' },
+      { text: 'Distrito', value: 'district' },
+      { text: 'Escola', value: 'escola' },
+      { text: 'Estado', value: 'estado' },
+      { text: 'Opções', value: 'actions' },
+    ],
+  }),
   methods: {
-    ...mapActions(['allUser']),
+    ...mapActions(['allUser', 'updateUser', 'removeUser']),
+    changeStatus(user) {
+      user.status = !user.status;
+      this.updateUser(user);
+    },
+    deleteUser(user) {
+      this.removeUser(user);
+    },
   },
   mounted() {
     this.allUser();

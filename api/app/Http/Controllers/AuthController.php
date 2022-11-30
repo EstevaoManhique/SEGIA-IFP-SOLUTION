@@ -143,4 +143,32 @@ class AuthController extends Controller
 
         return $users;
     }
+
+    public function update(Request $request, $id)
+    {
+        try {
+            $user = User::find($id);
+            $user->status = isset($request['status']) ? $request['status'] : $user->status;
+            $user->email = isset($request['email']) ? $request['email'] : $user->email;
+            $user->name = isset($request['name']) ? $request['name'] : $user->name;
+            $user->password = isset($request['password']) ? Hash::make($request['password']) : $user->password;
+            $user->save();
+            return response(['msg' => 'User Updated!', 'data' => $user], 200);
+        } catch (\Exception $e) {
+            return response(['msg' => $e->getMessage()], $e->getCode());
+        }
+    }
+
+    public function destroy($id)
+    {
+        try {
+            $person = User::findOrFail($id);
+            if ($person) {
+                $person->delete();
+                return response()->json(['msg' => 'User deleted successfully!']);
+            }
+        } catch (\Exception $e) {
+            return response(['msg' => $e->getMessage()], $e->getCode());
+        }
+    }
 }

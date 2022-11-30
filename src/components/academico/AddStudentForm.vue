@@ -273,7 +273,24 @@
                 label="Órfão/Vulnerável/Portador de Doença"
               ></v-checkbox>
             </v-col>
-            <v-col> </v-col>
+            <v-col cols="12" sm="6" md="4">
+              <v-select
+                :items="doc_type"
+                label="Formação"
+                dense
+                filled
+                v-model="student.person.training_level"
+              ></v-select>
+            </v-col>
+            <v-col cols="12" sm="6" md="4">
+              <v-select
+                :items="doc_type"
+                label="Ocupação"
+                dense
+                filled
+                v-model="student.person.work"
+              ></v-select>
+            </v-col>
           </v-row>
 
           <div class="text-right">

@@ -30,9 +30,7 @@ const actions = {
 
         const response = await axios.post('login', data);
         localStorage.setItem('token', response.data.token);
-
         commit('user', response.data.user);
-
         commit('token', response.data.token);
     },
     async addUser({ commit }, user) {
@@ -45,11 +43,13 @@ const actions = {
 
         commit('addUser', response.data.data);
     },
-    removeUser({ commit }, user) {
+    async removeUser({ commit }, user) {
+        const response = await axios.delete('user/' + user.id, user);
         commit('removeUser', user);
     },
-    updateUser({ commit }, user) {
-        commit('updateUser', user);
+    async updateUser({ commit }, user) {
+        const response = await axios.put('user/' + user.id, user);
+        commit('updateUser', response.data);
     },
     logout({ commit }) {
         commit('logout');

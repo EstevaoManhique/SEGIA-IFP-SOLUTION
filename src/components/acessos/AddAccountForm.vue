@@ -88,25 +88,12 @@
                 <div class="col-lg-9">
                   <div class="row">
                     <div class="col-md-6">
-                      <select class="select" name="idTipoUsuario" required="">
-                        <optgroup label="Selecione um tipo">
-                          <% if (tiposUsuario != null) { for (TipoUsuario tu :
-                          tiposUsuario) { if
-                          (!tu.getTipuDescricao().equals("Super Administrador")
-                          && !tu.getTipuDescricao().equals("Cliente") &&
-                          !tu.getTipuDescricao().equals("Operador") &&
-                          !tu.getTipuDescricao().equals("Agente")) { %>
-                          <option value="<%=tu.getTipuId()%>">
-                            <%=tu.getTipuDescricao()%>
-                          </option>
-
-                          <% } } } %> <% if (cargo.equals("Tecnico Informatica")
-                          || cargo.equals("Tecnico Informatica (Distrital)")) {
-                          %>
-                          <option value="20">Director Pedagogico</option>
-                          <% } %>
-                        </optgroup>
-                      </select>
+                      <v-select
+                        :items="user_groups"
+                        label="CARGO:"
+                        dense
+                        v-model="user.cargo"
+                      ></v-select>
                     </div>
                   </div>
                 </div>
@@ -119,31 +106,21 @@
                 <div class="col-lg-9">
                   <div class="row">
                     <div class="col-md-6">
-                      <select
-                        id="make"
-                        data-placeholder="Selecione a provincia"
-                        class="select"
-                        name="provincia"
+                      <v-select
+                        :items="user_groups"
+                        label="Province"
+                        dense
                         v-model="user.province"
-                      >
-                        <option></option>
-                        <% for (EdstProvince s : provincias) { String sel = "";
-                        String desc = s.getName(); %>
-                        <option value="<%=desc%>" <%="sel%">><%=desc%></option>
-                        <% } %>
-                      </select>
+                      ></v-select>
                     </div>
 
                     <div class="col-md-6">
-                      <select
-                        id="models"
-                        data-placeholder="Selecione o distrito"
-                        class="select"
-                        name="distrito"
+                      <v-select
+                        :items="user_groups"
+                        label="distrito"
+                        dense
                         v-model="user.distrit"
-                      >
-                        <option></option>
-                      </select>
+                      ></v-select>
                     </div>
                   </div>
                 </div>
@@ -158,15 +135,12 @@
                 <div class="col-lg-9">
                   <div class="row">
                     <div class="col-md-12">
-                      <select
-                        data-placeholder="Selecione a escola"
-                        class="select"
-                        name="nome"
-                        required=""
-                        v-model="user.school"
-                      >
-                        <option></option>
-                      </select>
+                      <v-select
+                        :items="user_groups"
+                        label="Escola"
+                        dense
+                        v-model="user.escola"
+                      ></v-select>
                     </div>
                   </div>
                 </div>
@@ -204,9 +178,30 @@ export default {
         email: '',
         contact: '',
         school: '',
+        cargo: '',
         province: '',
         distrit: '',
       },
+      user_groups: [
+        'Administrador',
+        'Chefe Secretaria',
+        'Chefe Turma',
+        'Coordenador Cultura',
+        'Coordenador Desportivo',
+        'Coordenador Saude',
+        'Director Adjunto Administrativo 2 Ciclo',
+        'Director Adjunto Geral',
+        'Director Classe',
+        'Director Disciplina',
+        'Director Escola',
+        'Director Pedagogico',
+        'Director Turma',
+        'Docente',
+        'Funcionario',
+        'Gestor',
+        'Tecnico Informativo',
+        'Tecnico Informativo (Distrital)',
+      ],
     };
   },
   methods: {

@@ -31,6 +31,8 @@ Route::post('register', [AuthController::class, 'register']);
 Route::post('forgot', [AuthController::class, 'forgot']);
 Route::post('reset', [AuthController::class, 'reset']);
 Route::get('users', [AuthController::class, 'users'])->name('users');
+Route::put('user/{id}', [AuthController::class, 'update'])->name('user.update');
+Route::delete('user/{id}', [AuthController::class, 'destroy'])->name('user.destroy');
 
 
 Route::controller(SchoolController::class)->prefix('school')->group(function () {
