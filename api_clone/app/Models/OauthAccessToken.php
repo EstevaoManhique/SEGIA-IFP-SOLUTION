@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  * 
  * @property string $id
  * @property int|null $user_id
- * @property int $client_id
+ * @property string $client_id
  * @property string|null $name
  * @property string|null $scopes
  * @property bool $revoked
@@ -31,7 +31,6 @@ class OauthAccessToken extends Model
 
 	protected $casts = [
 		'user_id' => 'int',
-		'client_id' => 'int',
 		'revoked' => 'bool'
 	];
 

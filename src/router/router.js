@@ -302,14 +302,113 @@ const routes = [{
                 ],
             },
             {
-                path: 'parametrizacao',
-                name: 'dashboard-parametrizacao',
-                component: () =>
-                    import ('@/views/parametrizacao/HomeView.vue'),
-                meta: {
-                    display: 'headers.home',
-                    display_title: 'menus.home',
+                path: 'config',
+                component: {
+                    render(c) {
+                        return c('router-view');
+                    },
                 },
+                children: [{
+                        path: '',
+                        name: 'dashboard-parametrizacao',
+                        component: () =>
+                            import ('@/views/parametrizacao/HomeView.vue'),
+                        meta: {
+                            display: 'headers.home',
+                            display_title: 'menus.home',
+                        },
+                    },
+                    {
+                        path: 'school',
+                        name: 'config_schools',
+                        component: () =>
+                            import ('@/views/parametrizacao/School.vue'),
+                        meta: {
+                            display: 'headers.schools',
+                            display_title: 'menus.schools',
+                        },
+                    },
+                    {
+                        path: 'classes',
+                        name: 'config_classes',
+                        component: () =>
+                            import ('@/views/parametrizacao/Classes.vue'),
+                        meta: {
+                            display: 'headers.classes',
+                            display_title: 'menus.classes',
+                        },
+                    },
+                    {
+                        path: 'subject',
+                        name: 'config_subjects',
+                        component: () =>
+                            import ('@/views/parametrizacao/Subject.vue'),
+                        meta: {
+                            display: 'headers.subjects',
+                            display_title: 'menus.subjects',
+                        },
+                    },
+                    {
+                        path: 'classes-school',
+                        name: 'config_classes_school',
+                        component: () =>
+                            import ('@/views/parametrizacao/SchoolClasses.vue'),
+                        meta: {
+                            display: 'headers.classes_school',
+                            display_title: 'menus.classes_school',
+                        },
+                    },
+                    {
+                        path: 'classes-subjects',
+                        name: 'config_classes_subjects',
+                        component: () =>
+                            import ('@/views/parametrizacao/SchoolClasses.vue'),
+                        meta: {
+                            display: 'headers.classes_subject',
+                            display_title: 'menus.classes_subject',
+                        },
+                    },
+                    {
+                        path: 'curricular-plan',
+                        name: 'config_curricular_plan',
+                        component: () =>
+                            import ('@/views/parametrizacao/SchoolClasses.vue'),
+                        meta: {
+                            display: 'headers.curricular_plan',
+                            display_title: 'menus.curricular_plan',
+                        },
+                    },
+                    {
+                        path: 'nacionalidades',
+                        name: 'config_nacionalidades',
+                        component: () =>
+                            import ('@/views/parametrizacao/SchoolClasses.vue'),
+                        meta: {
+                            display: 'headers.nacionalidades',
+                            display_title: 'menus.nacionalidades',
+                        },
+                    },
+                    {
+                        path: 'categoria-ensino',
+                        name: 'config_categoria_ensino',
+                        component: () =>
+                            import ('@/views/parametrizacao/SchoolClasses.vue'),
+                        meta: {
+                            display: 'headers.categoria_ensino',
+                            display_title: 'menus.categoria_ensino',
+                        },
+                    },
+                    {
+                        path: 'taxa-exame',
+                        name: 'config_taxa_exame',
+                        component: () =>
+                            import ('@/views/parametrizacao/SchoolClasses.vue'),
+                        meta: {
+                            display: 'headers.taxa_exame',
+                            display_title: 'menus.taxa_exame',
+                        },
+                    },
+                ],
             },
             {
                 path: 'extraudinario',

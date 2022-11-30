@@ -6,69 +6,56 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class School
- *
+ * 
  * @property int $id
- * @property string|null $cod_escola
- * @property int $esc_alunos
- * @property int $esc_alunos_homens
- * @property int $esc_alunos_mulheres
- * @property int $esc_alunos_necessitados
- * @property string|null $esc_contacto
- * @property string|null $esc_descricao
- * @property string|null $esc_distrito
- * @property int $esc_docentes
- * @property string|null $esc_endereco
- * @property int $esc_faixa_05
- * @property int $esc_faixa_1115
- * @property int $esc_faixa_1625
- * @property int $esc_faixa_2635
- * @property int $esc_faixa_35
- * @property int $esc_faixa_610
- * @property int $esc_membros_homens
- * @property int $esc_membros_mulheres
- * @property string|null $esc_provincia
- * @property int $esc_salas
- * @property float $esc_saldo
- * @property int $esc_turmas
+ * @property string|null $cod
+ * @property string|null $name
+ * @property string|null $abbreviation
+ * @property int $district_id
+ * @property string|null $type
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
+ * 
+ * @property District $district
+ * @property SchoolClassCategory $school_class_category
+ * @property Collection|Student[] $students
  *
  * @package App\Models
  */
 class School extends Model
 {
-    protected $table = 'schools';
-    public $timestamps = false;
+	protected $table = 'schools';
 
-    protected $casts = [
-        'esc_alunos' => 'int',
-        'esc_alunos_homens' => 'int',
-        'esc_alunos_mulheres' => 'int',
-        'esc_alunos_necessitados' => 'int',
-        'esc_docentes' => 'int',
-        'esc_faixa_05' => 'int',
-        'esc_faixa_1115' => 'int',
-        'esc_faixa_1625' => 'int',
-        'esc_faixa_2635' => 'int',
-        'esc_faixa_35' => 'int',
-        'esc_faixa_610' => 'int',
-        'esc_membros_homens' => 'int',
-        'esc_membros_mulheres' => 'int',
-        'esc_salas' => 'int',
-        'esc_saldo' => 'float',
-        'esc_turmas' => 'int'
-    ];
+	protected $casts = [
+		'district_id' => 'int'
+	];
 
-    protected $fillable = [
-        'cod_escola',
-        'esc_contacto',
-        'esc_descricao',
-        'esc_distrito',
-        'esc_endereco',
-        'esc_provincia',
-        'esc_salas',
-        'esc_saldo',
-    ];
+	protected $fillable = [
+		'cod',
+		'name',
+		'abbreviation',
+		'district_id',
+		'type'
+	];
+
+	public function district()
+	{
+		return $this->belongsTo(District::class);
+	}
+
+	public function school_class_category()
+	{
+		return $this->hasOne(SchoolClassCategory::class);
+	}
+
+	public function students()
+	{
+		return $this->hasMany(Student::class);
+	}
 }

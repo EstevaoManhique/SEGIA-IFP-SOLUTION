@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddForeignKeysToStudentsTable extends Migration
+class AddForeignKeysToDistrictsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddForeignKeysToStudentsTable extends Migration
      */
     public function up()
     {
-        Schema::table('students', function (Blueprint $table) {
-            $table->foreign(['person_id'], 'students_ibfk_1')->references(['id'])->on('persons')->onUpdate('CASCADE')->onDelete('CASCADE');
+        Schema::table('districts', function (Blueprint $table) {
+            $table->foreign(['province_id'], 'districts_ibfk_1')->references(['id'])->on('provinces')->onUpdate('CASCADE')->onDelete('CASCADE');
         });
     }
 
@@ -25,8 +25,8 @@ class AddForeignKeysToStudentsTable extends Migration
      */
     public function down()
     {
-        Schema::table('students', function (Blueprint $table) {
-            $table->dropForeign('students_ibfk_1');
+        Schema::table('districts', function (Blueprint $table) {
+            $table->dropForeign('districts_ibfk_1');
         });
     }
 }

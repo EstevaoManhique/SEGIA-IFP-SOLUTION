@@ -1,85 +1,61 @@
 [{
         "name": "menus.dashboard",
         "to": "dashboard-parametrizacao",
-        "icon": "",
+        "icon": "icon-home4",
         "sub_menus": []
     },
     {
-        "name": "menus.exames_finais",
-        "to": "dashboard-parametrizacao",
-        "icon": "",
-        "sub_menus": [{
-                "name": "menus.alunos_apurados",
-                "to": "dashboard-parametrizacao",
-                "icon": "",
-                "sub_menus": []
-            },
-            {
-                "name": "menus.calendario_exames",
-                "to": "dashboard-parametrizacao",
-                "icon": "",
-                "sub_menus": []
-            },
-            {
-                "name": "menus.criacao_juris",
-                "to": "dashboard-parametrizacao",
-                "icon": "",
-                "sub_menus": []
-            },
-            {
-                "name": "menus.lista_juris",
-                "to": "dashboard-parametrizacao",
-                "icon": "",
-                "sub_menus": []
-            },
-            {
-                "name": "menus.folha_resdashboard-parametrizacaoa",
-                "to": "dashboard-parametrizacao",
-                "icon": "",
-                "sub_menus": []
-            },
-            {
-                "name": "menus.decoder_leitura",
-                "to": "dashboard-parametrizacao",
-                "icon": "",
-                "sub_menus": []
-            },
-            {
-                "name": "menus.presenca_fraudes",
-                "to": "dashboard-parametrizacao",
-                "icon": "",
-                "sub_menus": []
-            },
-            {
-                "name": "menus.pauta_exames",
-                "to": "dashboard-parametrizacao",
-                "icon": "",
-                "sub_menus": []
-            }
-        ]
+        "name": "menus.schools",
+        "to": "config_schools",
+        "icon": "icon-office",
+        "sub_menus": []
     },
     {
-        "name": "menus.relatorios",
-        "to": "dashboard-parametrizacao",
-        "icon": "",
-        "sub_menus": [{
-                "name": "menus.mapa_avaliados",
-                "to": "dashboard-parametrizacao",
-                "icon": "",
-                "sub_menus": []
-            },
-            {
-                "name": "menus.mapa_presenca",
-                "to": "dashboard-parametrizacao",
-                "icon": "",
-                "sub_menus": []
-            },
-            {
-                "name": "menus.mapa_inscritos",
-                "to": "dashboard-parametrizacao",
-                "icon": "",
-                "sub_menus": []
-            }
-        ]
+        "name": "menus.classes",
+        "to": "config_classes",
+        "icon": "icon-book",
+        "sub_menus": []
+    },
+    {
+        "name": "menus.classes_school",
+        "to": "config_classes_school",
+        "icon": "icon-stack",
+        "sub_menus": []
+    },
+    {
+        "name": "menus.subjects",
+        "to": "config_subjects",
+        "icon": "icon-book3",
+        "sub_menus": []
+    },
+    {
+        "name": "menus.classes_subject",
+        "to": "config_classes_subjects",
+        "icon": "icon-archive",
+        "sub_menus": []
+    },
+    {
+        "name": "menus.curricular_plan",
+        "to": "config_curricular_plan",
+        "icon": "icon-graduation2",
+        "sub_menus": []
+    },
+    {
+        "name": "menus.categoria_ensino",
+        "to": "config_categoria_ensino",
+        "icon": "icon-graduation2",
+        "sub_menus": []
+    },
+    {
+        "name": "menus.taxa_exame",
+        "to": "config_taxa_exame",
+        "icon": "icon-cash",
+        "sub_menus": []
+    },
+    {
+        "name": "menus.nacionalidades",
+        "to": "config_nacionalidades",
+        "icon": "icon-earth",
+        "sub_menus": []
     }
 ]

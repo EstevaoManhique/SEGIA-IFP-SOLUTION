@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  * 
  * @property string $id
  * @property int $user_id
- * @property int $client_id
+ * @property string $client_id
  * @property string|null $scopes
  * @property bool $revoked
  * @property Carbon|null $expires_at
@@ -29,7 +29,6 @@ class OauthAuthCode extends Model
 
 	protected $casts = [
 		'user_id' => 'int',
-		'client_id' => 'int',
 		'revoked' => 'bool'
 	];
 

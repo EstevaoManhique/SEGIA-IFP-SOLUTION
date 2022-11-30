@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Class OauthClient
  * 
- * @property int $id
+ * @property string $id
  * @property int|null $user_id
  * @property string $name
  * @property string|null $secret
@@ -29,6 +29,7 @@ use Illuminate\Database\Eloquent\Model;
 class OauthClient extends Model
 {
 	protected $table = 'oauth_clients';
+	public $incrementing = false;
 
 	protected $casts = [
 		'user_id' => 'int',

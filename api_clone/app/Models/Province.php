@@ -7,39 +7,39 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class Teacher
+ * Class Province
  * 
  * @property int $id
- * @property int $person_id
- * @property string $cod
- * @property string $specialty
- * @property string $degree_formation
+ * @property string $name
+ * @property string|null $cod
  * @property Carbon $created_at
  * @property Carbon $update_at
+ * 
+ * @property Collection|District[] $districts
  *
  * @package App\Models
  */
-class Teacher extends Model
+class Province extends Model
 {
-	protected $table = 'teachers';
+	protected $table = 'provinces';
 	public $timestamps = false;
-
-	protected $casts = [
-		'person_id' => 'int'
-	];
 
 	protected $dates = [
 		'update_at'
 	];
 
 	protected $fillable = [
-		'person_id',
+		'name',
 		'cod',
-		'specialty',
-		'degree_formation',
 		'update_at'
 	];
+
+	public function districts()
+	{
+		return $this->hasMany(District::class);
+	}
 }

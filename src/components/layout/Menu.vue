@@ -20,7 +20,7 @@
             </v-list-item-icon>
             <v-list-item-content>
               <v-list-item-title class="light--text">
-                  {{$t(menu.name) | upper}}
+                {{ $t(menu.name) | upper }}
               </v-list-item-title>
             </v-list-item-content>
           </v-list-item>
@@ -35,7 +35,7 @@
           </v-list-item-icon>
           <v-list-item-content>
             <v-list-item-title class="light--text">
-              {{$t(sub_menu.name) | upper}}
+              {{ $t(sub_menu.name) | upper }}
             </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
@@ -50,6 +50,7 @@ import menu_12classe from '@/store/modules/menu/menu_12classe.json';
 import menu_acesso from '@/store/modules/menu/menu_acesso.json';
 import menu_extraordinario from '@/store/modules/menu/menu_extraudinario.json';
 import menu_ifp from '@/store/modules/menu/menu_ifp.json';
+import menu_parametrizacao from '@/store/modules/menu/menu_parametrizacao.json';
 
 export default {
   name: 'QMenu',
@@ -61,7 +62,8 @@ export default {
       menu_12classe,
       menu_acesso,
       menu_extraordinario,
-      menu_ifp
+      menu_ifp,
+      menu_parametrizacao,
     };
   },
   mounted() {
@@ -80,11 +82,11 @@ export default {
           this.menus = this.menu_extraordinario;
           break;
         case 5:
-          this.menus = this.menu_academico;
+          this.menus = this.menu_parametrizacao;
           break;
         case 6:
           this.menus = this.menu_ifp;
-        break;
+          break;
         default:
           this.menus = this.menu_academico;
           break;
@@ -93,5 +95,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>
