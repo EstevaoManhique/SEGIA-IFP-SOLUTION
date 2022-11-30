@@ -14,21 +14,18 @@ use Illuminate\Database\Eloquent\Model;
  * 
  * @property int $id_shedule_exam
  * @property string $description
- * @property Carbon|null $start_date
- * @property Carbon $end_date
+ * @property  string $start_date
+ * @property  string $end_date
  *
  * @package App\Models
  */
 class IfpCalendarioExame extends Model
 {
 	protected $table = 'ifp_calendario_exames';
-	protected $primaryKey = 'id_shedule_exam';
+	protected $primaryKey = 'id';
 	public $timestamps = false;
 
-	protected $dates = [
-		'start_date',
-		'end_date'
-	];
+	
 
 	protected $fillable = [
 		'description',

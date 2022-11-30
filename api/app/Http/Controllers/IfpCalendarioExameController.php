@@ -85,16 +85,14 @@ class IfpCalendarioExameController extends Controller
         try {
             $calendario = IfpCalendarioExame::findOrFail($id);
             if ($calendario) {
-                
-            
                 $calendario->start_date = isset($request['start_date'])?$request['start_date']:$calendario->start_date;
-                $calendario->end_date = $request['end_date']?$request['end_date']:$calendario->end_date;
-                $calendario->description = $request['description']?$request['description']:$calendario->description;
+                $calendario->end_date = isset($request['end_date'])?$request['end_date']:$calendario->end_date;
+                $calendario->description = isset($request['description'])?$request['description']:$calendario->description;
                 $calendario->save(); 
-                return response(['msg' => 'IfpCalendarioExame Updated!', 'data' =>$calendario], 200);
+                return response(['msg' => 'Ifp Calendar Exam Updated!', 'data' =>$calendario], 200);
             }
 
-            return response(['msg' => 'IfpCalendarioExame not found!'], 404);
+            return response(['msg' => 'Ifp Calendar Exam Not Found!'], 404);
         } catch (\Exception $e) {
             return response(['msg' => $e->getMessage()], $e->getCode());
         }

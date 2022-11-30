@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('ifp_calendario_exames', function(BluePrint $table){
-            $table->bigIncrements('id_shedule_exam');
+            $table->bigIncrements('id');
             $table->string('description');
             $table->date('start_date')->nullable();
             $table->date('end_date');

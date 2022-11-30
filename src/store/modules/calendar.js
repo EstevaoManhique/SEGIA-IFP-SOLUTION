@@ -9,11 +9,18 @@ const state = {
         end_date: null,
         description: null
     },
+    empycalendar: {
+        id: null,
+        start_date: null,
+        end_date: null,
+        description: null
+    },
 };
 
 const getters = {
     calendars: (state) => state.calendars,
     calendar: (state) => state.calendar,
+    empycalendar: (state) => state.empycalendar,
 };
 
 const actions = {
@@ -40,20 +47,45 @@ const actions = {
         const rsp = await axios.get('ifpcalendar/' + calendar.id);
         commit('getCalendar', rsp.data);
     },
+    async editCalendar({ commit }, calendar) {
+        calendar.description='Formação de Professores '+(new Date().getFullYear());
+        const rsp = await axios.put('ifpcalendar/' + calendar.id, calendar);
+        commit('editCalendar', rsp.data.data);
+    },
+    setCalendar({ commit }, calendar){
+        commit('setCalendar',calendar)
+    },
+    empyCalendar({commit}){
+        console.log('Empy');
+        commit('empyCalendar');
+    }
 };
 
 const mutations = {
     getCalendars(state, payload) {
         state.calendars = payload;
     },
+    setCalendar(state, payload) {
+        state.calendar = payload;
+    },
+    empyCalendar(state){
+        state.calendar={id: null,
+            start_date: null,
+            end_date: null,
+            description: null};
+    },
     addCalendar(state, payload) {
         state.calendars.push(payload.data);
     },
     removeCalendar(state, payload) {
-        state.calendars = state.calendars.filter((calendar) => calendar.id_shedule_exam != payload);
+        state.calendars = state.calendars.filter((calendar) => calendar.id != payload);
     },
     getCalendar(state, payload) {
         state.calendar = payload;
+    },
+    editCalendar(state, payload) {
+        let calendar = state.calendars.findIndex((calendar) => calendar.id == payload.id)
+        state.calendars.splice(calendar, 1, payload);
     },
 };
 export default {
