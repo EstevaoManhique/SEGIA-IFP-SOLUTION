@@ -9,6 +9,7 @@ use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PersonController;
 use App\Http\Controllers\SocialMediaController;
+use App\Http\Controllers\IfpCalendarioExameController;
 
 /*
 |--------------------------------------------------------------------------
@@ -69,4 +70,12 @@ Route::controller(PersonController::class)->prefix('person')->group(function () 
 
 Route::controller(GeneralController::class)->prefix('config')->group(function () {
     Route::get('/nationality', 'nationalities')->name('config.nationality');
+});
+
+Route::controller(IfpCalendarioExameController::class)->prefix('ifpcalendar')->group(function () {
+    Route::get('/', 'index')->name('ifpcalendario.index');
+    Route::post('/store', 'store')->name('ifpcalendario.store');
+    Route::get('/{id}', 'show')->name('ifpcalendario.show');
+    Route::delete('/{id}', 'destroy')->name('ifpcalendario.destroy');
+    Route::put('/{id}', 'update')->name('ifpcalendario.update');
 });
