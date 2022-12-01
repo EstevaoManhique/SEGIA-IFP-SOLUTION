@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class CreateDistrictsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,8 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('districts', function (Blueprint $table) {
-            $table->integer('id');
-            $table->foreignId('province_id');
+            $table->integer('id', true);
+            $table->unsignedBigInteger('province_id');
             $table->string('name');
             $table->string('cod');
             $table->timestamps();
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('table_district');
+        Schema::dropIfExists('districts');
     }
-};
+}

@@ -38,15 +38,13 @@ class DistrictController extends Controller
     public function store(Request $request)
     {
         try {
-            $province = new Province();
             $district = new District();
-            if (isset($request['id'])) {
-                $district = District::find($request['id']);
-            }
+            
 
             $district->name = isset($request['name']) ? $request['name'] :  $district->name;
             $district->cod = isset($request['cod']) ? $request['cod'] :  $district->cod;
-            $district->province_id = isset($request['province_id']) ? $request['province_id'] :  $district->cod;
+            $district->province_id = isset($request['province_id']) ? $request['province_id'] :  $district->province_id;
+           //return $district;
             $district->save();
 
             return response(['msg' => 'District Registered', 'data' => $district], 200);

@@ -11,13 +11,10 @@ use App\Http\Controllers\PersonController;
 use App\Http\Controllers\ClasseController;
 use App\Http\Controllers\IfpCalendarioExameController;
 use App\Http\Controllers\SubjectController;
-<<<<<<< Updated upstream
-use App\Http\Controllers\CategoryController;
-=======
-use App\Http\Controllers\ClassCategoryController;
+
+use App\Http\Controllers\CategoryController; 
 use App\Http\Controllers\ProvinceControler;
 use App\Http\Controllers\DistrictController;
->>>>>>> Stashed changes
 
 /*
 |--------------------------------------------------------------------------
