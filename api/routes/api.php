@@ -11,7 +11,13 @@ use App\Http\Controllers\PersonController;
 use App\Http\Controllers\ClasseController;
 use App\Http\Controllers\IfpCalendarioExameController;
 use App\Http\Controllers\SubjectController;
+<<<<<<< Updated upstream
 use App\Http\Controllers\CategoryController;
+=======
+use App\Http\Controllers\ClassCategoryController;
+use App\Http\Controllers\ProvinceControler;
+use App\Http\Controllers\DistrictController;
+>>>>>>> Stashed changes
 
 /*
 |--------------------------------------------------------------------------
@@ -105,3 +111,21 @@ Route::controller(CategoryController::class)->prefix('class-category')->group(fu
     Route::delete('/{id}', 'destroy')->name('person.destroy');
     Route::put('/{id}', 'update')->name('person.update');
 });
+
+Route::controller(ProvinceControler::class)->prefix('province')->group(function () {
+    Route::get('/', 'index')->name('province.index');
+    Route::post('/store', 'store')->name('province.store');
+    Route::get('/{id}', 'show')->name('province.show');
+    Route::delete('/{id}', 'destroy')->name('province.destroy');
+    Route::put('/{id}', 'update')->name('province.update');
+});
+
+
+Route::controller(DistrictController::class)->prefix('district')->group(function () {
+    Route::get('/', 'index')->name('district.index');
+    Route::post('/store', 'store')->name('district.store');
+    Route::get('/{id}', 'show')->name('district.show');
+    Route::delete('/{id}', 'destroy')->name('district.destroy');
+    Route::put('/{id}', 'update')->name('district.update');
+});
+
