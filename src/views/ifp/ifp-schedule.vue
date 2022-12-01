@@ -3,7 +3,7 @@
     <nav-bar :menu_types="6" />
     <v-row>
       <div class="content-wrapper">
-        <toolbar-vue/>
+        <toolbar-vue :descricao = "descricao"/>
         <wrap-time-inscription/>
         <data-table/>
       </div>
@@ -16,18 +16,21 @@
 import NavBar from "@/components/layout/NavBar.vue";
 import { mapGetters } from "vuex";
 import toolbarVue from "@/views/ifp/components/ToolBar.vue";
-import WrapTimeInscription from "@/views/ifp/components/WrapTimeInscription.vue";
-import DataTable from "@/views/ifp/components/DataTable.vue";
+import WrapTimeInscription from "@/views/ifp/components/WrapTimeInscriptionIfpCalendar.vue";
+import DataTable from "@/views/ifp/components/DataTableIfpCalendar.vue";
 
 export default {
   name: "HomeView",
   components: { NavBar,toolbarVue, WrapTimeInscription, DataTable },
   data: () => ({
-     
+     descricao : null
   }),
 
   computed: {
     ...mapGetters(["calendar"]),
   },
+  mounted(){
+    this.descricao = "Periodos de Inscrição"
+  }
 };
 </script>

@@ -62,7 +62,7 @@
               @click="submit"
               class="btn bg-orange-600 text-uppercase text-bold"
             >
-              Actualizar Datas
+              Submeter Datas
               <i class="icon-circle-right2 position-right"></i>
             </button>
           </div>
@@ -83,7 +83,7 @@ export default {
   }),
   methods: {
     ...mapActions(['addCalendar','removeCalendar','editCalendar', 'setCalendar','empyCalendar']),
-    
+
     submit() {
       const x= new Date(this.calendar.start_date).getTime();
       const y= new Date(this.calendar.end_date).getTime();

@@ -16,8 +16,7 @@
             href="#settings"
             data-toggle="tab"
             class="text-bold text-uppercase"
-            ><i class="icon-calendar2 position-left"></i> Periodos de
-            Inscrição</a
+            ><i class="icon-calendar2 position-left"></i>{{descricao}}</a
           >
         </li>
       </ul>
@@ -31,8 +30,10 @@ import { mapGetters } from 'vuex';
 export default {
   name: 'ToolBar',
   components: {},
-  data: () => ({}),
-
+  data: () => ({
+    descricao : null
+  }),
+  props : ['descricao'],
   computed: {
     ...mapGetters(['user']),
   },
