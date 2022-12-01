@@ -23,12 +23,7 @@ const actions = {
         commit('getClasses', res.data);
     },
     async addClasse({ commit }, classe) {
-        let data = new FormData();
-        data.append('name', classe.name);
-        data.append('surname', classe.surname);
-        data.append('school_id', classe.school_id);
-
-        const rsp = await axios.post('classe/store', data);
+        const rsp = await axios.post('classe/store', classe);
         commit('addClasse', rsp.data);
     },
     async removeClasse({ commit }, classe) {
@@ -48,6 +43,7 @@ const mutations = {
     },
     addClasse(state, payload) {
         state.classes.push(payload.data);
+        state.classes = state.classes.sort((a, b) => a.cod.localeCompare(b.cod));
     },
     removeClasse(state, payload) {
         state.classes = state.classes.filter((classe) => classe.id != payload);

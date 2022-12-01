@@ -68,7 +68,7 @@
                   </v-col>
                 </v-row>
                 <v-row>
-                  <v-btn @click="addClasse"> Adicionar Classe </v-btn>
+                  <v-btn @click="addClasses"> Adicionar Classe </v-btn>
                 </v-row>
               </v-form>
             </v-card>

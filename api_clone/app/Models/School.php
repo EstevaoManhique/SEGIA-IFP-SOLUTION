@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null $abbreviation
  * @property int $district_id
  * @property string|null $type
+ * @property bool $isCentro
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * 
@@ -33,7 +34,8 @@ class School extends Model
 	protected $table = 'schools';
 
 	protected $casts = [
-		'district_id' => 'int'
+		'district_id' => 'int',
+		'isCentro' => 'bool'
 	];
 
 	protected $fillable = [
@@ -41,7 +43,8 @@ class School extends Model
 		'name',
 		'abbreviation',
 		'district_id',
-		'type'
+		'type',
+		'isCentro'
 	];
 
 	public function district()
