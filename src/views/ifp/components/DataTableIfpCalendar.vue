@@ -60,10 +60,11 @@ export default {
      
   }),
   methods : {
-   ...mapActions(['getCalendars','removeCalendar', 'editCalendar','setCalendar']),
+   ...mapActions(['getCalendars','removeCalendar', 'editCalendar','setCalendar','empyCalendar']),
       removCalendar(id){
         if(confirm("Tem Certeza Que Deseja Eliminar?")){
             this.removeCalendar(id)
+            this.empyCalendar();
         }
       },
       edit(calendar){
