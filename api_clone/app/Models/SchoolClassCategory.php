@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property Carbon $updated_at
  * 
  * @property School $school
+ * @property Category $category
  *
  * @package App\Models
  */
@@ -39,5 +40,10 @@ class SchoolClassCategory extends Model
 	public function school()
 	{
 		return $this->belongsTo(School::class);
+	}
+
+	public function category()
+	{
+		return $this->belongsTo(Category::class, 'class_categorory_id');
 	}
 }

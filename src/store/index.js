@@ -8,6 +8,7 @@ import teacher from './modules/teacher';
 import student from './modules/student';
 import person from './modules/person';
 import calendar from './modules/calendar';
+import classe from './modules/classe';
 
 Vue.use(Vuex);
 
@@ -19,6 +20,7 @@ export default new Vuex.Store({
         teacher,
         student,
         person,
-        calendar
+        calendar,
+        classe,
     },
 });

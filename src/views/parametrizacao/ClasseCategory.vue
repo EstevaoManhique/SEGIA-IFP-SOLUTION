@@ -11,7 +11,18 @@ import { mapGetters } from 'vuex';
 export default {
   name: 'HomeView',
   components: { NavBar },
-  data: () => ({}),
+  data: () => ({
+    classCategories: [],
+    optionsCategories: [],
+  }),
+  mounted() {
+    this.$api.get('class-category').then((data) => {
+      this.classCategories = data.data;
+    });
+    this.optionsCategories = this.classCategoriess.map((n) => {
+      return { label: n.description, id: n.id };
+    });
+  },
 
   computed: {
     ...mapGetters(['user']),

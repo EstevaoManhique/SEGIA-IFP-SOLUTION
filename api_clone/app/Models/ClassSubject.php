@@ -19,7 +19,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property Carbon $updated_at
  * 
  * @property Class $class
- * @property Student $student
+ * @property Subject $subject
  *
  * @package App\Models
  */
@@ -43,8 +43,8 @@ class ClassSubject extends Model
 		return $this->belongsTo(Class::class);
 	}
 
-	public function student()
+	public function subject()
 	{
-		return $this->belongsTo(Student::class, 'subject_id');
+		return $this->belongsTo(Subject::class);
 	}
 }

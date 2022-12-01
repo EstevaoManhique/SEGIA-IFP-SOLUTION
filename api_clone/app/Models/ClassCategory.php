@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class ClassCategory
- * 
+ *
  * @property int $id
  * @property string|null $cod
  * @property string|null $description
@@ -22,10 +22,10 @@ use Illuminate\Database\Eloquent\Model;
  */
 class ClassCategory extends Model
 {
-	protected $table = 'class categories';
+    protected $table = 'class_categories';
 
-	protected $fillable = [
-		'cod',
-		'description'
-	];
+    protected $fillable = [
+        'cod',
+        'description'
+    ];
 }

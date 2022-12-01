@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\ClassCategory;
+use App\Models\Category;
 
-class ClassCategoryController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,8 @@ class ClassCategoryController extends Controller
      */
     public function index()
     {
-        $classCategorys = ClassCategory::all();
-        return response()->json($classCategorys);
+        $categorys = Category::all();
+        return response()->json($categorys);
     }
 
     /**
@@ -23,14 +23,13 @@ class ClassCategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(ClassCategory $classCategory, Request  $request)
+    public function create(Category $category, Request  $request)
     {
         try {
-            $classCategory->cod = isset($request['cod']) ? $request['cod'] : $classCategory->cod;
-            $classCategory->description = isset($request['description']) ? $request['description'] : $classCategory->description;
-            $classCategory->ClassCategory_category_id = isset($request['ClassCategory_category_id']) ? $request['ClassCategory_category_id'] : $classCategory->ClassCategory_category_id;
-            $classCategory->save();
-            return $classCategory;
+            $category->cod = isset($request['cod']) ? $request['cod'] : $category->cod;
+            $category->description = isset($request['description']) ? $request['description'] : $category->description;
+            $category->save();
+            return $category;
         } catch (\Exception $e) {
             return response(['msg' => $e->getMessage()], $e->getCode());
         }
@@ -45,11 +44,11 @@ class ClassCategoryController extends Controller
     public function store(Request $request)
     {
         try {
-            $classCategory = new ClassCategory();
+            $category = new Category();
 
-            $this->create($classCategory, $request);
+            $this->create($category, $request);
 
-            return response(['msg' => 'ClassCategory Registered', 'data' => $classCategory], 200);
+            return response(['msg' => 'Category Registered', 'data' => $category], 200);
         } catch (\Exception $e) {
             return response(['msg' => $e->getMessage()], $e->getCode());
         }
@@ -63,9 +62,9 @@ class ClassCategoryController extends Controller
      */
     public function show($id)
     {
-        $classCategory = ClassCategory::find($id);
+        $category = Category::find($id);
 
-        return response()->json($classCategory);
+        return response()->json($category);
     }
 
     /**
@@ -89,13 +88,13 @@ class ClassCategoryController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $classCategory = ClassCategory::findOrFail($id);
-            if ($classCategory) {
-                $this->create($classCategory, $request);
-                return response(['msg' => 'ClassCategory Updated!', 'data' => $classCategory], 200);
+            $category = Category::findOrFail($id);
+            if ($category) {
+                $this->create($category, $request);
+                return response(['msg' => 'Category Updated!', 'data' => $category], 200);
             }
 
-            return response(['msg' => 'ClassCategory not found!'], 404);
+            return response(['msg' => 'Category not found!'], 404);
         } catch (\Exception $e) {
             return response(['msg' => $e->getMessage()], $e->getCode());
         }
@@ -110,10 +109,10 @@ class ClassCategoryController extends Controller
     public function destroy($id)
     {
         try {
-            $classCategory = ClassCategory::findOrFail($id);
-            if ($classCategory) {
-                $classCategory->delete();
-                return response()->json(['msg' => 'ClassCategory deleted successfully!']);
+            $category = Category::findOrFail($id);
+            if ($category) {
+                $category->delete();
+                return response()->json(['msg' => 'Category deleted successfully!']);
             }
         } catch (\Exception $e) {
             return response(['msg' => $e->getMessage()], $e->getCode());

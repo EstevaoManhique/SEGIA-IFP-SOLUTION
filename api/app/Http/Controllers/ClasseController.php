@@ -14,7 +14,7 @@ class ClasseController extends Controller
      */
     public function index()
     {
-        $classes = Classe::all();
+        $classes = Classe::with('category')->get();
         return response()->json($classes);
     }
 
@@ -28,7 +28,7 @@ class ClasseController extends Controller
         try {
             $classe->cod = isset($request['cod']) ? $request['cod'] : $classe->cod;
             $classe->description = isset($request['description']) ? $request['description'] : $classe->description;
-            $classe->classe_category_id = isset($request['classe_category_id']) ? $request['classe_category_id'] : $classe->classe_category_id;
+            $classe->category_id = isset($request['category_id']) ? $request['category_id'] : $classe->category_id;
             $classe->save();
             return $classe;
         } catch (\Exception $e) {

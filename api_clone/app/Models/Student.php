@@ -7,7 +7,6 @@
 namespace App\Models;
 
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -21,7 +20,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property Carbon $update_at
  * 
  * @property School $school
- * @property Collection|ClassSubject[] $class_subjects
  *
  * @package App\Models
  */
@@ -49,10 +47,5 @@ class Student extends Model
 	public function school()
 	{
 		return $this->belongsTo(School::class);
-	}
-
-	public function class_subjects()
-	{
-		return $this->hasMany(ClassSubject::class, 'subject_id');
 	}
 }

@@ -25,6 +25,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property Carbon|null $last_login_date
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ * 
+ * @property Person $person
  *
  * @package App\Models
  */
@@ -61,4 +63,9 @@ class User extends Model
 		'status',
 		'last_login_date'
 	];
+
+	public function person()
+	{
+		return $this->belongsTo(Person::class);
+	}
 }

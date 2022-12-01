@@ -11,7 +11,7 @@ use App\Http\Controllers\PersonController;
 use App\Http\Controllers\ClasseController;
 use App\Http\Controllers\IfpCalendarioExameController;
 use App\Http\Controllers\SubjectController;
-use App\Http\Controllers\ClassCategoryController;
+use App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -98,7 +98,7 @@ Route::controller(SubjectController::class)->prefix('subject')->group(function (
     Route::put('/{id}', 'update')->name('person.update');
 });
 
-Route::controller(ClassCategoryController::class)->prefix('class-category')->group(function () {
+Route::controller(CategoryController::class)->prefix('class-category')->group(function () {
     Route::get('/', 'index')->name('person.index');
     Route::post('/store', 'store')->name('person.store');
     Route::get('/{id}', 'show')->name('person.show');

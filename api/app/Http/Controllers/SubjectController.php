@@ -28,7 +28,6 @@ class SubjectController extends Controller
         try {
             $subject->cod = isset($request['cod']) ? $request['cod'] : $subject->cod;
             $subject->description = isset($request['description']) ? $request['description'] : $subject->description;
-            $subject->Subject_category_id = isset($request['Subject_category_id']) ? $request['Subject_category_id'] : $subject->Subject_category_id;
             $subject->save();
             return $subject;
         } catch (\Exception $e) {

@@ -39,11 +39,11 @@
                 <v-row>
                   <v-col cols="12" sm="6" md="4">
                     <v-select
-                      :items="doc_type"
                       label="Categoria Ensino"
                       dense
+                      :items="optionsCategories"
                       filled
-                      mandatory
+                      v-model="classe.category"
                     ></v-select>
                   </v-col>
                   <v-col cols="12" sm="6" md="4">
@@ -53,6 +53,7 @@
                       filled
                       append-icon="mdi-asterisk red"
                       dense
+                      v-model="classe.cod"
                     ></v-text-field>
                   </v-col>
                   <v-col cols="12" sm="6" md="4">
@@ -62,8 +63,12 @@
                       filled
                       append-icon="mdi-asterisk red"
                       dense
+                      v-model="classe.description"
                     ></v-text-field>
                   </v-col>
+                </v-row>
+                <v-row>
+                  <v-btn @click="addClasse"> Adicionar Classe </v-btn>
                 </v-row>
               </v-form>
             </v-card>
@@ -72,7 +77,7 @@
             <v-card flat class="mt-4">
               <v-data-table
                 :headers="headers"
-                :items="users"
+                :items="classes"
                 class="elevation-1"
                 calculate-widths="false"
               >
@@ -141,6 +146,11 @@
                     </ul>
                   </div>
                 </template>
+                <template v-slot:item.category="{ item }">
+                  {{
+                    '(' + item.category.cod + ') ' + item.category.description
+                  }}
+                </template>
               </v-data-table>
             </v-card>
           </v-tab-item>
@@ -152,23 +162,59 @@
 
 <script>
 import NavBar from '@/components/layout/NavBar.vue';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 export default {
   name: 'HomeView',
   components: { NavBar },
+  methods: {
+    ...mapActions(['classes', 'addClasse', 'getClasses']),
+    addClasses() {
+      this.getId();
+      console.log(this.classe);
+      this.addClasse(this.classe);
+    },
+    getId() {
+      let xx = this.optionsCategories.findIndex(
+        (n) => n == this.classe.category
+      );
+      this.classe.category_id = this.classCategories[xx].id;
+      console.log(this.classe.category_id);
+    },
+  },
   data: () => ({
     tabs: null,
+
     headers: [
-      { text: '#' },
-      { text: 'Cod' },
-      { text: 'Descricao' },
-      { text: 'Categoria Ensino' },
-      { text: 'Opcoes' },
+      { text: '#', value: 'id' },
+      { text: 'Cod', value: 'cod' },
+      { text: 'Descricao', value: 'description' },
+      { text: 'Categoria Ensino', value: 'category' },
+      { text: 'Opcoes', value: 'actions' },
     ],
+    classCategories: [],
+    optionsCategories: [],
+    classe: {
+      id: null,
+      cod: null,
+      description: null,
+      category_id: null,
+      category: null,
+    },
   }),
+  mounted() {
+    this.getClasses();
+    this.$api.get('class-category').then((data) => {
+      this.classCategories = data.data.sort((a, b) =>
+        a.description.localeCompare(b.description)
+      );
+      this.optionsCategories = this.classCategories.map((n) => {
+        return '(' + n.cod + ') ' + n.description;
+      });
+    });
+  },
 
   computed: {
-    ...mapGetters(['user']),
+    ...mapGetters(['classes']),
   },
 };
 </script>
