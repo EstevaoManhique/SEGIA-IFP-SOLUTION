@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\School;
+use App\Models\Province;
 
-class SchoolController extends Controller
+class ProvinceControler extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,8 @@ class SchoolController extends Controller
      */
     public function index()
     {
-        $schools = School::all();
-        return response()->json($schools);
+        $provinces = Province::all();
+        return response()->json($provinces);
     }
 
     /**
@@ -38,19 +38,15 @@ class SchoolController extends Controller
     {
         try {
             $province = new Province();
-            $school = new School();
             if (isset($request['id'])) {
-                $school = School::find($request['id']);
+                $province = Province::find($request['id']);
             }
 
-            $school->name = isset($request['name']) ? $request['name'] :  $school->name;
-            $school->cod = isset($request['cod']) ? $request['cod'] :  $school->cod;
-            $school->district_id = isset($request['district_id']) ? $request['district_id'] :  $school->cod;
-            $school->abbreviation = isset($request['abbreviation']) ? $request['abbreviation'] :  $school->cod;
-            $school->type = isset($request['type']) ? $request['type'] :  $school->cod;
-            $school->save();
+            $province->name = isset($request['name']) ? $request['name'] :  $province->name;
+            $province->cod = isset($request['cod']) ? $request['cod'] :  $province->cod;
+            $province->save();
 
-            return response(['msg' => 'School Registered', 'data' => $school], 200);
+            return response(['msg' => 'Province Registered', 'data' => $province], 200);
         } catch (\Exception $e) {
             return response(['msg' => $e->getMessage()], $e->getCode());
         }
@@ -64,9 +60,9 @@ class SchoolController extends Controller
      */
     public function show($id)
     {
-        $school = School::find($id);
+        $province = Province::find($id);
 
-        return response()->json($school);
+        return response()->json($province);
     }
 
     /**
@@ -90,15 +86,15 @@ class SchoolController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $school = School::findOrFail($id);
-            if ($school) {
-                $school->name = isset($request['name']) ? $request['name'] :  $school->name;
-                $school->cod = isset($request['cod']) ? $request['cod'] :  $school->cod;
-                $school->save();
-                return response(['msg' => 'School Updated!', 'data' => $school], 200);
+            $province = Province::findOrFail($id);
+            if ($province) {
+                $province->name = isset($request['name']) ? $request['name'] :  $province->name;
+                $province->cod = isset($request['cod']) ? $request['cod'] :  $province->cod;
+                $province->save();
+                return response(['msg' => 'Province Updated!', 'data' => $province], 200);
             }
 
-            return response(['msg' => 'School not found!'], 404);
+            return response(['msg' => 'Province not found!'], 404);
         } catch (\Exception $e) {
             return response(['msg' => $e->getMessage()], $e->getCode());
         }
@@ -113,10 +109,10 @@ class SchoolController extends Controller
     public function destroy($id)
     {
         try {
-            $school = School::findOrFail($id);
-            if ($school) {
-                $school->delete();
-                return response()->json(['msg' => 'School deleted successfully!']);
+            $province = Province::findOrFail($id);
+            if ($province) {
+                $province->delete();
+                return response()->json(['msg' => 'Province deleted successfully!']);
             }
         } catch (\Exception $e) {
             return response(['msg' => $e->getMessage()], $e->getCode());

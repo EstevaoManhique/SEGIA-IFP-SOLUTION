@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\School;
+use App\Models\District;
+use App\Models\Province;
 
-class SchoolController extends Controller
+class DistrictController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +15,8 @@ class SchoolController extends Controller
      */
     public function index()
     {
-        $schools = School::all();
-        return response()->json($schools);
+        $districts = District::all();
+        return response()->json($districts);
     }
 
     /**
@@ -38,19 +39,17 @@ class SchoolController extends Controller
     {
         try {
             $province = new Province();
-            $school = new School();
+            $district = new District();
             if (isset($request['id'])) {
-                $school = School::find($request['id']);
+                $district = District::find($request['id']);
             }
 
-            $school->name = isset($request['name']) ? $request['name'] :  $school->name;
-            $school->cod = isset($request['cod']) ? $request['cod'] :  $school->cod;
-            $school->district_id = isset($request['district_id']) ? $request['district_id'] :  $school->cod;
-            $school->abbreviation = isset($request['abbreviation']) ? $request['abbreviation'] :  $school->cod;
-            $school->type = isset($request['type']) ? $request['type'] :  $school->cod;
-            $school->save();
+            $district->name = isset($request['name']) ? $request['name'] :  $district->name;
+            $district->cod = isset($request['cod']) ? $request['cod'] :  $district->cod;
+            $district->province_id = isset($request['province_id']) ? $request['province_id'] :  $district->cod;
+            $district->save();
 
-            return response(['msg' => 'School Registered', 'data' => $school], 200);
+            return response(['msg' => 'District Registered', 'data' => $district], 200);
         } catch (\Exception $e) {
             return response(['msg' => $e->getMessage()], $e->getCode());
         }
@@ -64,9 +63,9 @@ class SchoolController extends Controller
      */
     public function show($id)
     {
-        $school = School::find($id);
+        $district = District::find($id);
 
-        return response()->json($school);
+        return response()->json($district);
     }
 
     /**
@@ -90,15 +89,15 @@ class SchoolController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $school = School::findOrFail($id);
-            if ($school) {
-                $school->name = isset($request['name']) ? $request['name'] :  $school->name;
-                $school->cod = isset($request['cod']) ? $request['cod'] :  $school->cod;
-                $school->save();
-                return response(['msg' => 'School Updated!', 'data' => $school], 200);
+            $district = District::findOrFail($id);
+            if ($district) {
+                $district->name = isset($request['name']) ? $request['name'] :  $district->name;
+                $district->cod = isset($request['cod']) ? $request['cod'] :  $district->cod;
+                $district->save();
+                return response(['msg' => 'District Updated!', 'data' => $district], 200);
             }
 
-            return response(['msg' => 'School not found!'], 404);
+            return response(['msg' => 'District not found!'], 404);
         } catch (\Exception $e) {
             return response(['msg' => $e->getMessage()], $e->getCode());
         }
@@ -113,10 +112,10 @@ class SchoolController extends Controller
     public function destroy($id)
     {
         try {
-            $school = School::findOrFail($id);
-            if ($school) {
-                $school->delete();
-                return response()->json(['msg' => 'School deleted successfully!']);
+            $district = District::findOrFail($id);
+            if ($district) {
+                $district->delete();
+                return response()->json(['msg' => 'District deleted successfully!']);
             }
         } catch (\Exception $e) {
             return response(['msg' => $e->getMessage()], $e->getCode());

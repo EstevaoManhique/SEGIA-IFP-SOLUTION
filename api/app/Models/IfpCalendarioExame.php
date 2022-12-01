@@ -25,8 +25,6 @@ class IfpCalendarioExame extends Model
 	protected $primaryKey = 'id';
 	public $timestamps = false;
 
-	
-
 	protected $fillable = [
 		'description',
 		'start_date',
