@@ -6,7 +6,7 @@
         <v-data-table :headers="headers" :items="classes" class="elevation-1">
           <template v-slot:top>
             <v-toolbar flat>
-              <v-toolbar-title>My CRUD</v-toolbar-title>
+              <v-toolbar-title>Classes</v-toolbar-title>
               <v-divider class="mx-4" inset vertical></v-divider>
               <v-spacer></v-spacer>
               <v-dialog v-model="dialog" max-width="500px">
@@ -18,7 +18,7 @@
                     v-bind="attrs"
                     v-on="on"
                   >
-                    New Item
+                    Registar Nova Classe
                   </v-btn>
                 </template>
                 <v-card>
@@ -101,9 +101,6 @@
             </v-icon>
             <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
           </template>
-          <template v-slot:no-data>
-            <v-btn color="primary" @click="initialize"> Reset </v-btn>
-          </template>
         </v-data-table>
       </v-card>
     </v-container>
@@ -114,27 +111,33 @@
 import NavBar from '@/components/layout/NavBar.vue';
 import { mapGetters, mapActions } from 'vuex';
 export default {
-  name: 'ClasseView',
+  name: 'HomeView',
   components: { NavBar },
+  methods: {
+    ...mapActions(['classes', 'addClasse', 'getClasses']),
+    addClasses() {
+      let xx = this.optionsCategories.findIndex(
+        (n) => n == this.classe.category
+      );
+      this.classe.category_id = this.classCategories[xx].id;
+
+      this.addClasse(this.classe);
+    },
+  },
   data: () => ({
+    tabs: null,
     dialog: false,
     dialogDelete: false,
+
     headers: [
       { text: '#', value: 'id' },
       { text: 'Cod', value: 'cod' },
       { text: 'Descricao', value: 'description' },
       { text: 'Categoria Ensino', value: 'category' },
-      { text: 'Opcoes', value: 'actions', sortable: false },
+      { text: 'Opcoes', value: 'actions' },
     ],
-    desserts: [],
-    editedIndex: -1,
-    editedItem: {
-      id: null,
-      cod: null,
-      description: null,
-      category_id: null,
-      category: null,
-    },
+    classCategories: [],
+    optionsCategories: [],
     classe: {
       id: null,
       cod: null,
@@ -142,25 +145,7 @@ export default {
       category_id: null,
       category: null,
     },
-    defaultItem: {
-      id: null,
-      cod: null,
-      description: null,
-      category_id: null,
-      category: null,
-    },
-    classCategories: [],
-    optionsCategories: [],
   }),
-
-  computed: {
-    ...mapGetters(['classes']),
-
-    formTitle() {
-      return this.editedIndex === -1 ? 'New Item' : 'Edit Item';
-    },
-  },
-
   watch: {
     dialog(val) {
       val || this.close();
@@ -169,59 +154,6 @@ export default {
       val || this.closeDelete();
     },
   },
-
-  created() {
-    this.initialize();
-  },
-
-  methods: {
-    ...mapActions(['classes', 'addClasse', 'getClasses']),
-    editItem(item) {
-      this.editedIndex = this.classes.indexOf(item);
-      this.classe = Object.assign({}, item);
-      this.classe.category =
-        '(' + item.category.cod + ') ' + item.category.description;
-      this.dialog = true;
-    },
-
-    deleteItem(item) {
-      this.editedIndex = this.desserts.indexOf(item);
-      this.classe = Object.assign({}, item);
-      this.dialogDelete = true;
-    },
-
-    deleteItemConfirm() {
-      this.desserts.splice(this.editedIndex, 1);
-      this.closeDelete();
-    },
-
-    close() {
-      this.dialog = false;
-      this.$nextTick(() => {
-        this.classe = Object.assign({}, this.defaultItem);
-        this.editedIndex = -1;
-      });
-    },
-
-    closeDelete() {
-      this.dialogDelete = false;
-      this.$nextTick(() => {
-        this.classe = Object.assign({}, this.defaultItem);
-        this.editedIndex = -1;
-      });
-    },
-
-    save() {
-      let xx = this.optionsCategories.findIndex(
-        (n) => n == this.classe.category
-      );
-      this.classe.category_id = this.classCategories[xx].id;
-
-      this.addClasse(this.classe);
-      this.close();
-    },
-  },
-
   mounted() {
     this.getClasses();
     this.$api.get('class-category').then((data) => {
@@ -232,6 +164,10 @@ export default {
         return '(' + n.cod + ') ' + n.description;
       });
     });
+  },
+
+  computed: {
+    ...mapGetters(['classes']),
   },
 };
 </script>
