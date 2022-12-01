@@ -8,8 +8,10 @@ use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PersonController;
-use App\Http\Controllers\SocialMediaController;
+use App\Http\Controllers\ClasseController;
 use App\Http\Controllers\IfpCalendarioExameController;
+use App\Http\Controllers\SubjectController;
+use App\Http\Controllers\ClassCategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -78,4 +80,28 @@ Route::controller(IfpCalendarioExameController::class)->prefix('ifpcalendar')->g
     Route::get('/{id}', 'show')->name('ifpcalendario.show');
     Route::delete('/{id}', 'destroy')->name('ifpcalendario.destroy');
     Route::put('/{id}', 'update')->name('ifpcalendario.update');
+});
+
+Route::controller(ClasseController::class)->prefix('classe')->group(function () {
+    Route::get('/', 'index')->name('person.index');
+    Route::post('/store', 'store')->name('person.store');
+    Route::get('/{id}', 'show')->name('person.show');
+    Route::delete('/{id}', 'destroy')->name('person.destroy');
+    Route::put('/{id}', 'update')->name('person.update');
+});
+
+Route::controller(SubjectController::class)->prefix('subject')->group(function () {
+    Route::get('/', 'index')->name('person.index');
+    Route::post('/store', 'store')->name('person.store');
+    Route::get('/{id}', 'show')->name('person.show');
+    Route::delete('/{id}', 'destroy')->name('person.destroy');
+    Route::put('/{id}', 'update')->name('person.update');
+});
+
+Route::controller(ClassCategoryController::class)->prefix('class-category')->group(function () {
+    Route::get('/', 'index')->name('person.index');
+    Route::post('/store', 'store')->name('person.store');
+    Route::get('/{id}', 'show')->name('person.show');
+    Route::delete('/{id}', 'destroy')->name('person.destroy');
+    Route::put('/{id}', 'update')->name('person.update');
 });
