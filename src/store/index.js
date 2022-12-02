@@ -12,6 +12,8 @@ import classe from './modules/classe';
 import school from './modules/school';
 import provinces from './modules/provinces';
 import districts from './modules/districts';
+import subject from './modules/subject';
+import category from './modules/category';
 
 Vue.use(Vuex);
 
@@ -27,6 +29,8 @@ export default new Vuex.Store({
         classe,
         school,
         provinces,
-        districts
+        districts,
+        subject,
+        category,
     },
 });

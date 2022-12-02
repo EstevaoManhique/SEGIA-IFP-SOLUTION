@@ -126,9 +126,7 @@
               </v-dialog>
             </v-toolbar>
           </template>
-          <template v-slot:item.category="{ item }">
-            {{ '(' + item.category.cod + ') ' + item.category.description }}
-          </template>
+
           <template v-slot:item.actions="{ item }">
             <v-icon small class="mr-2" @click="editItem(item)">
               mdi-pencil
@@ -171,9 +169,13 @@ export default {
     editedItem: {
       id: null,
       cod: null,
+      province: null,
+      district: null,
+      district_id: null,
       description: null,
       category_id: null,
       category: null,
+      type: null,
     },
     school: {
       id: null,
@@ -184,14 +186,20 @@ export default {
       description: null,
       category_id: null,
       category: null,
+      type: null,
     },
     defaultItem: {
       id: null,
       cod: null,
+      province: null,
+      district: null,
+      district_id: null,
       description: null,
       category_id: null,
       category: null,
+      type: null,
     },
+    school_types: ['Publica', 'Privada', 'Comunitaria'],
     classCategories: [],
     optionsCategories: [],
   }),
@@ -243,13 +251,12 @@ export default {
       });
     },
     changeDist() {
-      let xx = this.dis.findIndex((n) => n == this.school.district);
-      this.school.district_id = this.districts[xx].id;
-      alert(this.school.district_id);
+      let xx = this.districts.filter((d) => d.name == this.school.district)[0];
+      this.school.district_id = xx.id;
     },
 
     deleteItem(item) {
-      this.editedIndex = this.desserts.indexOf(item);
+      this.editedIndex = this.schools.indexOf(item);
       this.school = Object.assign({}, item);
       this.dialogDelete = true;
     },

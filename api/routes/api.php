@@ -105,12 +105,12 @@ Route::controller(SubjectController::class)->prefix('subject')->group(function (
     Route::put('/{id}', 'update')->name('person.update');
 });
 
-Route::controller(CategoryController::class)->prefix('class-category')->group(function () {
-    Route::get('/', 'index')->name('person.index');
-    Route::post('/store', 'store')->name('person.store');
-    Route::get('/{id}', 'show')->name('person.show');
-    Route::delete('/{id}', 'destroy')->name('person.destroy');
-    Route::put('/{id}', 'update')->name('person.update');
+Route::controller(CategoryController::class)->prefix('category')->group(function () {
+    Route::get('/', 'index')->name('catgory.index');
+    Route::post('/store', 'store')->name('catgory.store');
+    Route::get('/{id}', 'show')->name('catgory.show');
+    Route::delete('/{id}', 'destroy')->name('catgory.destroy');
+    Route::put('/{id}', 'update')->name('catgory.update');
 });
 
 Route::controller(ProvinceControler::class)->prefix('province')->group(function () {

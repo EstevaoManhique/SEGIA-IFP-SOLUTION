@@ -392,7 +392,7 @@ const routes = [{
                         path: 'categoria-ensino',
                         name: 'config_categoria_ensino',
                         component: () =>
-                            import ('@/views/parametrizacao/SchoolClasses.vue'),
+                            import ('@/views/parametrizacao/Category.vue'),
                         meta: {
                             display: 'headers.categoria_ensino',
                             display_title: 'menus.categoria_ensino',
@@ -1009,40 +1009,42 @@ router.afterEach((to) => {
             process.env.APP_NAME;
     }
 });
-/* router.beforeEach((to, from, next) => {
-                        //const token = localStorage.getItem('token');
-                        if (store.getters.isLoggedIn && to.name != 'login') {
-                            next();
+/*
+router.beforeEach((to, from, next) => {
+    //const token = localStorage.getItem('token');
+    if (store.getters.isLoggedIn && to.name != 'login') {
+        next();
 
-                            return;
-                        } else {
-                            next({ name: 'login' });
-                            return;
-                        }
-                    }); */
+        return;
+    } else {
+        next({ name: 'login' });
+        return;
+    }
+});
+ */
 
-/* router.beforeEach((to, from, next) => {
-                                const token = localStorage.getItem('token');
+/* 
+router.beforeEach((to, from, next) => {
+    const token = localStorage.getItem('token');
+    
+    if (!token) next({ name: 'login' });
+    else next();
 
-                                //if not logged in, redirect to Login page
-                                if (!token) next({ name: 'login' });
-                                //else continue
-                                else next();
+    if (to.path === 'login' && auth.currentUser) {
+        next('/');
+        return;
+    }
 
-                                  if (to.path === '/login' && auth.currentUser) {
-                                                  next('/');
-                                                  return;
-                                              }
+    if (
+        to.matched.some((record) => record.meta.requiresAuth) &&
+        !auth.currentUser
+    ) {
+        next('/login');
+        return;
+    }
 
-                                              if (
-                                                  to.matched.some((record) => record.meta.requiresAuth) &&
-                                                  !auth.currentUser
-                                              ) {
-                                                  next('/login');
-                                                  return;
-                                              }
-
-                                              next();
-                            }); */
+    next();
+});
+ */
 
 export default router;

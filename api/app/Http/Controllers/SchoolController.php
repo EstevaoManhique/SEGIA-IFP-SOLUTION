@@ -24,9 +24,20 @@ class SchoolController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(School $school, Request $request)
     {
-        //
+        try {
+            $school->name = isset($request['name']) ? $request['name'] :  $school->name;
+            $school->cod = isset($request['cod']) ? $request['cod'] :  $school->cod;
+            $school->district_id = isset($request['district_id']) ? $request['district_id'] :  $school->district_id;
+            $school->abbreviation = isset($request['abbreviation']) ? $request['abbreviation'] :  $school->abbreviation;
+            $school->type = isset($request['type']) ? $request['type'] :  $school->type;
+            $school->isCentro = isset($request['isCentro']) ? $request['isCentro'] :  $school->isCentro;
+            $school->save();
+            return $school;
+        } catch (\Exception $e) {
+            return response(['msg' => $e->getMessage()], $e->getCode());
+        }
     }
 
     /**
@@ -39,17 +50,8 @@ class SchoolController extends Controller
     {
         try {
             $school = new School();
-            $district = new District();
-            if (isset($request['id'])) {
-                $school = School::find($request['id']);
-            }
+            $this->create($school, $request);
 
-            $school->name = isset($request['name']) ? $request['name'] :  $school->name;
-            $school->cod = isset($request['cod']) ? $request['cod'] :  $school->cod;
-            $school->district_id = isset($request['district_id']) ? $request['district_id'] :  $school->district_id;
-            $school->abbreviation = isset($request['abbreviation']) ? $request['abbreviation'] :  $school->abbreviation;
-            $school->type = isset($request['type']) ? $request['type'] :  $school->type;
-            $school->save();
             $data = School::with('district')->where('id', $school->id)->get();
             return response(['msg' => 'School Registered', 'data' => $data], 200);
         } catch (\Exception $e) {
@@ -93,10 +95,7 @@ class SchoolController extends Controller
         try {
             $school = School::findOrFail($id);
             if ($school) {
-                $school->name = isset($request['name']) ? $request['name'] :  $school->name;
-                $school->cod = isset($request['cod']) ? $request['cod'] :  $school->cod;
-                $school->isCentro = isset($request['isCentro']) ? $request['isCentro'] :  $school->isCentro;
-                $school->save();
+                $this->create($school, $request);
                 return response(['msg' => 'School Updated!', 'data' => $school], 200);
             }
 

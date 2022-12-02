@@ -3,10 +3,10 @@
     <nav-bar :menu_types="5" />
     <v-container>
       <v-card>
-        <v-data-table :headers="headers" :items="subjects" class="elevation-1">
+        <v-data-table :headers="headers" :items="categorys" class="elevation-1">
           <template v-slot:top>
             <v-toolbar flat>
-              <v-toolbar-title>subject</v-toolbar-title>
+              <v-toolbar-title>category</v-toolbar-title>
               <v-divider class="mx-4" inset vertical></v-divider>
               <v-spacer></v-spacer>
               <v-dialog v-model="dialog" max-width="500px">
@@ -18,7 +18,7 @@
                     v-bind="attrs"
                     v-on="on"
                   >
-                    Registar subject
+                    Registar category
                   </v-btn>
                 </template>
                 <v-card>
@@ -36,7 +36,7 @@
                             filled
                             append-icon="mdi-asterisk red"
                             dense
-                            v-model="subject.cod"
+                            v-model="category.cod"
                           ></v-text-field>
                         </v-col>
                         <v-col cols="12">
@@ -46,7 +46,7 @@
                             filled
                             append-icon="mdi-asterisk red"
                             dense
-                            v-model="subject.description"
+                            v-model="category.description"
                           ></v-text-field>
                         </v-col>
                       </v-row>
@@ -105,7 +105,7 @@
 import NavBar from '@/components/layout/NavBar.vue';
 import { mapGetters, mapActions } from 'vuex';
 export default {
-  name: 'subjectView',
+  name: 'categoryView',
   components: { NavBar },
   data: () => ({
     dialog: false,
@@ -124,7 +124,7 @@ export default {
       description: '',
       category: '',
     },
-    subject: {
+    category: {
       id: '',
       cod: '',
       description: '',
@@ -139,7 +139,7 @@ export default {
   }),
 
   computed: {
-    ...mapGetters(['subjects']),
+    ...mapGetters(['categorys']),
 
     formTitle() {
       return this.editedIndex === -1 ? 'New Item' : 'Edit Item';
@@ -160,17 +160,22 @@ export default {
   },
 
   methods: {
-    ...mapActions(['subjects', 'addSubject', 'getSubjects', 'updateSubject']),
+    ...mapActions([
+      'categorys',
+      'addCategory',
+      'getCategorys',
+      'updateCategory',
+    ]),
     editItem(item) {
-      this.editedIndex = this.subjects.indexOf(item);
-      this.subject = Object.assign({}, item);
+      this.editedIndex = this.categorys.indexOf(item);
+      this.category = Object.assign({}, item);
 
       this.dialog = true;
     },
 
     deleteItem(item) {
       this.editedIndex = this.desserts.indexOf(item);
-      this.subject = Object.assign({}, item);
+      this.category = Object.assign({}, item);
       this.dialogDelete = true;
     },
 
@@ -182,7 +187,7 @@ export default {
     close() {
       this.dialog = false;
       this.$nextTick(() => {
-        this.subject = Object.assign({}, this.defaultItem);
+        this.category = Object.assign({}, this.defaultItem);
         this.editedIndex = -1;
       });
     },
@@ -190,24 +195,24 @@ export default {
     closeDelete() {
       this.dialogDelete = false;
       this.$nextTick(() => {
-        this.subject = Object.assign({}, this.defaultItem);
+        this.category = Object.assign({}, this.defaultItem);
         this.editedIndex = -1;
       });
     },
 
     save() {
-      console.log(this.subject);
-      if (this.subject.id) {
-        this.updateSubject(this.subject);
+      console.log(this.category);
+      if (this.category.id) {
+        this.updateCategory(this.category);
       } else {
-        this.addSubject(this.subject);
+        this.addCategory(this.category);
       }
       this.close();
     },
   },
 
   mounted() {
-    this.getSubjects();
+    this.getCategorys();
   },
 };
 </script>
