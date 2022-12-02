@@ -39,7 +39,7 @@ class District extends Model
 		'name'
 	];
 
-	public function province()
+	public function provinces()
 	{
 		return $this->belongsTo(Province::class);
 	}

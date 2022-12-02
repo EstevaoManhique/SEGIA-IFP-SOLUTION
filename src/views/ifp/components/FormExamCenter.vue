@@ -22,17 +22,37 @@
         <div class="panel-body">
           <div>
             <label class="text-bold text-uppercase">Provincia:</label>
-            <v-select :items="items" label="Outlined style" outlined></v-select>
+            <v-select
+              @change="filterDistricts()"
+              v-model="selected"
+              :items="provincesname"
+              label="Selecione a Provincia"
+              outlined
+              dense
+            >
+            </v-select>
           </div>
 
           <div>
             <label class="text-bold text-uppercase">Distrito:</label>
-            <v-select :items="items" label="Outlined style" outlined></v-select>
+            <v-select
+              v-model="selected"
+              @change="filterSchools()"
+              :items="districtsname"
+              label="Selecione o Distrito"
+              outlined
+              dense
+            ></v-select>
           </div>
 
           <div>
             <label class="text-bold text-uppercase">Escola:</label>
-            <v-select :items="items" label="Outlined style" outlined></v-select>
+            <v-select
+              :items="items"
+              label="Selecione a Escola"
+              outlined
+              dense
+            ></v-select>
           </div>
 
           <div class="text-right">
@@ -52,14 +72,47 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 export default {
   name: "FormExamCenter",
   components: {},
-  data: () => ({}),
-
+  data: () => ({
+    selected: string = '',
+  }),
+  methods: {
+    ...mapActions([
+        "getProvinces",
+        "getDistricts",
+        "removeCalendar",
+        "editCalendar",
+        "setCalendar",
+        "empyCalendar",
+    ]),
+    removCalendar(id) {
+      if (confirm("Tem Certeza Que Deseja Eliminar?")) {
+        this.removeCalendar(id);
+        this.empyCalendar();
+      }
+    },
+    edit(calendar) {
+      console.log(this.calendar);
+      //this.calendar=calendar;
+      this.setCalendar(calendar);
+      console.log(this.calendar);
+      this.editCalendar(calendar);
+    },
+    filterDistricts() {
+      this.getDistricts(this.selected);
+    },
+    filterSchools() {
+      this.getSchools(this.selected);
+    },
+  },
+  mounted() {
+    this.getProvinces();
+  },
   computed: {
-    ...mapGetters(["user"]),
+    ...mapGetters(["provinces", "provincename", "provincesname", "districtsname"]),
   },
 };
 </script>

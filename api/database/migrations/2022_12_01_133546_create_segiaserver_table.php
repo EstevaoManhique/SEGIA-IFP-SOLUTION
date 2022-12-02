@@ -14,6 +14,14 @@ class CreateSegiaserverTable extends Migration
      */
     public function up()
     {
+        Schema::create('districts', function (Blueprint $table) {
+            $table->integer('id', true);
+            $table->unsignedBigInteger('province_id');
+            $table->string('name');
+            $table->string('cod');
+            $table->timestamps();
+        });
+
         Schema::create('acta', function (Blueprint $table) {
             $table->integer('acta_id', true);
             $table->dateTime('acta_data')->nullable();
@@ -558,15 +566,6 @@ class CreateSegiaserverTable extends Migration
             $table->integer('disciplina_disc_id')->nullable()->index('FK_kg4evqx1x2qw882martam55or');
             $table->integer('docente_doce_id')->nullable()->index('FK_a3myhb0nm58vso67pghet6h1');
             $table->integer('entidade_enti_id')->nullable()->index('FK_4hio7nrflk1nhjkrjanf6ncvv');
-        });
-
-        Schema::create('districts', function (Blueprint $table) {
-            $table->integer('id', true);
-            $table->integer('province_id')->index('province_id');
-            $table->string('cod', 50)->nullable();
-            $table->string('name');
-            $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('updated_at')->useCurrent();
         });
 
         Schema::create('doc', function (Blueprint $table) {

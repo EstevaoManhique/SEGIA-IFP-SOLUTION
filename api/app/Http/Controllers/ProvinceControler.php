@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Province;
+use App\Models\District;
 
 class ProvinceControler extends Controller
 {
@@ -14,7 +15,7 @@ class ProvinceControler extends Controller
      */
     public function index()
     {
-        $provinces = Province::all();
+        $provinces = Province::with('districts')->get();
         return response()->json($provinces);
     }
 

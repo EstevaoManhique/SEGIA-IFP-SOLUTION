@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\School;
+use App\Models\District;
 
 class SchoolController extends Controller
 {
@@ -38,18 +39,19 @@ class SchoolController extends Controller
     {
         try {
             $school = new School();
+            $district = new District();
             if (isset($request['id'])) {
                 $school = School::find($request['id']);
             }
 
             $school->name = isset($request['name']) ? $request['name'] :  $school->name;
             $school->cod = isset($request['cod']) ? $request['cod'] :  $school->cod;
-            $school->district_id = isset($request['district_id']) ? $request['district_id'] :  $school->cod;
-            $school->abbreviation = isset($request['abbreviation']) ? $request['abbreviation'] :  $school->cod;
-            $school->type = isset($request['type']) ? $request['type'] :  $school->cod;
+            $school->district_id = isset($request['district_id']) ? $request['district_id'] :  $school->district_id;
+            $school->abbreviation = isset($request['abbreviation']) ? $request['abbreviation'] :  $school->abbreviation;
+            $school->type = isset($request['type']) ? $request['type'] :  $school->type;
             $school->save();
-
-            return response(['msg' => 'School Registered', 'data' => $school], 200);
+            $data = School::with('district')->where('id', $school->id)->get();
+            return response(['msg' => 'School Registered', 'data' => $data], 200);
         } catch (\Exception $e) {
             return response(['msg' => $e->getMessage()], $e->getCode());
         }
