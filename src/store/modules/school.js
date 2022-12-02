@@ -29,7 +29,7 @@ const actions = {
     },
     async updateSchool({ commit }, school) {
         const rsp = await axios.put('school/' + school.id, school);
-
+        console.log("UPDATE SCHOOL")
         commit('updateSchool', rsp.data.data);
     },
     async removeSchool({ commit }, school) {
@@ -51,6 +51,7 @@ const mutations = {
         state.schools.push(payload.data);
     },
     updateSchool(state, payload) {
+        console.log("School Updated "+payload.isCentro)
         let school = state.schools.findIndex((school) => school.id == payload.id);
         state.schools.splice(school, 1, payload);
     },
@@ -59,7 +60,7 @@ const mutations = {
     },
     getSchool(state, payload) {
         state.school = payload;
-    },
+    }
 };
 export default {
     state,

@@ -4,7 +4,6 @@
       class="form-horizontal"
       method="post"
       accept-charset="ISO-8859-1"
-      action="SUZQU2VydmxldCNEQ0k=?"
     >
       <div class="panel panel-flat">
         <div class="panel-heading">
@@ -24,7 +23,7 @@
             <label class="text-bold text-uppercase">Provincia:</label>
             <v-select
               @change="filterDistricts()"
-              v-model="selected"
+              v-model="provinceselected"
               :items="provincesname"
               label="Selecione a Provincia"
               outlined
@@ -36,7 +35,7 @@
           <div>
             <label class="text-bold text-uppercase">Distrito:</label>
             <v-select
-              v-model="selected"
+              v-model="districtselected"
               @change="filterSchools()"
               :items="districtsname"
               label="Selecione o Distrito"
@@ -48,17 +47,18 @@
           <div>
             <label class="text-bold text-uppercase">Escola:</label>
             <v-select
-              :items="items"
+              v-model="school1"
+              :items="schoolsname"
+              @change="filterSchool(school)"
               label="Selecione a Escola"
               outlined
               dense
             ></v-select>
           </div>
-
           <div class="text-right">
             <button
-              type="submit"
-              onclick="this.disabled = 'disabled'; this.form.submit();"
+              @click="setSchoolAsCenter()"
+              type="button"
               class="btn bg-orange-600 text-uppercase text-bold"
             >
               Adicionar Centro
@@ -77,16 +77,23 @@ export default {
   name: "FormExamCenter",
   components: {},
   data: () => ({
-    selected: string = '',
+    provinceSelected: string = '',
+    districtSelected: string = '',
+    school1: string = ''
   }),
   methods: {
     ...mapActions([
         "getProvinces",
         "getDistricts",
+        "getDistricSchools",
         "removeCalendar",
         "editCalendar",
         "setCalendar",
         "empyCalendar",
+        "getDistricToSchools",
+        "updateSchool",
+        "selectSchool",
+        "updateSchool"
     ]),
     removCalendar(id) {
       if (confirm("Tem Certeza Que Deseja Eliminar?")) {
@@ -102,17 +109,28 @@ export default {
       this.editCalendar(calendar);
     },
     filterDistricts() {
-      this.getDistricts(this.selected);
+      this.getDistricts(this.provinceselected);
     },
     filterSchools() {
-      this.getSchools(this.selected);
+      this.getDistricSchools(this.districtselected);
     },
+    filterSchool(){
+      this.selectSchool(this.school1);
+      console.log(this.schoolD);
+    },
+    setSchoolAsCenter(){
+      this.schoolD.isCentro = true
+      this.updateSchool(this.schoolD)
+    },
+
   },
   mounted() {
     this.getProvinces();
+    this.getDistricToSchools();
+    this.schoolD();
   },
   computed: {
-    ...mapGetters(["provinces", "provincename", "provincesname", "districtsname"]),
+    ...mapGetters(["provinces", "provincename", "provincesname", "districtsname","schoolsname","schoolD"]),
   },
 };
 </script>

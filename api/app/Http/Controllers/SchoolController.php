@@ -95,6 +95,7 @@ class SchoolController extends Controller
             if ($school) {
                 $school->name = isset($request['name']) ? $request['name'] :  $school->name;
                 $school->cod = isset($request['cod']) ? $request['cod'] :  $school->cod;
+                $school->isCentro = isset($request['isCentro']) ? $request['isCentro'] :  $school->isCentro;
                 $school->save();
                 return response(['msg' => 'School Updated!', 'data' => $school], 200);
             }

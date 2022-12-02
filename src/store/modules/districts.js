@@ -2,8 +2,9 @@
 import axios from '@/plugins/axios';
 
 const state = {
-    districts: [],
+    district: [],
     districtsname: [],
+    schoolD : {},
     schoolsname: [],
     districtname: null,
     empydistrict: {
@@ -15,21 +16,24 @@ const state = {
 };
 
 const getters = {
-    districts: (state) => state.districts,
     district: (state) => state.district,
     empydistrict: (state) => state.empydistrict,
     districtsname: (state) => state.districtsname,
-    schoolsname: (state) => state.schoolsname
+    schoolsname: (state) => state.schoolsname,
+    schoolD: (state) => state.schoolD,
 };
 
 const actions = {
-    async getDistricts({ commit }) {
+    async getDistricToSchools({ commit }) {
         let res = await axios.get('district');
         console.log(res.data);
-        commit('getDistricts', res.data);
+        commit('getDistricToSchools', res.data);
     },
-    async getDistricts({ commit }, district) {
-       commit('getDistricts', district);
+    async getDistricSchools({ commit }, school) {
+       commit('getDistricSchools', school);
+    },
+    selectSchool({ commit }, schoolname){
+        commit('selectSchool',schoolname)
     },
     async adddistrict({ commit }, district) {
         let data = new FormData();
@@ -64,14 +68,18 @@ const actions = {
 };
 
 const mutations = {
-    getDistricts(state, payload) {
-        state.districts = payload
-        console.log(payload)
-        state.districtsname = payload.map(district => {return district.name})
+    getDistricToSchools(state, payload) {
+        state.district = payload
+        console.log("getDistricToSchools "+state.districts[0].name)
     },
-    getDistricts(state, payload) {
-        let district = state.districts.filter(district => district.name == payload)[0]
-        state.schoolsname = district.districts.map((district) =>{ return district.name})
+    getDistricSchools(state, payload) {         
+        let districts = state.district.filter((d)=>d.name==payload)
+        state.schools = districts[0].schools;
+        state.schoolsname = state.schools.map((s)=>{return s.name})
+    },
+    selectSchool(state, payload) {
+        state.schoolD = state.schools.filter(school=>school.name==payload)[0]
+        console.log(state.schoolD)
     },
     setDistrict(state, payload) {
         state.district = payload;
