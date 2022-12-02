@@ -14,7 +14,7 @@ class SchoolController extends Controller
      */
     public function index()
     {
-        $schools = School::all();
+        $schools = School::with('district')->get();
         return response()->json($schools);
     }
 
@@ -37,7 +37,6 @@ class SchoolController extends Controller
     public function store(Request $request)
     {
         try {
-            $province = new Province();
             $school = new School();
             if (isset($request['id'])) {
                 $school = School::find($request['id']);

@@ -11,10 +11,13 @@ use App\Http\Controllers\PersonController;
 use App\Http\Controllers\ClasseController;
 use App\Http\Controllers\IfpCalendarioExameController;
 use App\Http\Controllers\SubjectController;
-
-use App\Http\Controllers\CategoryController; 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProvinceControler;
 use App\Http\Controllers\DistrictController;
+
+
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -75,6 +78,7 @@ Route::controller(PersonController::class)->prefix('person')->group(function () 
 
 Route::controller(GeneralController::class)->prefix('config')->group(function () {
     Route::get('/nationality', 'nationalities')->name('config.nationality');
+    Route::get('/provinces', 'provinces')->name('config.provinces');
 });
 
 Route::controller(IfpCalendarioExameController::class)->prefix('ifpcalendar')->group(function () {
@@ -125,4 +129,3 @@ Route::controller(DistrictController::class)->prefix('district')->group(function
     Route::delete('/{id}', 'destroy')->name('district.destroy');
     Route::put('/{id}', 'update')->name('district.update');
 });
-

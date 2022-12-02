@@ -1,0 +1,69 @@
+//import router from '@/router/router';
+import axios from '@/plugins/axios';
+
+const state = {
+    schools: [],
+    school: {
+        cod: null,
+        name: null,
+        abbreviation: null,
+        district_id: 1,
+        type: null,
+        isCentro: false,
+    },
+};
+
+const getters = {
+    schools: (state) => state.schools,
+    school: (state) => state.school,
+};
+
+const actions = {
+    async getSchools({ commit }) {
+        let res = await axios.get('school');
+        commit('getSchools', res.data);
+    },
+    async addSchool({ commit }, school) {
+        const rsp = await axios.post('school/store', school);
+        commit('addSchool', rsp.data);
+    },
+    async updateSchool({ commit }, school) {
+        const rsp = await axios.put('school/' + school.id, school);
+
+        commit('updateSchool', rsp.data.data);
+    },
+    async removeSchool({ commit }, school) {
+        const rsp = await axios.delete('school/' + school.id);
+
+        commit('removeSchool', school.id);
+    },
+    async getSchool({ commit }, school) {
+        const rsp = await axios.post('school/' + school.id);
+        commit('getSchool', rsp.data);
+    },
+};
+
+const mutations = {
+    getSchools(state, payload) {
+        state.schools = payload.sort((a, b) => a.cod.localeCompare(b.cod));
+    },
+    addSchool(state, payload) {
+        state.schools.push(payload.data);
+    },
+    updateSchool(state, payload) {
+        let school = state.schools.findIndex((school) => school.id == payload.id);
+        state.schools.splice(school, 1, payload);
+    },
+    removeSchool(state, payload) {
+        state.schools = state.schools.filter((school) => school.id != payload);
+    },
+    getSchool(state, payload) {
+        state.school = payload;
+    },
+};
+export default {
+    state,
+    getters,
+    mutations,
+    actions,
+};

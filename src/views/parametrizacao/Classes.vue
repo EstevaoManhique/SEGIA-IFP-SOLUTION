@@ -6,7 +6,7 @@
         <v-data-table :headers="headers" :items="classes" class="elevation-1">
           <template v-slot:top>
             <v-toolbar flat>
-              <v-toolbar-title>My CRUD</v-toolbar-title>
+              <v-toolbar-title>Classe</v-toolbar-title>
               <v-divider class="mx-4" inset vertical></v-divider>
               <v-spacer></v-spacer>
               <v-dialog v-model="dialog" max-width="500px">
@@ -18,7 +18,7 @@
                     v-bind="attrs"
                     v-on="on"
                   >
-                    New Item
+                    Registar Classe
                   </v-btn>
                 </template>
                 <v-card>
@@ -175,7 +175,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(['classes', 'addClasse', 'getClasses']),
+    ...mapActions(['classes', 'addClasse', 'getClasses', 'updateClasse']),
     editItem(item) {
       this.editedIndex = this.classes.indexOf(item);
       this.classe = Object.assign({}, item);
@@ -216,8 +216,11 @@ export default {
         (n) => n == this.classe.category
       );
       this.classe.category_id = this.classCategories[xx].id;
-
-      this.addClasse(this.classe);
+      if (this.classe.id == null) {
+        this.addClasse(this.classe);
+      } else {
+        this.updateClasse(this.classe);
+      }
       this.close();
     },
   },

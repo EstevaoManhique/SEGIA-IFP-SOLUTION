@@ -26,9 +26,14 @@ const actions = {
         const rsp = await axios.post('classe/store', classe);
         commit('addClasse', rsp.data);
     },
+    async updateClasse({ commit }, classe) {
+        const rsp = await axios.put('classe/' + classe.id, classe);
+
+        commit('updateClasse', rsp.data.data);
+    },
     async removeClasse({ commit }, classe) {
         const rsp = await axios.delete('classe/' + classe.id);
-        rsp.data;
+
         commit('removeClasse', classe.id);
     },
     async getClasse({ commit }, classe) {
@@ -43,7 +48,10 @@ const mutations = {
     },
     addClasse(state, payload) {
         state.classes.push(payload.data);
-        state.classes = state.classes.sort((a, b) => a.cod.localeCompare(b.cod));
+    },
+    updateClasse(state, payload) {
+        let classe = state.classes.findIndex((classe) => classe.id == payload.id);
+        state.classes.splice(classe, 1, payload);
     },
     removeClasse(state, payload) {
         state.classes = state.classes.filter((classe) => classe.id != payload);

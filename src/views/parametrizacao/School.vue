@@ -2,276 +2,287 @@
   <v-container>
     <nav-bar :menu_types="5" />
     <v-container>
-      <v-row>
-        <div class="navbar navbar-default navbar-component navbar-xs">
-          <ul class="nav navbar-nav visible-xs-block">
-            <li class="full-width text-center">
-              <a data-toggle="collapse" data-target="#navbar-filter"
-                ><i class="icon-menu7"></i
-              ></a>
-            </li>
-          </ul>
+      <v-card>
+        <v-data-table :headers="headers" :items="schools" class="elevation-1">
+          <template v-slot:top>
+            <v-toolbar flat>
+              <v-toolbar-title>Escola</v-toolbar-title>
+              <v-divider class="mx-4" inset vertical></v-divider>
+              <v-spacer></v-spacer>
+              <v-dialog v-model="dialog" max-width="500px">
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn
+                    color="primary"
+                    dark
+                    class="mb-2"
+                    v-bind="attrs"
+                    v-on="on"
+                  >
+                    Registar Escola
+                  </v-btn>
+                </template>
+                <v-card>
+                  <v-card-title>
+                    <span class="text-h5">{{ formTitle }}</span>
+                  </v-card-title>
 
-          <div class="navbar-collapse collapse" id="navbar-filter">
-            <ul class="nav navbar-nav element-active-orange-400">
-              <li class="active">
-                <a
-                  href="#settings"
-                  data-toggle="tab"
-                  class="text-bold text-uppercase"
-                  ><i class="icon-city position-left"></i> Escolas</a
-                >
-              </li>
-            </ul>
-          </div>
-        </div>
-      </v-row>
+                  <v-card-text>
+                    <v-container>
+                      <v-row>
+                        <v-col cols="12">
+                          <v-select
+                            label="Provincia"
+                            dense
+                            :items="prov"
+                            @change="changeProv"
+                            filled
+                            append-icon="mdi-asterisk red"
+                            mandatory
+                            v-model="school.province"
+                          ></v-select>
+                        </v-col>
+                        <v-col cols="12">
+                          <v-select
+                            label="Distrito"
+                            dense
+                            :items="dist"
+                            @change="changeDist"
+                            filled
+                            append-icon="mdi-asterisk red"
+                            mandatory
+                            v-model="school.district"
+                          ></v-select>
+                        </v-col>
+                        <v-col cols="12">
+                          <v-select
+                            label="Tipo Ensino"
+                            dense
+                            :items="optionsCategories"
+                            filled
+                            v-model="school.category"
+                          ></v-select>
+                        </v-col>
+                        <v-col cols="12">
+                          <v-select
+                            label="Categoria Ensino"
+                            dense
+                            :items="optionsCategories"
+                            filled
+                            v-model="school.category"
+                          ></v-select>
+                        </v-col>
+                        <v-col cols="12">
+                          <v-text-field
+                            label="Nome"
+                            placeholder="Cod"
+                            filled
+                            append-icon="mdi-asterisk red"
+                            dense
+                            v-model="school.cod"
+                          ></v-text-field>
+                        </v-col>
+                        <v-col cols="12">
+                          <v-text-field
+                            label="Abreviatura"
+                            placeholder="Descricao"
+                            filled
+                            append-icon="mdi-asterisk red"
+                            dense
+                            v-model="school.description"
+                          ></v-text-field>
+                        </v-col>
+                      </v-row>
+                    </v-container>
+                  </v-card-text>
 
-      <v-row>
-        <v-col cols="12" sm="6"> Filtrar Provincia </v-col>
-        <v-col cols="12" sm="6"> Filtrar Distrito </v-col>
-      </v-row>
-
-      <v-row>
-        <h1>Listagem de escolas [Provincia|Distrito]</h1>
-      </v-row>
-      <v-row>
-        <v-data-table
-          :headers="headers"
-          :items="users"
-          class="elevation-1"
-          calculate-widths="false"
-        >
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn color="blue darken-1" text @click="close">
+                      Cancel
+                    </v-btn>
+                    <v-btn color="blue darken-1" text @click="save">
+                      Save
+                    </v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
+              <v-dialog v-model="dialogDelete" max-width="500px">
+                <v-card>
+                  <v-card-title class="text-h5"
+                    >Are you sure you want to delete this item?</v-card-title
+                  >
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn color="blue darken-1" text @click="closeDelete"
+                      >Cancel</v-btn
+                    >
+                    <v-btn color="blue darken-1" text @click="deleteItemConfirm"
+                      >OK</v-btn
+                    >
+                    <v-spacer></v-spacer>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
+            </v-toolbar>
+          </template>
+          <template v-slot:item.category="{ item }">
+            {{ '(' + item.category.cod + ') ' + item.category.description }}
+          </template>
           <template v-slot:item.actions="{ item }">
-            <div class="btn-group">
-              <button
-                type="button"
-                class="btn bg-grey-600 btn-icon dropdown-toggle"
-                data-toggle="dropdown"
-              >
-                <i class="icon-menu7"></i> &nbsp;<span class="caret"></span>
-              </button>
-
-              <ul
-                class="dropdown-menu dropdown-menu-right"
-                style="
-                  width: 12em;
-                  height: 3em;
-                  line-height: 2em;
-                  border: 1px solid #ccc;
-                  padding: 0;
-                  margin: 0;
-                  overflow: scroll;
-                  overflow-x: hidden;
-                "
-              >
-                <li>
-                  <a
-                    ><i class="icon-reload-alt text-blue-800"></i> Redefinir
-                    senha</a
-                  >
-                </li>
-                <li>
-                  <a><i class="icon-reload-alt text-blue-800"></i> Editar</a>
-                </li>
-
-                <li v-if="item.status">
-                  <a @click="changeStatus(item)"
-                    ><i class="icon-user-block text-danger"></i> Desactivar</a
-                  >
-                </li>
-
-                <li v-else>
-                  <a @click="changeStatus(item)"
-                    ><i class="icon-user-check text-success"></i> Activar</a
-                  >
-                </li>
-
-                <li class="divider"></li>
-                <li>
-                  <a href="#" data-toggle="modal" @click="deleteUser(item)"
-                    ><i class="icon-cancel-circle2 text-danger-800"></i>Remover
-                    registo</a
-                  >
-                </li>
-              </ul>
-            </div>
+            <v-icon small class="mr-2" @click="editItem(item)">
+              mdi-pencil
+            </v-icon>
+            <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
+          </template>
+          <template v-slot:no-data>
+            <v-btn color="primary" @click="initialize"> Reset </v-btn>
           </template>
         </v-data-table>
-      </v-row>
-      <!-- Main content -->
-      <div class="content-wrapper">
-        <!-- Toolbar -->
-
-        <!-- /toolbar -->
-
-        <!-- User profile -->
-        <div class="row">
-          <div class="col-md-12">
-            <div class="panel panel-flat">
-              <div class="panel-heading">
-                <h6 class="panel-title text-bold text-uppercase">
-                  Listagem das Escolas
-                  <span class="text-danger-600">[ <%=prov%> | <%=dist%> ]</span>
-                </h6>
-                <div class="heading-elements">
-                  <ul class="icons-list">
-                    <li>
-                      <a data-action="collapse"></a>
-                    </li>
-                    <li>
-                      <a data-action="reload"></a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-
-              <div class="panel-body">
-                <table
-                  class="table datatable-responsive table-bordered table-striped"
-                >
-                  <thead>
-                    <tr>
-                      <th class="text-bold text-uppercase">#</th>
-                      <th class="text-bold text-uppercase">Escola</th>
-                      <th class="text-bold text-uppercase">Abreviatura</th>
-                      <th class="text-bold text-uppercase">Tipo Ensino</th>
-                      <th class="text-bold text-uppercase">Distrito</th>
-                      <th class="text-bold text-uppercase">Zip</th>
-                      <th class="text-bold text-uppercase text-danger">---</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td class="text-bold">
-                        <a href="#"> <%=key%> </a>
-                      </td>
-                      <td class="text-bold"><%=nm%></td>
-                      <td class="text-bold text-danger-600"><%=abrev%></td>
-                      <td><%=tip%></td>
-                      <td><%=dis%></td>
-                      <td><%=zi%></td>
-
-                      <td>
-                        <a
-                          href="#"
-                          data-toggle="modal"
-                          data-target="#modal_info_<%=id%>"
-                          data-popup="tooltip"
-                          title="Mais detalhes da Escola"
-                          ><i class="icon-info22 text-primary-600"></i
-                        ></a>
-
-                        <!-- Table modal -->
-                        <div id="modal_info_<%=id%>" class="modal fade">
-                          <div class="modal-dialog">
-                            <div class="modal-content">
-                              <div class="modal-header">
-                                <button
-                                  type="button"
-                                  class="close"
-                                  data-dismiss="modal"
-                                >
-                                  &times;
-                                </button>
-                                <h6
-                                  class="modal-title text-bold text-uppercase text-danger"
-                                >
-                                  <%=nm%>
-                                </h6>
-                              </div>
-                              <div class="modal-body">
-                                <table class="table">
-                                  <tbody>
-                                    <tr>
-                                      <td class="text-bold text-uppercase">
-                                        Posto Administrativo
-                                      </td>
-                                      <td><%=posto%></td>
-                                    </tr>
-                                    <tr>
-                                      <td class="text-bold text-uppercase">
-                                        Localidade
-                                      </td>
-                                      <td><%=loc%></td>
-                                    </tr>
-                                    <tr>
-                                      <td class="text-bold text-uppercase">
-                                        Nível de Ensino
-                                      </td>
-                                      <td><%=are%></td>
-                                    </tr>
-                                    <tr>
-                                      <td class="text-bold text-uppercase">
-                                        Ano Integração
-                                      </td>
-                                      <td><%=an%></td>
-                                    </tr>
-                                    <tr>
-                                      <td class="text-bold text-uppercase">
-                                        Longitude
-                                      </td>
-                                      <td><%=coorX%></td>
-                                    </tr>
-                                    <tr>
-                                      <td class="text-bold text-uppercase">
-                                        Latitude
-                                      </td>
-                                      <td><%=coorY%></td>
-                                    </tr>
-                                  </tbody>
-                                </table>
-                              </div>
-
-                              <div class="modal-footer">
-                                <button
-                                  type="button"
-                                  class="btn text-bold text-uppercase btn-link"
-                                  data-dismiss="modal"
-                                >
-                                  Fechar
-                                </button>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <!-- /table modal -->
-                      </td>
-                    </tr>
-                    <% } } %>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- /row.2 -->
-      </div>
-      <!-- /main content -->
+      </v-card>
     </v-container>
   </v-container>
 </template>
 
 <script>
 import NavBar from '@/components/layout/NavBar.vue';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 export default {
-  name: 'HomeView',
+  name: 'ClasseView',
   components: { NavBar },
   data: () => ({
+    dialog: false,
+    dialogDelete: false,
     headers: [
-      { text: '#', value: '' },
-      { text: 'Escola', value: '' },
-      { text: 'Abreviatura', value: '' },
-      { text: 'Tipo Ensino', value: '' },
-      { text: 'Distrito', value: '' },
-      { text: 'Zip', value: '' },
-      { text: 'Opcoes', value: '' },
+      { text: '#', value: 'id' },
+      { text: 'Escola', value: 'name' },
+      { text: 'Abreviatura', value: 'abbreviation' },
+      { text: 'Tipo Ensino', value: ' type' },
+      { text: 'Distrito', value: 'district.name' },
+
+      { text: 'Opcoes', value: 'actions', sortable: false },
     ],
+    provinces: [],
+    districts: [],
+    prov: [],
+    dist: [],
+
+    editedIndex: -1,
+    editedItem: {
+      id: null,
+      cod: null,
+      description: null,
+      category_id: null,
+      category: null,
+    },
+    school: {
+      id: null,
+      cod: null,
+      province: null,
+      district: null,
+      district_id: null,
+      description: null,
+      category_id: null,
+      category: null,
+    },
+    defaultItem: {
+      id: null,
+      cod: null,
+      description: null,
+      category_id: null,
+      category: null,
+    },
+    classCategories: [],
+    optionsCategories: [],
   }),
 
   computed: {
-    ...mapGetters(['user']),
+    ...mapGetters(['schools']),
+
+    formTitle() {
+      return this.editedIndex === -1 ? 'New Item' : 'Edit Item';
+    },
+  },
+
+  watch: {
+    dialog(val) {
+      val || this.close();
+    },
+    dialogDelete(val) {
+      val || this.closeDelete();
+    },
+  },
+
+  created() {
+    this.initialize();
+  },
+
+  methods: {
+    ...mapActions(['schools', 'addSchool', 'getSchools', 'updateSchool']),
+    editItem(item) {
+      this.editedIndex = this.schools.indexOf(item);
+      this.school = Object.assign({}, item);
+
+      this.dialog = true;
+    },
+    changeProv() {
+      let xx = this.prov.findIndex((n) => n == this.school.province);
+      let prov = this.provinces[xx];
+      this.districts = prov.districts;
+      this.dist = this.districts.map((d) => {
+        return d.name;
+      });
+    },
+    changeDist() {
+      let xx = this.dis.findIndex((n) => n == this.school.district);
+      this.school.district_id = this.districts[xx].id;
+      alert(this.school.district_id);
+    },
+
+    deleteItem(item) {
+      this.editedIndex = this.desserts.indexOf(item);
+      this.school = Object.assign({}, item);
+      this.dialogDelete = true;
+    },
+
+    deleteItemConfirm() {
+      this.desserts.splice(this.editedIndex, 1);
+      this.closeDelete();
+    },
+
+    close() {
+      this.dialog = false;
+      this.$nextTick(() => {
+        this.school = Object.assign({}, this.defaultItem);
+        this.editedIndex = -1;
+      });
+    },
+
+    closeDelete() {
+      this.dialogDelete = false;
+      this.$nextTick(() => {
+        this.school = Object.assign({}, this.defaultItem);
+        this.editedIndex = -1;
+      });
+    },
+
+    save() {
+      if (this.school.id == null) {
+        this.addSchool(this.school);
+      } else {
+        this.updateSchool(this.school);
+      }
+      this.close();
+    },
+  },
+
+  mounted() {
+    this.getSchools();
+    this.$api.get('config/provinces').then((data) => {
+      this.provinces = data.data.sort((a, b) => a.name.localeCompare(b.name));
+      this.prov = this.provinces.map((prov) => {
+        return prov.name;
+      });
+    });
   },
 };
 </script>
