@@ -57,9 +57,9 @@
                           <v-select
                             label="Tipo Ensino"
                             dense
-                            :items="optionsCategories"
+                            :items="school_types"
                             filled
-                            v-model="school.category"
+                            v-model="school.type"
                           ></v-select>
                         </v-col>
                         <v-col cols="12">
@@ -68,27 +68,28 @@
                             dense
                             :items="optionsCategories"
                             filled
+                            multiple
                             v-model="school.category"
                           ></v-select>
                         </v-col>
                         <v-col cols="12">
                           <v-text-field
                             label="Nome"
-                            placeholder="Cod"
+                            placeholder="Nome"
                             filled
                             append-icon="mdi-asterisk red"
                             dense
-                            v-model="school.cod"
+                            v-model="school.name"
                           ></v-text-field>
                         </v-col>
                         <v-col cols="12">
                           <v-text-field
                             label="Abreviatura"
-                            placeholder="Descricao"
+                            placeholder="Abreviatura"
                             filled
                             append-icon="mdi-asterisk red"
                             dense
-                            v-model="school.description"
+                            v-model="school.abbreviation"
                           ></v-text-field>
                         </v-col>
                       </v-row>
@@ -220,8 +221,17 @@ export default {
     ...mapActions(['schools', 'addSchool', 'getSchools', 'updateSchool']),
     editItem(item) {
       this.editedIndex = this.schools.indexOf(item);
+      let xx = this.provinces.findIndex(
+        (n) => n.id == item.district.province_id
+      );
+      let prov = this.provinces[xx];
+      this.districts = prov.districts;
+      this.dist = this.districts.map((d) => {
+        return d.name;
+      });
       this.school = Object.assign({}, item);
-
+      this.school.province = prov.name;
+      this.school.district = item.district.name;
       this.dialog = true;
     },
     changeProv() {
@@ -281,6 +291,14 @@ export default {
       this.provinces = data.data.sort((a, b) => a.name.localeCompare(b.name));
       this.prov = this.provinces.map((prov) => {
         return prov.name;
+      });
+    });
+    this.$api.get('class-category').then((data) => {
+      this.classCategories = data.data.sort((a, b) =>
+        a.description.localeCompare(b.description)
+      );
+      this.optionsCategories = this.classCategories.map((n) => {
+        return '(' + n.cod + ') ' + n.description;
       });
     });
   },
