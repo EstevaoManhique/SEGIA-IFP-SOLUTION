@@ -15,7 +15,7 @@ class DistrictController extends Controller
      */
     public function index()
     {
-        $districts = District::with('schools')->get();
+        $districts = District::with('province', 'schools')->get();
         return $districts;
         return response()->json($districts);
     }
@@ -41,7 +41,7 @@ class DistrictController extends Controller
         try {
             $district = new District();
             $province = new Province();
-            
+
             $district->name = isset($request['name']) ? $request['name'] :  $district->name;
             $district->cod = isset($request['cod']) ? $request['cod'] :  $district->cod;
             $district->province_id = isset($request['province_id']) ? $request['province_id'] :  $district->province_id;
