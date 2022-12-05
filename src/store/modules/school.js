@@ -7,7 +7,7 @@ const state = {
         cod: null,
         name: null,
         abbreviation: null,
-        district_id: 1,
+        district_id: null,
         type: null,
         isCentro: false,
     },
@@ -29,11 +29,12 @@ const actions = {
     },
     async updateSchool({ commit }, school) {
         const rsp = await axios.put('school/' + school.id, school);
-
+        console.log("UPDATE SCHOOL")
         commit('updateSchool', rsp.data.data);
     },
     async removeSchool({ commit }, school) {
         const rsp = await axios.delete('school/' + school.id);
+
         commit('removeSchool', school.id);
     },
     async getSchool({ commit }, school) {
@@ -44,7 +45,8 @@ const actions = {
 
 const mutations = {
     getSchools(state, payload) {
-        state.schools = payload.sort((a, b) => a.cod.localeCompare(b.cod));
+        state.schools = payload;
+        console.log("Escolas "+state.schools)
     },
     addSchool(state, payload) {
         state.schools.push(payload.data);
@@ -58,7 +60,7 @@ const mutations = {
     },
     getSchool(state, payload) {
         state.school = payload;
-    },
+    }
 };
 export default {
     state,

@@ -86,28 +86,11 @@ export default {
         "getProvinces",
         "getDistricts",
         "getDistricSchools",
-        "removeCalendar",
-        "editCalendar",
-        "setCalendar",
-        "empyCalendar",
         "getDistricToSchools",
         "updateSchool",
         "selectSchool",
         "updateSchool"
     ]),
-    removCalendar(id) {
-      if (confirm("Tem Certeza Que Deseja Eliminar?")) {
-        this.removeCalendar(id);
-        this.empyCalendar();
-      }
-    },
-    edit(calendar) {
-      console.log(this.calendar);
-      //this.calendar=calendar;
-      this.setCalendar(calendar);
-      console.log(this.calendar);
-      this.editCalendar(calendar);
-    },
     filterDistricts() {
       this.getDistricts(this.provinceselected);
     },

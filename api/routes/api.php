@@ -124,6 +124,7 @@ Route::controller(ProvinceControler::class)->prefix('province')->group(function 
 
 Route::controller(DistrictController::class)->prefix('district')->group(function () {
     Route::get('/', 'index')->name('district.index');
+    Route::get('/centers', 'centers')->name('centers.index');
     Route::post('/store', 'store')->name('district.store');
     Route::get('/{id}', 'show')->name('district.show');
     Route::delete('/{id}', 'destroy')->name('district.destroy');
