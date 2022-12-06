@@ -88,8 +88,7 @@ export default {
         "getDistricSchools",
         "getDistricToSchools",
         "updateSchool",
-        "selectSchool",
-        "updateSchool"
+        "selectSchool"
     ]),
     filterDistricts() {
       this.getDistricts(this.provinceselected);
@@ -99,7 +98,6 @@ export default {
     },
     filterSchool(){
       this.selectSchool(this.school1);
-      console.log(this.schoolD);
     },
     setSchoolAsCenter(){
       this.schoolD.isCentro = true
@@ -113,7 +111,7 @@ export default {
     this.schoolD();
   },
   computed: {
-    ...mapGetters(["provinces", "provincename", "provincesname", "districtsname","schoolsname","schoolD"]),
+    ...mapGetters(["provinces", "provincename", "provincesname", "districtsname","schoolsname","schoolD","schools"]),
   },
 };
 </script>

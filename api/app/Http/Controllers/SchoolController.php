@@ -19,6 +19,13 @@ class SchoolController extends Controller
         return response()->json($schools);
     }
 
+    public function centers()
+    {
+        $schools = School::join('districts','district_id','=','districts.id')
+        ->select('schools.*','districts.name as district','districts.province_id')->where('isCentro','=',true)
+        ->get();
+        return response()->json($schools);
+    }
     /**
      * Show the form for creating a new resource.
      *

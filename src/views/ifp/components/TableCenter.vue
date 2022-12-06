@@ -36,7 +36,7 @@
                   SIGLA
                 </th>
                 <th>
-                  Descricao
+                  Centro
                 </th>
                 <th>
                   Tipo
@@ -44,23 +44,29 @@
                 <th>
                   Distrito
                 </th>
+                <th>
+                  Remover
+                </th>
               </tr>
             </thead>
-            <tbody>
-              <tr v-for="(school, index) in schools" :key="index">
-                <td>{{ school.id }}</td>
-                <td>{{school.abbreviation}}</td>
-                <td>{{school.name}}</td>
-                <td>{{school.type}}</td>
-                <td>{{school.district.name}}</td>
-              </tr>
+            <tbody> 
+                <tr v-for="(school, index) in schools" :key="index" v-if="school.isCentro">
+                  <td>{{school.id }}</td>
+                  <td>{{school.abbreviation}}</td>
+                  <td>{{school.name}}</td>
+                  <td>{{school.type}}</td>
+                  <td>{{school.district.name}}</td> 
+                  <td>
+                    <button  @click="removCenter(school)">
+                      <v-icon color="red">mdi-trash-can-outline</v-icon>
+                    </button>
+                  </td>
+                </tr> 
             </tbody>
           </template>
         </v-simple-table>
       </template>
-
-
-      <!-- /bordered panel body table -->
+   <!-- /bordered panel body table -->
     </div>
 </template>
 
@@ -73,14 +79,23 @@ export default {
   }),
   methods: {
     ...mapActions([
-        "getSchools"
+        "getSchools","getCenters","updateSchool","selectSchool","getDistricSchools"
     ]),
+    removCenter(school){
+      //this.getDistricSchools(district);
+      //this.selectSchool(name);
+      school.isCentro = false
+      this.updateSchool(school)
+    },
+    
   },
   mounted() {
     this.getSchools();
+    this.getCenters();
+    this.getDistricSchools();
   },
   computed: {
-    ...mapGetters(["schools"]),
+    ...mapGetters(["schools","centers","schoolD"]),
   },
 };
 </script>

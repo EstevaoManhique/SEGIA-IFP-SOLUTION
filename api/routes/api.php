@@ -46,6 +46,7 @@ Route::delete('user/{id}', [AuthController::class, 'destroy'])->name('user.destr
 
 Route::controller(SchoolController::class)->prefix('school')->group(function () {
     Route::get('/', 'index')->name('school.index');
+    Route::get('/centers', 'centers')->name('centers.index');
     Route::post('/store', 'store')->name('school.store');
     Route::get('/{id}', 'show')->name('school.show');
     Route::delete('/{id}', 'destroy')->name('school.destroy');
@@ -124,7 +125,6 @@ Route::controller(ProvinceControler::class)->prefix('province')->group(function 
 
 Route::controller(DistrictController::class)->prefix('district')->group(function () {
     Route::get('/', 'index')->name('district.index');
-    Route::get('/centers', 'centers')->name('centers.index');
     Route::post('/store', 'store')->name('district.store');
     Route::get('/{id}', 'show')->name('district.show');
     Route::delete('/{id}', 'destroy')->name('district.destroy');

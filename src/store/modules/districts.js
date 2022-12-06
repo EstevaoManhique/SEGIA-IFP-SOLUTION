@@ -3,7 +3,6 @@ import axios from '@/plugins/axios';
 
 const state = {
     district: [],
-    centers: [],
     districtsname: [],
     schoolD : {},
     schoolsname: [],
@@ -18,7 +17,6 @@ const state = {
 
 const getters = {
     district: (state) => state.district,
-    centers: (state) => state.centers,
     empydistrict: (state) => state.empydistrict,
     districtsname: (state) => state.districtsname,
     schoolsname: (state) => state.schoolsname,
@@ -31,10 +29,10 @@ const actions = {
         console.log(res.data);
         commit('getDistricToSchools', res.data);
     },
-    async getDistrictCenters({ commit }) {
-        let res = await axios.get('district/centers');
+    async getDistrict({ commit }) {
+        let res = await axios.get('district/');
         console.log(res.data);
-        commit('getDistrictCenters', res.data);
+        commit('getDistrict', res.data);
     },
     async getDistricSchools({ commit }, school) {
        commit('getDistricSchools', school);
@@ -60,7 +58,7 @@ const actions = {
         commit('getDistrict', rsp.data);
     },
     async editDistrict({ commit }, district) {
-        district.districts='[]ação de Professores '+(new Date().getFullYear());
+        district.districts='Formação de Professores '+(new Date().getFullYear());
         const rsp = await axios.put('district/' + district.id, district);
         commit('editDistrict', rsp.data.data);
 
@@ -84,13 +82,8 @@ const mutations = {
         state.schools = districts[0].schools;
         state.schoolsname = state.schools.map((s)=>{return s.name})
     },
-    getDistrictCenters(state, payload) {         
-        state.centers = payload;
-        console.log("Center New "+ state.centers)
-    },
     selectSchool(state, payload) {
         state.schoolD = state.schools.filter(school=>school.name==payload)[0]
-        console.log(state.schoolD)
     },
     setDistrict(state, payload) {
         state.district = payload;

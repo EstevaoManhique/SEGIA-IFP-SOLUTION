@@ -20,12 +20,6 @@ class DistrictController extends Controller
         return response()->json($districts);
     }
 
-    public function centers()
-    {
-        $districts = District::with('province','schools')->get();
-        return $districts;
-        return response()->json($districts);
-    }
     /**
      * Show the form for creating a new resource.
      *
