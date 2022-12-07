@@ -9,6 +9,31 @@
               <v-toolbar-title>Escola</v-toolbar-title>
               <v-divider class="mx-4" inset vertical></v-divider>
               <v-spacer></v-spacer>
+              <v-row>
+                <v-col>
+                  <v-select
+                    label="Provincia"
+                    dense
+                    :items="prov"
+                    @change="changeProv"
+                    append-icon="mdi-asterisk red"
+                    mandatory
+                    v-model="school.province"
+                  ></v-select>
+                </v-col>
+                <v-col>
+                  <v-select
+                    label="Distrito"
+                    dense
+                    :items="dist"
+                    @change="changeDist"
+                    append-icon="mdi-asterisk red"
+                    mandatory
+                    v-model="school.district"
+                  ></v-select>
+                </v-col>
+              </v-row>
+              <v-spacer></v-spacer>
               <v-dialog v-model="dialog" max-width="500px">
                 <template v-slot:activator="{ on, attrs }">
                   <v-btn
@@ -189,6 +214,7 @@ export default {
     districts: [],
     prov: [],
     dist: [],
+    filter_id: '',
 
     editedIndex: -1,
     editedItem: {
@@ -227,6 +253,7 @@ export default {
     school_types: ['Publica', 'Privada', 'Comunitaria'],
     classCategories: [],
     optionsCategories: [],
+    schoolsTable: [],
   }),
 
   computed: {
@@ -246,12 +273,15 @@ export default {
     },
   },
 
-  created() {
-    this.initialize();
-  },
-
   methods: {
-    ...mapActions(['schools', 'addSchool', 'getSchools', 'updateSchool']),
+    ...mapActions([
+      'schools',
+      'addSchool',
+      'getSchools',
+      'updateSchool',
+      'removeSchool',
+      'setSchools',
+    ]),
     editItem(item) {
       this.editedIndex = this.schools.indexOf(item);
       let xx = this.provinces.findIndex(
@@ -276,8 +306,15 @@ export default {
       });
     },
     changeDist() {
-      let xx = this.districts.filter((d) => d.name == this.school.district)[0];
-      this.school.district_id = xx.id;
+      if (this.school.district != null) {
+        let xx = this.districts.filter(
+          (d) => d.name == this.school.district
+        )[0];
+        this.school.district_id = xx.id;
+        //this.setSchools(this.schools.filter((d) => d.district_id === xx.id));
+        this.schoolsTable = this.schools.filter((d) => d.district_id === xx.id);
+        // this.schools = this.schoolsTable;
+      }
     },
 
     deleteItem(item) {
@@ -287,7 +324,10 @@ export default {
     },
 
     deleteItemConfirm() {
-      this.desserts.splice(this.editedIndex, 1);
+      this.removeSchool(this.school);
+      this.schoolsTable = this.schoolsTable.filter(
+        (school) => school.id != this.school.id
+      );
       this.closeDelete();
     },
 
@@ -312,6 +352,20 @@ export default {
         this.addSchool(this.school);
       } else {
         this.updateSchool(this.school);
+
+        let index = this.schoolsTable.findIndex((n) => n.id == this.school.id);
+        console.log(this.school);
+        //  let schoolxx = this.schools.filter((n) => n.id == this.school.id)[0];
+
+        ///this.schoolsTable[index] = this.school;
+        Object.assign(
+          this.schoolsTable[index],
+          this.schools.filter((n) => n.id == this.school.id)[0]
+        );
+        //console.log(this.schoolsTable[index]);
+        //     console.log(schoolxx);
+        // let school = state.schools.filter((school) => school.id == payload.id)[0];
+        //if (index > 0) Object.assign(this.schoolsTable[index], this.school);
       }
       this.close();
     },
