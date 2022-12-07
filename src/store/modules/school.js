@@ -3,6 +3,7 @@ import axios from '@/plugins/axios';
 
 const state = {
     schools: [],
+    provinceToFilterCenters: null,
     school: {
         cod: null,
         name: null,
@@ -51,9 +52,10 @@ const mutations = {
         state.schools.push(payload.data);
     },
     updateSchool(state, payload) {
-        let school = state.schools.filter((school) => school.id == payload.id)[0];
+        let school = state.schools.findIndex((school) => {school.id == payload.id})[0];
         state.schools.splice(school, 1, payload);
-        
+        console.log(state.schools)
+        console.log(payload)
     },
     removeSchool(state, payload) {
         state.schools = state.schools.filter((school) => school.id != payload);
