@@ -40,27 +40,34 @@ const actions = {
         const rsp = await axios.post('school/' + school.id);
         commit('getSchool', rsp.data);
     },
+    async setSchools({ commit }, schools) {
+        commit('setSchools', schools);
+    },
 };
 
 const mutations = {
     getSchools(state, payload) {
         state.schools = payload;
-        console.log("Escolas "+state.schools)
     },
     addSchool(state, payload) {
         state.schools.push(payload.data);
     },
     updateSchool(state, payload) {
-        let school = state.schools.filter((school) => school.id == payload.id)[0];
-        state.schools.splice(school, 1, payload);
-        
+        let index = state.schools.findIndex((n) => n.id == payload.id);
+        // let school = state.schools.filter((school) => school.id == payload.id)[0];
+        if (index > 0) Object.assign(state.schools[index], payload);
+
+        //state.schools.splice(school, 1, payload);
     },
     removeSchool(state, payload) {
         state.schools = state.schools.filter((school) => school.id != payload);
     },
     getSchool(state, payload) {
         state.school = payload;
-    }
+    },
+    setSchools(state, payload) {
+        state.schools = payload;
+    },
 };
 export default {
     state,
