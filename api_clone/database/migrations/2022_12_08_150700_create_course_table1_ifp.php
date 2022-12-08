@@ -13,17 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-            Schema::create('course_school', function (Blueprint $table) {
-                $table->integer("course_id")->constrained();
-                $table->integer("school_id")->constrained();
-                $table->foreign("course_id")
-                        ->references('id')
-                        ->on("courses")
-                        ->onDelete("cascade");
-                $table->foreign("school_id")
-                    ->references('id')
-                    ->on("schools")
-                    ->onDelete("cascade");
+            Schema::create('school_course', function (Blueprint $table) {
+                $table->foreignId('school_id')->constrained('schools');
+                $table->foreignId('course_id')->constrained('courses');
             });
     }
 
@@ -34,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('course_table1_ifp');
+        Schema::dropIfExists('school_course');
     }
 };

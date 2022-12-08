@@ -30,7 +30,7 @@ class Course extends Model
 	];
 
 	public function schools(){
-		$this->belongsToMany(School::class);
+		return $this->belongsToMany(School::class, 'school_course');
 	}
 	
 }
