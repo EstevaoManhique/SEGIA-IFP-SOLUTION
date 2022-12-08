@@ -28,4 +28,9 @@ class Course extends Model
 		'cod',
 		'description'
 	];
+
+	public function schools(){
+		$this->belongsToMany(School::class);
+	}
+	
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Course;
 
 class CourseController extends Controller
 {
@@ -13,7 +14,9 @@ class CourseController extends Controller
      */
     public function index()
     {
-        //
+        $courses = Course::all();
+        return $courses;
+        return response()->json($courses);
     }
 
     /**
@@ -34,7 +37,16 @@ class CourseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $course = new Course();
+            
+            $course->cod = isset($request['cod']) ? $request['cod'] :  $course->cod;
+            $course->description = isset($request['description']) ? $request['description'] :  $course->description;
+            $course->save();
+            return response(['msg' => 'Course Registered', 'data' => $course], 200);
+        } catch (\Exception $e) {
+            return response(['msg' => $e->getMessage()], $e->getCode());
+        }
     }
 
     /**
@@ -45,7 +57,9 @@ class CourseController extends Controller
      */
     public function show($id)
     {
-        //
+        $course = Course::find($id);
+
+        return response()->json($course);
     }
 
     /**
@@ -68,7 +82,19 @@ class CourseController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            $course = Course::findOrFail($id);
+            if ($course) {
+                $course->cod = isset($request['cod']) ? $request['cod'] :  $course->cod;
+                $course->description = isset($request['description']) ? $request['description'] : $course->description;
+                $course->save();
+                return response(['msg' => 'Course Updated!', 'data' => $course], 200);
+            }
+
+            return response(['msg' => 'Course not found!'], 404);
+        } catch (\Exception $e) {
+            return response(['msg' => $e->getMessage()], $e->getCode());
+        }
     }
 
     /**
@@ -79,6 +105,14 @@ class CourseController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $course = Course::findOrFail($id);
+            if ($course) {
+                $course->delete();
+                return response()->json(['msg' => 'Course deleted successfully!']);
+            }
+        } catch (\Exception $e) {
+            return response(['msg' => $e->getMessage()], $e->getCode());
+        }
     }
 }

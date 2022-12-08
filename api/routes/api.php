@@ -14,6 +14,7 @@ use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProvinceControler;
 use App\Http\Controllers\DistrictController;
+use App\Http\Controllers\CourseController;
 
 
 
@@ -129,4 +130,12 @@ Route::controller(DistrictController::class)->prefix('district')->group(function
     Route::get('/{id}', 'show')->name('district.show');
     Route::delete('/{id}', 'destroy')->name('district.destroy');
     Route::put('/{id}', 'update')->name('district.update');
+});
+
+Route::controller(CourseController::class)->prefix('course')->group(function () {
+    Route::get('/', 'index')->name('course.index');
+    Route::post('/store', 'store')->name('course.store');
+    Route::get('/{id}', 'show')->name('course.show');
+    Route::delete('/{id}', 'destroy')->name('course.destroy');
+    Route::put('/{id}', 'update')->name('course.update');
 });

@@ -40,10 +40,11 @@ class SchoolController extends Controller
             $school->abbreviation = isset($request['abbreviation']) ? $request['abbreviation'] :  $school->abbreviation;
             $school->type = isset($request['type']) ? $request['type'] :  $school->type;
             $school->isCentro = isset($request['isCentro']) ? $request['isCentro'] : ($school->isCentro ? 1 : 0);
+            $school->isIfp = isset($request['isIfp']) ? $request['isIfp'] : ($school->isIfp ? 1 : 0);
             $school->save();
             return $school;
         } catch (\Exception $e) {
-            return response(['msg' => $e->getMessage()]);
+            return response(['msg' => $e->getMessage(), "data" => $school]);
         }
     }
 

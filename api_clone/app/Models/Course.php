@@ -28,4 +28,5 @@ class Course extends Model
 		'cod',
 		'description'
 	];
+	
 }

@@ -101,6 +101,8 @@ export default {
     },
     setSchoolAsCenter(){
       this.schoolD.isCentro = true
+      console.log("schoolD")
+      console.log(this.schoolD)
       this.updateSchool(this.schoolD)
     },
 

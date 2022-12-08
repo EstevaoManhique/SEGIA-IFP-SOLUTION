@@ -35,7 +35,8 @@ class School extends Model
 
 	protected $casts = [
 		'district_id' => 'int',
-		'isCentro' => 'bool'
+		'isCentro' => 'bool',
+		'isIfp' => 'bool'
 	];
 
 	protected $fillable = [
@@ -44,7 +45,8 @@ class School extends Model
 		'abbreviation',
 		'district_id',
 		'type',
-		'isCentro'
+		'isCentro',
+		'isIfp'
 	];
 
 	public function district()

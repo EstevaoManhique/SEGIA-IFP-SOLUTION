@@ -13,12 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('districts', function (Blueprint $table) {
-            $table->integer('id');
-            $table->foreignId('province_id');
-            $table->string('name');
-            $table->string('cod');
-            $table->timestamps();
+        Schema::create('courses', function (Blueprint $table) {
+            $table->increments('id', true);
+            $table->string('cod', 50)->nullable();
+            $table->string('description')->nullable();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent();
         });
     }
 
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('table_district');
+        Schema::dropIfExists('courses');
     }
 };

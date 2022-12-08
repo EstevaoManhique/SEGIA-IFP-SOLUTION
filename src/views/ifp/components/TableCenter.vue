@@ -1,17 +1,41 @@
 <template>
   <v-data-table
     :headers="headers"
-    :items="schools"
+    :items="centers"
     sort-by="calories"
     class="elevation-1"
+    :search="search"
+    style="width: 57vw"
   >
     <template v-slot:top>
       <v-toolbar flat>
         <v-toolbar-title>Centros De Exame</v-toolbar-title>
+        <v-toolbar-title>
+          <div class="d-flex mt-8">
+            <v-select
+              @change="filterDistricts()"
+              v-model="provinceselected"
+              :items="provincesname"
+              label="Selecione a Provincia"
+              outlined
+              dense
+              class="ms-5"
+            >
+            </v-select>
+            <v-select
+              v-model="search"
+              @change="filterSchools()"
+              :items="districtsname"
+              label="Selecione o Distrito"
+              outlined
+              dense
+              class="ms-5"
+            ></v-select>
+          </div>
+        </v-toolbar-title>
         <v-divider class="mx-4" inset vertical></v-divider>
         <v-spacer></v-spacer>
         <v-dialog v-model="dialog" max-width="500px">
-          
           <v-card>
             <v-card-title>
               <span class="text-h5">{{ formTitle }}</span>
@@ -80,11 +104,11 @@
         </v-dialog>
       </v-toolbar>
     </template>
-    <template v-slot:item.actions="{ item }"> 
+    <template v-slot:item.actions="{ item }">
       <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
     </template>
     <template v-slot:no-data>
-      <v-btn color="primary" @click="initialize"> Reset </v-btn>
+      <v-btn color="primary" @click="initialize"> Listar Centros </v-btn>
     </template>
   </v-data-table>
 </template>
@@ -94,39 +118,49 @@ import { mapGetters, mapActions } from "vuex";
 export default {
   data: () => ({
     provinceselected: null,
+    search: "",
     districtsname: [],
-    centers: null ,
+    centers: null,
     dialog: false,
     dialogDelete: false,
-    schoolsTable : [],
+    schoolsTable: [],
     headers: [
       {
-            text: '#',
-            align: 'start',
-            sortable: false,
-            value: 'id',
-          },
-          { text: 'Descricao', value: 'name' },
-          { text: 'Abreviatura', value: 'abbreviation' },
-          { text: 'Tipo', value: 'type' },
-          { text: 'Distrito', value: 'district.name' },
+        text: "#",
+        align: "start",
+        sortable: false,
+        value: "id",
+      },
+      { text: "Descricao", value: "name" },
+      { text: "Abreviatura", value: "abbreviation" },
+      { text: "Tipo", value: "type" },
+      { text: "Distrito", value: "district.name" },
       { text: "Actions", value: "actions", sortable: false },
     ],
-    desserts: [],
     editedIndex: -1,
     editedItem: {
-      name: "",
-      calories: 0,
-      fat: 0,
-      carbs: 0,
-      protein: 0,
+      abbreviation: null,
+      cod: null,
+      created_at: null,
+      district: {},
+      district_id: null,
+      id: null,
+      isCentro: null,
+      name: null,
+      type: null,
+      updated_at: null,
     },
     defaultItem: {
-      name: "",
-      calories: 0,
-      fat: 0,
-      carbs: 0,
-      protein: 0,
+      abbreviation: null,
+      cod: null,
+      created_at: null,
+      district: {},
+      district_id: null,
+      id: null,
+      isCentro: null,
+      name: null,
+      type: null,
+      updated_at: null,
     },
   }),
   mounted() {
@@ -135,12 +169,7 @@ export default {
     this.getProvinces();
   },
   computed: {
-    ...mapGetters([
-      "schools",
-      "provincesname",
-      "provinces",
-      "districtsname"
-    ]),
+    ...mapGetters(["schools", "provincesname", "provinces", "districtsname"]),
     formTitle() {
       return this.editedIndex === -1 ? "New Item" : "Edit Item";
     },
@@ -157,16 +186,10 @@ export default {
 
   created() {
     this.initialize();
-    this.filterSchools();
   },
-    
-  
+
   methods: {
     ...mapActions(["getSchools", "updateSchool", "getProvinces"]),
-    removCenter(school) {
-      school.isCentro = false;
-      this.updateSchool(school);
-    },
     filterDistricts() {
       let province = this.provinces.filter(
         (province) => province.name == this.provinceselected
@@ -175,15 +198,11 @@ export default {
         return d.name;
       });
     },
-    filterSchools(){
-      this.centers = this.schools.filter((school)=>{school.isCentro==true})
-      console.log("ASDF")
-      console.log(this.centers)
-    },
-
-    removCenter(school) {
-      school.isCentro = false;
-      this.updateSchool(school);
+    filterSchools() {
+      this.centers = this.schools.filter((school) => {
+        school.isCentro == true;
+      });
+      console.log(this.centers);
     },
     filterDistricts() {
       let province = this.provinces.filter(
@@ -195,94 +214,29 @@ export default {
     },
 
     initialize() {
-      this.desserts = [
-        {
-          name: "Frozen Yogurt",
-          calories: 159,
-          fat: 6.0,
-          carbs: 24,
-          protein: 4.0,
-        },
-        {
-          name: "Ice cream sandwich",
-          calories: 237,
-          fat: 9.0,
-          carbs: 37,
-          protein: 4.3,
-        },
-        {
-          name: "Eclair",
-          calories: 262,
-          fat: 16.0,
-          carbs: 23,
-          protein: 6.0,
-        },
-        {
-          name: "Cupcake",
-          calories: 305,
-          fat: 3.7,
-          carbs: 67,
-          protein: 4.3,
-        },
-        {
-          name: "Gingerbread",
-          calories: 356,
-          fat: 16.0,
-          carbs: 49,
-          protein: 3.9,
-        },
-        {
-          name: "Jelly bean",
-          calories: 375,
-          fat: 0.0,
-          carbs: 94,
-          protein: 0.0,
-        },
-        {
-          name: "Lollipop",
-          calories: 392,
-          fat: 0.2,
-          carbs: 98,
-          protein: 0,
-        },
-        {
-          name: "Honeycomb",
-          calories: 408,
-          fat: 3.2,
-          carbs: 87,
-          protein: 6.5,
-        },
-        {
-          name: "Donut",
-          calories: 452,
-          fat: 25.0,
-          carbs: 51,
-          protein: 4.9,
-        },
-        {
-          name: "KitKat",
-          calories: 518,
-          fat: 26.0,
-          carbs: 65,
-          protein: 7,
-        },
-      ];
+      this.centers = this.schools.filter((school) => {
+        if (school.isCentro) return school;
+      });
     },
 
     editItem(item) {
-      this.editedIndex = this.desserts.indexOf(item);
+      this.editedIndex = this.schools.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialog = true;
     },
 
     deleteItem(item) {
-      this.editedIndex = this.desserts.indexOf(item);
+      this.editedIndex = this.centers.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialogDelete = true;
     },
 
     deleteItemConfirm() {
-      this.desserts.splice(this.editedIndex, 1);
+      this.centers.splice(this.editedIndex, 1);
+      this.editedItem.isCentro = false;
+      this.updateSchool(this.editedItem);
+      console.log("EDITEDINDEX");
+      console.log(this.editedIndex)
       this.closeDelete();
     },
 
@@ -304,9 +258,9 @@ export default {
 
     save() {
       if (this.editedIndex > -1) {
-        Object.assign(this.desserts[this.editedIndex], this.editedItem);
+        Object.assign(this.schools[this.editedIndex], this.editedItem);
       } else {
-        this.desserts.push(this.editedItem);
+        this.centers.push(this.editedItem);
       }
       this.close();
     },
