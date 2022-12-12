@@ -204,15 +204,6 @@ export default {
       });
       console.log(this.centers);
     },
-    filterDistricts() {
-      let province = this.provinces.filter(
-        (province) => province.name == this.provinceselected
-      )[0];
-      this.districtsname = province.districts.map((d) => {
-        return d.name;
-      });
-    },
-
     initialize() {
       this.centers = this.schools.filter((school) => {
         if (school.isCentro) return school;

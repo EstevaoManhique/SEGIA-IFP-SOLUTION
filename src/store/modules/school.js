@@ -56,7 +56,6 @@ const mutations = {
     updateSchool(state, payload) {
         let school = state.schools.filter((school) => school.id == payload.id)[0];
         state.schools.splice(school, 1, payload);
-        
     },
     removeSchool(state, payload) {
         state.schools = state.schools.filter((school) => school.id != payload);
