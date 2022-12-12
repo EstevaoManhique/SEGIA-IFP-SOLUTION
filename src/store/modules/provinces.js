@@ -10,7 +10,7 @@ const state = {
         id: null,
         name: null,
         cod: null,
-        districtsname: []
+        districtsname: [],
     },
 };
 
@@ -19,17 +19,17 @@ const getters = {
     province: (state) => state.province,
     empyprovince: (state) => state.empyprovince,
     provincesname: (state) => state.provincesname,
-    districtsname: (state) => state.districtsname
+    districtsname: (state) => state.districtsname,
 };
 
 const actions = {
     async getProvinces({ commit }) {
         let res = await axios.get('province');
-        console.log(res.data);
+        // console.log(res.data);
         commit('getProvinces', res.data);
     },
     async getDistricts({ commit }, province) {
-       commit('getDistricts', province);
+        commit('getDistricts', province);
     },
     async addProvince({ commit }, province) {
         let data = new FormData();
@@ -49,49 +49,53 @@ const actions = {
         commit('getProvince', rsp.data);
     },
     async editProvince({ commit }, province) {
-        province.districts='[]ação de Professores '+(new Date().getFullYear());
+        province.districts = '[]ação de Professores ' + new Date().getFullYear();
         const rsp = await axios.put('province/' + province.id, province);
         commit('editProvince', rsp.data.data);
-
     },
-    setprovince({ commit }, province){
-        commit('setprovince',province)
+    setprovince({ commit }, province) {
+        commit('setprovince', province);
     },
-    empyprovince({commit}){
+    empyprovince({ commit }) {
         console.log('Empy');
         commit('empyprovince');
-    }
+    },
 };
 
 const mutations = {
     getProvinces(state, payload) {
-        state.provinces = payload
-        payload.map(province => state.provincesname.push(province.name))
+        state.provinces = payload;
+        payload.map((province) => state.provincesname.push(province.name));
     },
     getDistricts(state, payload) {
-        let province = state.provinces.filter(province => province.name == payload)[0]
-        state.districtsname =province.districts.map((district) =>{ return district.name})
+        let province = state.provinces.filter(
+            (province) => province.name == payload
+        )[0];
+        state.districtsname = province.districts.map((district) => {
+            return district.name;
+        });
     },
     setprovince(state, payload) {
         state.province = payload;
     },
-    empyprovince(state){
-        state.province={id: null,
-            name: null,
-            cod: null,
-            districts: []};
+    empyprovince(state) {
+        state.province = { id: null, name: null, cod: null, districts: [] };
     },
     addProvince(state, payload) {
         state.provinces.push(payload.data);
     },
     removeProvince(state, payload) {
-        state.provinces = state.provinces.filter((province) => province.id != payload);
+        state.provinces = state.provinces.filter(
+            (province) => province.id != payload
+        );
     },
     getProvince(state, payload) {
         state.province = payload;
     },
     editProvince(state, payload) {
-        let province = state.provinces.findIndex((province) => province.id == payload.id)
+        let province = state.provinces.findIndex(
+            (province) => province.id == payload.id
+        );
         state.provinces.splice(province, 1, payload);
     },
 };

@@ -114,17 +114,18 @@
               </legend>
               <v-col cols="12" sm="6" md="4">
                 <v-select
-                  :items="doc_type"
+                  :items="provinces_name"
                   label="Provincia"
                   dense
                   filled
+                  @change="changeDistrict"
                   mandatory
                   v-model="student.person.province"
                 ></v-select>
               </v-col>
               <v-col cols="12" sm="6" md="4">
                 <v-select
-                  :items="doc_type"
+                  :items="districts_name"
                   label="Cidade"
                   dense
                   filled
@@ -319,9 +320,31 @@ export default {
       nationalities: [],
       nat: [],
       doc_type: ['BI', 'DIRE', 'Passaporte'],
+      provinces_name: [],
+      districts_name: [],
     };
   },
   methods: {
+    ...mapActions(['getProvinces']),
+    setProvinceName() {
+      this.getProvinces();
+      console.log(this.provinces);
+      this.provinces_name = this.provinces
+        .sort((a, b) => a.name.localeCompare(b.name))
+        .map((prov) => {
+          return prov.name;
+        });
+    },
+    changeDistrict() {
+      let prov = this.provinces.filter((prov) =>
+        prov.name
+          .toLowerCase()
+          .includes(this.student.person.province.toLowerCase())
+      )[0];
+      this.districts_name = prov.districts.map((dist) => {
+        return dist.name;
+      });
+    },
     submit() {
       console.log(this.student);
       /*  if (this.student.id)
@@ -338,6 +361,7 @@ export default {
   },
   mounted() {
     this.student.person = this.person;
+    this.setProvinceName();
     this.$api.get('config/nationality').then((data) => {
       this.nationalities = data.data.sort((a, b) =>
         a.description.localeCompare(b.description)
@@ -348,7 +372,7 @@ export default {
     });
   },
   computed: {
-    ...mapGetters(['student', 'person']),
+    ...mapGetters(['student', 'person', 'provinces']),
   },
 };
 </script>
