@@ -163,6 +163,16 @@ const routes = [{
                 },
             },
             {
+                path: 'ifp-listcandidates',
+                name: 'ifp-listcandidates',
+                component: () =>
+                    import ('@/views/ifp/ifp-listcandidates.vue'),
+                meta: {
+                    display: 'headers.home',
+                    display_title: 'menus.home',
+                },
+            },
+            {
                 path: 'ifp-jury-distribution',
                 name: 'ifp-jury-distribution',
                 component: () =>
@@ -984,7 +994,7 @@ const routes = [{
         // which is lazy-loaded when the route is visited.
         component: () =>
             import ('@/components/layout/Login.vue'),
-    },
+    }
 ];
 
 const router = new Router({

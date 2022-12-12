@@ -14,7 +14,7 @@ import provinces from './modules/provinces';
 import districts from './modules/districts';
 import subject from './modules/subject';
 import category from './modules/category';
-
+import candidate from './modules/candidate';
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -32,5 +32,6 @@ export default new Vuex.Store({
         districts,
         subject,
         category,
+        candidate
     },
 });

@@ -1,22 +1,17 @@
-<template>
-  <v-form class="form-horizontal m-auto">
-      <div class="panel-heading">
-        <h6 class="panel-title text-bold text-uppercase"> 
-          Informe os dados do candidato
-        </h6>
-      </div>
-
-      <div class="panel-body m-auto">
+<template>  
+  <v-form >
+      <div>
         <div class="row">
           <div class="col-md-12">
-            <fieldset>
+            <fieldset class="ms-15 me-16 ps-15 pe-15">
               <legend class="text-semibold">
-                <i class="icon-user-plus position-left"></i>
-                Dados do candidato
+                <div class="mt-10">
+                  <i class="icon-user-plus position-left"></i>
+                  Dados do candidato
+                </div>
               </legend>
 
-              <div class="form-group">
-                <div class="col-lg-9">
+              <div class="form-group"> 
                   <div class="row">
                     <div class="col-md-6">
                       <label
@@ -27,7 +22,7 @@
                         type="text"
                         placeholder="Primeiro Nome"
                         class="form-control"
-                        v-model="user.name"
+                        v-model="candidate.nome"
                         required=""
                       />
                     </div>
@@ -42,14 +37,12 @@
                         class="form-control"
                         name="apelido"
                         required=""
-                        v-model="user.surname"
+                        v-model="candidate.outrosNomes"
                       />
                     </div>
-                  </div>
-                </div>
+                  </div> 
               </div>
-              <div class="form-group">
-                <div class="col-lg-9">
+              <div class="form-group"> 
                   <div class="row">
                     <div class="col-md-6">
                       <label
@@ -61,7 +54,7 @@
                         placeholder="(+258) 8X.XXXXXXX"
                         class="form-control"
                         required=""
-                        v-model="user.contact"
+                        v-model="candidate.contact"
                       />
                     </div>
                     <div class="col-md-6">
@@ -74,15 +67,13 @@
                         placeholder="Introduza o e-mail"
                         class="form-control"
                         name="email"
-                        v-model="user.email"
+                        v-model="candidate.email"
                       />
                     </div>
-                  </div>
-                </div>
+                  </div> 
               </div>
 
-              <div class="form-group">
-                <div class="col-lg-9">
+              <div class="form-group"> 
                   <div class="row">
                     <div class="col-md-6">
                       <label
@@ -94,7 +85,7 @@
                         placeholder="Data de nascimento"
                         class="form-control"
                         name="data_nascimento"
-                        v-model="user.email"
+                        v-model="candidate.birth_date"
                       />
                     </div>
                     <div class="col-md-6">
@@ -107,127 +98,158 @@
                         placeholder="BI/DIRE/Passaporte N.º"
                         class="form-control"
                         name="email"
-                        v-model="user.email"
+                        v-model="candidate.identificacao"
                       />
                     </div>
-                    <v-radio-group class="ms-3" v-model="row" row>
-                      <v-radio label="Masculino" value="radio-1"></v-radio>
-                      <v-radio label="Femenino" value="radio-2"></v-radio>
+                    <v-radio-group class="ms-3" v-model="candidate.gender_id" row>
+                      <v-radio label="Masculino" value="1"></v-radio>
+                      <v-radio label="Femenino" value="2"></v-radio>
                     </v-radio-group>
-                  </div>
-                </div>
+                  </div> 
               </div>
 
-              <div class="form-group">
-                <div class="col-lg-9">
+              <div class="form-group"> 
                   <div class="row">
                     <div class="col-md-6">
                       <v-select
-                        :items="user_groups"
-                        label="Para qual provincia concorre"
+                        :items="filterProvinces()"
+                        label="Para qual provincia concorre?"
                         dense
-                        v-model="user.province"
+                        v-model="provinceselected"
+                        @change="filterDistricts()"
                       ></v-select>
                     </div>
 
                     <div class="col-md-6">
                       <v-select
-                        :items="user_groups"
+                        :items="districtsname"
                         label="Selecione o distrito"
                         dense
-                        v-model="user.distrit"
+                        v-model="districtselected"
+                        @change="filterSchools()"
                       ></v-select>
                     </div>
-                  </div>
-                </div>
+                  </div> 
               </div>
 
-              <div class="form-group">
-                <div class="col-lg-9">
+              <div class="form-group"> 
                   <div class="row">
                     <div class="col-md-6">
                       <v-select
-                        :items="user_groups"
+                      :items="schoolsname"
                         label="Escolha a Instituicao de formacao"
                         dense
-                        v-model="user.escola"
+                        v-model="schoolselected"
+                        @change="filterCourses()"
                       ></v-select>
                     </div>
                     <div class="col-md-6">
                       <v-select
-                        :items="user_groups"
+                        :items="coursesname"
                         label="Escolha o curso que pretente frequentar"
+                        @change="setCourseId()"
+                        v-model="courseselected"
                         dense
-                        v-model="user.escola"
                       ></v-select>
                     </div>
-                  </div>
-                </div>
+                  </div> 
               </div>
             </fieldset>
-
-            <div class="text-right">
-              <v-btn
-                class="btn bg-slate-800 text-bold text-uppercase"
-                @click="submit"
-              >
-                Gravar registo
-                <i class="icon-arrow-right14 position-right"></i>
-              </v-btn>
-
-              <br />
-            </div>
           </div>
         </div>
+        <div class="row mb-10 me-10"> 
+          <div class="col-8"></div>
+          <div class="m-0">
+            <v-btn
+            class="btn bg-slate-800 text-bold text-uppercase"
+            @click="submit"
+          >
+            Gravar registo
+            <i class="icon-arrow-right14 position-right"></i>
+          </v-btn>
+          </div>     
+        </div>
       </div>
+      
  
   </v-form>
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 export default {
-  name: "AddAccount",
-
+  name: "AddAccount", 
+  components:{
+  },
   data() {
     return {
-      user: {
-        name: "",
-        surname: "",
-        email: "",
-        contact: "",
-        school: "",
-        cargo: "",
-        province: "",
-        distrit: "",
+      candidate: {
+        nome: null,
+        outrosNomes: null,
+        contact: null,
+        birth_date: null,
+        identificacao: null,
+        gender_id: null,
+        district_id: null,
+        school_id: null,
+        course_id: null,
       },
-      user_groups: [
-        "Administrador",
-        "Chefe Secretaria",
-        "Chefe Turma",
-        "Coordenador Cultura",
-        "Coordenador Desportivo",
-        "Coordenador Saude",
-        "Director Adjunto Administrativo 2 Ciclo",
-        "Director Adjunto Geral",
-        "Director Classe",
-        "Director Disciplina",
-        "Director Escola",
-        "Director Pedagogico",
-        "Director Turma",
-        "Docente",
-        "Funcionario",
-        "Gestor",
-        "Tecnico Informativo",
-        "Tecnico Informativo (Distrital)",
-      ],
+      provincesname:null,
+      provinceselected:null,
+      districtselected: null,
+      districtsname:null,
+      schoolsname:null,
+      schoolselected:null,
+      coursesname:null,
+      courseselected:null,
+      schoolSelectedObject:null
     };
   },
-  methods: {
-    ...mapActions(["addUser"]),
-    submit() {
-      this.addUser(this.user);
+  computed:{
+    ...mapGetters(['provinces','district', 'schools'])
+  },
+  methods:{
+    ...mapActions(['addCandidate','getSchools','getProvinces','getDistricToSchools']),
+    submit(){
+      this.addCandidate(this.candidate)
     },
+    filterProvinces() {
+      return this.provinces.map((province) => {return province.name;});
+    },
+    filterDistricts() {
+      let province = this.provinces.filter(
+        (province) => province.name == this.provinceselected
+      )[0];
+      this.districtsname = province.districts.map((d) => {
+        return d.name;
+      });
+    },
+    filterSchools() {
+        let dist = this.district.filter((d) => {
+          if(d.name == this.districtselected) return d
+        })[0]
+        this.candidate.district_id = dist.id;
+        this.schoolsname = dist.schools.map((school)=> {return school.name})
+    },
+    filterCourses() {
+        let school = this.schools.filter((s) => {
+          if(s.name == this.schoolselected) return s
+        })[0]
+        this.schoolSelectedObject = school
+        this.candidate.school_id = school.id;
+        this.coursesname = school.courses.map((c)=> {return c.description})
+    },
+    setCourseId() { 
+      let courses = this.schoolSelectedObject.courses;
+      let course = courses.filter((c)=>{if(c.description==this.courseselected) return c})[0]
+      this.candidate.course_id = course.id;
+    }
+  },
+  mounted() {
+      this.getProvinces();
+      this.filterProvinces();
+      this.getDistricToSchools();
+      this.getSchools();
   },
 };
 </script>

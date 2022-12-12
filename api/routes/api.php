@@ -15,8 +15,8 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProvinceControler;
 use App\Http\Controllers\DistrictController;
 use App\Http\Controllers\CourseController;
-
-
+use App\Http\Controllers\CandidateController;
+use App\Http\Controllers\ContactController;
 
 
 
@@ -138,4 +138,20 @@ Route::controller(CourseController::class)->prefix('course')->group(function () 
     Route::get('/{id}', 'show')->name('course.show');
     Route::delete('/{id}', 'destroy')->name('course.destroy');
     Route::put('/{id}', 'update')->name('course.update');
+});
+
+Route::controller(CandidateController::class)->prefix('candidate')->group(function () {
+    Route::get('/', 'index')->name('candidate.index');
+    Route::post('/store', 'store')->name('candidate.store');
+    Route::get('/{id}', 'show')->name('candidate.show');
+    Route::delete('/{id}', 'destroy')->name('candidate.destroy');
+    Route::put('/{id}', 'update')->name('candidate.update');
+});
+
+Route::controller(ContactController::class)->prefix('contact')->group(function () {
+    Route::get('/', 'index')->name('contact.index');
+    Route::post('/store', 'store')->name('contact.store');
+    Route::get('/{id}', 'show')->name('contact.show');
+    Route::delete('/{id}', 'destroy')->name('contact.destroy');
+    Route::put('/{id}', 'update')->name('contact.update');
 });
