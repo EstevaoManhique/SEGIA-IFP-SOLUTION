@@ -10,26 +10,24 @@
               <v-divider class="mx-4" inset vertical></v-divider>
               <v-spacer></v-spacer>
               <v-row>
-                <v-col>
+                <v-col cols="12" sm="6" md="6">
                   <v-select
                     label="Provincia"
                     dense
                     :items="prov"
                     @change="changeProv"
-                    append-icon="mdi-asterisk red"
                     mandatory
-                    v-model="school.province"
+                    v-model="filter_prov"
                   ></v-select>
                 </v-col>
-                <v-col>
+                <v-col cols="12" sm="6" md="6">
                   <v-select
                     label="Distrito"
                     dense
                     :items="dist"
                     @change="changeDist"
-                    append-icon="mdi-asterisk red"
                     mandatory
-                    v-model="school.district"
+                    v-model="filter_dist"
                   ></v-select>
                 </v-col>
               </v-row>
@@ -201,15 +199,10 @@ export default {
   data: () => ({
     dialog: false,
     dialogDelete: false,
-    headers: [
-      { text: '#', value: 'id' },
-      { text: 'Escola', value: 'name' },
-      { text: 'Abreviatura', value: 'abbreviation' },
-      { text: 'Tipo Ensino', value: ' type' },
-      { text: 'Distrito', value: 'district.name' },
 
-      { text: 'Opcoes', value: 'actions', sortable: false },
-    ],
+    filter_dist: '',
+    filter_prov: '',
+    filter_district_name: '',
     provinces: [],
     districts: [],
     prov: [],
@@ -298,23 +291,26 @@ export default {
       this.dialog = true;
     },
     changeProv() {
-      let xx = this.prov.findIndex((n) => n == this.school.province);
-      let prov = this.provinces[xx];
-      this.districts = prov.districts;
-      this.dist = this.districts.map((d) => {
-        return d.name;
-      });
+      let prov = this.provinces.filter((n) => n.id === this.filter_prov);
+      if (prov) {
+        this.dist = prov[0].districts.map((d) => {
+          return { text: d.name, value: d.id };
+        });
+      }
     },
     changeDist() {
-      if (this.school.district != null) {
-        let xx = this.districts.filter(
-          (d) => d.name == this.school.district
-        )[0];
-        this.school.district_id = xx.id;
-        //this.setSchools(this.schools.filter((d) => d.district_id === xx.id));
-        this.schoolsTable = this.schools.filter((d) => d.district_id === xx.id);
-        // this.schools = this.schoolsTable;
+      this.filter_district_name = this.dist.filter(
+        (n) => n.id === this.filter_district
+      )[0].text;
+    },
+    filterSchoolByDistrict(value) {
+      if (!this.filter_district_name) {
+        return true;
       }
+
+      // Check if the current loop value (The calories value)
+      // equals to the selected value at the <v-select>.
+      return value.toLowerCase() == this.filter_district_name.toLowerCase();
     },
 
     deleteItem(item) {
@@ -354,7 +350,7 @@ export default {
         this.updateSchool(this.school);
 
         let index = this.schoolsTable.findIndex((n) => n.id == this.school.id);
-        console.log(this.school);
+        //console.log(this.school);
         //  let schoolxx = this.schools.filter((n) => n.id == this.school.id)[0];
 
         ///this.schoolsTable[index] = this.school;
@@ -376,7 +372,7 @@ export default {
     this.$api.get('config/provinces').then((data) => {
       this.provinces = data.data.sort((a, b) => a.name.localeCompare(b.name));
       this.prov = this.provinces.map((prov) => {
-        return prov.name;
+        return { text: prov.name, value: prov.id };
       });
     });
     this.$api.get('class-category').then((data) => {
@@ -387,6 +383,22 @@ export default {
         return '(' + n.cod + ') ' + n.description;
       });
     });
+  },
+  computed: {
+    headers() {
+      return [
+        { text: '#', value: 'id' },
+        { text: 'Escola', value: 'name' },
+        { text: 'Abreviatura', value: 'abbreviation' },
+        { text: 'Tipo Ensino', value: ' type' },
+        {
+          text: 'Distrito',
+          value: 'district.name',
+        },
+
+        { text: 'Opcoes', value: 'actions', sortable: false },
+      ];
+    },
   },
 };
 </script>
