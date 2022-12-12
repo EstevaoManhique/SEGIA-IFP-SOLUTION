@@ -51,6 +51,10 @@ class Candidate extends Model
         return $this->belongsTo(District::class);
     }
 
+    public function province(){
+        return $this->belongsTo(Province::class);
+    }
+
     public function school(){
         return $this->belongsTo(School::class);
     }

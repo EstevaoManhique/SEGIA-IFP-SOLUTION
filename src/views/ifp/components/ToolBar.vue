@@ -31,7 +31,6 @@ export default {
   name: 'ToolBar',
   components: {},
   data: () => ({
-    descricao : null
   }),
   props : ['descricao'],
   computed: {

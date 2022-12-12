@@ -193,6 +193,7 @@ export default {
         district_id: null,
         school_id: null,
         course_id: null,
+        province_id: null,
       },
       provincesname:null,
       provinceselected:null,
@@ -220,6 +221,9 @@ export default {
       let province = this.provinces.filter(
         (province) => province.name == this.provinceselected
       )[0];
+      this.candidate.province_id = province.id;
+      console.log("provinceID")
+      console.log(this.candidate.province_id)
       this.districtsname = province.districts.map((d) => {
         return d.name;
       });

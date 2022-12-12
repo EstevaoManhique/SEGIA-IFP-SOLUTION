@@ -195,14 +195,13 @@ export default {
         (province) => province.name == this.provinceselected
       )[0];
       this.districtsname = province.districts.map((d) => {
-        return d.name;
+        return {value:d.id, text:d.name};
       });
     },
     filterSchools() {
       this.centers = this.schools.filter((school) => {
         school.isCentro == true;
       });
-      console.log(this.centers);
     },
     initialize() {
       this.centers = this.schools.filter((school) => {
@@ -226,8 +225,6 @@ export default {
       this.centers.splice(this.editedIndex, 1);
       this.editedItem.isCentro = false;
       this.updateSchool(this.editedItem);
-      console.log("EDITEDINDEX");
-      console.log(this.editedIndex)
       this.closeDelete();
     },
 

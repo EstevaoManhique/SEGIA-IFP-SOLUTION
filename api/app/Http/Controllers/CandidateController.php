@@ -14,7 +14,7 @@ class CandidateController extends Controller
      */
     public function index()
     {
-        $candidates = Candidate::with('gender','district','school','course','contact')->get();
+        $candidates = Candidate::with('gender','district','school','course','contact','province')->get();
         return response()->json($candidates);
     }
 
@@ -38,6 +38,7 @@ class CandidateController extends Controller
             $candidate->district_id = isset($request['district_id']) ? $request['district_id'] : $candidate->district_id;
             $candidate->school_id = isset($request['school_id']) ? $request['school_id'] : $candidate->school_id;
             $candidate->course_id = isset($request['course_id']) ? $request['course_id'] : $candidate->course_id;
+            $candidate->province_id = isset($request['province_id']) ? $request['province_id'] : $candidate->province_id;
             $candidate->save();
             return $candidate;
         } catch (\Exception $e) {
