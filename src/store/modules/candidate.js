@@ -32,9 +32,12 @@ const actions = {
         commit('getCandidate', rsp.data);
     },
     async editCandidate({ commit }, candidate) {
-        candidate.description='Formação de Professores '+(new Date().getFullYear());
+        console.log("editedCandidate")
+        console.log(candidate)
         const rsp = await axios.put('candidate/' + candidate.id, candidate);
         commit('editCandidate', rsp.data.data);
+        console.log("Candidate edited");
+        console.log(candidate)
     }
 };
 
@@ -48,10 +51,10 @@ const mutations = {
     removeCandidate(state, payload) {
         state.candidates = state.candidates.filter((candidate) => candidate.id != payload);
     },
-    getcandidate(state, payload) {
+    getCandidate(state, payload) {
         state.candidate = payload;
     },
-    editcandidate(state, payload) {
+    editCandidate(state, payload) {
         let candidate = state.candidates.findIndex((candidate) => candidate.id == payload.id)
         state.candidates.splice(candidate, 1, payload);
     },

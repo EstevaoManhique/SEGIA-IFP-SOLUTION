@@ -63,11 +63,11 @@
                       label="Identificacao (BI/NUIT)"
                     ></v-text-field>
                   </v-col>
-                  <v-row cols="6" sm="6" md="4">
-                    <v-select
+                  <v-row sm="6" md="4">
+                    <v-select 
                       :items="filterProvinces()"
                       labreturn
-                      @change="filterDistricts()"
+                      @change="filterDistricts($event)"
                       v-model="selectedProvinceId"
                       dense
                       class=""
@@ -75,18 +75,16 @@
                     </v-select>
                     <v-select
                       labreturn
-                      :items="filterDistricts()"
-                      v-model="selectedDistrictId"
-                      @change="filterSchools()"
+                      :items="districtsname"
+                      @change="filterSchools($event)"
                       dense
                       class="ms-5"
                     >
                     </v-select>
                     <v-select
                       labreturn
-                      :items="filterSchools()"
-                      v-model="selectedSchoolId"
-                      @change="filterCourses()"
+                      :items="schoolsname"
+                      @change="filterCourses($event)"
                       outline
                       dense
                       class="ms-5"
@@ -94,7 +92,8 @@
                     </v-select>
                     <v-select
                       labreturn
-                      :items="filterCourses()"
+                      :items="coursesname"
+                      @change="setCourse($event)"
                       outline
                       dense
                       class="ms-5"
@@ -149,11 +148,16 @@
 </template>
 <script>
 import { mapGetters, mapActions } from "vuex";
+import userFirstLoginVue from '../../acessos/user-first-login.vue';
 export default {
   data: () => ({
     selectedProvinceId: null,
     selectedDistrictId: null,
     selectedSchoolId: null,
+    districtsname: null,
+    provincesname: null,
+    schoolsname:null,
+    coursesname:null,
     dialog: false,
     dialogDelete: false,
     headers: [
@@ -216,7 +220,7 @@ export default {
       "district",
     ]),
     formTitle() {
-      return this.editedIndex === -1 ? "Novon Candidato" : "Verificar Dados Do Candidato";
+      return this.editedIndex === -1 ? "Novo Candidato" : "Verificar Dados Do Candidato";
     },
   },
 
@@ -238,6 +242,7 @@ export default {
       "getSchools",
       "getProvinces",
       "getDistricToSchools",
+      "editCandidate"
     ]),
     initialize() {},
     filterProvinces() {
@@ -245,36 +250,38 @@ export default {
         return { text: province.name, value: province.id };
       });
     },
-    filterDistricts() {
+    filterDistricts(idProvince) {
+      this.editedItem.province.id = idProvince
       let index = this.provinces.findIndex((p) => {
-        return (this.selectedProvinceId = p.id);
+        return (idProvince == p.id);
       });
-      return this.provinces[index].districts.map((district) => {
+      this.districtsname = this.provinces[index].districts.map((district) => {
         return { text: district.name, value: district.id };
       });
     },
-    filterSchools() {
+    filterSchools(idDistrict) {
       let index = this.district.findIndex((d) => {
-        return (this.selectedDistrictId = d.id);
+        return (idDistrict == d.id);
       });
-      return this.district[index].schools.map((s) => {
+      this.schoolsname = this.district[index].schools.map((s) => {
         return { text: s.name, value: s.id };
       });
     },
-    filterCourses() {
+    filterCourses(idSchool) {
+      this.editedItem.school.id = idSchool
       let index = this.schools.findIndex((d) => {
-        return (this.selectedSchoolId = d.id);
+        return (idSchool == d.id);
       });
-      return this.schools[index].courses.map((s) => {
+      this.coursesname = this.schools[index].courses.map((s) => {
         return { text: s.description, value: s.id };
       });
     },
+    setCourse(idCourse){
+      this.editedItem.course.id = idCourse
+    },
     editItem(item) {
-      console.log(item);
       this.editedIndex = this.candidates.indexOf(item);
       this.editedItem = Object.assign({}, item);
-      console.log("EDITITEM");
-      console.log(this.editedItem);
       this.dialog = true;
     },
 
@@ -292,7 +299,7 @@ export default {
     close() {
       this.dialog = false;
       this.$nextTick(() => {
-        this.editedItem = Object.assign({}, this.defaultItem);
+        ////this.editedItem = Object.assign({}, this.defaultItem);
         this.editedIndex = -1;
       });
     },
@@ -307,7 +314,9 @@ export default {
 
     save() {
       if (this.editedIndex > -1) {
-        Object.assign(this.candidates[this.editedIndex], this.editedItem);
+        //Object.assign(this.candidates[this.editedIndex], this.editedItem);
+        this.editCandidate(this.editedItem)
+        console.log(this.editedItem)
       } else {
         this.candidates.push(this.editedItem);
       }
@@ -319,6 +328,7 @@ export default {
     this.getSchools();
     this.getProvinces();
     this.getDistricToSchools();
+    this.filterProvinces();
   },
 };
 </script>
