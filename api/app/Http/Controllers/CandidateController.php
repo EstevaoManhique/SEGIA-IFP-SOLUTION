@@ -29,6 +29,7 @@ class CandidateController extends Controller
             $contact = new Contact();
             $contact->contact = isset($request['contact']) ? $request['contact'] :  $contact->contact;
             $contact->save();
+            
             $candidate->nome = isset($request['nome']) ? $request['nome'] :  $candidate->nome;
             $candidate->outrosNomes = isset($request['outrosNomes']) ? $request['outrosNomes'] :  $candidate->outrosNomes;
             $candidate->contact_id = $contact->id;
@@ -40,6 +41,7 @@ class CandidateController extends Controller
             $candidate->course_id = isset($request['course_id']) ? $request['course_id'] : $candidate->course_id;
             $candidate->province_id = isset($request['province_id']) ? $request['province_id'] : $candidate->province_id;
             $candidate->isValidated = isset($request['isValidated']) ? $request['isValidated'] : ($candidate->isValidated ? 1 : 0);
+            $candidate->media_12a = isset($request['media_12a']) ? $request['media_12a'] : $candidate->media_12a;
             $candidate->save();
             return $candidate;
         } catch (\Exception $e) {

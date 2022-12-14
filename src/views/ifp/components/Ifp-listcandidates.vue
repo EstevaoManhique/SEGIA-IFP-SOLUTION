@@ -4,10 +4,29 @@
     :items="candidates"
     sort-by="calories"
     class="elevation-1"
+    :search="search"
   >
+  <template v-slot:item.state="{ item }">
+    <v-chip
+      :color="getColor(item.state)"
+      dark
+    >
+      {{ item.state }}
+    </v-chip>
+  </template>
     <template v-slot:top>
       <v-toolbar flat>
-        <v-toolbar-title>My CRUD</v-toolbar-title>
+        <v-toolbar-title>
+          <v-select
+          v-model="search"
+          :items="opcoes"
+          label="Filtre os Candidatos"
+          outlined
+          dense
+          class="mt-5 ps-0"
+        >
+        </v-select>
+        </v-toolbar-title>
         <v-divider class="mx-4" inset vertical></v-divider>
         <v-spacer></v-spacer>
         <v-dialog v-model="dialog" max-width="700px">
@@ -101,12 +120,14 @@
                     </v-select>
                   </v-row>
 
-                  <v-col cols="12" sm="6" md="4">
                     <v-text-field
                       v-model="editedItem.media_12a"
                       label="Media da 12.a"
                     ></v-text-field>
-                  </v-col>
+                    <v-text-field
+                    v-model="editedItem.contact.contact"
+                    label="Contacto"
+                  ></v-text-field>
                 </v-row>
               </v-container>
             </v-card-text>
@@ -148,9 +169,14 @@
 </template>
 <script>
 import { mapGetters, mapActions } from "vuex";
-import userFirstLoginVue from '../../acessos/user-first-login.vue';
 export default {
   data: () => ({
+    opcoes:[
+      {text:"Todos",value:-1},
+      {text:"Validados",value:"VALIDADO"},
+      {text:"Nao Validados",value:"PENDENTE"},
+    ],
+    search:"",
     selectedProvinceId: null,
     selectedDistrictId: null,
     selectedSchoolId: null,
@@ -180,14 +206,14 @@ export default {
       { text: "Media 12.a", value: "media_12a" },
       { text: "Instituto de Formacao", value: "school.name" },
       { text: "Curso", value: "course.description" },
-      //  { text: "Estado", value: "isValidated"},
+      { text: "Estado", value: "state"  },
       { text: "Opções", value: "actions", sortable: false },
     ],
     editedIndex: -1,
     editedItem: {
       nome: null,
       outrosNomes: null,
-      contact: null,
+      contact: {},
       birth_date: null,
       identificacao: null,
       gender: {},
@@ -220,7 +246,7 @@ export default {
       "district",
     ]),
     formTitle() {
-      return this.editedIndex === -1 ? "Novo Candidato" : "Verificar Dados Do Candidato";
+      return this.editedIndex === -1 ? "Novo Candidato" : "";
     },
   },
 
@@ -315,12 +341,20 @@ export default {
     save() {
       if (this.editedIndex > -1) {
         //Object.assign(this.candidates[this.editedIndex], this.editedItem);
+        this.editedItem.isValidated = 1;
+        let contacto = this.editedItem.contact.contact
+        delete this.editedItem.contact
+        this.editedItem.contact = contacto
         this.editCandidate(this.editedItem)
-        console.log(this.editedItem)
+        //console.log(this.editedItem)
       } else {
         this.candidates.push(this.editedItem);
       }
       this.close();
+    },
+    getColor (state) {
+     let x= state.includes('VALIDADO') ? 'green':'red';
+     return x;
     },
   },
   mounted() {

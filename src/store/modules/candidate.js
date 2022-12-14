@@ -4,7 +4,7 @@ import axios from '@/plugins/axios';
 const state = {
     candidates: [],
     candidate: {
-    
+
     }
 };
 
@@ -36,14 +36,16 @@ const actions = {
         console.log(candidate)
         const rsp = await axios.put('candidate/' + candidate.id, candidate);
         commit('editCandidate', rsp.data.data);
-        console.log("Candidate edited");
-        console.log(candidate)
     }
 };
 
 const mutations = {
     getCandidates(state, payload) {
         state.candidates = payload;
+        state.candidates.map((candidate) => {
+            candidate.isValidated ? candidate.state = "VALIDADO": 
+            candidate.state = "PENDENTE"
+        })
     },
     addCandidate(state, payload) {
         state.candidates.push(payload.data);
@@ -57,6 +59,8 @@ const mutations = {
     editCandidate(state, payload) {
         let candidate = state.candidates.findIndex((candidate) => candidate.id == payload.id)
         state.candidates.splice(candidate, 1, payload);
+        console.log("Candidate Validated")
+        console.log(payload)
     },
 };
 export default {
