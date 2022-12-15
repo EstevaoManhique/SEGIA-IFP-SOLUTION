@@ -27,12 +27,16 @@ class CandidateController extends Controller
     {
         try {
             $contact = new Contact();
-            $contact->contact = isset($request['contact']) ? $request['contact'] :  $contact->contact;
-            $contact->save();
+            if(isset($request['newcontact'])){
+                $contact->contact = isset($request['newcontact']) ? $request['newcontact'] :  $contact->contact;
+                $contact->save();
+            }
             
             $candidate->nome = isset($request['nome']) ? $request['nome'] :  $candidate->nome;
             $candidate->outrosNomes = isset($request['outrosNomes']) ? $request['outrosNomes'] :  $candidate->outrosNomes;
-            $candidate->contact_id = $contact->id;
+            if((isset($request['newcontact'])) || ($contact->id!=null)){
+                $candidate->contact_id =  $request['contact_id'] ? $request['contact_id'] :$contact->id;
+            }
             $candidate->birth_date = isset($request['birth_date']) ? $request['birth_date'] :  $candidate->birth_date;
             $candidate->identificacao = isset($request['identificacao']) ? $request['identificacao'] : ($candidate->identificacao ? 1 : 0);
             $candidate->gender_id = isset($request['gender_id']) ? $request['gender_id'] : $candidate->gender_id;
@@ -75,7 +79,7 @@ class CandidateController extends Controller
      */
     public function show($id)
     {
-        $candidate = Candidate::with('gender','district','school','course')->where('candidates.id',$id)->get();
+        $candidate = Candidate::with('gender','district','school','course','contact')->where('candidates.id',$id)->get();
         return response()->json($candidate);
     }
 
@@ -103,7 +107,7 @@ class CandidateController extends Controller
             $candidate = Candidate::findOrFail($id);
             if ($candidate) {
                 $this->create($candidate, $request);
-                $data = $candidate = Candidate::with('gender','district','school','course')->where('candidates.id',$id)->get();
+                $data = $candidate = Candidate::with('gender','district','school','course','contact')->where('candidates.id',$id)->get();
                 return response(['msg' => 'Candidate Updated!', 'data' => $data], 200);
             }
 

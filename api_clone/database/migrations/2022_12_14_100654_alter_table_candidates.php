@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('contacts', function (Blueprint $table) {
-            $table->string('contact')->nullable()->change();
+        Schema::table('candidates', function (Blueprint $table) {
+            $table->string('contact_id')->nullable()->change();
         });
     }
 

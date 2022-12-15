@@ -207,11 +207,13 @@ export default {
     };
   },
   computed:{
-    ...mapGetters(['provinces','district', 'schools'])
+    ...mapGetters(['provinces','district', 'schools','candidates'])
   },
   methods:{
-    ...mapActions(['addCandidate','getSchools','getProvinces','getDistricToSchools']),
+    ...mapActions(['addCandidate','getSchools','getProvinces','getDistricToSchools','getCandidates']),
     submit(){
+      console.log(this.candidate)
+      this.candidates.push(this.candidate);
       this.addCandidate(this.candidate)
     },
     filterProvinces() {
@@ -254,6 +256,7 @@ export default {
       this.filterProvinces();
       this.getDistricToSchools();
       this.getSchools();
+      this.getCandidates();
   },
 };
 </script>

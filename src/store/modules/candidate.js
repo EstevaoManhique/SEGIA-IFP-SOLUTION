@@ -48,7 +48,10 @@ const mutations = {
         })
     },
     addCandidate(state, payload) {
-        state.candidates.push(payload.data);
+        console.log("ADD")
+        payload.data[0].state = "PENDENTE"
+        console.log(payload.data[0])
+        state.candidates.push(payload.data[0]);
     },
     removeCandidate(state, payload) {
         state.candidates = state.candidates.filter((candidate) => candidate.id != payload);
@@ -58,9 +61,11 @@ const mutations = {
     },
     editCandidate(state, payload) {
         let candidate = state.candidates.findIndex((candidate) => candidate.id == payload.id)
-        state.candidates.splice(candidate, 1, payload);
-        console.log("Candidate Validated")
-        console.log(payload)
+        /*
+            Para este caso nao precisamos fazer a actualizacao do array state, pois, ela e feita no frontend
+            payload[0].isValidated ? payload[0].state = "VALIDADO":payload[0].state = "PENDENTE"
+            state.candidates.splice(candidate, 1, payload[0]);
+        */
     },
 };
 export default {

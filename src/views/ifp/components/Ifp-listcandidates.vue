@@ -6,26 +6,23 @@
     class="elevation-1"
     :search="search"
   >
-  <template v-slot:item.state="{ item }">
-    <v-chip
-      :color="getColor(item.state)"
-      dark
-    >
-      {{ item.state }}
-    </v-chip>
-  </template>
+    <template v-slot:item.state="{ item }">
+      <v-chip :color="getColor(item.state)" dark>
+        {{ item.state }}
+      </v-chip>
+    </template>
     <template v-slot:top>
       <v-toolbar flat>
         <v-toolbar-title>
           <v-select
-          v-model="search"
-          :items="opcoes"
-          label="Filtre os Candidatos"
-          outlined
-          dense
-          class="mt-5 ps-0"
-        >
-        </v-select>
+            v-model="search"
+            :items="opcoes"
+            label="Filtre os Candidatos"
+            outlined
+            dense
+            class="mt-5 ps-0"
+          >
+          </v-select>
         </v-toolbar-title>
         <v-divider class="mx-4" inset vertical></v-divider>
         <v-spacer></v-spacer>
@@ -71,10 +68,10 @@
                     ></v-text-field>
                   </v-col>
                   <v-col cols="12" sm="6" md="4">
-                    <v-text-field
-                      label="Genero"
-                      v-model="editedItem.gender.descricao"
-                    ></v-text-field>
+                    <v-radio-group class="ms-3" v-model="candidate.gender_id" row>
+                      <v-radio label="Masculino" value="1"></v-radio>
+                      <v-radio label="Femenino" value="2"></v-radio>
+                    </v-radio-group>
                   </v-col>
                   <v-col cols="12" sm="6" md="4">
                     <v-text-field
@@ -83,11 +80,10 @@
                     ></v-text-field>
                   </v-col>
                   <v-row sm="6" md="4">
-                    <v-select 
+                    <v-select
                       :items="filterProvinces()"
                       labreturn
                       @change="filterDistricts($event)"
-                      v-model="selectedProvinceId"
                       dense
                       class=""
                     >
@@ -120,11 +116,11 @@
                     </v-select>
                   </v-row>
 
-                    <v-text-field
-                      v-model="editedItem.media_12a"
-                      label="Media da 12.a"
-                    ></v-text-field>
-                    <v-text-field
+                  <v-text-field
+                    v-model="editedItem.media_12a"
+                    label="Media da 12.a"
+                  ></v-text-field>
+                  <v-text-field
                     v-model="editedItem.contact.contact"
                     label="Contacto"
                   ></v-text-field>
@@ -171,19 +167,17 @@
 import { mapGetters, mapActions } from "vuex";
 export default {
   data: () => ({
-    opcoes:[
-      {text:"Todos",value:-1},
-      {text:"Validados",value:"VALIDADO"},
-      {text:"Nao Validados",value:"PENDENTE"},
+    opcoes: [
+      { text: "Todos", value: -1 },
+      { text: "Validados", value: "VALIDADO" },
+      { text: "Nao Validados", value: "PENDENTE" },
     ],
-    search:"",
-    selectedProvinceId: null,
-    selectedDistrictId: null,
-    selectedSchoolId: null,
+    contact: null,
+    search: "",
     districtsname: null,
     provincesname: null,
-    schoolsname:null,
-    coursesname:null,
+    schoolsname: null,
+    coursesname: null,
     dialog: false,
     dialogDelete: false,
     headers: [
@@ -206,7 +200,7 @@ export default {
       { text: "Media 12.a", value: "media_12a" },
       { text: "Instituto de Formacao", value: "school.name" },
       { text: "Curso", value: "course.description" },
-      { text: "Estado", value: "state"  },
+      { text: "Estado", value: "state" },
       { text: "Opções", value: "actions", sortable: false },
     ],
     editedIndex: -1,
@@ -226,14 +220,15 @@ export default {
     defaultItem: {
       nome: null,
       outrosNomes: null,
-      contact: null,
+      contact: {},
       birth_date: null,
       identificacao: null,
-      gender_id: null,
-      district_id: null,
-      school_id: null,
-      course_id: null,
-      province_id: null,
+      gender: {},
+      district: {},
+      school: {},
+      course: {},
+      province: {},
+      media_12a: null,
     },
   }),
 
@@ -268,7 +263,8 @@ export default {
       "getSchools",
       "getProvinces",
       "getDistricToSchools",
-      "editCandidate"
+      "editCandidate",
+      "addCandidate"
     ]),
     initialize() {},
     filterProvinces() {
@@ -277,37 +273,47 @@ export default {
       });
     },
     filterDistricts(idProvince) {
-      this.editedItem.province.id = idProvince
+      this.editedItem.province_id = idProvince;
+      console.log("Province ID")
+      console.log(idProvince)
       let index = this.provinces.findIndex((p) => {
-        return (idProvince == p.id);
+        return idProvince == p.id;
       });
       this.districtsname = this.provinces[index].districts.map((district) => {
         return { text: district.name, value: district.id };
       });
     },
     filterSchools(idDistrict) {
+      console.log("District ID")
+      console.log(idDistrict)
+      this.editedItem.district_id = idDistrict;
       let index = this.district.findIndex((d) => {
-        return (idDistrict == d.id);
+        return idDistrict == d.id;
       });
       this.schoolsname = this.district[index].schools.map((s) => {
         return { text: s.name, value: s.id };
       });
     },
     filterCourses(idSchool) {
-      this.editedItem.school.id = idSchool
+      console.log("School ID")
+      console.log(idSchool)
+      this.editedItem.school_id = idSchool;
       let index = this.schools.findIndex((d) => {
-        return (idSchool == d.id);
+        return idSchool == d.id;
       });
       this.coursesname = this.schools[index].courses.map((s) => {
         return { text: s.description, value: s.id };
       });
     },
-    setCourse(idCourse){
-      this.editedItem.course.id = idCourse
+    setCourse(idCourse) {
+      console.log("Course ID")
+      console.log(idCourse)
+      this.editedItem.course_id = idCourse;
     },
     editItem(item) {
       this.editedIndex = this.candidates.indexOf(item);
       this.editedItem = Object.assign({}, item);
+      this.contact = this.editedItem.contact.contact;
       this.dialog = true;
     },
 
@@ -325,7 +331,7 @@ export default {
     close() {
       this.dialog = false;
       this.$nextTick(() => {
-        ////this.editedItem = Object.assign({}, this.defaultItem);
+        this.editedItem = Object.assign({}, this.defaultItem);
         this.editedIndex = -1;
       });
     },
@@ -339,22 +345,34 @@ export default {
     },
 
     save() {
-      if (this.editedIndex > -1) {
-        //Object.assign(this.candidates[this.editedIndex], this.editedItem);
+      console.log("UPDATED FRONTEND")
+        console.log(this.editedItem)
         this.editedItem.isValidated = 1;
-        let contacto = this.editedItem.contact.contact
-        delete this.editedItem.contact
-        this.editedItem.contact = contacto
-        this.editCandidate(this.editedItem)
-        //console.log(this.editedItem)
+        this.editedItem.newcontact = this.editedItem.contact.contact;
+        
+      if (this.editedIndex > -1) {
+        this.editedItem.state = "VALIDADO"
+        Object.assign(this.candidates[this.editedIndex], this.editedItem);
+          
+
+        if (this.contact != this.editedItem.contact.contact) {
+          delete this.editedItem.contact_id;
+          this.editCandidate(this.editedItem);
+        }else{
+          //delete this.editedItem.contact;
+          this.editCandidate(this.editedItem);
+        }
       } else {
-        this.candidates.push(this.editedItem);
+        console.log("POST 1.st One Time")
+          console.log(this.editedItem)
+          this.editedItem.gender_id = this.candidate.gender_id
+        this.addCandidate(this.editedItem);
       }
       this.close();
     },
-    getColor (state) {
-     let x= state.includes('VALIDADO') ? 'green':'red';
-     return x;
+    getColor(state) {
+      let x = state.includes("VALIDADO") ? "green" : "red";
+      return x;
     },
   },
   mounted() {
