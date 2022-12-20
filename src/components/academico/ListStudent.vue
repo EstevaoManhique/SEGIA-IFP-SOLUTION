@@ -1,12 +1,12 @@
 <template>
   <v-data-table :headers="headers" :items="students" class="elevation-1">
-    <templete v-slot:item.full_name="{ item }">
-      <span>{{ item.person.name }} {{ item.person.surname }}</span>
-    </templete>
     <template v-slot:item.actions="{ item }">
       <v-icon small class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
       <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
     </template>
+    <templete v-slot:item.name="{ item }">
+      <p color="primary">{{ item.person.name }}</p>
+    </templete>
     <template v-slot:no-data>
       <v-btn color="primary" @click="initialize"> Reset </v-btn>
     </template>
@@ -22,15 +22,15 @@ export default {
     headers: [
       {
         text: 'Nome',
-        value: 'person.name',
+        value: 'name',
       },
-      { text: 'Provincia', value: 'calories' },
-      { text: 'Escola', value: 'fat' },
+      { text: 'Provincia', value: 'person.province' },
+      { text: 'Escola', value: 'school.name' },
       { text: 'Codigo', value: 'carbs' },
-      { text: 'Condidato ID', value: 'protein' },
+      { text: 'Condidato ID', value: 'cod' },
       { text: 'Turma', value: 'protein' },
       { text: 'Nome Completo', value: 'full_name' },
-      { text: 'genero', value: 'person.genre' },
+      { text: 'Genero', value: 'person.genre' },
       { text: 'Tipo de Documento', value: 'person.doc_type' },
       { text: 'Nr do Documento', value: 'person.BI_number' },
       { text: 'Grupo Científico', value: 'person.genre' },

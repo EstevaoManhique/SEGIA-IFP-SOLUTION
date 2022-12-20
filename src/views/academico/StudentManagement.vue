@@ -63,7 +63,7 @@ import ListStudent from '@/components/academico/ListStudent.vue';
 import ImportStudent from '@/components/academico/ImportStudent.vue';
 import { mapGetters } from 'vuex';
 export default {
-  name: 'AddStudent',
+  name: 'StudentManagement',
   components: { NavBar, AddStudentForm, ListStudent, ImportStudent },
   data() {
     return {

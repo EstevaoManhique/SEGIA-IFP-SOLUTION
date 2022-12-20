@@ -9,21 +9,9 @@
         "to": "dashboard-academico",
         "icon": "icon-database-edit2",
         "sub_menus": [{
-                "name": "menus.registar_aluno",
-                "to": "addstudent",
+                "name": "menus.student_management",
+                "to": "student_management",
                 "icon": "icon-user-plus",
-                "sub_menus": []
-            },
-            {
-                "name": "menus.importar_alunos",
-                "to": "student-import",
-                "icon": "icon-file-upload",
-                "sub_menus": []
-            },
-            {
-                "name": "menus.listagem_alunos",
-                "to": "listagem-alunos",
-                "icon": "icon-file-upload",
                 "sub_menus": []
             },
             {
@@ -195,7 +183,8 @@
                 "sub_menus": []
             }
         ]
-    },{
+    },
+    {
         "name": "menus.assiduidade",
         "to": "dashboard-academico",
         "icon": "icon-stack-text",
@@ -217,8 +206,9 @@
         "name": "menus.comportamento",
         "to": "dashboard-academico",
         "icon": "icon-stack-text",
-        "sub_menus":[]
-    },{
+        "sub_menus": []
+    },
+    {
         "name": "menus.certificados",
         "to": "dashboard-academico",
         "icon": "icon-stack-text",
@@ -235,7 +225,8 @@
                 "sub_menus": []
             }
         ]
-    },{
+    },
+    {
         "name": "menus.pagamentos",
         "to": "dashboard-academico",
         "icon": "icon-stack-text",
@@ -276,8 +267,8 @@
                 "sub_menus": []
             }
         ]
-    }
-    ,{
+    },
+    {
         "name": "menus.membros",
         "to": "dashboard-academico",
         "icon": "icon-stack-text",
@@ -365,8 +356,7 @@
         "name": "menus.relatorios",
         "to": "dashboard-academico",
         "icon": "icon-list3",
-        "sub_menus": [
-            {
+        "sub_menus": [{
                 "name": "menus.mapa_avaliados",
                 "to": "mapa-de-faltas",
                 "icon": "icon-bookmark4",
