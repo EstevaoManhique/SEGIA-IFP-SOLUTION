@@ -63,7 +63,8 @@ class Candidate extends Model
         return $this->belongsTo(Course::class);
     }
 
-    public function contact(){
-        return $this->belongsTo(Contact::class);
-    }
+    public function contacts()
+	{
+		return $this->hasMany(Contact::class);
+	}
 }

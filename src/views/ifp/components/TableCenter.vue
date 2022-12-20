@@ -38,9 +38,9 @@
         <v-dialog v-model="dialog" max-width="500px">
           <v-card>
             <v-card-title>
+  
               <span class="text-h5">{{ formTitle }}</span>
             </v-card-title>
-
             <v-card-text>
               <v-container>
                 <v-col>
@@ -108,7 +108,7 @@
       <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
     </template>
     <template v-slot:no-data>
-      <v-btn color="primary" @click="initialize"> Listar Centros </v-btn>
+      <v-btn colo r="primary" @click="initialize"> Listar Centros </v-btn>
     </template>
   </v-data-table>
 </template>
@@ -116,6 +116,7 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 export default {
+  props: ["schools"],
   data: () => ({
     provinceselected: null,
     search: "",
@@ -164,12 +165,10 @@ export default {
     },
   }),
   mounted() {
-    this.getSchools();
-    this.getDistricSchools();
     this.getProvinces();
   },
   computed: {
-    ...mapGetters(["schools", "provincesname", "provinces", "districtsname"]),
+    ...mapGetters(["provinces", "districtsname"]),
     formTitle() {
       return this.editedIndex === -1 ? "New Item" : "Edit Item";
     },
@@ -189,13 +188,13 @@ export default {
   },
 
   methods: {
-    ...mapActions(["getSchools", "updateSchool", "getProvinces"]),
+    ...mapActions(["updateSchool", "getProvinces"]),
     filterDistricts() {
       let province = this.provinces.filter(
         (province) => province.name == this.provinceselected
       )[0];
       this.districtsname = province.districts.map((d) => {
-        return {value:d.id, text:d.name};
+        return { value: d.id, text: d.name };
       });
     },
     filterSchools() {
@@ -207,6 +206,8 @@ export default {
       this.centers = this.schools.filter((school) => {
         if (school.isCentro) return school;
       });
+      console.log("Initialize")
+      console.log(this.centers)
     },
 
     editItem(item) {

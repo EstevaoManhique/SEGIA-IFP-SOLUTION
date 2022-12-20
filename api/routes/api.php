@@ -17,7 +17,7 @@ use App\Http\Controllers\DistrictController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\CandidateController;
 use App\Http\Controllers\ContactController;
-
+use App\Http\Controllers\SalaController;
 
 
 /*
@@ -154,4 +154,12 @@ Route::controller(ContactController::class)->prefix('contact')->group(function (
     Route::get('/{id}', 'show')->name('contact.show');
     Route::delete('/{id}', 'destroy')->name('contact.destroy');
     Route::put('/{id}', 'update')->name('contact.update');
+});
+
+Route::controller(SalaController::class)->prefix('sala')->group(function () {
+    Route::get('/', 'index')->name('sala.index');
+    Route::post('/store', 'store')->name('sala.store');
+    Route::get('/{id}', 'show')->name('sala.show');
+    Route::delete('/{id}', 'destroy')->name('sala.destroy');
+    Route::put('/{id}', 'update')->name('sala.update');
 });

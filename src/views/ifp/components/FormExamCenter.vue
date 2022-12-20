@@ -1,10 +1,6 @@
 <template>
   <div class="col-md-4">
-    <form
-      class="form-horizontal"
-      method="post"
-      accept-charset="ISO-8859-1"
-    >
+    <form class="form-horizontal" method="post" accept-charset="ISO-8859-1">
       <div class="panel panel-flat">
         <div class="panel-heading">
           <h6 class="panel-title text-bold text-uppercase">
@@ -20,14 +16,22 @@
 
         <div class="panel-body">
           <div>
+            <input 
+              type="text"
+              placeholder="Enter username"
+              v-on:input="event => this.$emit('inputChange', event)"
+            >
+          </div>
+          <div>
             <label class="text-bold text-uppercase">Provincia:</label>
             <v-select
-              @change="filterDistricts()"
-              v-model="provinceselected"
-              :items="provincesname"
-              label="Selecione a Provincia"
-              outlined
+              :items="filterProvinces()"
+              labreturn
+              @change="filterDistricts($event)"
               dense
+              class=""
+              label="Slecione a Provincia"
+              outlined
             >
             </v-select>
           </div>
@@ -35,25 +39,29 @@
           <div>
             <label class="text-bold text-uppercase">Distrito:</label>
             <v-select
-              v-model="districtselected"
-              @change="filterSchools()"
+              labreturn
               :items="districtsname"
-              label="Selecione o Distrito"
-              outlined
+              @change="filterSchools($event)"
               dense
-            ></v-select>
+              label="Slecione o Distrito"
+              class=""
+              outlined
+            >
+            </v-select>
           </div>
 
           <div>
             <label class="text-bold text-uppercase">Escola:</label>
             <v-select
-              v-model="school1"
-              :items="schoolsname"
-              @change="filterSchool(school)"
+              labreturn
+              :items="districtsname"
+              @change="filterSchools($event)"
+              dense
               label="Selecione a Escola"
               outlined
-              dense
-            ></v-select>
+              class=""
+            >
+            </v-select>
           </div>
           <div class="text-right">
             <button
@@ -77,43 +85,47 @@ export default {
   name: "FormExamCenter",
   components: {},
   data: () => ({
-    provinceSelected: string = '',
-    districtSelected: string = '',
-    school1: string = ''
+    schoolsname: null,
+    districtsname: null,
   }),
+  props: ['schools'],
   methods: {
-    ...mapActions([
-        "getProvinces",
-        "getDistricts",
-        "getDistricSchools",
-        "getDistricToSchools",
-        "updateSchool",
-        "selectSchool"
-    ]),
-    filterDistricts() {
-      this.getDistricts(this.provinceselected);
+    ...mapActions(["getProvinces", "getDistricToSchools"]),
+    filterProvinces() {
+      return this.provinces.map((province) => {
+        return { text: province.name, value: province.id };
+      });
     },
-    filterSchools() {
-      this.getDistricSchools(this.districtselected);
+    filterDistricts(idProvince) {
+      let index = this.provinces.findIndex((p) => {
+        return idProvince == p.id;
+      });
+      this.districtsname = this.provinces[index].districts.map((district) => {
+        return { text: district.name, value: district.id };
+      });
     },
-    filterSchool(){
-      this.selectSchool(this.school1);
+    filterSchools(idDistrict) {
+      this.editedItem.district_id = idDistrict;
+      let index = this.district.findIndex((d) => {
+        return idDistrict == d.id;
+      });
+      this.schoolsname = this.district[index].schools.map((s) => {
+        return { text: s.name, value: s.id };
+      });
     },
-    setSchoolAsCenter(){
-      this.schoolD.isCentro = true
-      console.log("schoolD")
-      console.log(this.schoolD)
-      this.updateSchool(this.schoolD)
+    setSchoolAsCenter() {
+      this.schools = null
+      //this.updateSchool(this.schoolD);
+      this.age()
     },
-
   },
   mounted() {
     this.getProvinces();
     this.getDistricToSchools();
-    this.schoolD();
+    this.filterProvinces();
   },
   computed: {
-    ...mapGetters(["provinces", "provincename", "provincesname", "districtsname","schoolsname","schoolD","schools"]),
+    ...mapGetters(["provinces", "district"]),
   },
 };
 </script>

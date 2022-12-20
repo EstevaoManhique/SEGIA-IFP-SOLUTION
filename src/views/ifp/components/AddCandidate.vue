@@ -170,9 +170,7 @@
           </div>     
         </div>
       </div>
-      
- 
-  </v-form>
+  </v-form> 
 </template>
 
 <script>

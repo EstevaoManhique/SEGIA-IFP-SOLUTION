@@ -3,31 +3,29 @@
     <nav-bar :menu_types = "6"/>
   <v-card>
     <v-toolbar
-      color="cyan"
-      dark
-      flat
+      dense
+      elevation="0"
+      height="10px"
     >
-      <v-app-bar-nav-icon></v-app-bar-nav-icon>
-
-      <v-toolbar-title>Gestao da Candidatura</v-toolbar-title>
-
       <v-spacer></v-spacer>
       <template v-slot:extension>
         <v-tabs
           v-model="tab"
           align-with-title
         >
-          <v-tabs-slider color="yellow"></v-tabs-slider>
+          <v-tabs-slider color="black"></v-tabs-slider>
 
           <v-tab
-            
           >
             {{ 'novo candidato' }}
           </v-tab>
           <v-tab
-            
           >
             {{ 'listar candidatos' }}
+          </v-tab>
+          <v-tab
+          >
+            {{ 'criacao de juris' }}
           </v-tab>
         </v-tabs>
       </template>

@@ -14,7 +14,7 @@ class CandidateController extends Controller
      */
     public function index()
     {
-        $candidates = Candidate::with('gender','district','school','course','contact','province')->get();
+        $candidates = Candidate::with('gender','district','school','course','contacts','province')->get();
         return response()->json($candidates);
     }
 
@@ -26,17 +26,11 @@ class CandidateController extends Controller
     public function create(Candidate $candidate, Request $request)
     {
         try {
-            $contact = new Contact();
-            if(isset($request['newcontact'])){
-                $contact->contact = isset($request['newcontact']) ? $request['newcontact'] :  $contact->contact;
-                $contact->save();
-            }
-            
             $candidate->nome = isset($request['nome']) ? $request['nome'] :  $candidate->nome;
             $candidate->outrosNomes = isset($request['outrosNomes']) ? $request['outrosNomes'] :  $candidate->outrosNomes;
-            if((isset($request['newcontact'])) || ($contact->id!=null)){
+            /*if((isset($request['newcontact'])) || ($contact->id!=null)){
                 $candidate->contact_id =  $request['contact_id'] ? $request['contact_id'] :$contact->id;
-            }
+            }*/
             $candidate->birth_date = isset($request['birth_date']) ? $request['birth_date'] :  $candidate->birth_date;
             $candidate->identificacao = isset($request['identificacao']) ? $request['identificacao'] : ($candidate->identificacao ? 1 : 0);
             $candidate->gender_id = isset($request['gender_id']) ? $request['gender_id'] : $candidate->gender_id;
@@ -47,6 +41,14 @@ class CandidateController extends Controller
             $candidate->isValidated = isset($request['isValidated']) ? $request['isValidated'] : ($candidate->isValidated ? 1 : 0);
             $candidate->media_12a = isset($request['media_12a']) ? $request['media_12a'] : $candidate->media_12a;
             $candidate->save();
+
+            $contact = new Contact(); 
+            if(isset($request['newcontact'])){
+                $contact->contact = isset($request['newcontact']) ? $request['newcontact'] :  $contact->contact;
+                $contact->id = isset($request['contact_id']) ? $request['contact_id'] :  null;
+                $contact->candidate_id = $candidate->id;
+                $contact->save();
+            }
             return $candidate;
         } catch (\Exception $e) {
             return response(['msg' => $e->getMessage(), "data" => $candidate]);
@@ -64,7 +66,7 @@ class CandidateController extends Controller
         try {
             $candidate = new Candidate();
             $this->create($candidate, $request);
-            $candidate = Candidate::with('gender','district','school','course','contact')->where('candidates.id',$candidate->id)->get();
+            $candidate = Candidate::with('gender','district','school','course','contacts','province')->where('candidates.id',$candidate->id)->get();
             return response(['msg' => 'Candidate Registered', 'data' => $candidate], 200);
         } catch (\Exception $e) {
             return response(['msg' => $e->getMessage()]);
@@ -79,7 +81,7 @@ class CandidateController extends Controller
      */
     public function show($id)
     {
-        $candidate = Candidate::with('gender','district','school','course','contact')->where('candidates.id',$id)->get();
+        $candidate = Candidate::with('gender','district','school','course','contacts','province')->where('candidates.id',$id)->get();
         return response()->json($candidate);
     }
 
@@ -107,7 +109,7 @@ class CandidateController extends Controller
             $candidate = Candidate::findOrFail($id);
             if ($candidate) {
                 $this->create($candidate, $request);
-                $data = $candidate = Candidate::with('gender','district','school','course','contact')->where('candidates.id',$id)->get();
+                $data = $candidate = Candidate::with('gender','district','school','course','contacts','province')->where('candidates.id',$id)->get();
                 return response(['msg' => 'Candidate Updated!', 'data' => $data], 200);
             }
 

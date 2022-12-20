@@ -2,7 +2,6 @@
   <v-data-table
     :headers="headers"
     :items="candidates"
-    sort-by="calories"
     class="elevation-1"
     :search="search"
   >
@@ -14,136 +13,250 @@
     <template v-slot:top>
       <v-toolbar flat>
         <v-toolbar-title>
-          <v-select
-            v-model="search"
-            :items="opcoes"
-            label="Filtre os Candidatos"
-            outlined
-            dense
-            class="mt-5 ps-0"
-          >
-          </v-select>
+          <div class="d-flex mt-4">
+            <v-select
+              v-model="search"
+              :items="opcoes"
+              label="Filtrar pelo Estado"
+              outlined
+              dense
+              class="mt-2"
+            >
+            </v-select>
+            <v-select
+              v-model="search"
+              :items="opcoescurso"
+              label="Filtrar pelo Curso"
+              outlined
+              dense
+              class="ms-4 mt-2"
+            >
+            </v-select>
+          </div>
         </v-toolbar-title>
         <v-divider class="mx-4" inset vertical></v-divider>
         <v-spacer></v-spacer>
-        <v-dialog v-model="dialog" max-width="700px">
+        <v-dialog v-model="dialog" max-width="1000px">
           <template v-slot:activator="{ on, attrs }">
             <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">
-              New Item
+              Novo Candidato
             </v-btn>
           </template>
           <v-card>
-            <v-card-title>
-              <span class="text-h5">{{ formTitle }}</span>
-            </v-card-title>
+            <v-form>
+              <div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <fieldset class="ms-15 me-16 ps-15 pe-15">
+                      <legend class="text-semibold">
+                        <div class="mt-10">
+                          <i class="icon-user-plus position-left"></i>
+                          Dados do candidato
+                        </div>
+                      </legend>
 
-            <v-card-text>
-              <v-container>
-                <v-row>
-                  <v-col cols="12" sm="6" md="4">
-                    <v-text-field
-                      v-model="editedItem.id"
-                      disabled
-                      label="ID"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col cols="12" sm="6" md="4">
-                    <v-text-field
-                      v-model="editedItem.nome"
-                      label="Primeiro Nome"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col cols="12" sm="6" md="4">
-                    <v-text-field
-                      v-model="editedItem.outrosNomes"
-                      label="Outros Nomes"
-                    ></v-text-field>
-                  </v-col>
+                      <div class="form-group">
+                        <div class="row">
+                          <div class="col-md-6">
+                            <label
+                              class="
+                                control-label
+                                text-bold text-uppercase text-bold
+                              "
+                              >Nome:</label
+                            >
+                            <input
+                              type="text"
+                              placeholder="Primeiro Nome"
+                              class="form-control"
+                              v-model="editedItem.nome"
+                              required=""
+                            />
+                          </div>
+                          <div class="col-md-6">
+                            <label
+                              class="
+                                control-label
+                                text-bold text-uppercase text-bold
+                              "
+                              >Outros Nomes:</label
+                            >
+                            <input
+                              type="text"
+                              placeholder="Outros Nomes"
+                              class="form-control"
+                              name="apelido"
+                              required=""
+                              v-model="editedItem.outrosNomes"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="row">
+                          <div class="col-md-6">
+                            <label
+                              class="
+                                control-label
+                                text-bold text-uppercase text-bold
+                              "
+                              >Contacto:</label
+                            >
+                            <input
+                              type="text"
+                              placeholder="(+258) 8X.XXXXXXX"
+                              class="form-control"
+                              required=""
+                              v-model="editedItem.contacts[0].contact"
+                            />
+                          </div>
+                          <div class="col-md-6">
+                            <label
+                              class="control-label text-bold text text-bold"
+                              >MEDIA 12.a CLASSE:</label
+                            >
+                            <input
+                              min="12"
+                              type="number"
+                              placeholder="Introduza a media"
+                              class="form-control"
+                              name="contact"
+                              v-model="editedItem.media_12a"
+                            />
+                          </div>
+                        </div>
+                      </div>
 
-                  <v-col cols="12" sm="6" md="4">
-                    <v-text-field
-                      v-model="editedItem.birth_date"
-                      label="Data de Nascimento"
-                      type="date"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col cols="12" sm="6" md="4">
-                    <v-radio-group class="ms-3" v-model="candidate.gender_id" row>
-                      <v-radio label="Masculino" value="1"></v-radio>
-                      <v-radio label="Femenino" value="2"></v-radio>
-                    </v-radio-group>
-                  </v-col>
-                  <v-col cols="12" sm="6" md="4">
-                    <v-text-field
-                      v-model="editedItem.identificacao"
-                      label="Identificacao (BI/NUIT)"
-                    ></v-text-field>
-                  </v-col>
-                  <v-row sm="6" md="4">
-                    <v-select
-                      :items="filterProvinces()"
-                      labreturn
-                      @change="filterDistricts($event)"
-                      dense
-                      class=""
-                    >
-                    </v-select>
-                    <v-select
-                      labreturn
-                      :items="districtsname"
-                      @change="filterSchools($event)"
-                      dense
-                      class="ms-5"
-                    >
-                    </v-select>
-                    <v-select
-                      labreturn
-                      :items="schoolsname"
-                      @change="filterCourses($event)"
-                      outline
-                      dense
-                      class="ms-5"
-                    >
-                    </v-select>
-                    <v-select
-                      labreturn
-                      :items="coursesname"
-                      @change="setCourse($event)"
-                      outline
-                      dense
-                      class="ms-5"
-                    >
-                    </v-select>
-                  </v-row>
+                      <div class="form-group">
+                        <div class="row">
+                          <div class="col-md-6">
+                            <label
+                              class="
+                                control-label
+                                text-bold text-uppercase text-bold
+                              "
+                              >Data de Nascimento:</label
+                            >
+                            <input
+                              type="date"
+                              placeholder="Data de nascimento"
+                              class="form-control"
+                              name="data_nascimento"
+                              v-model="editedItem.birth_date"
+                            />
+                          </div>
+                          <div class="col-md-6">
+                            <label
+                              class="
+                                control-label
+                                text-bold text-uppercase text-bold
+                              "
+                              >Identificação:</label
+                            >
+                            <input
+                              required
+                              type="text"
+                              placeholder="BI/DIRE/Passaporte N.º"
+                              class="form-control"
+                              name="documento"
+                              v-model="editedItem.identificacao"
+                            />
+                          </div>
+                          <v-radio-group
+                            class="ms-3"
+                            v-model="candidate.gender_id"
+                            row
+                          >
+                            <v-radio label="Masculino" value="1"></v-radio>
+                            <v-radio label="Femenino" value="2"></v-radio>
+                          </v-radio-group>
+                          <v-switch
+                            v-model="editedItem.isValidated"
+                            label="Validar"
+                            color="success"
+                            value="1"
+                            hide-details
+                          ></v-switch>
+                        </div>
+                      </div>
 
-                  <v-text-field
-                    v-model="editedItem.media_12a"
-                    label="Media da 12.a"
-                  ></v-text-field>
-                  <v-text-field
-                    v-model="editedItem.contact.contact"
-                    label="Contacto"
-                  ></v-text-field>
-                </v-row>
-              </v-container>
-            </v-card-text>
+                      <div class="form-group">
+                        <div class="row">
+                          <div class="col-md-6">
+                            <v-select
+                              :items="filterProvinces()"
+                              labreturn
+                              @change="filterDistricts($event)"
+                              dense
+                              class=""
+                            >
+                            </v-select>
+                          </div>
 
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="close"> Cancel </v-btn>
-              <v-btn color="blue darken-1" text @click="save"> Save </v-btn>
-            </v-card-actions>
+                          <div class="col-md-6">
+                            <v-select
+                              labreturn
+                              :items="districtsname"
+                              @change="filterSchools($event)"
+                              dense
+                              class="ms-5"
+                            >
+                            </v-select>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-6">
+                            <v-select
+                              labreturn
+                              :items="schoolsname"
+                              @change="filterCourses($event)"
+                              dense
+                              class=""
+                            >
+                            </v-select>
+                          </div>
+
+                          <div class="col-md-6">
+                            <v-select
+                              labreturn
+                              :items="coursesname"
+                              @change="setCourse($event)"
+                              dense
+                              class="ms-5"
+                            >
+                            </v-select>
+                          </div>
+                        </div>
+                      </div>
+                    </fieldset>
+                  </div>
+                </div>
+                <div>
+                  <div class="d-flex justify-end mb-10 mr-10">
+                    <v-btn
+                      class="btn bg-slate-800 text-bold text-uppercase"
+                      @click="save"
+                    >
+                      Gravar
+                      <i class="icon-arrow-right14 position-right"></i>
+                    </v-btn>
+                  </div>
+                  <div>.</div>
+                  <div>.</div>
+                </div>
+              </div>
+            </v-form>
           </v-card>
         </v-dialog>
         <v-dialog v-model="dialogDelete" max-width="500px">
           <v-card>
             <v-card-title class="text-h5"
-              >Are you sure you want to delete this item?</v-card-title
+              >Voce tem certeza que quer deletar este dado?</v-card-title
             >
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="blue darken-1" text @click="closeDelete"
-                >Cancel</v-btn
+                >Cacelar</v-btn
               >
               <v-btn color="blue darken-1" text @click="deleteItemConfirm"
                 >OK</v-btn
@@ -159,18 +272,25 @@
       <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
     </template>
     <template v-slot:no-data>
-      <v-btn color="primary" @click="initialize"> Reset </v-btn>
+      <v-btn color="primary" @click="initialize"> Redefinir </v-btn>
     </template>
   </v-data-table>
 </template>
 <script>
 import { mapGetters, mapActions } from "vuex";
+import AddCandidate from "./AddCandidate.vue";
 export default {
+  components: { AddCandidate },
   data: () => ({
+    try: { text: "Maputo", value: 3 },
     opcoes: [
       { text: "Todos", value: -1 },
       { text: "Validados", value: "VALIDADO" },
       { text: "Nao Validados", value: "PENDENTE" },
+    ],
+    opcoescurso: [
+      { text: "12.a + 1", value: "12.a + 1" },
+      { text: "12.a + 3", value: "12.a + 3" },
     ],
     contact: null,
     search: "",
@@ -205,9 +325,10 @@ export default {
     ],
     editedIndex: -1,
     editedItem: {
+      id: null,
       nome: null,
       outrosNomes: null,
-      contact: {},
+      contacts: [{ contact: null, id: null }],
       birth_date: null,
       identificacao: null,
       gender: {},
@@ -216,11 +337,15 @@ export default {
       course: {},
       province: {},
       media_12a: null,
+      gender_id: null,
+      isValidated: null,
+      contact_id:null
     },
     defaultItem: {
+      id: null,
       nome: null,
       outrosNomes: null,
-      contact: {},
+      contacts: [{ contact: null, id: null }],
       birth_date: null,
       identificacao: null,
       gender: {},
@@ -229,6 +354,9 @@ export default {
       course: {},
       province: {},
       media_12a: null,
+      gender_id: null,
+      isValidated: null,
+      contact_id:null
     },
   }),
 
@@ -264,7 +392,7 @@ export default {
       "getProvinces",
       "getDistricToSchools",
       "editCandidate",
-      "addCandidate"
+      "addCandidate",
     ]),
     initialize() {},
     filterProvinces() {
@@ -274,8 +402,6 @@ export default {
     },
     filterDistricts(idProvince) {
       this.editedItem.province_id = idProvince;
-      console.log("Province ID")
-      console.log(idProvince)
       let index = this.provinces.findIndex((p) => {
         return idProvince == p.id;
       });
@@ -284,8 +410,6 @@ export default {
       });
     },
     filterSchools(idDistrict) {
-      console.log("District ID")
-      console.log(idDistrict)
       this.editedItem.district_id = idDistrict;
       let index = this.district.findIndex((d) => {
         return idDistrict == d.id;
@@ -295,8 +419,6 @@ export default {
       });
     },
     filterCourses(idSchool) {
-      console.log("School ID")
-      console.log(idSchool)
       this.editedItem.school_id = idSchool;
       let index = this.schools.findIndex((d) => {
         return idSchool == d.id;
@@ -306,14 +428,14 @@ export default {
       });
     },
     setCourse(idCourse) {
-      console.log("Course ID")
-      console.log(idCourse)
       this.editedItem.course_id = idCourse;
     },
     editItem(item) {
       this.editedIndex = this.candidates.indexOf(item);
       this.editedItem = Object.assign({}, item);
-      this.contact = this.editedItem.contact.contact;
+      console.log("EditedItem");
+      console.log(this.editedItem);
+      this.contact = this.editedItem.contacts[0].contact;
       this.dialog = true;
     },
 
@@ -345,30 +467,51 @@ export default {
     },
 
     save() {
-      console.log("UPDATED FRONTEND")
-        console.log(this.editedItem)
-        this.editedItem.isValidated = 1;
-        this.editedItem.newcontact = this.editedItem.contact.contact;
-        
-      if (this.editedIndex > -1) {
-        this.editedItem.state = "VALIDADO"
-        Object.assign(this.candidates[this.editedIndex], this.editedItem);
-          
-
-        if (this.contact != this.editedItem.contact.contact) {
-          delete this.editedItem.contact_id;
-          this.editCandidate(this.editedItem);
-        }else{
-          //delete this.editedItem.contact;
-          this.editCandidate(this.editedItem);
+      console.log("Save EditedItem");
+      console.log(this.editedItem);
+      let phoneno = /^\d{9}$/;
+      let nrValid = false;
+      if (
+        this.editedItem.nome &&
+        this.editedItem.outrosNomes &&
+        this.editedItem.contacts[0].contact &&
+        this.editedItem.media_12a &&
+        this.editedItem.birth_date &&
+        this.editedItem.identificacao &&
+        this.candidate.gender_id &&
+        this.editedItem.province_id &&
+        this.editedItem.district_id &&
+        this.editedItem.school_id &&
+        this.editedItem.course_id
+      ) {
+        if (this.editedItem.contacts[0].contact.match(phoneno)) {
+          nrValid = true;
+        } else {
+          nrValid = false;
         }
+        this.editedItem.newcontact = this.editedItem.contacts[0].contact;
+        this.editedItem.gender_id = this.candidate.gender_id;
+
+        if (this.editedIndex > -1) {
+          if (this.contact != this.editedItem.contacts[0].contact) {
+            this.editedItem.contact_id = this.editedItem.contacts[0].id
+            console.log("Edited Contact "+this.editedItem.contact_id)
+            delete this.editedItem.contacts[0].id
+            this.editCandidate(this.editedItem);
+          } else {
+            
+            this.editedItem.contact_id = this.editedItem.contacts[0].id
+            console.log("Edited Contact "+this.editedItem.contact_id)
+            this.editCandidate(this.editedItem);
+          }
+        } else {
+          this.editedItem.gender_id = this.candidate.gender_id;
+          this.addCandidate(this.editedItem);
+        }
+        this.close();
       } else {
-        console.log("POST 1.st One Time")
-          console.log(this.editedItem)
-          this.editedItem.gender_id = this.candidate.gender_id
-        this.addCandidate(this.editedItem);
+        alert("Preencha todos campos");
       }
-      this.close();
     },
     getColor(state) {
       let x = state.includes("VALIDADO") ? "green" : "red";

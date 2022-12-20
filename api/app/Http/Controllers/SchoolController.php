@@ -56,7 +56,7 @@ class SchoolController extends Controller
         try {
             $school = new School();
             $this->create($school, $request);
-            $data = School::with('district')->where('id', $school->id)->first();
+            $data = School::with('district','courses')->where('id', $school->id)->first();
             return response(['msg' => 'School Registered', 'data' => $data], 200);
         } catch (\Exception $e) {
             return response(['msg' => $e->getMessage()]);
@@ -71,7 +71,7 @@ class SchoolController extends Controller
      */
     public function show($id)
     {
-        $school = School::find($id);
+        $school = School::with('district','courses')->where('id', $id)->first();
 
         return response()->json($school);
     }

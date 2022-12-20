@@ -4,12 +4,11 @@
     <v-row>
       <!-- Main content -->
       <div class="content-wrapper">
-
         <toolbar-vue :descricao="descricao"/>
         <!-- User profile -->
         <div class="row">
-            <form-exam-center/>
-            <table-center/>
+            <form-exam-center  :schools="schools" v-on:inputChange="handleChange"/>
+            <table-center :schools="schools"/>
         </div>
         <!-- /row.2 -->
       </div>
@@ -24,19 +23,31 @@ import NavBar from "@/components/layout/NavBar.vue";
 import FormExamCenter from "@/views/ifp/components/FormExamCenter.vue";
 import TableCenter from "@/views/ifp/components/TableCenter.vue";
 
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions} from "vuex";
 export default {
   name: "HomeView",
   components: { NavBar, toolbarVue, FormExamCenter, TableCenter },
   data: () => ({
-    descricao : null
+    descricao : null,
+    idade : null,
+    value:"",
+    centers:null
   }),
-
+  methods:{
+    ...mapActions(["getSchools", "updateSchool", "getProvinces"]),
+    handleChange(event){
+      const {value} = event.target
+      this.value = value
+      alert(value)
+    },
+  },
   computed: {
-    ...mapGetters(["user"]),
+    ...mapGetters(["schools", "provincesname", "provinces", "districtsname"]),
   },
   mounted(){
     this.descricao = "CENTROS DE EXAME"
-  }
+    this.getSchools();
+    this.filterCenters();
+  },
 };
 </script>

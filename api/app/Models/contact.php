@@ -11,7 +11,13 @@ class contact extends Model
     protected $table = 'contacts';
 
 	protected $fillable = [
-		'contact'
+		'contact',
+        'candidate_id'
     ];
+
+    public function candidate()
+    {
+        return $this->belongsTo(Candidate::class);
+    }
 
 }

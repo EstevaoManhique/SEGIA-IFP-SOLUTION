@@ -32,8 +32,6 @@ const actions = {
         commit('getCandidate', rsp.data);
     },
     async editCandidate({ commit }, candidate) {
-        console.log("editedCandidate")
-        console.log(candidate)
         const rsp = await axios.put('candidate/' + candidate.id, candidate);
         commit('editCandidate', rsp.data.data);
     }
@@ -46,11 +44,11 @@ const mutations = {
             candidate.isValidated ? candidate.state = "VALIDADO": 
             candidate.state = "PENDENTE"
         })
+        console.log("Candidates contacts")
+        console.log(payload)
     },
     addCandidate(state, payload) {
-        console.log("ADD")
         payload.data[0].state = "PENDENTE"
-        console.log(payload.data[0])
         state.candidates.push(payload.data[0]);
     },
     removeCandidate(state, payload) {
@@ -60,12 +58,9 @@ const mutations = {
         state.candidate = payload;
     },
     editCandidate(state, payload) {
-        let candidate = state.candidates.findIndex((candidate) => candidate.id == payload.id)
-        /*
-            Para este caso nao precisamos fazer a actualizacao do array state, pois, ela e feita no frontend
-            payload[0].isValidated ? payload[0].state = "VALIDADO":payload[0].state = "PENDENTE"
-            state.candidates.splice(candidate, 1, payload[0]);
-        */
+        let candidate = state.candidates.findIndex((candidate) => candidate.id == payload[0].id)
+        payload[0].isValidated ? payload[0].state = "VALIDADO":payload[0].state = "PENDENTE"
+        state.candidates.splice(candidate, 1, payload[0]);
     },
 };
 export default {
