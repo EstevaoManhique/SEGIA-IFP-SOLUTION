@@ -141,7 +141,15 @@
         "curricular_plan": "Plano Curricular",
         "categoria_ensino": "Categoria de Ensino",
         "taxa_exame": "Taxa Exame",
-        "nacionalidates": "Nacionalidades"
+        "nacionalidates": "Nacionalidades",
+        "comportamento": "Comportamento",
+        "assiduidade": "Assiduidade",
+        "certificados": "Certificados",
+        "pagamentos": "Pagamentos",
+        "membros": "Membros",
+        "emitir_notificacao": "Emitir Notificacao",
+        "notificacoes_emitidas": "notificacoes emitidas",
+        "student_management": "Gestao de Alunos"
     },
     "fieldes": {
         "address": "Endereço",

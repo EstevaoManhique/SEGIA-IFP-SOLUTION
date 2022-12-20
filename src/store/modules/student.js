@@ -25,12 +25,8 @@ const actions = {
         commit('getStudents', res.data);
     },
     async addStudent({ commit }, student) {
-        let data = new FormData();
-        data.append('name', student.name);
-        data.append('surname', student.surname);
-        data.append('school_id', student.school_id);
+        const rsp = await axios.post('student/store', student);
 
-        const rsp = await axios.post('student/store', data);
         commit('addStudent', rsp.data);
     },
     async removeStudent({ commit }, student) {

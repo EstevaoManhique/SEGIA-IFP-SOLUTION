@@ -651,6 +651,17 @@ const routes = [{
                     },
                     /*Rota Do Sub-Menu Gestao Escolar*/
                     {
+                        path: 'student-management',
+                        name: 'student_management',
+                        component: () =>
+                            import ('@/views/academico/StudentManagement.vue'),
+
+                        meta: {
+                            display: 'headers.student_management',
+                            display_title: 'menus.student_management',
+                        },
+                    },
+                    {
                         path: 'addstudent',
                         name: 'addstudent',
                         component: () =>
@@ -994,7 +1005,7 @@ const routes = [{
         // which is lazy-loaded when the route is visited.
         component: () =>
             import ('@/components/layout/Login.vue'),
-    }
+    },
 ];
 
 const router = new Router({
