@@ -25,6 +25,10 @@
           </v-tab>
           <v-tab
           >
+            {{ 'importar candidatos' }}
+          </v-tab>
+          <v-tab
+          >
             {{ 'criacao de juris' }}
           </v-tab>
         </v-tabs>
@@ -44,12 +48,20 @@
           <list-candidates/>
         </v-card>
       </v-tab-item>
+      <v-tab-item
+      >
+        <v-card flat>
+          <import-candidates/>
+        </v-card>
+      </v-tab-item>
     </v-tabs-items>
   </v-card>
 </v-container>
 </template>
   
   <script>
+
+import ImportCandidates from "@/views/ifp/components/ImportCandidates.vue";
 import NavBar from "@/components/layout/NavBar.vue";
 import AddCandidate from "@/views/ifp/components/AddCandidate.vue";
 import ListCandidates from "@/views/ifp/components/Ifp-listcandidates.vue";
@@ -57,7 +69,7 @@ import MenuUp from "@/views/ifp/components/MenuUp.vue";
 import { mapGetters, mapActions } from "vuex";
 export default {
   name: "HomeView",
-  components: { NavBar, AddCandidate, MenuUp, ListCandidates},
+  components: {ImportCandidates, NavBar, AddCandidate, MenuUp, ListCandidates},
   data () {
       return {
         tab: null,

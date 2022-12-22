@@ -273,11 +273,15 @@ export default {
         },
       };
 
+      console.log("SCHEMMA");
+      console.log(schema)
       readXlsxFile(file, { schema }).then(({ rows, errors }) => {
         // `errors` list items have shape: `{ row, column, error, reason?, value?, type? }`.
         errors.length === 0;
 
         this.import_students = rows;
+        console.log("Imported");
+        console.log(this.import_students)
       });
     },
     import_modelo_completo() {

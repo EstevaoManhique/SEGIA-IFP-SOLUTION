@@ -18,6 +18,52 @@ class CandidateController extends Controller
         return response()->json($candidates);
     }
 
+  
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storeMany(Request $request)
+    {
+
+        try {
+
+            foreach ($request->all() as $req) {    
+                $candidate = new Candidate();
+                $candidate->nome = isset($req['nome']) ? $req['nome'] :  $candidate->nome;
+                $candidate->outrosNomes = isset($req['outrosNomes']) ? $req['outrosNomes'] :  $candidate->outrosNomes;
+                $candidate->birth_date = isset($req['birth_date']) ? $req['birth_date'] :  $candidate->birth_date;
+                $candidate->identificacao = isset($req['identificacao']) ? $req['identificacao'] : ($candidate->identificacao ? 1 : 0);
+                $candidate->gender_id = isset($req['gender_id']) ? $req['gender_id'] : $candidate->gender_id;
+                $candidate->district_id = isset($req['district_id']) ? $req['district_id'] : $candidate->district_id;
+                $candidate->school_id = isset($req['school_id']) ? $req['school_id'] : $candidate->school_id;
+                $candidate->course_id = isset($req['course_id']) ? $req['course_id'] : $candidate->course_id;
+                $candidate->province_id = isset($req['province_id']) ? $req['province_id'] : $candidate->province_id;
+                $candidate->isValidated = isset($req['isValidated']) ? $req['isValidated'] : ($candidate->isValidated ? 1 : 0);
+                $candidate->media_12a = isset($req['media_12a']) ? $req['media_12a'] : $candidate->media_12a;
+                $candidate->save();
+            
+                $contact = new Contact(); 
+            
+                if(isset($request['newcontact'])){
+                    $contact->contact = isset($request['newcontact']) ? $request['newcontact'] :  $contact->contact;
+                    $contact->id = isset($request['contact_id']) ? $request['contact_id'] :  null;
+                    $contact->candidate_id = $candidate->id;
+                    $contact->save();
+                }
+                $candidate = Candidate::with('gender','district','school','course','contacts','province')->where('candidates.id',$candidate->id)->get();
+
+                $candidates[] = $candidate[0];
+            }
+
+            return response(['msg' => 'Candidates Registered', 'data' => $candidates], 200);
+        } catch (\Exception $e) {
+            return response(['msg' => $e->getMessage()]);
+        }
+    }
+    
     /**
      * Show the form for creating a new resource.
      *

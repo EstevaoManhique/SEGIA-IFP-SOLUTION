@@ -3,14 +3,14 @@ import axios from '@/plugins/axios';
 
 const state = {
     candidates: [],
-    candidate: {
-
-    }
+    imported: [],
+    candidate: {}
 };
 
 const getters = {
     candidates: (state) => state.candidates,
     candidate: (state) => state.candidate,
+    imported: (state) => state.imported,
 };
 
 const actions = {
@@ -21,6 +21,10 @@ const actions = {
     async addCandidate({ commit }, candidate) {
         const rsp = await axios.post('candidate/store', candidate);
         commit('addCandidate', rsp.data);
+    },
+    async addCandidates({ commit }, candidates) {
+        const rsp = await axios.post('candidate/storemany', candidates);
+        commit('addCandidates', rsp.data);
     },
     async removeCandidate({ commit }, candidate) {
         const rsp = await axios.delete('candidate/' + candidate);
@@ -50,6 +54,15 @@ const mutations = {
     addCandidate(state, payload) {
         payload.data[0].state = "PENDENTE"
         state.candidates.push(payload.data[0]);
+    },
+    addCandidates(state, payload) {
+        console.log("Candidates")
+        console.log(payload)
+        payload.data.map((c)=>{
+            c.state = "PENDENTE"
+            state.imported.push(c)         
+        })
+        
     },
     removeCandidate(state, payload) {
         state.candidates = state.candidates.filter((candidate) => candidate.id != payload);

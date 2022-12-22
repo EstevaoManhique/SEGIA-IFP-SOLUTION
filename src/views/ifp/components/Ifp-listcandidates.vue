@@ -38,10 +38,14 @@
         <v-spacer></v-spacer>
         <v-dialog v-model="dialog" max-width="1000px">
           <template v-slot:activator="{ on, attrs }">
-            <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">
-              Novo Candidato
-            </v-btn>
+              <v-btn color="primary" dark class="ma-2" @click="import_modelo_simples">
+                Exportar Candidatos
+              </v-btn>
+              <v-btn color="primary" dark class="ma-2" v-bind="attrs" v-on="on">
+                Novo Candidato
+              </v-btn>
           </template>
+
           <v-card>
             <v-form>
               <div>
@@ -277,6 +281,7 @@
   </v-data-table>
 </template>
 <script>
+import readXlsxFile from 'read-excel-file';
 import { mapGetters, mapActions } from "vuex";
 import AddCandidate from "./AddCandidate.vue";
 export default {
@@ -339,7 +344,7 @@ export default {
       media_12a: null,
       gender_id: null,
       isValidated: null,
-      contact_id:null
+      contact_id: null,
     },
     defaultItem: {
       id: null,
@@ -356,7 +361,7 @@ export default {
       media_12a: null,
       gender_id: null,
       isValidated: null,
-      contact_id:null
+      contact_id: null,
     },
   }),
 
@@ -494,14 +499,13 @@ export default {
 
         if (this.editedIndex > -1) {
           if (this.contact != this.editedItem.contacts[0].contact) {
-            this.editedItem.contact_id = this.editedItem.contacts[0].id
-            console.log("Edited Contact "+this.editedItem.contact_id)
-            delete this.editedItem.contacts[0].id
+            this.editedItem.contact_id = this.editedItem.contacts[0].id;
+            console.log("Edited Contact " + this.editedItem.contact_id);
+            delete this.editedItem.contacts[0].id;
             this.editCandidate(this.editedItem);
           } else {
-            
-            this.editedItem.contact_id = this.editedItem.contacts[0].id
-            console.log("Edited Contact "+this.editedItem.contact_id)
+            this.editedItem.contact_id = this.editedItem.contacts[0].id;
+            console.log("Edited Contact " + this.editedItem.contact_id);
             this.editCandidate(this.editedItem);
           }
         } else {
@@ -517,6 +521,46 @@ export default {
       let x = state.includes("VALIDADO") ? "green" : "red";
       return x;
     },
+    import_modelo_simples() {
+      console.log('modelo Simples');
+      const input = document.getElementById('fileSimples');
+      const file = input.files[0];
+  
+      const schema = {
+        'NOME COMPLETO': {
+          prop: 'full_name',
+          type: String,
+          required: true,
+        },
+        'DOC.': {
+          prop: 'doc_type',
+          type: String,
+          required: true,
+        },
+        'NR. DOC.': {
+          prop: 'nr_doc',
+          type: String,
+          required: true,
+        },
+        'VALIDADE DOC.': {
+          prop: 'doc_date',
+          type: Date,
+        },
+        'DATA NASC.': {
+          prop: 'birth_date',
+          type: Date,
+        },
+      };
+      
+      readXlsxFile(file, { schema }).then(({ rows, errors }) => {
+        // `errors` list items have shape: `{ row, column, error, reason?, value?, type? }`.
+        errors.length === 0;
+
+        this.import_students = rows;
+        console.log("Import Simple Students")
+        console.log(this.import_students)
+      });
+    }
   },
   mounted() {
     this.getCandidates();

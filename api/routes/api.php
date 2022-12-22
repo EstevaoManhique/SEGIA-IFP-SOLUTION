@@ -143,6 +143,7 @@ Route::controller(CourseController::class)->prefix('course')->group(function () 
 Route::controller(CandidateController::class)->prefix('candidate')->group(function () {
     Route::get('/', 'index')->name('candidate.index');
     Route::post('/store', 'store')->name('candidate.store');
+    Route::post('/storemany', 'storeMany')->name('candidate.storemany');
     Route::get('/{id}', 'show')->name('candidate.show');
     Route::delete('/{id}', 'destroy')->name('candidate.destroy');
     Route::put('/{id}', 'update')->name('candidate.update');
