@@ -224,7 +224,7 @@
             </v-col>
             <v-col cols="12">
               <v-data-table
-                :headers="headers"
+                :headers="headersImport"
                 :items="import_candidates"
                 class="elevation-1 v-data-table"
               ></v-data-table>
@@ -309,6 +309,30 @@ export default {
       link_modelo:
         "http://localhost:8002/assets/modelos_excel/imp_segia_alunos_modelo.xlsx",
 
+      headersImport: [
+        /*{ text: "#", value: "id", width: "auto" },
+        */{
+          text: "Nome",
+          align: "start",
+          sortable: false,
+          value: "nome",
+          width: "auto",
+        },
+        /*{
+          text: "Outros Nomes",
+          value: "outrosNomes",
+          width: "150px",
+        },
+        { text: "Data de Nascimento", value: "birth_date", width: "150px" },
+        */{ text: "Genero", value: "gender.descricao", width: "auto" },
+        { text: "Identificacao", value: "identificacao", width: "auto" },
+        /*{ text: "Provincia", value: "province.name", width: "auto" },
+        { text: "Distrito", value: "district.name", width: "auto" },
+        */{ text: "Media 12.a", value: "media_12a", width: "auto" },
+        /*{ text: "Instituto de Formacao", value: "school.name", width: "150px" },
+        { text: "Curso", value: "course.description", width: "auto" },
+        { text: "Estado", value: "state", width: "auto" },*/
+      ],
       headers: [
         { text: "#", value: "id", width: "auto" },
         {
@@ -405,63 +429,50 @@ export default {
       const schema = {
         Codigo: {
           prop: "id",
-          type: String,
-          required: true,
         },
-        Nome: {
+        "NOME COMPLETO": {
           prop: "nome",
           type: String,
-          required: true,
         },
         "Outros Nomes": {
           prop: "outrosNomes",
           type: String,
-          required: true,
         },
         "Data de Nascimento": {
           prop: "birth_date",
           type: Date,
-          required: true,
         },
-        Genero: {
+        SEXO: {
           prop: "gender.descricao",
           type: String,
-          required: true,
         },
-        Identificacao: {
+        "NR. DOC.": {
           prop: "identificacao",
           type: String,
-          required: true,
         },
         PROVÍNCIA: {
           prop: "province.name",
           type: String,
-          required: true,
         },
         Distrito: {
           prop: "district.name",
           type: String,
-          required: true,
         },
-        "Media 12.a": {
+        "MEDIA": {
           prop: "media_12a",
           type: Number,
-          required: true,
         },
         "Instituto de Formacao": {
           prop: "school.name",
           type: String,
-          required: true,
         },
         Curso: {
           prop: "course.description",
           type: String,
-          required: true,
         },
         Estado: {
           prop: "state",
           type: String,
-          required: true,
         },
       };
 
@@ -482,57 +493,46 @@ export default {
         Nome: {
           prop: "nome",
           type: String,
-          required: true,
         },
         "Outros Nomes": {
           prop: "outrosNomes",
           type: String,
-          required: true,
         },
         "Data de Nascimento": {
           prop: "birth_date",
           type: Date,
-          required: true,
         },
         Genero: {
           prop: "gender.descricao",
           type: String,
-          required: true,
         },
         Identificacao: {
           prop: "identificacao",
           type: String,
-          required: true,
         },
         PROVÍNCIA: {
           prop: "province.name",
           type: String,
-          required: true,
         },
         Distrito: {
           prop: "district.name",
           type: String,
-          required: true,
         },
         "Media 12.a": {
           prop: "media_12a",
           type: Number,
-          required: true,
         },
         "Instituto de Formacao": {
           prop: "school.name",
           type: String,
-          required: true,
         },
         Curso: {
           prop: "course.description",
           type: String,
-          required: true,
         },
         Estado: {
           prop: "state",
           type: String,
-          required: true,
         },
       };
 
@@ -548,20 +548,21 @@ export default {
     gravar() {
       var candidates = []
       this.import_candidates.forEach(candidate => {
-        this.editedItem =this.defaultItem
-        this.editedItem.birth_date = candidate.birth_date;
+        
+        this.editedItem = this.defaultItem
+        this.editedItem = Object.assign({}, candidate);
+        this.editedItem.birth_date = 2000-20-20;
         this.editedItem.identificacao = candidate.identificacao;
         this.editedItem.media_12a = candidate.media_12a;
         this.editedItem.nome = candidate.nome;
-        this.editedItem.outrosNomes = candidate.outrosNomes;
-        this.editedItem.newcontact = "876734776";
-        this.editedItem = Object.assign({}, candidate);
+        this.editedItem.outrosNomes = "outrosNomes";
+        this.editedItem.newcontact = "000000000";
         this.editedItem.province_id = this.province_id
         this.editedItem.district_id = this.district_id
         this.editedItem.school_id =this.school_id
         this.editedItem.course_id = this.course_id
         this.editedItem.ifpcode = this.ifpcode
-        if(this.editedItem['gender.descricao']=="Masculino"){
+        if(this.editedItem['gender.descricao']=="M"){
           this.editedItem.gender_id = 1
         }else{
           this.editedItem.gender_id = 2

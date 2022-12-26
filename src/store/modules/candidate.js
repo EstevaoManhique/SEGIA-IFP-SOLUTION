@@ -17,7 +17,7 @@ const getters = {
     imported: (state) => state.imported,
     data: (state) => state.data,
     bycourse: (state) => state.bycourse, 
-    jurysByCourse: (state) => jurysByCourse
+    jurysByCourse: (state) => state.jurysByCourse
 };
 
 const actions = {
@@ -84,7 +84,7 @@ const mutations = {
         console.log(payload)
         
         payload.data.map((c)=>{
-            c.state = "PENDENTE"
+            c.state = "VALIDADO"
             state.imported.push(c)         
         })
         state.data = payload

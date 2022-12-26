@@ -18,18 +18,28 @@
               <v-card flat>
                 <div class="panel panel-flat">
                   <div class="panel-body d-flex">
-                    <v-btn v-if="!jurys" @click="createJurys" color="success" class="mt-6">
+                    <v-btn
+                      v-if="jurys[0] || jurysByCourse[0]"
+                      @click="imprimirJurys"
+                      color="#3F51B5"
+                      class="white--text mt-6"
+                    >
+                      <v-icon>mdi-file-download</v-icon>
+                      Imprimir todos juris
+                    </v-btn>
+                    <v-btn
+                      v-else
+                      @click="createJurys"
+                      color="success"
+                      class="mt-6"
+                    >
                       <v-icon>mdi-format-list-bulleted</v-icon>
                       Fazer a criação de júris
                     </v-btn>
-                    <v-btn v-else-if="false" disabled @click="createJurys" color="success" class="mt-6">
+                    <!--<v-btn v-else-if="false" disabled @click="createJurys" color="success" class="mt-6">
                         <v-icon>mdi-format-list-bulleted</v-icon>
                         Fazer a criação de júris
-                    </v-btn>
-                    <v-btn @click="createJurys" color="#3F51B5" class="white--text mt-6">
-                        <v-icon>mdi-file-download</v-icon>
-                        Imprimir a lista de juris
-                    </v-btn>  
+                    </v-btn>-->
                   </div>
                 </div>
                 <!-- Basic layout-->
@@ -111,9 +121,10 @@
                   </v-col>
                   <v-col>
                     <v-select
-                      :items="optionscourse"
-                      @change="setCourse($event)"
+                      :items="opcoesjurs"
                       label="Selecione Juri"
+                      v-model="search"
+                      setJuri
                       class="mr-5"
                     ></v-select>
                   </v-col>
@@ -121,16 +132,23 @@
               </div>
             </v-col>
             <v-col cols="12">
-              <div v-if="!jurys">
+              <div v-if="jurys[0] || jurysByCourse[0]">
                 <v-data-table
                   :headers="headers"
                   :items="candidates"
+                  :search="search"
                   class="elevation-1 v-data-table"
                 ></v-data-table>
               </div>
               <div v-else class="d-flex justify-center">
-                <h3 class="red--text"> Os juris ainda nao foram criados, eles poderao ser criados apos
-                o termino das inscricoes</h3>
+                <!--<h3 class="red--text">
+                  Os juris ainda nao foram criados, eles poderao ser criados
+                  apos o termino das inscricoes
+                </h3>-->
+                <h3 class="red--text">
+                  Os juris ainda nao foram criados, clique em "Fazer a criação de júris". 
+                </h3>
+                
               </div>
             </v-col>
           </v-row>
@@ -241,7 +259,9 @@ export default {
       school_id: null,
       district_id: null,
       course_id: null,
+      search: null,
       ifpcode: null,
+      opcoesjurs: null,
       opcoescurso: [
         { text: "12.a + 1", value: "12.a + 1" },
         { text: "12.a + 3", value: "12.a + 3" },
@@ -259,6 +279,13 @@ export default {
       "jurysByCourse",
     ]),
   },
+  mounted() {
+    this.getProvinces();
+    this.getDistricToSchools();
+    this.getSchools();
+    this.getCandidates();
+    this.getJurys();
+  },
   methods: {
     ...mapActions([
       "getJurys",
@@ -266,14 +293,8 @@ export default {
       "getDistricToSchools",
       "getSchools",
       "generateJurys",
+      "getCandidates",
     ]),
-    mounted() {
-      this.getProvinces();
-      this.getDistricToSchools();
-      this.getSchools();
-      this.getCandidates();
-      this.getJurys();
-    },
     import_modelo_simples() {
       console.log("modelo Simples");
       const input = document.getElementById("fileSimples");
@@ -487,6 +508,18 @@ export default {
     },
     setCourse(idCourse) {
       this.course_id = idCourse;
+
+      this.opcoesjurs = this.jurys
+        .filter((j) => {
+          if (j.course == idCourse) {
+            return { text: j.id, value: j.id };
+          }
+        })
+        .map((a) => {
+          if (a.course == idCourse) {
+            return { text: a.id, value: a.id };
+          }
+        });
     },
     setOf() {
       this.dialogDelete = false;

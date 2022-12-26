@@ -64,7 +64,7 @@ class CandidateController extends Controller
                 $candidate->school_id = isset($req['school_id']) ? $req['school_id'] : $candidate->school_id;
                 $candidate->course_id = isset($req['course_id']) ? $req['course_id'] : $candidate->course_id;
                 $candidate->province_id = isset($req['province_id']) ? $req['province_id'] : $candidate->province_id;
-                $candidate->isValidated = isset($req['isValidated']) ? $req['isValidated'] : ($candidate->isValidated ? 1 : 0);
+                $candidate->isValidated = 1;
                 $candidate->media_12a = isset($req['media_12a']) ? $req['media_12a'] : $candidate->media_12a;
                 $candidate->jury_id = isset($req['jury_id']) ? $req['jury_id'] : $candidate->jury_id;
                 

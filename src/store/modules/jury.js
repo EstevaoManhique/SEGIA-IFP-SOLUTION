@@ -38,8 +38,9 @@ const actions = {
 
 const mutations = {
     getJurys(state, payload) {
-        state.jurys = payload;
-        console.log("JurisAAAA")
+        state.jurys = payload
+
+        console.log("Jurisjfjfjj")
         console.log(state.jurys)
     },
     addJury(state, payload) {
