@@ -18,6 +18,7 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\CandidateController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\SalaController;
+use App\Http\Controllers\JuryController;
 
 
 /*
@@ -142,8 +143,10 @@ Route::controller(CourseController::class)->prefix('course')->group(function () 
 
 Route::controller(CandidateController::class)->prefix('candidate')->group(function () {
     Route::get('/', 'index')->name('candidate.index');
+    Route::get('/bycourse', 'bycourse')->name('candidate.bycourse');    
     Route::post('/store', 'store')->name('candidate.store');
     Route::post('/storemany', 'storeMany')->name('candidate.storemany');
+    Route::post('/createjury', 'createjury')->name('candidate.createjury');
     Route::get('/{id}', 'show')->name('candidate.show');
     Route::delete('/{id}', 'destroy')->name('candidate.destroy');
     Route::put('/{id}', 'update')->name('candidate.update');
@@ -163,4 +166,12 @@ Route::controller(SalaController::class)->prefix('sala')->group(function () {
     Route::get('/{id}', 'show')->name('sala.show');
     Route::delete('/{id}', 'destroy')->name('sala.destroy');
     Route::put('/{id}', 'update')->name('sala.update');
+});
+
+Route::controller(JuryController::class)->prefix('jury')->group(function () {
+    Route::get('/', 'index')->name('jury.index');
+    Route::post('/store', 'store')->name('jury.store');
+    Route::get('/{id}', 'show')->name('jury.show');
+    Route::delete('/{id}', 'destroy')->name('jury.destroy');
+    Route::put('/{id}', 'update')->name('jury.update');
 });

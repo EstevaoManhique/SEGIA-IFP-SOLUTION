@@ -1,22 +1,33 @@
 //import router from '@/router/router';
 import axios from '@/plugins/axios';
+import { Integer } from 'read-excel-file';
 
 const state = {
     candidates: [],
     imported: [],
-    candidate: {}
+    candidate: {},
+    data:null,
+    bycourse:[],
+    jurysByCourse:[]
 };
 
 const getters = {
     candidates: (state) => state.candidates,
     candidate: (state) => state.candidate,
     imported: (state) => state.imported,
+    data: (state) => state.data,
+    bycourse: (state) => state.bycourse, 
+    jurysByCourse: (state) => jurysByCourse
 };
 
 const actions = {
     async getCandidates({ commit }) {
         let res = await axios.get('candidate');
         commit('getCandidates', res.data);
+    },
+    async getCandidatesByCourse({ commit }) {
+        let res = await axios.get('candidate/bycourse');
+        commit('getCandidatesByCourse', res.data);
     },
     async addCandidate({ commit }, candidate) {
         const rsp = await axios.post('candidate/store', candidate);
@@ -25,6 +36,10 @@ const actions = {
     async addCandidates({ commit }, candidates) {
         const rsp = await axios.post('candidate/storemany', candidates);
         commit('addCandidates', rsp.data);
+    },
+    async generateJurys({ commit }, candidates) {
+        const rsp = await axios.post('candidate/createjury', candidates);
+        commit('generateJurys', rsp.data);
     },
     async removeCandidate({ commit }, candidate) {
         const rsp = await axios.delete('candidate/' + candidate);
@@ -44,24 +59,37 @@ const actions = {
 const mutations = {
     getCandidates(state, payload) {
         state.candidates = payload;
+        payload.sort((a,b) => (a.nome < b.nome) ? 1 : ((b.nome < a.nome) ? -1 : 0))
+        
         state.candidates.map((candidate) => {
             candidate.isValidated ? candidate.state = "VALIDADO": 
             candidate.state = "PENDENTE"
         })
-        console.log("Candidates contacts")
-        console.log(payload)
+    },
+    getCandidatesByCourse(state, payload) {
+        state.bycourse = payload;
+        console.log("by course")
+        console.log(state.bycourse)
     },
     addCandidate(state, payload) {
         payload.data[0].state = "PENDENTE"
         state.candidates.push(payload.data[0]);
     },
+    generateJurys(state, payload) {
+        state.jurysByCourse = payload.data
+        console.log(state.jurysByCourse)
+    },
     addCandidates(state, payload) {
         console.log("Candidates")
         console.log(payload)
+        
         payload.data.map((c)=>{
             c.state = "PENDENTE"
             state.imported.push(c)         
         })
+        state.data = payload
+        console.log("Data")
+        console.log(state.data)
         
     },
     removeCandidate(state, payload) {

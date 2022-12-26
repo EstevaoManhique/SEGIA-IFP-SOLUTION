@@ -1,291 +1,522 @@
 <template>
   <v-container>
-    <nav-bar :menu_types = "6"/>
     <v-row>
-                          <!-- Main content -->
-                          <div class="content-wrapper">
+      <v-col cols="12" md="4">
+        <v-card>
+          <v-tabs v-model="tabs" fixed-tabs>
+            <v-tabs-slider></v-tabs-slider>
+            <v-tab href="#mobile-tabs-5-1" class="primary--text">
+              Ficha Completa
+            </v-tab>
+            <v-tab href="#mobile-tabs-5-2" class="primary--text">
+              Ficha Simplificada
+            </v-tab>
+          </v-tabs>
 
-
-                            <!-- Toolbar -->
-                            <div class="navbar navbar-default navbar-component navbar-xs">
-                                <ul class="nav navbar-nav visible-xs-block">
-                                    <li class="full-width text-center"><a data-toggle="collapse" data-target="#navbar-filter"><i class="icon-menu7"></i></a></li>
-                                </ul>
-        
-                                <div class="navbar-collapse collapse" id="navbar-filter">
-                                    <ul class="nav navbar-nav element-active-orange-400">
-                                        <li class="active"><a href="#settings" data-toggle="tab" class="text-bold text-uppercase"><i class="icon-split position-left"></i> Listagem dos Candidatos Distribuídos por Júri</a></li>
+          <v-tabs-items v-model="tabs">
+            <v-tab-item :key="1" :value="'mobile-tabs-5-1'">
+              <v-card flat>
+                <div class="panel panel-flat">
+                  <div class="panel-body d-flex">
+                    <v-btn v-if="!jurys" @click="createJurys" color="success" class="mt-6">
+                      <v-icon>mdi-format-list-bulleted</v-icon>
+                      Fazer a criação de júris
+                    </v-btn>
+                    <v-btn v-else-if="false" disabled @click="createJurys" color="success" class="mt-6">
+                        <v-icon>mdi-format-list-bulleted</v-icon>
+                        Fazer a criação de júris
+                    </v-btn>
+                    <v-btn @click="createJurys" color="#3F51B5" class="white--text mt-6">
+                        <v-icon>mdi-file-download</v-icon>
+                        Imprimir a lista de juris
+                    </v-btn>  
+                  </div>
+                </div>
+                <!-- Basic layout-->
+                <div class="form-horizontal">
+                  <div class="panel panel-flat">
+                    <div class="panel-body">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <v-card>
+                            <v-row>
+                              <v-col cols="12">
+                                <div class="panel-heading">
+                                  <h6
+                                    class="panel-title text-bold text-uppercase"
+                                  >
+                                    Lista de juris
+                                  </h6>
+                                  <div class="heading-elements">
+                                    <ul class="icons-list">
+                                      <li><a data-action="collapse"></a></li>
+                                      <li><a data-action="reload"></a></li>
                                     </ul>
-        
+                                  </div>
                                 </div>
-                            </div>
-                            <!-- /toolbar -->
-        
-        
-        
-        
-                            <div class = "row">
-        
-        
-        
-        
-                                <!-- Vertical form options -->
-                                <div class="col-md-12"> 
-                                    <!-- Basic layout-->
-        
-                                    <form method="post" accept-charset="ISO-8859-1" action="SUZQU2VydmxldCNEQ0k=?YWNjYW8jZGlzdHJpYnVpY2FvLWp1cmlz">
-                                        <div class="panel panel-flat">
-                                            <div class="panel-body">
-        
-                                                <div class="row">
-        
-                                                    <div class="col-md-2">
-        
-                                                        <label class="control-label text-bold text-uppercase">Classe:</label>
-        
-                                                        <select class="select" name="idCurso" disabled="">
-                                                            <optgroup label="Selecione a classe">
-        
-                                                                <!--
-                                                                    if (cursos != null) {
-                                                                        for (Curso c : cursos) {
-        
-                                                                            int id = c.getCursId();
-                                                                            String desc = encryptUtils.decodeString(c.getCursCod()) + " - " + encryptUtils.decodeString(c.getCursDescricao());
-        
-                                                                            String sel = "";
-        
-                                                                            if (curso != null) {
-                                                                                if (id == curso.getCursId()) {
-                                                                                    sel = "selected";
-                                                                                }
-                                                                            }
-                                                                -->
-                                                                <option value=""></option>
-                                                                <!--
-                                                                        }
-                                                                    }
-                                                                -->                                                                
-        
-                                                            </optgroup>
-                                                        </select>
-                                                    </div>
-        
-                                                    <div class="col-md-3">
-        
-                                                        <label class="control-label text-bold text-uppercase">provincia:</label>
-        
-                                                        <select class="select" name="idProvincia"  placeholder="Selecione a provincia" id="make">
-                                                            <optgroup label="Selecione a provincia">
-                                                                <option></option>
-        
-                                                                <!--
-                                                                    if (provinces != null) {
-                                                                        for (EdstProvince ep : provinces) {
-        
-                                                                            int id = ep.getId();
-                                                                            String desc = ep.getName();
-        
-                                                                            String sel = "";
-        
-                                                                            if (desc.equals(provinciaSel)) {
-                                                                                sel = "selected";
-                                                                            }
-                                                                -->
-                                                                <option value=""></option>
-                                                                <!--
-                                                                        }
-                                                                    }
-                                                                -->                                                                
-        
-                                                            </optgroup>
-                                                        </select>
-        
-                                                    </div>
-        
-                                                    <div class="col-md-4">
-                                                        <label class="control-label text-bold text-uppercase">Escola:</label>
-                                                        <select class="select" name="escola" data-placeholder="Selecione a escola" id="schools">
-                                                            <optgroup label="Selecione a escola">
-        
-                                                            </optgroup>
-                                                        </select>
-        
-                                                    </div>
-        
-                                                    <div class="col-md-3">
-        
-                                                        <label class="control-label text-bold text-uppercase">Disciplina:</label>
-                                                        <select class="select" name="idDisciplina">
-                                                            <optgroup label="Selecione disciplina">
-        
-                                                                <!--
-                                                                    if (disciplinas != null) {
-                                                                        for (Disciplina d : disciplinas) {
-        
-                                                                            int id = d.getDiscId();
-                                                                            String desc = encryptUtils.decodeString(d.getDiscDescricao());
-        
-                                                                            String sel = "";
-        
-                                                                            if (disciplina != null) {
-                                                                                if (id == disciplina.getDiscId()) {
-                                                                                    sel = "selected";
-                                                                                }
-                                                                            }
-                                                                -->
-                                                                <option value=""></option>
-                                                                <!--
-                                                                        }
-                                                                    }
-                                                                -->         
-                                                            </optgroup>
-                                                        </select>
-        
-                                                    </div>
-        
-                                                </div> <!-- /row.1.1-->
-        
-                                                <div class="row">
-        
-        
-        
-                                                    <!--
-                                                        String dd = "";
-                                                        String cur = "";
-                                                        String di = "";
-        
-                                                        String an = "";
-        
-                                                        if (disciplina != null) {
-                                                            cur = "12ª Classe";
-                                                            di = encryptUtils.decodeString(disciplina.getDiscDescricao());
-                                                        }
-        
-                                                        if (anoLectivo != null) {
-                                                            an = encryptUtils.decodeString(anoLectivo.getAnolDescricao());
-                                                        }
-                                                    -->
-        
-                                                    <br>
-                                                    <div class="col-md-12">
-                                                        <button type="submit" onclick="this.disabled = 'disabled'; this.form.submit();" class="btn bg-orange-600 btn-labeled text-bold text-uppercase">
-                                                            <b><i class="icon-search4 position-right"></i></b> 
-                                                            Filtrar Registos
-                                                        </button>
-        
-                                                        <br><br>
-        
-                                                        <h4 class="text-bold">
-                                                            <span class="text-danger-600"><!--=cur--></span> <span class="text-primary-600"> - [<!--=di-->]</span>  <span> - [<!--=provinciaSel + " : " + escolaSel-->]</span>
-                                                        </h4>
-                                                    </div>
-                                                </div> <!-- /row.1.2-->
-        
-                                            </div>
-                                        </div>
-                                    </form>
-                                    <!-- /basic layout -->
-        
-                                </div>
-        
-        
-                            </div>
-                            <!-- /row.1-->
-        
-                            <!-- User profile -->
-                            <div class="row">
-        
-        
-                                <!--
-                                    if (turs != null) {
-        
-                                        for (Tur t : turs) {
-        
-                                            String desc = t.getDescricao();
-                                            List<Estudante> estudantes = t.getEstudantes();
-                                -->
-        
-                                <div class="col-md-6">
-        
-                                    <!-- Basic responsive configuration -->
-                                    <div class="panel panel-flat">
-                                        <div class="panel-heading">
-                                            <h6 class="panel-title text-bold text-uppercase"><!--=desc--></h6>
-                                            <div class="heading-elements">
-                                                <ul class="icons-list">
-                                                    <li><a data-action="collapse"></a></li>
-                                                    <li><a data-action="reload"></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-        
-        
-                                        <table class="table datatable-responsive">
-                                            <thead>
-                                                <tr>
-                                                    <th class="text-bold text-uppercase">#</th>
-                                                    <th class="text-bold text-uppercase">Cód.</th>
-                                                    <th class="text-bold text-uppercase">Nome Aluno</th>
-                                                    <th class="text-bold text-uppercase text-right">Idade</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-        
-                                                <!--
-        
-                                                    if (estudantes != null) {
-                                                        int i = 0;
-                                                        for (Estudante e : estudantes) {
-        
-                                                            i++;
-        
-                                                            String nomeCompleto = e.getNome();
-                                                            int idade = e.getIdade();
-                                                            String cod = e.getId();
-                                                -->
-                                                <tr>
-                                                    <td><a  href="#" class="text-bold"><!--=i--></a></td>
-                                                    <td><small class="text-bold text-danger"><!--=cod--></small></td>
-                                                    <td><small><!--=nomeCompleto--></small></td>
-                                                    <td class="text-primary text-right"><!--=idade--></td>
-                                                </tr>
-                                                <!--                                                }
-                                                    }
-                                                -->
-        
-                                            </tbody>
-                                        </table>
-        
-                                    </div>
-                                    <!-- /basic responsive configuration -->
-                                </div>
-        
-                                <!--
-                                        }
-                                    }
-                                -->
-        
-        
-                            </div>
-                            <!-- /vertical form options -->
-        
+                              </v-col>
+                              <v-col cols="12">
+                                <v-data-table
+                                  :headers="headersJury"
+                                  :items="jurys"
+                                  class="elevation-1 v-data-table"
+                                ></v-data-table>
+                              </v-col>
+                            </v-row>
+                          </v-card>
                         </div>
-                        <!-- /main content -->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- /basic layout -->
+              </v-card>
+            </v-tab-item>
+          </v-tabs-items>
+        </v-card>
+      </v-col>
+      <v-col cols="12" md="8">
+        <!--lISTAGEM DE DADOS IMPORTADOS-->
+        <v-card>
+          <v-row>
+            <div class="heading-elements">
+              <ul class="icons-list">
+                <li><a data-action="collapse"></a></li>
+                <li><a data-action="reload"></a></li>
+              </ul>
+            </div>
+          </v-row>
+          <v-row>
+            <v-col cols="12">
+              <div class="panel-heading">
+                <h6 class="panel-title text-bold text-uppercase">
+                  Listagem dos candidatos do Juri 3
+                </h6>
+                <div class="heading-elements">
+                  <ul class="icons-list">
+                    <li><a data-action="collapse"></a></li>
+                    <li><a data-action="reload"></a></li>
+                  </ul>
+                </div>
+              </div>
+              <div>
+                <v-row class="d-flex mx-15">
+                  <v-col>
+                    <v-select
+                      :items="opcoescurso"
+                      @change="setCourse($event)"
+                      label="Selecione o curso"
+                      class="ml-5"
+                    ></v-select>
+                  </v-col>
+                  <v-col>
+                    <v-select
+                      :items="optionscourse"
+                      @change="setCourse($event)"
+                      label="Selecione Juri"
+                      class="mr-5"
+                    ></v-select>
+                  </v-col>
+                </v-row>
+              </div>
+            </v-col>
+            <v-col cols="12">
+              <div v-if="!jurys">
+                <v-data-table
+                  :headers="headers"
+                  :items="candidates"
+                  class="elevation-1 v-data-table"
+                ></v-data-table>
+              </div>
+              <div v-else class="d-flex justify-center">
+                <h3 class="red--text"> Os juris ainda nao foram criados, eles poderao ser criados apos
+                o termino das inscricoes</h3>
+              </div>
+            </v-col>
+          </v-row>
+        </v-card>
+      </v-col>
     </v-row>
+    <v-dialog v-model="dialogDelete" width="500px">
+      <v-card>
+        <div class="d-flex justify-center">
+          <v-icon style="font-size: 7rem" color="success">mdi-check</v-icon>
+        </div>
+        <div class="d-flex justify-center">
+          <v-card-title class="text-h5">Notificação do Sistema</v-card-title>
+        </div>
+        <div class="d-flex justify-center">
+          <h4>Os juris foram anteriormente criados.</h4>
+        </div>
+        <div class="d-flex justify-center">
+          <v-btn class="mb-3" color="success" @click="setOf">Ok</v-btn>
+        </div>
+      </v-card>
+    </v-dialog>
   </v-container>
 </template>
-
-<script>
-import NavBar from '@/components/layout/NavBar.vue';
-import { mapGetters } from 'vuex';
+  
+  <script>
+import readXlsxFile, { Integer } from "read-excel-file";
+import simpleFile from "@/store/modules/schemes/importStudentSimple.js";
+import { mapGetters, mapActions } from "vuex";
 export default {
-  name: 'HomeView',
-  components: {NavBar},
-  data: () => ({}),
+  name: "ImportStudent",
+  data() {
+    return {
+      tabs: null,
+      link_modelo_simp:
+        "http://localhost:8002/assets/modelos_excel/imp_segia_candidatos_modelo.xlsx",
+      link_modelo:
+        "http://localhost:8002/assets/modelos_excel/imp_segia_alunos_modelo.xlsx",
 
+      headers: [
+        { text: "Nr Candidato", value: "id", width: "auto" },
+        {
+          text: "Nome",
+          align: "start",
+          sortable: false,
+          value: "nome",
+          width: "auto",
+        },
+        {
+          text: "Outros Nomes",
+          value: "outrosNomes",
+          width: "auto",
+        },
+        { text: "Data de Nascimento", value: "birth_date", width: "auto" },
+        { text: "Genero", value: "gender.descricao", width: "auto" },
+        { text: "Identificacao", value: "identificacao", width: "auto" },
+        { text: "Juri", value: "jury_id", width: "auto" },
+      ],
+
+      headersJury: [
+        { text: "Juri", value: "id", width: "auto" },
+        { text: "Curso", value: "course", width: "auto" },
+      ],
+      dialogDelete: false,
+      districtsname: null,
+      provincesname: null,
+      schoolsname: null,
+      coursesname: null,
+      import_candidates: [],
+      simpleFile,
+      editedItem: {
+        id: null,
+        nome: null,
+        outrosNomes: null,
+        contacts: [{ contact: null, id: null }],
+        birth_date: null,
+        identificacao: null,
+        gender: {},
+        district: {},
+        school: {},
+        course: {},
+        province: {},
+        media_12a: null,
+        gender_id: null,
+        isValidated: null,
+        contact_id: null,
+        ifpcode: null,
+      },
+      defaultItem: {
+        id: null,
+        nome: null,
+        outrosNomes: null,
+        contacts: [{ contact: null, id: null }],
+        birth_date: null,
+        identificacao: null,
+        gender: {},
+        district: {},
+        school: {},
+        course: {},
+        province: {},
+        media_12a: null,
+        gender_id: null,
+        isValidated: null,
+        contact_id: null,
+        ifpcode: null,
+      },
+      province_id: null,
+      school_id: null,
+      district_id: null,
+      course_id: null,
+      ifpcode: null,
+      opcoescurso: [
+        { text: "12.a + 1", value: "12.a + 1" },
+        { text: "12.a + 3", value: "12.a + 3" },
+      ],
+    };
+  },
   computed: {
-    ...mapGetters(['user']),
+    ...mapGetters([
+      "jurys",
+      "provinces",
+      "district",
+      "schools",
+      "candidates",
+      "bycourse",
+      "jurysByCourse",
+    ]),
+  },
+  methods: {
+    ...mapActions([
+      "getJurys",
+      "getProvinces",
+      "getDistricToSchools",
+      "getSchools",
+      "generateJurys",
+    ]),
+    mounted() {
+      this.getProvinces();
+      this.getDistricToSchools();
+      this.getSchools();
+      this.getCandidates();
+      this.getJurys();
+    },
+    import_modelo_simples() {
+      console.log("modelo Simples");
+      const input = document.getElementById("fileSimples");
+      const file = input.files[0];
+      const schema = {
+        Codigo: {
+          prop: "id",
+          type: String,
+          required: true,
+        },
+        Nome: {
+          prop: "nome",
+          type: String,
+          required: true,
+        },
+        "Outros Nomes": {
+          prop: "outrosNomes",
+          type: String,
+          required: true,
+        },
+        "Data de Nascimento": {
+          prop: "birth_date",
+          type: Date,
+          required: true,
+        },
+        Genero: {
+          prop: "gender.descricao",
+          type: String,
+          required: true,
+        },
+        Identificacao: {
+          prop: "identificacao",
+          type: String,
+          required: true,
+        },
+        PROVÍNCIA: {
+          prop: "province.name",
+          type: String,
+          required: true,
+        },
+        Distrito: {
+          prop: "district.name",
+          type: String,
+          required: true,
+        },
+        "Media 12.a": {
+          prop: "media_12a",
+          type: Number,
+          required: true,
+        },
+        "Instituto de Formacao": {
+          prop: "school.name",
+          type: String,
+          required: true,
+        },
+        Curso: {
+          prop: "course.description",
+          type: String,
+          required: true,
+        },
+        Estado: {
+          prop: "state",
+          type: String,
+          required: true,
+        },
+      };
+
+      readXlsxFile(file, { schema }).then(({ rows, errors }) => {
+        // `errors` list items have shape: `{ row, column, error, reason?, value?, type? }`.
+        errors.length === 0;
+
+        this.import_candidates = rows;
+        console.log("Import Candidates");
+        console.log(this.import_candidates);
+      });
+    },
+    import_modelo_completo() {
+      console.log("modelo Simples");
+      const input = document.getElementById("fileSimples");
+      const file = input.files[0];
+      const schema = {
+        Nome: {
+          prop: "nome",
+          type: String,
+          required: true,
+        },
+        "Outros Nomes": {
+          prop: "outrosNomes",
+          type: String,
+          required: true,
+        },
+        "Data de Nascimento": {
+          prop: "birth_date",
+          type: Date,
+          required: true,
+        },
+        Genero: {
+          prop: "gender.descricao",
+          type: String,
+          required: true,
+        },
+        Identificacao: {
+          prop: "identificacao",
+          type: String,
+          required: true,
+        },
+        PROVÍNCIA: {
+          prop: "province.name",
+          type: String,
+          required: true,
+        },
+        Distrito: {
+          prop: "district.name",
+          type: String,
+          required: true,
+        },
+        "Media 12.a": {
+          prop: "media_12a",
+          type: Number,
+          required: true,
+        },
+        "Instituto de Formacao": {
+          prop: "school.name",
+          type: String,
+          required: true,
+        },
+        Curso: {
+          prop: "course.description",
+          type: String,
+          required: true,
+        },
+        Estado: {
+          prop: "state",
+          type: String,
+          required: true,
+        },
+      };
+
+      readXlsxFile(file, { schema }).then(({ rows, errors }) => {
+        // `errors` list items have shape: `{ row, column, error, reason?, value?, type? }`.
+        errors.length === 0;
+
+        this.import_candidates = rows;
+        console.log("Import Candidates");
+        console.log(this.import_candidates);
+      });
+    },
+    gravar() {
+      var candidates = [];
+      this.import_candidates.forEach((candidate) => {
+        this.editedItem = this.defaultItem;
+        this.editedItem.birth_date = candidate.birth_date;
+        this.editedItem.identificacao = candidate.identificacao;
+        this.editedItem.media_12a = candidate.media_12a;
+        this.editedItem.nome = candidate.nome;
+        this.editedItem.outrosNomes = candidate.outrosNomes;
+        this.editedItem.newcontact = "000000000";
+        this.editedItem = Object.assign({}, candidate);
+        this.editedItem.province_id = this.province_id;
+        this.editedItem.district_id = this.district_id;
+        this.editedItem.school_id = this.school_id;
+        this.editedItem.course_id = this.course_id;
+        this.editedItem.ifpcode = this.ifpcode;
+        if (this.editedItem["gender.descricao"] == "Masculino") {
+          this.editedItem.gender_id = 1;
+        } else {
+          this.editedItem.gender_id = 2;
+        }
+        candidates.push(this.editedItem);
+      });
+
+      this.import_candidates = [];
+      console.log("candidates");
+      console.log(candidates);
+      this.addCandidates(candidates);
+      this.dialogDelete = true;
+    },
+    filterProvinces() {
+      return this.provinces.map((province) => {
+        return { text: province.name, value: province.id };
+      });
+    },
+    filterDistricts(idProvince) {
+      this.province_id = idProvince;
+      let index = this.provinces.findIndex((p) => {
+        return idProvince == p.id;
+      });
+      this.districtsname = this.provinces[index].districts.map((district) => {
+        return { text: district.name, value: district.id };
+      });
+    },
+    filterSchools(idDistrict) {
+      this.district_id = idDistrict;
+      let index = this.district.findIndex((d) => {
+        return idDistrict == d.id;
+      });
+      this.schoolsname = this.district[index].schools.map((s) => {
+        return { text: s.name, value: s.id };
+      });
+    },
+    filterCourses(idSchool) {
+      this.school_id = idSchool;
+
+      let index = this.schools.findIndex((d) => {
+        return idSchool == d.id;
+      });
+      this.ifpcode = this.schools[index].cod;
+      this.coursesname = this.schools[index].courses.map((s) => {
+        return { text: s.description, value: s.id };
+      });
+    },
+    setCourse(idCourse) {
+      this.course_id = idCourse;
+    },
+    setOf() {
+      this.dialogDelete = false;
+    },
+    createJurys() {
+      if (this.jurys) {
+        let coursesjury = [];
+
+        for (let i = 0; i < this.bycourse.length; i++) {
+          let inicio = 0,
+            fim = 30;
+
+          let candidates = this.bycourse[i];
+          let limit = Math.floor(candidates.length / 30);
+          let jurs = [];
+          for (let index = 0; index < limit + 1; index++) {
+            jurs.push(candidates.slice(inicio, fim));
+            inicio = fim;
+            fim = fim + 30;
+          }
+          coursesjury.push(jurs);
+        }
+        this.generateJurys(coursesjury);
+      } else {
+        this.dialogDelete = true;
+      }
+    },
   },
 };
 </script>
+  
+  <style>
+</style>

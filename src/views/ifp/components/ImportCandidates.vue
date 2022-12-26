@@ -250,6 +250,7 @@
           <div class="panel-heading">
             <h6 class="panel-title text-bold text-uppercase">
               Listagem de dados importados
+              
             </h6>
             <div class="heading-elements">
               <ul class="icons-list">
@@ -267,8 +268,30 @@
           ></v-data-table>
         </v-col>
       </v-row>
+      <!--lISTAGEM DE DADOS IMPORTADOS-->
+      <v-dialog v-model="dialogDelete" width="500px">
+        <v-card>
+          <div class="d-flex justify-center">
+            <v-icon style="font-size:7rem" color="success">mdi-check</v-icon>
+          </div>
+          <div class="d-flex justify-center">
+            <v-card-title class="text-h5"
+            >Notificação do Sistema</v-card-title
+            >
+          </div>
+          <div class="d-flex justify-center">
+            <div class="d-flex justify-space-between" style="width:50%" v-if="data">
+              <p>Importados: {{data.importados}}</p> 
+              <p>Registrados: {{data.registrados}}</p> 
+              <p>Repetidos: {{data.repetidos}}</p> 
+            </div>
+          </div>
+          <div class="d-flex justify-center">
+            <v-btn class="mb-3" color="success" @click="setOf">Ok</v-btn>
+          </div>
+        </v-card>
+      </v-dialog>
     </v-card>
-    <!--lISTAGEM DE DADOS IMPORTADOS-->
   </v-container>
 </template>
 
@@ -310,6 +333,7 @@ export default {
         { text: "Curso", value: "course.description", width: "120px" },
         { text: "Estado", value: "state", width: "120px" },
       ],
+      dialogDelete:false,
       districtsname: null,
       provincesname: null,
       schoolsname: null,
@@ -332,6 +356,7 @@ export default {
         gender_id: null,
         isValidated: null,
         contact_id: null,
+        ifpcode:null
       },
       defaultItem: {
         id: null,
@@ -349,11 +374,17 @@ export default {
         gender_id: null,
         isValidated: null,
         contact_id: null,
+        ifpcode:null
       },
+      province_id:null,
+      school_id:null,
+      district_id:null,
+      course_id:null,
+      ifpcode:null
     };
   },
   computed: {
-    ...mapGetters(["provinces", "district", "schools", "imported"]),
+    ...mapGetters(["provinces", "district", "schools", "imported", "data"]),
   },
   methods: {
     ...mapActions([
@@ -448,11 +479,6 @@ export default {
       const input = document.getElementById("fileSimples");
       const file = input.files[0];
       const schema = {
-        Codigo: {
-          prop: "id",
-          type: String,
-          required: true,
-        },
         Nome: {
           prop: "nome",
           type: String,
@@ -520,26 +546,34 @@ export default {
       });
     },
     gravar() {
-      let candidates = [];
-      
-      this.import_candidates.map((candidate) => {
+      var candidates = []
+      this.import_candidates.forEach(candidate => {
+        this.editedItem =this.defaultItem
         this.editedItem.birth_date = candidate.birth_date;
-        if(candidate["gender.descricao"]=="Femenino"){
-          this.editedItem.gender_id = 2;
-        }else{
-          this.editedItem.gender_id = 1;
-        }
         this.editedItem.identificacao = candidate.identificacao;
         this.editedItem.media_12a = candidate.media_12a;
         this.editedItem.nome = candidate.nome;
         this.editedItem.outrosNomes = candidate.outrosNomes;
         this.editedItem.newcontact = "876734776";
-        candidates.push(this.editedItem);
+        this.editedItem = Object.assign({}, candidate);
+        this.editedItem.province_id = this.province_id
+        this.editedItem.district_id = this.district_id
+        this.editedItem.school_id =this.school_id
+        this.editedItem.course_id = this.course_id
+        this.editedItem.ifpcode = this.ifpcode
+        if(this.editedItem['gender.descricao']=="Masculino"){
+          this.editedItem.gender_id = 1
+        }else{
+          this.editedItem.gender_id = 2
+        }
+        candidates.push(this.editedItem)
       });
 
       this.import_candidates = [];
+      console.log("candidates")
       console.log(candidates);
       this.addCandidates(candidates);
+      this.dialogDelete = true
     },
     filterProvinces() {
       return this.provinces.map((province) => {
@@ -547,7 +581,7 @@ export default {
       });
     },
     filterDistricts(idProvince) {
-      this.editedItem.province_id = idProvince;
+      this.province_id = idProvince;
       let index = this.provinces.findIndex((p) => {
         return idProvince == p.id;
       });
@@ -556,7 +590,7 @@ export default {
       });
     },
     filterSchools(idDistrict) {
-      this.editedItem.district_id = idDistrict;
+      this.district_id = idDistrict;
       let index = this.district.findIndex((d) => {
         return idDistrict == d.id;
       });
@@ -565,17 +599,23 @@ export default {
       });
     },
     filterCourses(idSchool) {
-      this.editedItem.school_id = idSchool;
+      this.school_id = idSchool;
+      
       let index = this.schools.findIndex((d) => {
         return idSchool == d.id;
       });
+      this.ifpcode = this.schools[index].cod;
       this.coursesname = this.schools[index].courses.map((s) => {
         return { text: s.description, value: s.id };
       });
     },
     setCourse(idCourse) {
-      this.editedItem.course_id = idCourse;
+      this.course_id = idCourse;
+
     },
+    setOf(){
+      this.dialogDelete = false
+    }
   },
 };
 </script>

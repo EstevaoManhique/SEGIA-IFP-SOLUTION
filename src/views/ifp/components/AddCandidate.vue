@@ -205,10 +205,10 @@ export default {
     };
   },
   computed:{
-    ...mapGetters(['provinces','district', 'schools','candidates'])
+    ...mapGetters(['provinces','district', 'schools','candidates','jurys','bycourse'])
   },
   methods:{
-    ...mapActions(['addCandidate','getSchools','getProvinces','getDistricToSchools','getCandidates']),
+    ...mapActions(['addCandidate','getSchools','getProvinces','getDistricToSchools','getCandidates','getJurys','getCandidatesByCourse']),
     submit(){
       console.log(this.candidate)
       this.candidates.push(this.candidate);
@@ -255,6 +255,8 @@ export default {
       this.getDistricToSchools();
       this.getSchools();
       this.getCandidates();
+      this.getJurys();
+      this.getCandidatesByCourse()
   },
 };
 </script>

@@ -54,6 +54,12 @@
           <import-candidates/>
         </v-card>
       </v-tab-item>
+      <v-tab-item
+      >
+        <v-card flat>
+          <jury-distribution/>
+        </v-card>
+      </v-tab-item>
     </v-tabs-items>
   </v-card>
 </v-container>
@@ -65,11 +71,12 @@ import ImportCandidates from "@/views/ifp/components/ImportCandidates.vue";
 import NavBar from "@/components/layout/NavBar.vue";
 import AddCandidate from "@/views/ifp/components/AddCandidate.vue";
 import ListCandidates from "@/views/ifp/components/Ifp-listcandidates.vue";
+import JuryDistribution from "@/views/ifp/ifp-jury-distribution.vue";
 import MenuUp from "@/views/ifp/components/MenuUp.vue";
 import { mapGetters, mapActions } from "vuex";
 export default {
   name: "HomeView",
-  components: {ImportCandidates, NavBar, AddCandidate, MenuUp, ListCandidates},
+  components: {ImportCandidates, NavBar, AddCandidate, MenuUp, ListCandidates,JuryDistribution},
   data () {
       return {
         tab: null,

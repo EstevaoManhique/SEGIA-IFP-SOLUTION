@@ -372,6 +372,7 @@ export default {
       "provinces",
       "schools",
       "district",
+      "jurys"
     ]),
     formTitle() {
       return this.editedIndex === -1 ? "Novo Candidato" : "";
@@ -398,6 +399,7 @@ export default {
       "getDistricToSchools",
       "editCandidate",
       "addCandidate",
+      "addCandidates",
     ]),
     initialize() {},
     filterProvinces() {
@@ -522,7 +524,7 @@ export default {
       return x;
     },
     import_modelo_simples() {
-      console.log('modelo Simples');
+      /*console.log('modelo Simples');
       const input = document.getElementById('fileSimples');
       const file = input.files[0];
   
@@ -559,7 +561,8 @@ export default {
         this.import_students = rows;
         console.log("Import Simple Students")
         console.log(this.import_students)
-      });
+      });*/
+
     }
   },
   mounted() {
