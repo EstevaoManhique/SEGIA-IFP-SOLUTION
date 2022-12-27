@@ -20,7 +20,7 @@
                   <div class="panel-body d-flex">
                     <v-btn
                       v-if="jurys[0] || jurysByCourse[0]"
-                      @click="imprimirJurys"
+                      @click="imprimirJurys()"
                       color="#3F51B5"
                       class="white--text mt-6"
                     >
@@ -28,10 +28,11 @@
                       Imprimir todos juris
                     </v-btn>
                     <v-btn
-                      v-else
-                      @click="createJurys"
+                      v-else-if="bycourse[0]"
+                      @click="createJurys()"
                       color="success"
                       class="mt-6"
+                      :disabled="disabled"
                     >
                       <v-icon>mdi-format-list-bulleted</v-icon>
                       Fazer a criação de júris
@@ -69,6 +70,7 @@
                                 <v-data-table
                                   :headers="headersJury"
                                   :items="jurys"
+                                  :items-per-page="5"
                                   class="elevation-1 v-data-table"
                                 ></v-data-table>
                               </v-col>
@@ -99,8 +101,8 @@
           <v-row>
             <v-col cols="12">
               <div class="panel-heading">
-                <h6 class="panel-title text-bold text-uppercase">
-                  Listagem dos candidatos do Juri 3
+                <h6 v-if="search" class="panel-title text-bold text-uppercase">
+                  Listagem dos candidatos do Juri {{ search }}
                 </h6>
                 <div class="heading-elements">
                   <ul class="icons-list">
@@ -124,7 +126,7 @@
                       :items="opcoesjurs"
                       label="Selecione Juri"
                       v-model="search"
-                      setJuri
+                      @change="filterByJury($event)"
                       class="mr-5"
                     ></v-select>
                   </v-col>
@@ -135,7 +137,7 @@
               <div v-if="jurys[0] || jurysByCourse[0]">
                 <v-data-table
                   :headers="headers"
-                  :items="candidates"
+                  :items="cbyjury"
                   :search="search"
                   class="elevation-1 v-data-table"
                 ></v-data-table>
@@ -146,9 +148,9 @@
                   apos o termino das inscricoes
                 </h3>-->
                 <h3 class="red--text">
-                  Os juris ainda nao foram criados, clique em "Fazer a criação de júris". 
+                  Os juris ainda nao foram criados, clique em "Fazer a criação
+                  de júris".
                 </h3>
-                
               </div>
             </v-col>
           </v-row>
@@ -182,6 +184,7 @@ export default {
   name: "ImportStudent",
   data() {
     return {
+      disabled: false,
       tabs: null,
       link_modelo_simp:
         "http://localhost:8002/assets/modelos_excel/imp_segia_candidatos_modelo.xlsx",
@@ -263,6 +266,7 @@ export default {
       ifpcode: null,
       opcoesjurs: null,
       opcoescurso: [
+        { text: "Selecione", value: "Selecione" }, 
         { text: "12.a + 1", value: "12.a + 1" },
         { text: "12.a + 3", value: "12.a + 3" },
       ],
@@ -277,7 +281,11 @@ export default {
       "candidates",
       "bycourse",
       "jurysByCourse",
+      "cbyjury",
     ]),
+  },
+  updated(){
+    this.getJurys();
   },
   mounted() {
     this.getProvinces();
@@ -285,6 +293,7 @@ export default {
     this.getSchools();
     this.getCandidates();
     this.getJurys();
+    this.getCandidatesByCourse()
   },
   methods: {
     ...mapActions([
@@ -294,6 +303,8 @@ export default {
       "getSchools",
       "generateJurys",
       "getCandidates",
+      "getCandidatesByJury",
+      "getCandidatesByCourse"
     ]),
     import_modelo_simples() {
       console.log("modelo Simples");
@@ -525,7 +536,8 @@ export default {
       this.dialogDelete = false;
     },
     createJurys() {
-      if (this.jurys) {
+      this.disabled = true;
+      if (!this.jurys[0]) {
         let coursesjury = [];
 
         for (let i = 0; i < this.bycourse.length; i++) {
@@ -540,13 +552,20 @@ export default {
             inicio = fim;
             fim = fim + 30;
           }
+
+          
           coursesjury.push(jurs);
         }
+        
         this.generateJurys(coursesjury);
       } else {
         this.dialogDelete = true;
       }
     },
+    filterByJury(id) {
+      this.getCandidatesByJury(id);
+    },
+    imprimirJurys() {},
   },
 };
 </script>

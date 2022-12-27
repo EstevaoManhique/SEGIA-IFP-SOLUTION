@@ -21,6 +21,12 @@ class CandidateController extends Controller
     }
 
 
+    
+    public function byjury($id)
+    {
+        $candidates = Candidate::with('gender','district','school','course','contacts','province')->where('candidates.jury_id',$id)->get();
+        return response()->json($candidates);
+    }
         /**
      * Display a listing of the resource.
      *
@@ -28,7 +34,7 @@ class CandidateController extends Controller
      */
     public function bycourse()
     {
-        $idCourses =[1,2];
+        $idCourses = [1,2];
         $courses = array();
         foreach ($idCourses as $id) {
             $candidates = Candidate::with('gender','district','school','course','contacts','province')->where('candidates.course_id',$id)->get();

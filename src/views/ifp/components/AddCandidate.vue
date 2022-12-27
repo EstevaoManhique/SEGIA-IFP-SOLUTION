@@ -205,10 +205,10 @@ export default {
     };
   },
   computed:{
-    ...mapGetters(['provinces','district', 'schools','candidates','jurys','bycourse'])
+    ...mapGetters(['provinces','district', 'schools','candidates','jurys'])
   },
   methods:{
-    ...mapActions(['addCandidate','getSchools','getProvinces','getDistricToSchools','getCandidates','getJurys','getCandidatesByCourse']),
+    ...mapActions(['addCandidate','getSchools','getProvinces','getDistricToSchools','getCandidates','getJurys']),
     submit(){
       console.log(this.candidate)
       this.candidates.push(this.candidate);

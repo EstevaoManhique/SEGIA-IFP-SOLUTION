@@ -143,7 +143,8 @@ Route::controller(CourseController::class)->prefix('course')->group(function () 
 
 Route::controller(CandidateController::class)->prefix('candidate')->group(function () {
     Route::get('/', 'index')->name('candidate.index');
-    Route::get('/bycourse', 'bycourse')->name('candidate.bycourse');    
+    Route::get('/bycourse', 'bycourse')->name('candidate.bycourse');
+    Route::get('/byjury/{id}', 'byjury')->name('candidate.byjury');    
     Route::post('/store', 'store')->name('candidate.store');
     Route::post('/storemany', 'storeMany')->name('candidate.storemany');
     Route::post('/createjury', 'createjury')->name('candidate.createjury');

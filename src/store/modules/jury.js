@@ -5,6 +5,7 @@ import { Integer } from 'read-excel-file';
 const state = {
     jurys: [],
     jury: {},
+    returnJurys:false
 };
 
 const getters = {
@@ -39,9 +40,6 @@ const actions = {
 const mutations = {
     getJurys(state, payload) {
         state.jurys = payload
-
-        console.log("Jurisjfjfjj")
-        console.log(state.jurys)
     },
     addJury(state, payload) {
         state.jurys.push(payload.data[0]);

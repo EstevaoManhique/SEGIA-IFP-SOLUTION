@@ -40,7 +40,7 @@ class ClassSubject extends Model
 
 	public function class()
 	{
-		return $this->belongsTo(Class::class);
+		//return $this->belongsTo(Class::class);
 	}
 
 	public function subject()

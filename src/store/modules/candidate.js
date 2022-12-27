@@ -8,6 +8,7 @@ const state = {
     candidate: {},
     data:null,
     bycourse:[],
+    cbyjury:[],
     jurysByCourse:[]
 };
 
@@ -16,7 +17,8 @@ const getters = {
     candidate: (state) => state.candidate,
     imported: (state) => state.imported,
     data: (state) => state.data,
-    bycourse: (state) => state.bycourse, 
+    bycourse: (state) => state.bycourse,
+    cbyjury: (state) => state.cbyjury, 
     jurysByCourse: (state) => state.jurysByCourse
 };
 
@@ -28,6 +30,10 @@ const actions = {
     async getCandidatesByCourse({ commit }) {
         let res = await axios.get('candidate/bycourse');
         commit('getCandidatesByCourse', res.data);
+    },
+    async getCandidatesByJury({ commit}, id) {
+        let res = await axios.get('candidate/byjury/'+id);
+        commit('getCandidatesByJury', res.data);
     },
     async addCandidate({ commit }, candidate) {
         const rsp = await axios.post('candidate/store', candidate);
@@ -70,6 +76,9 @@ const mutations = {
         state.bycourse = payload;
         console.log("by course")
         console.log(state.bycourse)
+    },
+    getCandidatesByJury(state, payload) {
+        state.cbyjury= payload;
     },
     addCandidate(state, payload) {
         payload.data[0].state = "PENDENTE"
