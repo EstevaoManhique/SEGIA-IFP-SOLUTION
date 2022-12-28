@@ -16,6 +16,7 @@ import subject from './modules/subject';
 import category from './modules/category';
 import candidate from './modules/candidate';
 import jury from './modules/jury';
+import login from './modules/login';
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -34,6 +35,7 @@ export default new Vuex.Store({
         subject,
         category,
         candidate,
-        jury
+        jury,
+        login
     },
 });

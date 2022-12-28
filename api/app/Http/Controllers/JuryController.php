@@ -13,13 +13,20 @@ class JuryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
         $jurys = Jury::all();
         return $jurys;
         return response()->json($jurys);
     }
 
+
+    public function jurysBySchool($id)
+    {
+        $jurys = Jury::where('jurys.ifpcode', $id)->get();
+        return $jurys;
+        return response()->json($jurys);
+    }
     /**
      * Show the form for creating a new resource.
      *

@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Home from '@/views/HomeView.vue';
+import Login from '@/components/layout/Login.vue';
 import i18n from '@/i18n';
 import store from '@/store';
 
@@ -18,13 +19,28 @@ const routes = [{
             },
         },
         children: [{
-                path: '/',
+                path: '/:lang',
                 name: 'home',
                 component: Home,
                 meta: {
                     display: 'headers.home',
                     display_title: 'menus.home',
                 },
+            },
+
+            {
+                path: 'login',
+                name: 'login',
+                meta: {
+                    display: 'headers.login',
+                    display_title: 'menu.login',
+                },
+        
+                // route level code-splitting
+                // this generates a separate chunk (about.[hash].js) for this route
+                // which is lazy-loaded when the route is visited.
+                component: () =>
+                    import ('@/components/layout/Login.vue'),
             },
 
             {
@@ -991,20 +1007,6 @@ const routes = [{
                 display_title: 'menus.user-perfil',
             },
         }, ],
-    },
-    {
-        path: 'login',
-        name: 'login',
-        meta: {
-            display: 'headers.login',
-            display_title: 'menu.login',
-        },
-
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
-        component: () =>
-            import ('@/components/layout/Login.vue'),
     },
 ];
 

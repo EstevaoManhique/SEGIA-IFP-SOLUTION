@@ -1,6 +1,6 @@
 <template>
-  <v-card class="col-sm-8 mx-auto">
-    <v-toolbar color="deep-purple accent-4" cards dark flat>
+  <v-card style="width: 500px" class="mt-15 mx-auto">
+    <v-toolbar color="#000" cards dark flat>
       <v-card-title class="text-h6 font-weight-regular"> Login </v-card-title>
       <v-spacer></v-spacer>
     </v-toolbar>
@@ -11,7 +11,7 @@
         filled
         color="deep-purple"
         counter="100"
-        label="Email"
+        placeholder="Email"
         style="min-height: 96px"
         type="email"
       ></v-text-field>
@@ -21,7 +21,7 @@
         filled
         color="deep-purple"
         counter="100"
-        label="Password"
+        placeholder="Password"
         style="min-height: 96px"
         type="password"
       ></v-text-field>
@@ -32,7 +32,7 @@
       <v-spacer></v-spacer>
       <v-btn
         class="white--text"
-        color="deep-purple accent-4"
+        color="#000"
         depressed
         @click="submit"
       >
@@ -43,35 +43,75 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions } from "vuex";
 export default {
-  name: 'QLogin',
+  name: "QLogin",
   data: () => ({
+    exists:false,
     user: {
-      name: '',
-      email: '',
-      password: '',
+      name: "",
+      email: "",
+      password: "",
       admin: false,
       authenticated: false,
     },
     rules: {
-      email: (v) => !!(v || '').match(/@/) || 'Please enter a valid email',
+      email: (v) => !!(v || "").match(/@/) || "Please enter a valid email",
       length: (len) => (v) =>
-        (v || '').length >= len || `Invalid character length, required ${len}`,
+        (v || "").length >= len || `Invalid character length, required ${len}`,
       password: (v) =>
-        !!(v || '').match(
+        !!(v || "").match(
           /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).+$/
         ) ||
-        'Password must contain an upper case letter, a numeric character, and a special character',
-      required: (v) => !!v || 'This field is required',
+        "Password must contain an upper case letter, a numeric character, and a special character",
+      required: (v) => !!v || "This field is required",
     },
   }),
   methods: {
-    ...mapActions(['login']),
     submit() {
-      this.login(this.user);
-      this.$router.push('/');
+      this.$http
+        .post("login/", {
+          email: this.user.email,
+          password: this.user.password,
+        })
+        .then((response) => {
+          if (response.status != 200) {
+            return;
+          }
+          // console.log(response.data);
+          let token = response.data.token;
+          let user = response.data.user;
+          //console.log(token);
+          //console.log(user);
+          //console.log(response);
+          //this.$http.defaults.headers.common["Authorization"] = "Bearer " + token;
+          localStorage.setItem("authtoken", token);
+
+          // Put the object into storage
+          localStorage.setItem("user", JSON.stringify(user));
+
+          // Retrieve the object from storage
+          var retrievedObject = localStorage.getItem("user");
+
+          let a = JSON.parse(retrievedObject)
+          console.log(a.admin)
+          console.log(retrievedObject.admin)
+          console.log(a.admin)
+          //let decoded = jwt_decode(token);
+          // console.log(token);
+          //console.log(decoded);
+          //this.$store.dispatch("setUser", { user: decoded });
+          //this.$store.dispatch("setAccess", { token: token });
+          this.setUser(user);
+          this.setAccess(true);
+          this.$router.push({ name: "home" }).catch(() => {});
+        });
     },
+    ...mapActions(["login", "setAccess", "setUser"]),
+  },
+
+  mounted() {
+    this.getUser();
   },
 };
 </script>

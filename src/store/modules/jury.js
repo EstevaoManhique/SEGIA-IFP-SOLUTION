@@ -5,18 +5,23 @@ import { Integer } from 'read-excel-file';
 const state = {
     jurys: [],
     jury: {},
-    returnJurys:false
+    schoolJury:[]
 };
 
 const getters = {
     jurys: (state) => state.jurys,
     jury: (state) => state.jury,
+    schoolJury: (state) => state.schoolJury,
 };
 
 const actions = {
-    async getJurys({ commit }   ) {
-        let res = await axios.get('jury');
+    async getJurys({ commit }) {
+        let res = await axios.get('jury/');
         commit('getJurys', res.data);
+    },
+    async getJurysBySchool({ commit }, schoolId) {
+        let res = await axios.get('jury/jurysBySchool/'+schoolId);
+        commit('getjurysBySchool', res.data);
     },
     async addJury({ commit }, jury) {
         const rsp = await axios.post('jury/store', jury);
@@ -40,6 +45,11 @@ const actions = {
 const mutations = {
     getJurys(state, payload) {
         state.jurys = payload
+    },
+    getjurysBySchool(state, payload) {
+        state.jurys = payload
+        console.log("Jurys By School")
+        console.log(payload)
     },
     addJury(state, payload) {
         state.jurys.push(payload.data[0]);

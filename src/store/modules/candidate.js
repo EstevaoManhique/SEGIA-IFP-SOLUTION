@@ -27,9 +27,13 @@ const actions = {
         let res = await axios.get('candidate');
         commit('getCandidates', res.data);
     },
-    async getCandidatesByCourse({ commit }) {
-        let res = await axios.get('candidate/bycourse');
+    async getCandidatesByCourse({ commit }, ifpId) {
+        let res = await axios.get('candidate/bycourse/'+ifpId);
         commit('getCandidatesByCourse', res.data);
+    },
+    async getCandidatesBySchool({ commit }, schoolId) {
+        let res = await axios.get('candidate/byschool/'+schoolId);
+        commit('getCandidatesBySchool', res.data);
     },
     async getCandidatesByJury({ commit}, id) {
         let res = await axios.get('candidate/byjury/'+id);
@@ -63,7 +67,7 @@ const actions = {
 };
 
 const mutations = {
-    getCandidates(state, payload) {
+    /*getCandidates(state, payload) {
         state.candidates = payload;
         payload.sort((a,b) => (a.nome < b.nome) ? 1 : ((b.nome < a.nome) ? -1 : 0))
         
@@ -71,11 +75,28 @@ const mutations = {
             candidate.isValidated ? candidate.state = "VALIDADO": 
             candidate.state = "PENDENTE"
         })
-    },
+
+        console.log("getCandidatesAAAAA")
+    },*/
     getCandidatesByCourse(state, payload) {
         state.bycourse = payload;
         console.log("by course")
         console.log(state.bycourse)
+    },
+    getCandidatesBySchool(state, payload) {
+        state.candidates = payload;
+        console.log("by School")
+        console.log(state.candidates)
+
+        state.candidates = payload;
+        payload.sort((a,b) => (a.nome < b.nome) ? 1 : ((b.nome < a.nome) ? -1 : 0))
+        
+        state.candidates.map((candidate) => {
+            candidate.isValidated ? candidate.state = "VALIDADO": 
+            candidate.state = "PENDENTE"
+        })
+
+        console.log("getCandidatesAAAAA")
     },
     getCandidatesByJury(state, payload) {
         state.cbyjury= payload;

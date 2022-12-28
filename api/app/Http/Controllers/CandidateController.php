@@ -24,20 +24,30 @@ class CandidateController extends Controller
     
     public function byjury($id)
     {
-        $candidates = Candidate::with('gender','district','school','course','contacts','province')->where('candidates.jury_id',$id)->get();
+        $candidates = Candidate::with('gender', 'district', 'school', 'course', 'contacts', 'province')
+            ->where('candidates.jury_id', $id)->get();
         return response()->json($candidates);
     }
-        /**
+    
+    public function byschool($idSchool)
+    {
+        $candidates = Candidate::with('gender','district','school','course','contacts','province')
+        ->where('candidates.school_id',$idSchool)->get();
+        return response()->json($candidates);
+    }
+    
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function bycourse()
+    public function bycourse($idSchool)
     {
         $idCourses = [1,2];
         $courses = array();
         foreach ($idCourses as $id) {
-            $candidates = Candidate::with('gender','district','school','course','contacts','province')->where('candidates.course_id',$id)->get();
+            $candidates = Candidate::with('gender','district','school','course','contacts','province')
+            ->where('candidates.course_id',$id)->where('candidates.school_id',$idSchool)->get();
             $courses[] = $candidates;
         }
         return response()->json($courses);
@@ -58,6 +68,7 @@ class CandidateController extends Controller
     
         try {
             foreach ($request->all() as $req) {
+                $id = null;
                 $id = IdGenerator::generate(['table' => 'candidates', 'length' => 12, 'prefix' => $req['ifpcode']]);        
                 $candidate = new Candidate();
                 $candidate->nome = isset($req['nome']) ? $req['nome'] :  $candidate->nome;

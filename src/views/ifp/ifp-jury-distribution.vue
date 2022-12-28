@@ -6,10 +6,7 @@
           <v-tabs v-model="tabs" fixed-tabs>
             <v-tabs-slider></v-tabs-slider>
             <v-tab href="#mobile-tabs-5-1" class="primary--text">
-              Ficha Completa
-            </v-tab>
-            <v-tab href="#mobile-tabs-5-2" class="primary--text">
-              Ficha Simplificada
+              Impressao de Juris
             </v-tab>
           </v-tabs>
 
@@ -43,6 +40,7 @@
                     </v-btn>-->
                   </div>
                 </div>
+                }}
                 <!-- Basic layout-->
                 <div class="form-horizontal">
                   <div class="panel panel-flat">
@@ -186,6 +184,7 @@ export default {
     return {
       disabled: false,
       tabs: null,
+      user: {},
       link_modelo_simp:
         "http://localhost:8002/assets/modelos_excel/imp_segia_candidatos_modelo.xlsx",
       link_modelo:
@@ -266,7 +265,7 @@ export default {
       ifpcode: null,
       opcoesjurs: null,
       opcoescurso: [
-        { text: "Selecione", value: "Selecione" }, 
+        { text: "Selecione", value: "Selecione" },
         { text: "12.a + 1", value: "12.a + 1" },
         { text: "12.a + 3", value: "12.a + 3" },
       ],
@@ -284,16 +283,24 @@ export default {
       "cbyjury",
     ]),
   },
-  updated(){
-    this.getJurys();
+  created() {
+    this.user = JSON.parse(localStorage.getItem("user"));
+   
   },
   mounted() {
-    this.getProvinces();
-    this.getDistricToSchools();
-    this.getSchools();
-    this.getCandidates();
-    this.getJurys();
-    this.getCandidatesByCourse()
+    //this.getProvinces();
+    //this.getDistricToSchools();
+    //this.getSchools();
+
+    //Parameter:school_id
+    console.log("MountedId");
+    console.log(this.user.school_id);
+    this.getCandidatesByCourse(this.user.school_id);
+
+    //Paramenter:
+    console.log("MointedIFPCODE");
+    console.log(this.user.ifpcode);
+    this.getJurysBySchool(this.user.ifpcode);
   },
   methods: {
     ...mapActions([
@@ -302,9 +309,9 @@ export default {
       "getDistricToSchools",
       "getSchools",
       "generateJurys",
-      "getCandidates",
       "getCandidatesByJury",
-      "getCandidatesByCourse"
+      "getCandidatesByCourse",
+      "getJurysBySchool",
     ]),
     import_modelo_simples() {
       console.log("modelo Simples");
@@ -464,11 +471,21 @@ export default {
         this.editedItem.outrosNomes = candidate.outrosNomes;
         this.editedItem.newcontact = "000000000";
         this.editedItem = Object.assign({}, candidate);
-        this.editedItem.province_id = this.province_id;
-        this.editedItem.district_id = this.district_id;
-        this.editedItem.school_id = this.school_id;
-        this.editedItem.course_id = this.course_id;
-        this.editedItem.ifpcode = this.ifpcode;
+        if (user.admin) {
+          this.editedItem.province_id = this.province_id;
+          this.editedItem.district_id = this.district_id;
+          this.editedItem.school_id = this.school_id;
+          this.editedItem.course_id = this.course_id;
+          this.editedItem.ifpcode = this.ifpcode;
+        } else {
+          this.editedItem.province_id = this.user.province_id;
+          this.editedItem.district_id = this.user.district_id;
+          this.editedItem.school_id = this.user.school_id;
+          this.editedItem.course_id = this.user.course_id;
+          this.editedItem.ifpcode = this.user.ifpcode;
+          console.log(this.editedItem);
+          return;
+        }
         if (this.editedItem["gender.descricao"] == "Masculino") {
           this.editedItem.gender_id = 1;
         } else {
@@ -553,10 +570,9 @@ export default {
             fim = fim + 30;
           }
 
-          
           coursesjury.push(jurs);
         }
-        
+
         this.generateJurys(coursesjury);
       } else {
         this.dialogDelete = true;
@@ -565,7 +581,14 @@ export default {
     filterByJury(id) {
       this.getCandidatesByJury(id);
     },
-    imprimirJurys() {},
+    imprimirJurys() {
+      this.editedItem.province.id = this.user.province_id;
+      this.editedItem.district.id = this.user.district_id;
+      this.editedItem.school.id = this.user.school_id;
+      this.editedItem.course.id = this.user.course_id;
+      this.editedItem.ifpcode = this.user.ifpcode;
+      console.log(this.editedItem);
+    },
   },
 };
 </script>

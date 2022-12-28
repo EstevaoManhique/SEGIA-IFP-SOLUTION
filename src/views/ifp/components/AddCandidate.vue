@@ -181,6 +181,7 @@ export default {
   },
   data() {
     return {
+      user:{},
       candidate: {
         nome: null,
         outrosNomes: null,
@@ -208,7 +209,7 @@ export default {
     ...mapGetters(['provinces','district', 'schools','candidates','jurys'])
   },
   methods:{
-    ...mapActions(['addCandidate','getSchools','getProvinces','getDistricToSchools','getCandidates','getJurys']),
+    ...mapActions(['addCandidate','getSchools','getProvinces','getDistricToSchools','getJurys']),
     submit(){
       console.log(this.candidate)
       this.candidates.push(this.candidate);
@@ -249,14 +250,18 @@ export default {
       this.candidate.course_id = course.id;
     }
   },
+  created() {
+    this.user = JSON.parse(localStorage.getItem("user"));
+    
+  },
   mounted() {
       this.getProvinces();
       this.filterProvinces();
       this.getDistricToSchools();
       this.getSchools();
-      this.getCandidates();
+      //this.getCandidates();
       this.getJurys();
-      this.getCandidatesByCourse()
+      this.getCandidatesByCourse(1)
   },
 };
 </script>

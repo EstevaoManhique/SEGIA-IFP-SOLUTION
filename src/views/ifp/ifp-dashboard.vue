@@ -70,7 +70,7 @@ export default {
   name: 'HomeView',
   components: {NavBar},
   data: () => ({}),
-
+  
   computed: {
     ...mapGetters(['user']),
   },

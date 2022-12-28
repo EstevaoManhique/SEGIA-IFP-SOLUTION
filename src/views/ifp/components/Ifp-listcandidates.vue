@@ -11,9 +11,11 @@
       </v-chip>
     </template>
     <template v-slot:top>
+     
       <v-toolbar flat>
         <v-toolbar-title>
           <div class="d-flex mt-4">
+  
             <v-select
               v-model="search"
               :items="opcoes"
@@ -293,6 +295,7 @@ export default {
       { text: "Validados", value: "VALIDADO" },
       { text: "Nao Validados", value: "PENDENTE" },
     ],
+    user:null,
     opcoescurso: [
       { text: "12.a + 1", value: "12.a + 1" },
       { text: "12.a + 3", value: "12.a + 3" },
@@ -372,7 +375,7 @@ export default {
       "provinces",
       "schools",
       "district",
-      "jurys"
+      "jurys",
     ]),
     formTitle() {
       return this.editedIndex === -1 ? "Novo Candidato" : "";
@@ -387,19 +390,15 @@ export default {
       val || this.closeDelete();
     },
   },
-
-  created() {
-    this.initialize();
-  },
-  methods: {
+methods: {
     ...mapActions([
-      "getCandidates",
       "getSchools",
       "getProvinces",
       "getDistricToSchools",
       "editCandidate",
       "addCandidate",
       "addCandidates",
+      "getCandidatesBySchool"
     ]),
     initialize() {},
     filterProvinces() {
@@ -565,12 +564,15 @@ export default {
 
     }
   },
+  created(){
+    this.user= JSON.parse(localStorage.getItem("user"));
+    this.initialize();
+    
+  },
+
   mounted() {
-    this.getCandidates();
-    this.getSchools();
-    this.getProvinces();
-    this.getDistricToSchools();
-    this.filterProvinces();
+    //this.getCandidates();
+    this.getCandidatesBySchool(this.user.school_id)
   },
 };
 </script>

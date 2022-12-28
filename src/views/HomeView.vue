@@ -1,5 +1,6 @@
 <template>
   <v-container>
+    {{ user }}
     <q-dashboard-main />
   </v-container>
 </template>
@@ -15,5 +16,6 @@ export default {
   computed: {
     ...mapGetters(['user']),
   },
+
 };
 </script>

@@ -5,12 +5,8 @@
         <v-card>
           <v-tabs v-model="tabs" fixed-tabs>
             <v-tabs-slider></v-tabs-slider>
-            <v-tab href="#mobile-tabs-5-1" class="primary--text">
-              Ficha Completa
-            </v-tab>
-
             <v-tab href="#mobile-tabs-5-2" class="primary--text">
-              Ficha Simplificada
+              Ficha de Importação dos Candidatos
             </v-tab>
           </v-tabs>
 
@@ -102,7 +98,7 @@
                       "
                     >
                       <b><i class="icon-file-excel"></i></b>
-                      Descarregar modelo de Importação (Simplificado)
+                      Descarregar modelo de Importação
                     </a>
                   </div>
                 </div>
@@ -195,12 +191,24 @@
               ></v-select>
             </v-col>
             <v-col cols="12" sm="6" md="4">
-              <v-select label="Instituicao" dense filled mandatory :items="schoolsname"
-              @change="filterCourses($event)"></v-select>
+              <v-select
+                label="Instituicao"
+                dense
+                filled
+                mandatory
+                :items="schoolsname"
+                @change="filterCourses($event)"
+              ></v-select>
             </v-col>
             <v-col cols="12" sm="6" md="4">
-              <v-select label="Curso" dense filled mandatory :items="coursesname"
-              @change="setCourse($event)"></v-select>
+              <v-select
+                label="Curso"
+                dense
+                filled
+                mandatory
+                :items="coursesname"
+                @change="setCourse($event)"
+              ></v-select>
             </v-col>
             <v-col cols="12" sm="6" md="4" class="ms-2">
               <v-btn color="blue" @click="gravar"
@@ -250,7 +258,6 @@
           <div class="panel-heading">
             <h6 class="panel-title text-bold text-uppercase">
               Listagem de dados importados
-              
             </h6>
             <div class="heading-elements">
               <ul class="icons-list">
@@ -272,18 +279,20 @@
       <v-dialog v-model="dialogDelete" width="500px">
         <v-card>
           <div class="d-flex justify-center">
-            <v-icon style="font-size:7rem" color="success">mdi-check</v-icon>
+            <v-icon style="font-size: 7rem" color="success">mdi-check</v-icon>
           </div>
           <div class="d-flex justify-center">
-            <v-card-title class="text-h5"
-            >Notificação do Sistema</v-card-title
+            <v-card-title class="text-h5">Notificação do Sistema</v-card-title>
+          </div>
+          <div class="d-flex justify-center">
+            <div
+              class="d-flex justify-space-between"
+              style="width: 50%"
+              v-if="data"
             >
-          </div>
-          <div class="d-flex justify-center">
-            <div class="d-flex justify-space-between" style="width:50%" v-if="data">
-              <p>Importados: {{data.importados}}</p> 
-              <p>Registrados: {{data.registrados}}</p> 
-              <p>Repetidos: {{data.repetidos}}</p> 
+              <p>Importados: {{ data.importados }}</p>
+              <p>Registrados: {{ data.registrados }}</p>
+              <p>Repetidos: {{ data.repetidos }}</p>
             </div>
           </div>
           <div class="d-flex justify-center">
@@ -311,7 +320,7 @@ export default {
 
       headersImport: [
         /*{ text: "#", value: "id", width: "auto" },
-        */{
+         */ {
           text: "Nome",
           align: "start",
           sortable: false,
@@ -324,11 +333,11 @@ export default {
           width: "150px",
         },
         { text: "Data de Nascimento", value: "birth_date", width: "150px" },
-        */{ text: "Genero", value: "gender.descricao", width: "auto" },
+        */ { text: "Genero", value: "gender.descricao", width: "auto" },
         { text: "Identificacao", value: "identificacao", width: "auto" },
         /*{ text: "Provincia", value: "province.name", width: "auto" },
         { text: "Distrito", value: "district.name", width: "auto" },
-        */{ text: "Media 12.a", value: "media_12a", width: "auto" },
+        */ { text: "Media 12.a", value: "media_12a", width: "auto" },
         /*{ text: "Instituto de Formacao", value: "school.name", width: "150px" },
         { text: "Curso", value: "course.description", width: "auto" },
         { text: "Estado", value: "state", width: "auto" },*/
@@ -357,7 +366,7 @@ export default {
         { text: "Curso", value: "course.description", width: "120px" },
         { text: "Estado", value: "state", width: "120px" },
       ],
-      dialogDelete:false,
+      dialogDelete: false,
       districtsname: null,
       provincesname: null,
       schoolsname: null,
@@ -380,7 +389,7 @@ export default {
         gender_id: null,
         isValidated: null,
         contact_id: null,
-        ifpcode:null
+        ifpcode: null,
       },
       defaultItem: {
         id: null,
@@ -398,17 +407,27 @@ export default {
         gender_id: null,
         isValidated: null,
         contact_id: null,
-        ifpcode:null
+        ifpcode: null,
       },
-      province_id:null,
-      school_id:null,
-      district_id:null,
-      course_id:null,
-      ifpcode:null
+      province_id: null,
+      school_id: null,
+      district_id: null,
+      course_id: null,
+      ifpcode: null,
+      user: {},
     };
   },
   computed: {
     ...mapGetters(["provinces", "district", "schools", "imported", "data"]),
+  },
+  mounted() {
+    this.getProvinces();
+    this.getDistricToSchools();
+    this.getSchools();
+  },
+  created() {
+    this.user = JSON.parse(localStorage.getItem("user"));
+    
   },
   methods: {
     ...mapActions([
@@ -417,11 +436,6 @@ export default {
       "getSchools",
       "addCandidates",
     ]),
-    mounted() {
-      this.getProvinces();
-      this.getDistricToSchools();
-      this.getSchools();
-    },
     import_modelo_simples() {
       console.log("modelo Simples");
       const input = document.getElementById("fileSimples");
@@ -458,7 +472,7 @@ export default {
           prop: "district.name",
           type: String,
         },
-        "MEDIA": {
+        MEDIA: {
           prop: "media_12a",
           type: Number,
         },
@@ -546,35 +560,46 @@ export default {
       });
     },
     gravar() {
-      var candidates = []
-      this.import_candidates.forEach(candidate => {
-        
-        this.editedItem = this.defaultItem
+      var candidates = [];
+
+      this.import_candidates.forEach((candidate) => {
+        this.editedItem = this.defaultItem;
         this.editedItem = Object.assign({}, candidate);
-        this.editedItem.birth_date = 2000-20-20;
+        this.editedItem.birth_date = 2000 - 20 - 20;
         this.editedItem.identificacao = candidate.identificacao;
         this.editedItem.media_12a = candidate.media_12a;
         this.editedItem.nome = candidate.nome;
         this.editedItem.outrosNomes = "outrosNomes";
         this.editedItem.newcontact = "000000000";
-        this.editedItem.province_id = this.province_id
-        this.editedItem.district_id = this.district_id
-        this.editedItem.school_id =this.school_id
-        this.editedItem.course_id = this.course_id
-        this.editedItem.ifpcode = this.ifpcode
-        if(this.editedItem['gender.descricao']=="M"){
-          this.editedItem.gender_id = 1
-        }else{
-          this.editedItem.gender_id = 2
+        if (this.user.admin) {
+          
+          this.editedItem.province_id = this.province_id;
+          this.editedItem.district_id = this.district_id;
+          this.editedItem.school_id = this.school_id;
+          this.editedItem.course_id = this.course_id;
+          this.editedItem.ifpcode = this.ifpcode;
+        } else {
+          this.editedItem.province_id = this.user.province_id;
+          this.editedItem.district_id = this.user.district_id;
+          this.editedItem.school_id = this.user.school_id;
+          this.editedItem.ifpcode = this.user.ifpcode;
+          this.editedItem.course_id = this.course_id;
         }
-        candidates.push(this.editedItem)
+
+        if (this.editedItem["gender.descricao"] == "M") {
+          this.editedItem.gender_id = 1;
+        } else {
+          this.editedItem.gender_id = 2;
+        }
+        
+        candidates.push(this.editedItem);
       });
 
       this.import_candidates = [];
-      console.log("candidates")
+      console.log("candidates");
       console.log(candidates);
       this.addCandidates(candidates);
-      this.dialogDelete = true
+      this.dialogDelete = true;
     },
     filterProvinces() {
       return this.provinces.map((province) => {
@@ -601,7 +626,7 @@ export default {
     },
     filterCourses(idSchool) {
       this.school_id = idSchool;
-      
+
       let index = this.schools.findIndex((d) => {
         return idSchool == d.id;
       });
@@ -612,11 +637,10 @@ export default {
     },
     setCourse(idCourse) {
       this.course_id = idCourse;
-
     },
-    setOf(){
-      this.dialogDelete = false
-    }
+    setOf() {
+      this.dialogDelete = false;
+    },
   },
 };
 </script>
