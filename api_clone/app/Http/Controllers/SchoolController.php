@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\School;
+use App\Models\District;
 
 class SchoolController extends Controller
 {
@@ -13,7 +15,8 @@ class SchoolController extends Controller
      */
     public function index()
     {
-        //
+        $schools = School::with('courses', 'district', 'categories')->get();
+        return response()->json($schools);
     }
 
     /**
@@ -21,9 +24,25 @@ class SchoolController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(School $school, Request $request)
     {
-        //
+        try {
+
+            $courses = $request['courses'];
+
+            $school->name = isset($request['name']) ? $request['name'] :  $school->name;
+            //  $school->cod = isset($request['cod']) ? $request['cod'] :  $school->cod;
+            $school->district_id = isset($request['district_id']) ? $request['district_id'] :  $school->district_id;
+            $school->abbreviation = isset($request['abbreviation']) ? $request['abbreviation'] :  $school->abbreviation;
+            $school->type = isset($request['type']) ? $request['type'] :  $school->type;
+            $school->isCentro = isset($request['isCentro']) ? $request['isCentro'] : ($school->isCentro ? 1 : 0);
+            $school->isIfp = isset($request['isIfp']) ? $request['isIfp'] : ($school->isIfp ? 1 : 0);
+            $school->save();
+            $school->courses()->attach($courses);
+            return $school;
+        } catch (\Exception $e) {
+            return response(['msg' => $e->getMessage(), "data" => $school]);
+        }
     }
 
     /**
@@ -34,7 +53,14 @@ class SchoolController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $school = new School();
+            $this->create($school, $request);
+            $data = School::with('district')->where('id', $school->id)->first();
+            return response(['msg' => 'School Registered', 'data' => $data], 200);
+        } catch (\Exception $e) {
+            return response(['msg' => $e->getMessage()]);
+        }
     }
 
     /**
@@ -45,7 +71,9 @@ class SchoolController extends Controller
      */
     public function show($id)
     {
-        //
+        $school = School::find($id);
+
+        return response()->json($school);
     }
 
     /**
@@ -68,7 +96,18 @@ class SchoolController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            $school = School::findOrFail($id);
+            if ($school) {
+                $this->create($school, $request);
+                $data = School::with('district')->where('id', $school->id)->first();
+                return response(['msg' => 'School Updated!', 'data' => $data], 200);
+            }
+
+            return response(['msg' => 'School not found!'], 404);
+        } catch (\Exception $e) {
+            return response(['msg' => $e->getMessage()], $e->getCode());
+        }
     }
 
     /**
@@ -79,6 +118,14 @@ class SchoolController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $school = School::findOrFail($id);
+            if ($school) {
+                $school->delete();
+                return response()->json(['msg' => 'School deleted successfully!']);
+            }
+        } catch (\Exception $e) {
+            return response(['msg' => $e->getMessage()], $e->getCode());
+        }
     }
 }

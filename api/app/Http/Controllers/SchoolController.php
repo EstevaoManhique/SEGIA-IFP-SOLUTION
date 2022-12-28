@@ -15,7 +15,7 @@ class SchoolController extends Controller
      */
     public function index()
     {
-        $schools = School::with('courses', 'district')->get();
+        $schools = School::with('courses', 'district', 'categories')->get();
         return response()->json($schools);
     }
 

@@ -4,27 +4,33 @@ import axios from '@/plugins/axios';
 const state = {
     provinces: [],
     provincesName: [],
-    province: {
-        id: '',
-        name: '',
-        districts: [],
+    districtsName: [],
+    provincename: null,
+    empyprovince: {
+        id: null,
+        name: null,
+        cod: null,
+        districtsname: [],
     },
 };
 
 const getters = {
     provinces: (state) => state.provinces,
     province: (state) => state.province,
-
-    provincesName: (state) => state.provincesName,
+    empyprovince: (state) => state.empyprovince,
+    provincesname: (state) => state.provincesname,
+    districtsname: (state) => state.districtsname,
 };
 
 const actions = {
     async getProvinces({ commit }) {
         let res = await axios.get('province');
-        console.log(res.data);
+        // console.log(res.data);
         commit('getProvinces', res.data);
     },
-
+    async getDistricts({ commit }, province) {
+        commit('getDistricts', province);
+    },
     async addProvince({ commit }, province) {
         let data = new FormData();
         data.append('name', province.name);
@@ -50,17 +56,29 @@ const actions = {
     setprovince({ commit }, province) {
         commit('setprovince', province);
     },
+    empyprovince({ commit }) {
+        console.log('Empy');
+        commit('empyprovince');
+    },
 };
 
 const mutations = {
     getProvinces(state, payload) {
         state.provinces = payload;
-        state.provincesName = state.provinces.map((p) => {
-            return { text: p.name, value: p.id, districts: p.districts };
+        state.provincename = state.province.map((p) => {
+            return { text: p.name, value: p.id };
         });
     },
-
-    setProvince(state, payload) {
+    getDistricts(state, payload) {
+        let province = state.provinces.filter(
+            (province) => province.id == payload
+        )[0];
+        state.districts = province.districts;
+        state.districtsname = state.districts.map((district) => {
+            return { text: p.name, value: p.id };
+        });
+    },
+    setprovince(state, payload) {
         state.province = payload;
     },
     empyprovince(state) {

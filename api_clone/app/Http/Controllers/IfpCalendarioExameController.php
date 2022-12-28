@@ -3,20 +3,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Course;
-
-class CourseController extends Controller
+use App\Models\IfpCalendarioExame;
+    
+class IfpCalendarioExameController extends Controller
 {
-    /**
+        /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $courses = Course::all();
-        return $courses;
-        return response()->json($courses);
+        $calendario = IfpCalendarioExame::all();
+        return response()->json($calendario);
     }
 
     /**
@@ -38,12 +37,13 @@ class CourseController extends Controller
     public function store(Request $request)
     {
         try {
-            $course = new Course();
+            $calendario = new IfpCalendarioExame();
             
-            $course->cod = isset($request['cod']) ? $request['cod'] :  $course->cod;
-            $course->description = isset($request['description']) ? $request['description'] :  $course->description;
-            $course->save();
-            return response(['msg' => 'Course Registered', 'data' => $course], 200);
+            $calendario->start_date = $request['start_date'];
+            $calendario->end_date = $request['end_date'];
+            $calendario->description = $request['description'];
+            $calendario->save();
+            return response(['msg' => 'Calendar Registered!', 'data' => $calendario], 200);
         } catch (\Exception $e) {
             return response(['msg' => $e->getMessage()], $e->getCode());
         }
@@ -57,9 +57,9 @@ class CourseController extends Controller
      */
     public function show($id)
     {
-        $course = Course::find($id);
+        $ifpCalendarioExame = IfpCalendarioExame::find($id);
 
-        return response()->json($course);
+        return response()->json($ifpCalendarioExame);
     }
 
     /**
@@ -83,15 +83,16 @@ class CourseController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $course = Course::findOrFail($id);
-            if ($course) {
-                $course->cod = isset($request['cod']) ? $request['cod'] :  $course->cod;
-                $course->description = isset($request['description']) ? $request['description'] : $course->description;
-                $course->save();
-                return response(['msg' => 'Course Updated!', 'data' => $course], 200);
+            $calendario = IfpCalendarioExame::findOrFail($id);
+            if ($calendario) {
+                $calendario->start_date = isset($request['start_date'])?$request['start_date']:$calendario->start_date;
+                $calendario->end_date = isset($request['end_date'])?$request['end_date']:$calendario->end_date;
+                $calendario->description = isset($request['description'])?$request['description']:$calendario->description;
+                $calendario->save(); 
+                return response(['msg' => 'Ifp Calendar Exam Updated!', 'data' =>$calendario], 200);
             }
 
-            return response(['msg' => 'Course not found!'], 404);
+            return response(['msg' => 'Ifp Calendar Exam Not Found!'], 404);
         } catch (\Exception $e) {
             return response(['msg' => $e->getMessage()], $e->getCode());
         }
@@ -106,10 +107,10 @@ class CourseController extends Controller
     public function destroy($id)
     {
         try {
-            $course = Course::findOrFail($id);
-            if ($course) {
-                $course->delete();
-                return response()->json(['msg' => 'Course deleted successfully!']);
+            $ifpCalendarioExame = IfpCalendarioExame::findOrFail($id);
+            if ($ifpCalendarioExame) {
+                $ifpCalendarioExame->delete();
+                return response()->json(['msg' => 'IfpCalendarioExame deleted successfully!']);
             }
         } catch (\Exception $e) {
             return response(['msg' => $e->getMessage()], $e->getCode());

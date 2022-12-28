@@ -7,12 +7,14 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class User
  * 
  * @property int $id
+ * @property string|null $uui
  * @property int $person_id
  * @property string $name
  * @property string $email
@@ -27,6 +29,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property Carbon|null $updated_at
  * 
  * @property Person $person
+ * @property Collection|Role[] $roles
  *
  * @package App\Models
  */
@@ -52,6 +55,7 @@ class User extends Model
 	];
 
 	protected $fillable = [
+		'uui',
 		'person_id',
 		'name',
 		'email',
@@ -67,5 +71,12 @@ class User extends Model
 	public function person()
 	{
 		return $this->belongsTo(Person::class);
+	}
+
+	public function roles()
+	{
+		return $this->belongsToMany(Role::class, 'user_roles')
+					->withPivot('active', 'assign_by')
+					->withTimestamps();
 	}
 }

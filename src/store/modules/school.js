@@ -44,6 +44,9 @@ const actions = {
     async setSchools({ commit }, schools) {
         commit('setSchools', schools);
     },
+    async getSchoolsByDistrict({ commit }, district_id) {
+        commit('getSchoolsByDistrict', district_id);
+    },
 };
 
 const mutations = {

@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Course;
-
-class CourseController extends Controller
+use App\Models\Contact;
+class ContactController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +13,8 @@ class CourseController extends Controller
      */
     public function index()
     {
-        $courses = Course::all();
-        return $courses;
-        return response()->json($courses);
+        $contacts = Contact::all();
+        return response()->json($contacts);
     }
 
     /**
@@ -24,9 +22,17 @@ class CourseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Contact $contact, Request $request)
     {
-        //
+        $contact = new Contact();
+
+        try {
+            $contact->contact = isset($request['contact']) ? $request['contact'] :  $contact->contact;
+            $contact->save();
+            return $contact;
+        } catch (\Exception $e) {
+            return response(['msg' => $e->getMessage(), "data" => $contact]);
+        }
     }
 
     /**
@@ -38,14 +44,11 @@ class CourseController extends Controller
     public function store(Request $request)
     {
         try {
-            $course = new Course();
-            
-            $course->cod = isset($request['cod']) ? $request['cod'] :  $course->cod;
-            $course->description = isset($request['description']) ? $request['description'] :  $course->description;
-            $course->save();
-            return response(['msg' => 'Course Registered', 'data' => $course], 200);
+            $contact = new Contact();
+            $contact = $this->create($contact, $request);
+            return response(['msg' => 'Contact Registered', 'data' => $contact], 200);
         } catch (\Exception $e) {
-            return response(['msg' => $e->getMessage()], $e->getCode());
+            return response(['msg' => $e->getMessage()]);
         }
     }
 
@@ -57,9 +60,8 @@ class CourseController extends Controller
      */
     public function show($id)
     {
-        $course = Course::find($id);
-
-        return response()->json($course);
+        $contact = Contact::with('gender','district','school','course')->where('Contacts.id',$id)->get();
+        return response()->json($contact);
     }
 
     /**
@@ -83,15 +85,14 @@ class CourseController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $course = Course::findOrFail($id);
-            if ($course) {
-                $course->cod = isset($request['cod']) ? $request['cod'] :  $course->cod;
-                $course->description = isset($request['description']) ? $request['description'] : $course->description;
-                $course->save();
-                return response(['msg' => 'Course Updated!', 'data' => $course], 200);
+            $contact = Contact::findOrFail($id);
+            if ($contact) {
+                $this->create($contact, $request);
+                $data = $contact = Contact::with('gender','district','school','course')->where('Contacts.id',$id)->get();
+                return response(['msg' => 'Contact Updated!', 'data' => $data], 200);
             }
 
-            return response(['msg' => 'Course not found!'], 404);
+            return response(['msg' => 'Contact not found!'], 404);
         } catch (\Exception $e) {
             return response(['msg' => $e->getMessage()], $e->getCode());
         }
@@ -106,10 +107,10 @@ class CourseController extends Controller
     public function destroy($id)
     {
         try {
-            $course = Course::findOrFail($id);
-            if ($course) {
-                $course->delete();
-                return response()->json(['msg' => 'Course deleted successfully!']);
+            $contact = Contact::findOrFail($id);
+            if ($contact) {
+                $contact->delete();
+                return response()->json(['msg' => 'Contact deleted successfully!']);
             }
         } catch (\Exception $e) {
             return response(['msg' => $e->getMessage()], $e->getCode());

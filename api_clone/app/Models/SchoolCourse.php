@@ -10,40 +10,43 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class SchoolClassCategory
+ * Class SchoolCourse
  * 
+ * @property int $id
  * @property int $school_id
- * @property int $class_categorory_id
+ * @property int $course_id
+ * @property bool $active
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * 
  * @property School $school
- * @property Category $category
+ * @property Course $course
  *
  * @package App\Models
  */
-class SchoolClassCategory extends Model
+class SchoolCourse extends Model
 {
-	protected $table = 'school_class_categories';
-	public $incrementing = false;
+	protected $table = 'school_courses';
 
 	protected $casts = [
 		'school_id' => 'int',
-		'class_categorory_id' => 'int'
+		'course_id' => 'int',
+		'active' => 'bool'
 	];
 
 	protected $fillable = [
 		'school_id',
-		'class_categorory_id'
+		'course_id',
+		'active'
 	];
 
 	public function school()
 	{
-		return $this->belongsTo(School::class);
+		return $this->belongsTo(School::class, 'course_id');
 	}
 
-	public function category()
+	public function course()
 	{
-		return $this->belongsTo(Category::class, 'class_categorory_id');
+		return $this->belongsTo(Course::class, 'school_id');
 	}
 }

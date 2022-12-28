@@ -10,8 +10,9 @@ import person from './modules/person';
 import calendar from './modules/calendar';
 import classe from './modules/classe';
 import school from './modules/school';
-import provinces from './modules/provinces';
-import districts from './modules/districts';
+import location from './modules/location';
+//import provinces from './modules/provinces';
+//import districts from './modules/districts';
 import subject from './modules/subject';
 import category from './modules/category';
 import candidate from './modules/candidate';
@@ -29,11 +30,11 @@ export default new Vuex.Store({
         calendar,
         classe,
         school,
-        provinces,
-        districts,
+        location,
+        // provinces,
+        // districts,
         subject,
         category,
         candidate,
-        jury
     },
 });
