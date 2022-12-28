@@ -15,12 +15,15 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $id
  * @property int $person_id
  * @property int $school_id
- * @property string $cod
+ * @property string|null $cod
+ * @property string|null $enc_name
+ * @property string|null $enc_contact
+ * @property string|null $enc_email
+ * @property string|null $enc_work
  * @property Carbon $created_at
  * @property Carbon $update_at
  * 
  * @property Person $person
- * @property School $school
  *
  * @package App\Models
  */
@@ -42,16 +45,15 @@ class Student extends Model
 		'person_id',
 		'school_id',
 		'cod',
+		'enc_name',
+		'enc_contact',
+		'enc_email',
+		'enc_work',
 		'update_at'
 	];
 
 	public function person()
 	{
 		return $this->belongsTo(Person::class);
-	}
-
-	public function school()
-	{
-		return $this->belongsTo(School::class);
 	}
 }

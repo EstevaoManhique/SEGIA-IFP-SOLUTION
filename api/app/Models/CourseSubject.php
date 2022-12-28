@@ -10,7 +10,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class ClassSubject
+ * Class CourseSubject
  * 
  * @property int $class_id
  * @property int $subject_id
@@ -18,14 +18,14 @@ use Illuminate\Database\Eloquent\Model;
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * 
- * @property Class $class
+ * @property Course $course
  * @property Subject $subject
  *
  * @package App\Models
  */
-class ClassSubject extends Model
+class CourseSubject extends Model
 {
-	protected $table = 'class_subjects';
+	protected $table = 'course_subjects';
 	public $incrementing = false;
 
 	protected $casts = [
@@ -38,9 +38,9 @@ class ClassSubject extends Model
 		'active'
 	];
 
-	public function class()
+	public function course()
 	{
-		return $this->belongsTo(Class::class);
+		return $this->belongsTo(Course::class, 'class_id');
 	}
 
 	public function subject()

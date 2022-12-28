@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $token
  * @property string|null $abilities
  * @property Carbon|null $last_used_at
+ * @property Carbon|null $expires_at
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  *
@@ -33,7 +34,8 @@ class PersonalAccessToken extends Model
 	];
 
 	protected $dates = [
-		'last_used_at'
+		'last_used_at',
+		'expires_at'
 	];
 
 	protected $hidden = [
@@ -46,6 +48,7 @@ class PersonalAccessToken extends Model
 		'name',
 		'token',
 		'abilities',
-		'last_used_at'
+		'last_used_at',
+		'expires_at'
 	];
 }
