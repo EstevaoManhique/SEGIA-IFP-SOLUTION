@@ -16,30 +16,38 @@ use Illuminate\Notifications\Notifiable;
 
 use Laravel\Passport\HasApiTokens;
 
+
+
 /**
  * Class User
  *
  * @property int $id
+ * @property int $person_id
  * @property string $name
  * @property string $email
  * @property bool $admin
  * @property Carbon|null $email_verified_at
  * @property string $password
  * @property string|null $remember_token
+ * @property bool $online
+ * @property bool $status
+ * @property Carbon|null $last_login_date
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  *
- * @property Collection|Role[] $roles
+ * @property Person $person
  *
  * @package App\Models
  */
+
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
     protected $table = 'users';
 
     protected $casts = [
-        'admin' => 'bool'
+        'admin' => 'bool',
+        'email_verified_at' => 'datetime'
     ];
 
     protected $dates = [
@@ -52,20 +60,17 @@ class User extends Authenticatable
     ];
 
     protected $fillable = [
+        'person_id',
         'name',
         'email',
         'admin',
         'email_verified_at',
         'password',
-        'remember_token'
+        'remember_token',
+        'online',
+        'status',
+        'last_login_date'
     ];
-
-    public function roles()
-    {
-        return $this->belongsToMany(Role::class, 'user_roles')
-            ->withPivot('active', 'assign_by')
-            ->withTimestamps();
-    }
 
     public function person()
     {

@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Course;
+use App\Models\Province;
+use App\Models\District;
 
-class CourseController extends Controller
+class ProvinceControler extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +15,8 @@ class CourseController extends Controller
      */
     public function index()
     {
-        $courses = Course::all();
-        return $courses;
-        return response()->json($courses);
+        $provinces = Province::with('districts')->get();
+        return response()->json($provinces);
     }
 
     /**
@@ -38,12 +38,16 @@ class CourseController extends Controller
     public function store(Request $request)
     {
         try {
-            $course = new Course();
-            
-            $course->cod = isset($request['cod']) ? $request['cod'] :  $course->cod;
-            $course->description = isset($request['description']) ? $request['description'] :  $course->description;
-            $course->save();
-            return response(['msg' => 'Course Registered', 'data' => $course], 200);
+            $province = new Province();
+            if (isset($request['id'])) {
+                $province = Province::find($request['id']);
+            }
+
+            $province->name = isset($request['name']) ? $request['name'] :  $province->name;
+            $province->cod = isset($request['cod']) ? $request['cod'] :  $province->cod;
+            $province->save();
+
+            return response(['msg' => 'Province Registered', 'data' => $province], 200);
         } catch (\Exception $e) {
             return response(['msg' => $e->getMessage()], $e->getCode());
         }
@@ -57,9 +61,9 @@ class CourseController extends Controller
      */
     public function show($id)
     {
-        $course = Course::find($id);
+        $province = Province::find($id);
 
-        return response()->json($course);
+        return response()->json($province);
     }
 
     /**
@@ -83,15 +87,15 @@ class CourseController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $course = Course::findOrFail($id);
-            if ($course) {
-                $course->cod = isset($request['cod']) ? $request['cod'] :  $course->cod;
-                $course->description = isset($request['description']) ? $request['description'] : $course->description;
-                $course->save();
-                return response(['msg' => 'Course Updated!', 'data' => $course], 200);
+            $province = Province::findOrFail($id);
+            if ($province) {
+                $province->name = isset($request['name']) ? $request['name'] :  $province->name;
+                $province->cod = isset($request['cod']) ? $request['cod'] :  $province->cod;
+                $province->save();
+                return response(['msg' => 'Province Updated!', 'data' => $province], 200);
             }
 
-            return response(['msg' => 'Course not found!'], 404);
+            return response(['msg' => 'Province not found!'], 404);
         } catch (\Exception $e) {
             return response(['msg' => $e->getMessage()], $e->getCode());
         }
@@ -106,10 +110,10 @@ class CourseController extends Controller
     public function destroy($id)
     {
         try {
-            $course = Course::findOrFail($id);
-            if ($course) {
-                $course->delete();
-                return response()->json(['msg' => 'Course deleted successfully!']);
+            $province = Province::findOrFail($id);
+            if ($province) {
+                $province->delete();
+                return response()->json(['msg' => 'Province deleted successfully!']);
             }
         } catch (\Exception $e) {
             return response(['msg' => $e->getMessage()], $e->getCode());

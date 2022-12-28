@@ -16,21 +16,19 @@
 
         <div class="panel-body">
           <div>
-            <input 
+            <input
               type="text"
               placeholder="Enter username"
-              v-on:input="event => this.$emit('inputChange', event)"
-            >
+              v-on:input="(event) => this.$emit('inputChange', event)"
+            />
           </div>
           <div>
             <label class="text-bold text-uppercase">Provincia:</label>
             <v-select
-              :items="filterProvinces()"
-              labreturn
-              @change="filterDistricts($event)"
-              dense
-              class=""
-              label="Slecione a Provincia"
+              @change="filterDistricts()"
+              v-model="provinceselected"
+              :items="provincesname"
+              label="Selecione a Provincia"
               outlined
             >
             </v-select>
@@ -39,12 +37,10 @@
           <div>
             <label class="text-bold text-uppercase">Distrito:</label>
             <v-select
-              labreturn
+              v-model="districtselected"
+              @change="filterSchools()"
               :items="districtsname"
-              @change="filterSchools($event)"
-              dense
-              label="Slecione o Distrito"
-              class=""
+              label="Selecione o Distrito"
               outlined
             >
             </v-select>
@@ -53,10 +49,9 @@
           <div>
             <label class="text-bold text-uppercase">Escola:</label>
             <v-select
-              labreturn
-              :items="districtsname"
-              @change="filterSchools($event)"
-              dense
+              v-model="school1"
+              :items="schoolsname"
+              @change="filterSchool(school)"
               label="Selecione a Escola"
               outlined
               class=""
@@ -80,52 +75,59 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters, mapActions } from 'vuex';
 export default {
-  name: "FormExamCenter",
+  name: 'FormExamCenter',
   components: {},
   data: () => ({
-    schoolsname: null,
-    districtsname: null,
+    provinceSelected: (string = ''),
+    districtSelected: (string = ''),
+    school1: (string = ''),
   }),
   props: ['schools'],
   methods: {
-    ...mapActions(["getProvinces", "getDistricToSchools"]),
-    filterProvinces() {
-      return this.provinces.map((province) => {
-        return { text: province.name, value: province.id };
-      });
+    ...mapActions([
+      'getProvinces',
+      'getDistricts',
+      'getDistricSchools',
+      'getDistricToSchools',
+      'updateSchool',
+      'selectSchool',
+    ]),
+    filterDistricts() {
+      this.getDistricts(this.provinceselected);
     },
-    filterDistricts(idProvince) {
-      let index = this.provinces.findIndex((p) => {
-        return idProvince == p.id;
-      });
-      this.districtsname = this.provinces[index].districts.map((district) => {
-        return { text: district.name, value: district.id };
-      });
+    filterSchools() {
+      this.getDistricSchools(this.districtselected);
     },
-    filterSchools(idDistrict) {
-      this.editedItem.district_id = idDistrict;
-      let index = this.district.findIndex((d) => {
-        return idDistrict == d.id;
-      });
-      this.schoolsname = this.district[index].schools.map((s) => {
-        return { text: s.name, value: s.id };
-      });
+    filterSchool() {
+      this.selectSchool(this.school1);
     },
     setSchoolAsCenter() {
-      this.schools = null
-      //this.updateSchool(this.schoolD);
-      this.age()
+      this.schoolD.isCentro = true;
+      console.log('schoolD');
+      console.log(this.schoolD);
+      this.updateSchool(this.schoolD);
     },
   },
   mounted() {
-    this.getProvinces();
+    // this.getProvinces();
     this.getDistricToSchools();
     this.filterProvinces();
   },
+  created() {
+    this.initProvDist();
+  },
   computed: {
-    ...mapGetters(["provinces", "district"]),
+    ...mapGetters([
+      'provinces',
+      'provincename',
+      'provincesname',
+      'districtsname',
+      'schoolsname',
+      'schoolD',
+      'schools',
+    ]),
   },
 };
 </script>

@@ -29,9 +29,10 @@ class AuthController extends Controller
                 /** @var User $user*/
                 $user = Auth::user();
                 $token = $user->createToken(name: 'app')->accessToken;
+                $data = User::with('person')->where('id', $user->id)->first();
                 return  response([
                     'message' => 'sucess login!',
-                    'user' => $user,
+                    'user' => $data,
                     'token' => $token
                 ]);
             }
@@ -46,8 +47,15 @@ class AuthController extends Controller
 
     public function user()
     {
-        if (Auth::check()) {
-            return Auth::user();
+        try {
+            if (Auth::check()) {
+                $user = Auth::user();
+                $data = User::with('person')->where('id', $user->id)->get();
+                return response()->json($data);
+            }
+            return response(['msg' => 'Not authorized'], 404);
+        } catch (\Exception $e) {
+            return response(['msg' => $e->getMessage()], $e->getCode());
         }
     }
 
@@ -67,7 +75,8 @@ class AuthController extends Controller
             $user->password = Hash::make($request['password']);
             $user->admin = isset($request['admin']) ? (($request['admin']) ? 1 : 0) : 0;
             $user->save();
-            return response()->json($user);
+            $data = User::with('person')->where('id',  $user->id)->first();
+            return response(['msg' => 'User Registered!', 'data' => $data], 200);
         } catch (\Exception $e) {
             return response(['message' => $e->getMessage()], 400);
         }
@@ -130,8 +139,36 @@ class AuthController extends Controller
 
     public function users()
     {
-        $users = User::all();
+        $users = User::with('person')->get();
 
         return $users;
+    }
+
+    public function update(Request $request, $id)
+    {
+        try {
+            $user = User::find($id);
+            $user->status = isset($request['status']) ? $request['status'] : $user->status;
+            $user->email = isset($request['email']) ? $request['email'] : $user->email;
+            $user->name = isset($request['name']) ? $request['name'] : $user->name;
+            $user->password = isset($request['password']) ? Hash::make($request['password']) : $user->password;
+            $user->save();
+            return response(['msg' => 'User Updated!', 'data' => $user], 200);
+        } catch (\Exception $e) {
+            return response(['msg' => $e->getMessage()], $e->getCode());
+        }
+    }
+
+    public function destroy($id)
+    {
+        try {
+            $person = User::findOrFail($id);
+            if ($person) {
+                $person->delete();
+                return response()->json(['msg' => 'User deleted successfully!']);
+            }
+        } catch (\Exception $e) {
+            return response(['msg' => $e->getMessage()], $e->getCode());
+        }
     }
 }

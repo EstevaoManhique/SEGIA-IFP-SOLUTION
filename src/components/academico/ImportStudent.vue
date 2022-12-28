@@ -159,13 +159,33 @@
 
           <v-row>
             <v-col cols="12" sm="6" md="4">
-              <v-select label="Provincia" dense filled mandatory></v-select>
+              <v-select
+                label="Provincia"
+                :items="provincesName"
+                dense
+                filled
+                @change="changeProv"
+                mandatory
+              ></v-select>
             </v-col>
             <v-col cols="12" sm="6" md="4">
-              <v-select label="Distrito" dense filled mandatory></v-select>
+              <v-select
+                label="Distrito"
+                :items="districtsName"
+                dense
+                filled
+                @change="changeDist"
+                mandatory
+              ></v-select>
             </v-col>
             <v-col cols="12" sm="6" md="4">
-              <v-select label="Escola" dense filled mandatory></v-select>
+              <v-select
+                label="Escola"
+                :items="schoolsName"
+                dense
+                filled
+                mandatory
+              ></v-select>
             </v-col>
             <v-col cols="12" sm="6" md="4">
               <v-select label="Curso/Classe" dense filled mandatory></v-select>
@@ -203,7 +223,8 @@
                 :headers="headers"
                 :items="import_students"
                 class="elevation-1"
-              ></v-data-table>
+              >
+              </v-data-table>
             </v-col>
           </v-row>
         </v-card>
@@ -213,8 +234,8 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
 import readXlsxFile from 'read-excel-file';
-import simpleFile from '@/store/modules/schemes/importStudentSimple.js';
 export default {
   name: 'ImportStudent',
   data() {
@@ -239,15 +260,7 @@ export default {
         { text: 'ENCARREGADO', value: 'full_name' },
       ],
       import_students: [],
-      simpleFile,
-    };
-  },
-  methods: {
-    import_modelo_simples() {
-      console.log('modelo Simples');
-      const input = document.getElementById('fileSimples');
-      const file = input.files[0];
-      const schema = {
+      simpleSchema: {
         'NOME COMPLETO': {
           prop: 'full_name',
           type: String,
@@ -267,53 +280,39 @@ export default {
           prop: 'doc_date',
           type: Date,
         },
+        SEXO: {
+          prop: 'genre',
+          type: String,
+          required: true,
+        },
         'DATA NASC.': {
           prop: 'birth_date',
           type: Date,
         },
-      };
+      },
+    };
+  },
 
-      console.log("SCHEMMA");
-      console.log(schema)
-      readXlsxFile(file, { schema }).then(({ rows, errors }) => {
-        // `errors` list items have shape: `{ row, column, error, reason?, value?, type? }`.
-        errors.length === 0;
-
-        this.import_students = rows;
-        console.log("Imported");
-        console.log(this.import_students)
-      });
+  created() {
+    this.initProvDist();
+    // this.provincesName();
+    // console.log(this.provincesName);
+  },
+  methods: {
+    ...mapActions(['initProvDist', 'changeProv', 'changeDist']),
+    import_modelo_simples() {
+      const input = document.getElementById('fileSimples');
+      const file = input.files[0];
+      this.readExcelFile(file, this.simpleSchema);
     },
     import_modelo_completo() {
       console.log('modelo Completo');
       const input = document.getElementById('fileSimples');
       const file = input.files[0];
-      const schema = {
-        'NOME COMPLETO': {
-          prop: 'full_name',
-          type: String,
-          required: true,
-        },
-        'DOC.': {
-          prop: 'doc_type',
-          type: String,
-          required: true,
-        },
-        'NR. DOC.': {
-          prop: 'nr_doc',
-          type: String,
-          required: true,
-        },
-        'VALIDADE DOC.': {
-          prop: 'doc_date',
-          type: Date,
-        },
-        'DATA NASC.': {
-          prop: 'birth_date',
-          type: Date,
-        },
-      };
 
+      this.readExcelFile(file, this.fullSchema);
+    },
+    readExcelFile(file, schema) {
       readXlsxFile(file, { schema }).then(({ rows, errors }) => {
         // `errors` list items have shape: `{ row, column, error, reason?, value?, type? }`.
         errors.length === 0;
@@ -322,6 +321,9 @@ export default {
         console.log(this.import_students);
       });
     },
+  },
+  computed: {
+    ...mapGetters(['provincesName', 'districtsName', 'schoolsName']),
   },
 };
 </script>

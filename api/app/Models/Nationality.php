@@ -23,14 +23,8 @@ use Illuminate\Database\Eloquent\Model;
 class Nationality extends Model
 {
 	protected $table = 'nationalities';
-	public $incrementing = false;
-
-	protected $casts = [
-		'id' => 'int'
-	];
 
 	protected $fillable = [
-		'id',
 		'cod',
 		'description'
 	];

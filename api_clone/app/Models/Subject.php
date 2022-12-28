@@ -12,34 +12,34 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Subject
- *
+ * 
  * @property int $id
  * @property string $name
  * @property Carbon $created_at
  * @property Carbon $update_at
- *
- * @property Collection|Class[] $classes
+ * 
+ * @property Collection|Course[] $courses
  *
  * @package App\Models
  */
 class Subject extends Model
 {
-    protected $table = 'subjects';
-    public $timestamps = false;
+	protected $table = 'subjects';
+	public $timestamps = false;
 
-    protected $dates = [
-        'update_at'
-    ];
+	protected $dates = [
+		'update_at'
+	];
 
-    protected $fillable = [
-        'name',
-        'update_at'
-    ];
+	protected $fillable = [
+		'name',
+		'update_at'
+	];
 
-    public function classes()
-    {
-        return $this->belongsToMany(Classe::class, 'class_subjects')
-            ->withPivot('active')
-            ->withTimestamps();
-    }
+	public function courses()
+	{
+		return $this->belongsToMany(Course::class, 'course_subjects', 'subject_id', 'class_id')
+					->withPivot('active', 'level')
+					->withTimestamps();
+	}
 }

@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Course;
+use App\Models\Category;
 
-class CourseController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +14,8 @@ class CourseController extends Controller
      */
     public function index()
     {
-        $courses = Course::all();
-        return $courses;
-        return response()->json($courses);
+        $categorys = Category::all();
+        return response()->json($categorys);
     }
 
     /**
@@ -24,9 +23,16 @@ class CourseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Category $category, Request  $request)
     {
-        //
+        try {
+            $category->cod = isset($request['cod']) ? $request['cod'] : $category->cod;
+            $category->description = isset($request['description']) ? $request['description'] : $category->description;
+            $category->save();
+            return $category;
+        } catch (\Exception $e) {
+            return response(['msg' => $e->getMessage()], $e->getCode());
+        }
     }
 
     /**
@@ -38,12 +44,11 @@ class CourseController extends Controller
     public function store(Request $request)
     {
         try {
-            $course = new Course();
-            
-            $course->cod = isset($request['cod']) ? $request['cod'] :  $course->cod;
-            $course->description = isset($request['description']) ? $request['description'] :  $course->description;
-            $course->save();
-            return response(['msg' => 'Course Registered', 'data' => $course], 200);
+            $category = new Category();
+
+            $this->create($category, $request);
+
+            return response(['msg' => 'Category Registered', 'data' => $category], 200);
         } catch (\Exception $e) {
             return response(['msg' => $e->getMessage()], $e->getCode());
         }
@@ -57,9 +62,9 @@ class CourseController extends Controller
      */
     public function show($id)
     {
-        $course = Course::find($id);
+        $category = Category::find($id);
 
-        return response()->json($course);
+        return response()->json($category);
     }
 
     /**
@@ -83,15 +88,13 @@ class CourseController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $course = Course::findOrFail($id);
-            if ($course) {
-                $course->cod = isset($request['cod']) ? $request['cod'] :  $course->cod;
-                $course->description = isset($request['description']) ? $request['description'] : $course->description;
-                $course->save();
-                return response(['msg' => 'Course Updated!', 'data' => $course], 200);
+            $category = Category::findOrFail($id);
+            if ($category) {
+                $this->create($category, $request);
+                return response(['msg' => 'Category Updated!', 'data' => $category], 200);
             }
 
-            return response(['msg' => 'Course not found!'], 404);
+            return response(['msg' => 'Category not found!'], 404);
         } catch (\Exception $e) {
             return response(['msg' => $e->getMessage()], $e->getCode());
         }
@@ -106,10 +109,10 @@ class CourseController extends Controller
     public function destroy($id)
     {
         try {
-            $course = Course::findOrFail($id);
-            if ($course) {
-                $course->delete();
-                return response()->json(['msg' => 'Course deleted successfully!']);
+            $category = Category::findOrFail($id);
+            if ($category) {
+                $category->delete();
+                return response()->json(['msg' => 'Category deleted successfully!']);
             }
         } catch (\Exception $e) {
             return response(['msg' => $e->getMessage()], $e->getCode());

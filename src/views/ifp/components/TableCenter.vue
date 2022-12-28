@@ -13,9 +13,9 @@
         <v-toolbar-title>
           <div class="d-flex mt-8">
             <v-select
-              @change="filterDistricts()"
+              @change="changeProv"
               v-model="provinceselected"
-              :items="provincesname"
+              :items="provincesName"
               label="Selecione a Provincia"
               outlined
               dense
@@ -24,8 +24,8 @@
             </v-select>
             <v-select
               v-model="search"
-              @change="filterSchools()"
-              :items="districtsname"
+              @change="changeDist"
+              :items="districtsName"
               label="Selecione o Distrito"
               outlined
               dense
@@ -38,7 +38,6 @@
         <v-dialog v-model="dialog" max-width="500px">
           <v-card>
             <v-card-title>
-  
               <span class="text-h5">{{ formTitle }}</span>
             </v-card-title>
             <v-card-text>
@@ -114,12 +113,12 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters, mapActions } from 'vuex';
 export default {
-  props: ["schools"],
+  props: ['schools'],
   data: () => ({
     provinceselected: null,
-    search: "",
+    search: '',
     districtsname: [],
     centers: null,
     dialog: false,
@@ -127,16 +126,16 @@ export default {
     schoolsTable: [],
     headers: [
       {
-        text: "#",
-        align: "start",
+        text: '#',
+        align: 'start',
         sortable: false,
-        value: "id",
+        value: 'id',
       },
-      { text: "Descricao", value: "name" },
-      { text: "Abreviatura", value: "abbreviation" },
-      { text: "Tipo", value: "type" },
-      { text: "Distrito", value: "district.name" },
-      { text: "Actions", value: "actions", sortable: false },
+      { text: 'Descricao', value: 'name' },
+      { text: 'Abreviatura', value: 'abbreviation' },
+      { text: 'Tipo', value: 'type' },
+      { text: 'Distrito', value: 'district.name' },
+      { text: 'Actions', value: 'actions', sortable: false },
     ],
     editedIndex: -1,
     editedItem: {
@@ -165,12 +164,14 @@ export default {
     },
   }),
   mounted() {
+    this.getSchools();
+    this.getDistricSchools();
     this.getProvinces();
   },
   computed: {
-    ...mapGetters(["provinces", "districtsname"]),
+    ...mapGetters(['schools', 'provincesname', 'provinces', 'districtsname']),
     formTitle() {
-      return this.editedIndex === -1 ? "New Item" : "Edit Item";
+      return this.editedIndex === -1 ? 'New Item' : 'Edit Item';
     },
   },
 
@@ -184,11 +185,12 @@ export default {
   },
 
   created() {
+    this.initProvDist();
     this.initialize();
   },
 
   methods: {
-    ...mapActions(["updateSchool", "getProvinces"]),
+    ...mapActions(['getSchools', 'updateSchool', 'getProvinces']),
     filterDistricts() {
       let province = this.provinces.filter(
         (province) => province.name == this.provinceselected
@@ -206,8 +208,8 @@ export default {
       this.centers = this.schools.filter((school) => {
         if (school.isCentro) return school;
       });
-      console.log("Initialize")
-      console.log(this.centers)
+      console.log('Initialize');
+      console.log(this.centers);
     },
 
     editItem(item) {

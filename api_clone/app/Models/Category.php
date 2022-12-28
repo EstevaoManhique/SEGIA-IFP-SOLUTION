@@ -19,8 +19,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property Carbon $created_at
  * @property Carbon $updated_at
  *
- * @property Collection|Classe[] $classes
- * @property SchoolClassCategory $school_class_category
+ * @property Collection|Course[] $courses
+ * @property Collection|School[] $schools
+ * @property Collection|SchoolCategory[] $school_categories
  *
  * @package App\Models
  */
@@ -33,13 +34,20 @@ class Category extends Model
         'description'
     ];
 
-    public function classes()
+    public function courses()
     {
-        return $this->hasMany(Classe::class);
+        return $this->hasMany(Course::class);
     }
 
-    public function school_class_category()
+    public function school_categories()
     {
-        return $this->hasOne(SchoolClassCategory::class, 'class_categorory_id');
+        return $this->hasMany(SchoolCategory::class);
+    }
+
+    public function schools()
+    {
+        return $this->belongsToMany(School::class, 'school_categories', 'school_id', 'ccategory_id')
+            ->withPivot('id', 'active')
+            ->withTimestamps();
     }
 }

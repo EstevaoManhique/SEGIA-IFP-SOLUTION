@@ -2,109 +2,93 @@
 import axios from '@/plugins/axios';
 
 const state = {
-    district: [],
-    districtsname: [],
-    schoolD : {},
-    schoolsname: [],
-    districtname: null,
-    empydistrict: {
-        id: null,
-        name: null,
-        cod: null,
-        schoolsname: []
+    districts: [],
+    districtsName: [],
+    district: {
+        id: '',
+        name: '',
+        province: {},
     },
 };
 
 const getters = {
+    districts: (state) => state.districts,
     district: (state) => state.district,
-    empydistrict: (state) => state.empydistrict,
-    districtsname: (state) => state.districtsname,
-    schoolsname: (state) => state.schoolsname,
-    schoolD: (state) => state.schoolD,
+
+    districtsName: (state) => state.districtsName,
 };
 
 const actions = {
-    async getDistricToSchools({ commit }) {
+    async getDistricts({ commit }) {
         let res = await axios.get('district');
-        console.log(res.data);
-        commit('getDistricToSchools', res.data);
+        // console.log(res.data);
+        commit('getDistricts', res.data);
     },
-    async getDistrict({ commit }) {
-        let res = await axios.get('district/');
-        console.log(res.data);
-        commit('getDistrict', res.data);
-    },
-    async getDistricSchools({ commit }, school) {
-       commit('getDistricSchools', school);
-    },
-    selectSchool({ commit }, schoolname){
-        commit('selectSchool',schoolname)
-    },
-    async adddistrict({ commit }, district) {
+
+    async addDistrict({ commit }, district) {
         let data = new FormData();
         data.append('name', district.name);
         data.append('cod', district.cod);
 
         const rsp = await axios.post('district/store', data);
-        commit('adddistrict', rsp.data);
+        commit('addDistrict', rsp.data);
     },
-    async removedistrict({ commit }, district) {
+    async removeDistrict({ commit }, district) {
         const rsp = await axios.delete('district/' + district);
         rsp.data;
-        commit('removedistrict', district);
+        commit('removeDistrict', district);
     },
     async getDistrict({ commit }, district) {
         const rsp = await axios.get('district/' + district.id);
         commit('getDistrict', rsp.data);
     },
     async editDistrict({ commit }, district) {
-        district.districts='Formação de Professores '+(new Date().getFullYear());
+        district.districts = '[]ação de Professores ' + new Date().getFullYear();
         const rsp = await axios.put('district/' + district.id, district);
         commit('editDistrict', rsp.data.data);
-
     },
-    setDistrict({ commit }, district){
-        commit('setDistrict',district)
+    setDistrict({ commit }, district) {
+        commit('setDistrict', district);
     },
-    empydistrict({commit}){
-        console.log('Empy');
-        commit('empydistrict');
-    }
+    setDistricts({ commit }, districts) {
+        commit('setDistricts', districts);
+    },
 };
 
 const mutations = {
-    getDistricToSchools(state, payload) {
-        state.district = payload
-        console.log("getDistricToSchools "+state.district[0].name)
+    getDistricts(state, payload) {
+        state.districts = payload;
+        state.districtName = state.district.map((p) => {
+            return { text: p.name, value: p.id };
+        });
     },
-    getDistricSchools(state, payload) {         
-        let districts = state.district.filter((d)=>d.name==payload)
-        state.schools = districts[0].schools;
-        state.schoolsname = state.schools.map((s)=>{return s.name})
-    },
-    selectSchool(state, payload) {
-        state.schoolD = state.schools.filter(school=>school.name==payload)[0]
+    setDistricts(state, payload) {
+        state.districts = payload;
+        state.districtsName = state.districts.map((p) => {
+            return { text: p.name, value: p.id };
+        });
     },
     setDistrict(state, payload) {
         state.district = payload;
     },
-    empydistrict(state){
-        state.district={id: null,
-            name: null,
-            cod: null,
-            districts: []};
+    empydistrict(state) {
+        state.district = { id: null, name: null, cod: null, districts: [] };
     },
-    adddistrict(state, payload) {
+    addDistrict(state, payload) {
         state.districts.push(payload.data);
     },
-    removedistrict(state, payload) {
-        state.districts = state.districts.filter((district) => district.id != payload);
+    removeDistrict(state, payload) {
+        state.districts = state.districts.filter(
+            (district) => district.id != payload
+        );
     },
     getDistrict(state, payload) {
         state.district = payload;
     },
     editDistrict(state, payload) {
-        let district = state.districts.findIndex((district) => district.id == payload.id)
+        let district = state.districts.findIndex(
+            (district) => district.id == payload.id
+        );
         state.districts.splice(district, 1, payload);
     },
 };
