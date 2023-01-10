@@ -15,7 +15,7 @@ class SchoolController extends Controller
      */
     public function index()
     {
-        $schools = School::with('district', 'categories')->get();
+        $schools = School::with('district')->get();
         return response()->json($schools);
     }
 
@@ -71,7 +71,7 @@ class SchoolController extends Controller
      */
     public function show($id)
     {
-        $school = School::with('district', 'courses')->where('id', $id)->first();
+        $school = School::with('district')->where('name', $id)->first();
 
         return response()->json($school);
     }

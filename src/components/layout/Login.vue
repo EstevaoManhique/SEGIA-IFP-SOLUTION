@@ -86,7 +86,7 @@ export default {
           //console.log(response);
           //this.$http.defaults.headers.common["Authorization"] = "Bearer " + token;
           localStorage.setItem("authtoken", token);
-
+          localStorage.setItem("logged", true);
           // Put the object into storage
           localStorage.setItem("user", JSON.stringify(user));
 
@@ -94,9 +94,7 @@ export default {
           var retrievedObject = localStorage.getItem("user");
 
           let a = JSON.parse(retrievedObject)
-          console.log(a.admin)
-          console.log(retrievedObject.admin)
-          console.log(a.admin)
+         
           //let decoded = jwt_decode(token);
           // console.log(token);
           //console.log(decoded);
@@ -104,7 +102,7 @@ export default {
           //this.$store.dispatch("setAccess", { token: token });
           this.setUser(user);
           this.setAccess(true);
-          this.$router.push({ name: "home" }).catch(() => {});
+          this.$router.push({ path: '/' }).catch(() => {});
         });
     },
     ...mapActions(["login", "setAccess", "setUser"]),

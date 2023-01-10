@@ -56,6 +56,7 @@ class School extends Model
     {
         return $this->hasMany(SchoolCategory::class);
     }
+
     public function categories()
     {
         return $this->belongsToMany(Category::class, 'school_categories')

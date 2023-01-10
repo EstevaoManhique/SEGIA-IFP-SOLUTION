@@ -19,6 +19,9 @@ use App\Http\Controllers\CandidateController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\SalaController;
 use App\Http\Controllers\JuryController;
+use App\Http\Controllers\ExamController;
+use App\Http\Controllers\QuestaoController;
+use App\Http\Controllers\AvaliacaoController;
 
 
 /*
@@ -177,4 +180,36 @@ Route::controller(JuryController::class)->prefix('jury')->group(function () {
     Route::get('/{id}', 'show')->name('jury.show');
     Route::delete('/{id}', 'destroy')->name('jury.destroy');
     Route::put('/{id}', 'update')->name('jury.update');
+});
+
+Route::controller(ExamController::class)->prefix('exam')->group(function () {
+    Route::get('/', 'index')->name('exam.index');
+    Route::post('/store', 'store')->name('exam.store');
+    Route::get('/{id}', 'show')->name('exam.show');
+    Route::delete('/{id}', 'destroy')->name('exam.destroy');
+    Route::put('/{id}', 'update')->name('exam.update');
+});
+
+Route::controller(QuestaoController::class)->prefix('question')->group(function () {
+    Route::get('/', 'index')->name('question.index');
+    Route::post('/store', 'store')->name('question.store');
+    Route::get('/questionsByExam/{id}', 'questionsByExam')->name('question.show');
+    Route::get('/{id}', 'show')->name('question.show');
+    Route::delete('/{id}', 'destroy')->name('question.destroy');
+    Route::put('/{id}', 'update')->name('question.update');
+});
+
+Route::controller(AvaliacaoController::class)->prefix('avaliation')->group(function () {
+    Route::get('/', 'index')->name('avaliation.index');
+    Route::post('/store', 'store')->name('avaliation.store');
+    Route::post('/storeMany', 'storeMany')->name('avaliation.storeMany');
+    Route::post('/createjury', 'createjury')->name('avaliation.createjury');
+    Route::get('/avaliationsByExam/{id}', 'avaliationsByExam')->name('avaliation.show');
+    Route::get('/bySchool/{id}', 'bySchool')->name('avaliation.bySchool');
+    Route::get('/pauta/{id}', 'pauta')->name('avaliation.pauta');
+    Route::get('/byjury/{id}', 'byjury')->name('avaliation.byjury');
+    Route::get('/bycourse/{id}', 'bycourse')->name('avaliation.bycourse');
+    Route::get('/{id}', 'show')->name('avaliation.show');
+    Route::delete('/{id}', 'destroy')->name('avaliation.destroy');
+    Route::put('/{id}', 'update')->name('avaliation.update');
 });

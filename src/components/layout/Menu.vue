@@ -34,7 +34,7 @@
             <v-icon v-text="sub_menu.icon"></v-icon>
           </v-list-item-icon>
           <v-list-item-content>
-            <v-list-item-title class="light--text">
+            <v-list-item-title>
               {{ $t(sub_menu.name) | upper }}
             </v-list-item-title>
           </v-list-item-content>

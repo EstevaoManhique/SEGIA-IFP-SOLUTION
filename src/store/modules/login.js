@@ -30,6 +30,7 @@ const mutations = {
     },
     setUser(state, payload) {
         state.user = payload
+        state.access = true
         console.log("SetUser")
         console.log(state.user)
     },

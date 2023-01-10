@@ -13,7 +13,7 @@
           
                                   <div class="navbar-collapse collapse" id="navbar-filter">
                                       <ul class="nav navbar-nav element-active-orange-400">
-                                          <li class="active"><a href="#settings" data-toggle="tab" class="text-bold text-uppercase"><i class="icon-pencil6 position-left"></i> Gestão de Formação Professores  <span class="text-danger-400"> (Painel Principal)</span> </a></li>
+                                          <li class="active"><a href="#settings" data-toggle="tab" class="text-bold text-uppercase"><i class="icon-pencil6 position-left"></i> Gestão de Formação de Professores  <span class="text-danger-400"> (Painel Principal)</span> </a></li>
                                       </ul>
           
                                   </div>
@@ -45,7 +45,7 @@
           
                                                       <div class="row">
                                                           <div class="col-sm-12">
-                                                              <button class="btn text-bold text-uppercase bg-slate-600 btn-block content-group"> Formação Professores</button>
+                                                              <button class="btn text-bold text-uppercase bg-slate-600 btn-block content-group"> Formação de Professores</button>
                                                           </div>
                                                       </div>
                                                   </form>

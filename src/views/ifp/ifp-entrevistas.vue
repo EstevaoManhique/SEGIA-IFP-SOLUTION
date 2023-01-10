@@ -16,7 +16,7 @@
                 <div class="panel panel-flat">
                   <div class="panel-body d-flex">
                     <v-btn
-                      v-if="jurys[0] || jurysByCourse[0]"
+                      v-if="jurys[0] || jurys2ByCourse[0]"
                       @click="imprimirJurys()"
                       color="#3F51B5"
                       class="white--text mt-6"
@@ -25,7 +25,7 @@
                       Imprimir todos juris
                     </v-btn>
                     <v-btn
-                      v-else-if="bycourse[0]"
+                      v-else-if="avalByCourse[0]"
                       @click="createJurys()"
                       color="success"
                       class="mt-6"
@@ -40,7 +40,7 @@
                     </v-btn>-->
                   </div>
                 </div>
-                
+
                 <!-- Basic layout-->
                 <div class="form-horizontal">
                   <div class="panel panel-flat">
@@ -132,13 +132,21 @@
               </div>
             </v-col>
             <v-col cols="12">
-              <div v-if="jurys[0] || jurysByCourse[0]">
+              <div v-if="jurys[0] || jurys2ByCourse">
                 <v-data-table
                   :headers="headers"
-                  :items="cbyjury"
+                  :items="abyjury"
                   :search="search"
                   class="elevation-1 v-data-table"
-                ></v-data-table>
+                >
+                  <!--<template v-slot:item.entrevista="{ item }">
+                    <div class="d-flex">
+                      <v-text-field v-model="nota_entrevista" type="number" min="0" max="20"
+                       label="Regular"></v-text-field>
+                      <v-btn @click="save(item)">Gravar</v-btn>
+                    </div>
+                  </template>-->
+                </v-data-table>
               </div>
               <div v-else class="d-flex justify-center">
                 <!--<h3 class="red--text">
@@ -179,10 +187,11 @@ import readXlsxFile, { Integer } from "read-excel-file";
 import simpleFile from "@/store/modules/schemes/importStudentSimple.js";
 import { mapGetters, mapActions } from "vuex";
 export default {
-  name: "ImportStudent",
+  name: "Entrevista",
   data() {
     return {
       disabled: false,
+      nota_entrevista:0,
       tabs: null,
       user: {},
       link_modelo_simp:
@@ -191,7 +200,7 @@ export default {
         "http://localhost:8002/assets/modelos_excel/imp_segia_alunos_modelo.xlsx",
 
       headers: [
-        { text: "Nr Candidato", value: "id", width: "auto" },
+        { text: "Nr Candidato", value: "codigo", width: "auto" },
         {
           text: "Nome",
           align: "start",
@@ -200,14 +209,10 @@ export default {
           width: "auto",
         },
         {
-          text: "Outros Nomes",
-          value: "outrosNomes",
+          text: "Entrevista",
+          value: "entrevista",
           width: "auto",
         },
-        { text: "Data de Nascimento", value: "birth_date", width: "auto" },
-        { text: "Genero", value: "gender.descricao", width: "auto" },
-        { text: "Identificacao", value: "identificacao", width: "auto" },
-        { text: "Juri", value: "jury_id", width: "auto" },
       ],
 
       headersJury: [
@@ -278,14 +283,13 @@ export default {
       "district",
       "schools",
       "candidates",
-      "bycourse",
-      "jurysByCourse",
-      "cbyjury",
+      "avalByCourse",
+      "jurys2ByCourse",
+      "abyjury",
     ]),
   },
   created() {
     this.user = JSON.parse(localStorage.getItem("user"));
-   
   },
   mounted() {
     //this.getProvinces();
@@ -295,9 +299,9 @@ export default {
     //Parameter:school_id
     console.log("MountedId");
     console.log(this.user.school_id);
-    this.getCandidatesByCourse(this.user.school_id);
+    this.getAvaliacoesByCourse(this.user.school_id);
 
-    //Paramenter:
+    //Parameter:
     console.log("MointedIFPCODE");
     console.log(this.user.ifpcode);
     this.getJurysBySchool(this.user.ifpcode);
@@ -308,11 +312,19 @@ export default {
       "getProvinces",
       "getDistricToSchools",
       "getSchools",
-      "generateJurys",
-      "getCandidatesByJury",
-      "getCandidatesByCourse",
-      "getJurysBySchool",
+      "generateJurys2",
+      "getAvaliacoesByJury",
+      "getAvaliacoesByCourse",
+      "getJunota_entrevistal",
+      "editAvaliacao"
     ]),
+    save(item){
+      console.log(item)
+      item.entrevista = this.nota_entrevista
+      console.log(item)
+      this.editAvaliacao(item)
+      this.nota_entrevista = 0
+    },
     import_modelo_simples() {
       console.log("modelo Simples");
       const input = document.getElementById("fileSimples");
@@ -554,32 +566,33 @@ export default {
     },
     createJurys() {
       this.disabled = true;
-      if (!this.jurys[0]) {
-        let coursesjury = [];
+      //Verificar depois de criar Juris
+      //if (this.jurys[0]) {
+      let coursesjury = [];
 
-        for (let i = 0; i < this.bycourse.length; i++) {
-          let inicio = 0,
-            fim = 30;
+      for (let i = 0; i < this.avalByCourse.length; i++) {
+        let inicio = 0,
+          fim = 30;
 
-          let candidates = this.bycourse[i];
-          let limit = Math.floor(candidates.length / 30);
-          let jurs = [];
-          for (let index = 0; index < limit + 1; index++) {
-            jurs.push(candidates.slice(inicio, fim));
-            inicio = fim;
-            fim = fim + 30;
-          }
-
-          coursesjury.push(jurs);
+        let candidates = this.avalByCourse[i];
+        let limit = Math.floor(candidates.length / 30);
+        let jurs = [];
+        for (let index = 0; index < limit + 1; index++) {
+          jurs.push(candidates.slice(inicio, fim));
+          inicio = fim;
+          fim = fim + 30;
         }
 
-        this.generateJurys(coursesjury);
-      } else {
-        this.dialogDelete = true;
+        coursesjury.push(jurs);
       }
+
+      this.generateJurys2(coursesjury);
+      //} else {
+      //this.dialogDelete = true;
+      // }
     },
     filterByJury(id) {
-      this.getCandidatesByJury(id);
+      this.getAvaliacoesByJury(id);
     },
     imprimirJurys() {
       this.editedItem.province.id = this.user.province_id;

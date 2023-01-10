@@ -63,6 +63,10 @@ class Candidate extends Model
         return $this->belongsTo(Course::class);
     }
 
+    public function avaliacao(){
+        return $this->belongsTo(Avaliacao::class);
+    }
+
     public function contacts()
 	{
 		return $this->hasMany(Contact::class);

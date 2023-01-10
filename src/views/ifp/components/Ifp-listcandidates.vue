@@ -1,289 +1,316 @@
 <template>
-  <v-data-table
-    :headers="headers"
-    :items="candidates"
-    class="elevation-1"
-    :search="search"
-  >
-    <template v-slot:item.state="{ item }">
-      <v-chip :color="getColor(item.state)" dark>
-        {{ item.state }}
-      </v-chip>
-    </template>
-    <template v-slot:top>
-     
-      <v-toolbar flat>
-        <v-toolbar-title>
-          <div class="d-flex mt-4">
-  
-            <v-select
-              v-model="search"
-              :items="opcoes"
-              label="Filtrar pelo Estado"
-              outlined
-              dense
-              class="mt-2"
-            >
-            </v-select>
-            <v-select
-              v-model="search"
-              :items="opcoescurso"
-              label="Filtrar pelo Curso"
-              outlined
-              dense
-              class="ms-4 mt-2"
-            >
-            </v-select>
-          </div>
-        </v-toolbar-title>
-        <v-divider class="mx-4" inset vertical></v-divider>
-        <v-spacer></v-spacer>
-        <v-dialog v-model="dialog" max-width="1000px">
-          <template v-slot:activator="{ on, attrs }">
-              <v-btn color="primary" dark class="ma-2" @click="import_modelo_simples">
+  <v-card>
+    <v-row v-if="user.role != 'escola'">
+      <v-col cols="14" sm="6" md="4">
+        <v-select
+          label="Provincia"
+          dense
+          filled
+          mandatory
+          :items="filterProvinces()"
+          @change="filterDistricts($event)"
+        ></v-select>
+      </v-col>
+      <v-col cols="12" sm="6" md="4">
+        <v-select
+          label="Distrito"
+          dense
+          filled
+          mandatory
+          :items="districtsname"
+          @change="filterSchools($event)"
+        ></v-select>
+      </v-col>
+      <v-col cols="12" sm="6" md="4">
+        <v-select
+          label="Instituicao"
+          dense
+          filled
+          mandatory
+          :items="schoolsname"
+          @change="filterCourses($event)"
+        ></v-select>
+      </v-col>
+      <!--<v-col cols="12" sm="6" md="4">
+        <v-select
+          label="Curso"
+          dense
+          filled
+          mandatory
+          :items="opcoescurso"
+          @change="setCourse($event)"
+        ></v-select>
+      </v-col>-->
+    </v-row>
+    <v-row>
+      <v-col cols="12" sm="6" md="4" class="ms-2">
+        <v-btn color="primary" dark class="ma-2" @click="exportToExcel()">
+          Exportar Candidatos
+        </v-btn>
+      </v-col>
+    </v-row>
+
+    <v-data-table
+      :headers="headers"
+      :items="candidates"
+      class="elevation-1"
+      :search="search"
+    >
+      <template v-slot:item.state="{ item }">
+        <v-chip :color="getColor(item.state)" dark>
+          {{ item.state }}
+        </v-chip>
+      </template>
+      <template v-slot:top>
+        <v-toolbar flat>
+          <v-spacer></v-spacer>
+          <v-dialog v-model="dialog" max-width="1000px">
+            <!--<template v-slot:activator="{ on, attrs }">
+              <v-btn color="primary" dark class="ma-2" @click="exportToExcel()">
                 Exportar Candidatos
               </v-btn>
               <v-btn color="primary" dark class="ma-2" v-bind="attrs" v-on="on">
                 Novo Candidato
               </v-btn>
-          </template>
+          </template>-->
 
-          <v-card>
-            <v-form>
-              <div>
-                <div class="row">
-                  <div class="col-md-12">
-                    <fieldset class="ms-15 me-16 ps-15 pe-15">
-                      <legend class="text-semibold">
-                        <div class="mt-10">
-                          <i class="icon-user-plus position-left"></i>
-                          Dados do candidato
-                        </div>
-                      </legend>
-
-                      <div class="form-group">
-                        <div class="row">
-                          <div class="col-md-6">
-                            <label
-                              class="
-                                control-label
-                                text-bold text-uppercase text-bold
-                              "
-                              >Nome:</label
-                            >
-                            <input
-                              type="text"
-                              placeholder="Primeiro Nome"
-                              class="form-control"
-                              v-model="editedItem.nome"
-                              required=""
-                            />
-                          </div>
-                          <div class="col-md-6">
-                            <label
-                              class="
-                                control-label
-                                text-bold text-uppercase text-bold
-                              "
-                              >Outros Nomes:</label
-                            >
-                            <input
-                              type="text"
-                              placeholder="Outros Nomes"
-                              class="form-control"
-                              name="apelido"
-                              required=""
-                              v-model="editedItem.outrosNomes"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <div class="row">
-                          <div class="col-md-6">
-                            <label
-                              class="
-                                control-label
-                                text-bold text-uppercase text-bold
-                              "
-                              >Contacto:</label
-                            >
-                            <input
-                              type="text"
-                              placeholder="(+258) 8X.XXXXXXX"
-                              class="form-control"
-                              required=""
-                              v-model="editedItem.contacts[0].contact"
-                            />
-                          </div>
-                          <div class="col-md-6">
-                            <label
-                              class="control-label text-bold text text-bold"
-                              >MEDIA 12.a CLASSE:</label
-                            >
-                            <input
-                              min="12"
-                              type="number"
-                              placeholder="Introduza a media"
-                              class="form-control"
-                              name="contact"
-                              v-model="editedItem.media_12a"
-                            />
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="form-group">
-                        <div class="row">
-                          <div class="col-md-6">
-                            <label
-                              class="
-                                control-label
-                                text-bold text-uppercase text-bold
-                              "
-                              >Data de Nascimento:</label
-                            >
-                            <input
-                              type="date"
-                              placeholder="Data de nascimento"
-                              class="form-control"
-                              name="data_nascimento"
-                              v-model="editedItem.birth_date"
-                            />
-                          </div>
-                          <div class="col-md-6">
-                            <label
-                              class="
-                                control-label
-                                text-bold text-uppercase text-bold
-                              "
-                              >Identificação:</label
-                            >
-                            <input
-                              required
-                              type="text"
-                              placeholder="BI/DIRE/Passaporte N.º"
-                              class="form-control"
-                              name="documento"
-                              v-model="editedItem.identificacao"
-                            />
-                          </div>
-                          <v-radio-group
-                            class="ms-3"
-                            v-model="candidate.gender_id"
-                            row
-                          >
-                            <v-radio label="Masculino" value="1"></v-radio>
-                            <v-radio label="Femenino" value="2"></v-radio>
-                          </v-radio-group>
-                          <v-switch
-                            v-model="editedItem.isValidated"
-                            label="Validar"
-                            color="success"
-                            value="1"
-                            hide-details
-                          ></v-switch>
-                        </div>
-                      </div>
-
-                      <div class="form-group">
-                        <div class="row">
-                          <div class="col-md-6">
-                            <v-select
-                              :items="filterProvinces()"
-                              labreturn
-                              @change="filterDistricts($event)"
-                              dense
-                              class=""
-                            >
-                            </v-select>
-                          </div>
-
-                          <div class="col-md-6">
-                            <v-select
-                              labreturn
-                              :items="districtsname"
-                              @change="filterSchools($event)"
-                              dense
-                              class="ms-5"
-                            >
-                            </v-select>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-6">
-                            <v-select
-                              labreturn
-                              :items="schoolsname"
-                              @change="filterCourses($event)"
-                              dense
-                              class=""
-                            >
-                            </v-select>
-                          </div>
-
-                          <div class="col-md-6">
-                            <v-select
-                              labreturn
-                              :items="coursesname"
-                              @change="setCourse($event)"
-                              dense
-                              class="ms-5"
-                            >
-                            </v-select>
-                          </div>
-                        </div>
-                      </div>
-                    </fieldset>
-                  </div>
-                </div>
+            <v-card>
+              <v-form>
                 <div>
-                  <div class="d-flex justify-end mb-10 mr-10">
-                    <v-btn
-                      class="btn bg-slate-800 text-bold text-uppercase"
-                      @click="save"
-                    >
-                      Gravar
-                      <i class="icon-arrow-right14 position-right"></i>
-                    </v-btn>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <fieldset class="ms-15 me-16 ps-15 pe-15">
+                        <legend class="text-semibold">
+                          <div class="mt-10">
+                            <i class="icon-user-plus position-left"></i>
+                            Dados do candidato
+                          </div>
+                        </legend>
+
+                        <div class="form-group">
+                          <div class="row">
+                            <div class="col-md-6">
+                              <label
+                                class="
+                                  control-label
+                                  text-bold text-uppercase text-bold
+                                "
+                                >Nome:</label
+                              >
+                              <input
+                                type="text"
+                                placeholder="Primeiro Nome"
+                                class="form-control"
+                                v-model="editedItem.nome"
+                                required=""
+                              />
+                            </div>
+                            <div class="col-md-6">
+                              <label
+                                class="
+                                  control-label
+                                  text-bold text-uppercase text-bold
+                                "
+                                >Outros Nomes:</label
+                              >
+                              <input
+                                type="text"
+                                placeholder="Outros Nomes"
+                                class="form-control"
+                                name="apelido"
+                                required=""
+                                v-model="editedItem.outrosNomes"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <div class="row">
+                            <div class="col-md-6">
+                              <label
+                                class="
+                                  control-label
+                                  text-bold text-uppercase text-bold
+                                "
+                                >Contacto:</label
+                              >
+                              <input
+                                type="text"
+                                placeholder="(+258) 8X.XXXXXXX"
+                                class="form-control"
+                                required=""
+                                v-model="editedItem.contacts[0].contact"
+                              />
+                            </div>
+                            <div class="col-md-6">
+                              <label
+                                class="control-label text-bold text text-bold"
+                                >MEDIA 12.a CLASSE:</label
+                              >
+                              <input
+                                min="12"
+                                type="number"
+                                placeholder="Introduza a media"
+                                class="form-control"
+                                name="contact"
+                                v-model="editedItem.media_12a"
+                              />
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="form-group">
+                          <div class="row">
+                            <div class="col-md-6">
+                              <label
+                                class="
+                                  control-label
+                                  text-bold text-uppercase text-bold
+                                "
+                                >Data de Nascimento:</label
+                              >
+                              <input
+                                type="date"
+                                placeholder="Data de nascimento"
+                                class="form-control"
+                                name="data_nascimento"
+                                v-model="editedItem.birth_date"
+                              />
+                            </div>
+                            <div class="col-md-6">
+                              <label
+                                class="
+                                  control-label
+                                  text-bold text-uppercase text-bold
+                                "
+                                >Identificação:</label
+                              >
+                              <input
+                                required
+                                type="text"
+                                placeholder="BI/DIRE/Passaporte N.º"
+                                class="form-control"
+                                name="documento"
+                                v-model="editedItem.identificacao"
+                              />
+                            </div>
+                            <v-radio-group
+                              class="ms-3"
+                              v-model="candidate.gender_id"
+                              row
+                            >
+                              <v-radio label="Masculino" value="1"></v-radio>
+                              <v-radio label="Femenino" value="2"></v-radio>
+                            </v-radio-group>
+                            <v-switch
+                              v-model="editedItem.isValidated"
+                              label="Validar"
+                              color="success"
+                              value="1"
+                              hide-details
+                            ></v-switch>
+                          </div>
+                        </div>
+
+                        <div class="form-group">
+                          <div class="row">
+                            <div class="col-md-6">
+                              <v-select
+                                :items="filterProvinces()"
+                                labreturn
+                                @change="filterDistricts($event)"
+                                dense
+                                class=""
+                              >
+                              </v-select>
+                            </div>
+
+                            <div class="col-md-6">
+                              <v-select
+                                labreturn
+                                :items="districtsname"
+                                @change="filterSchools($event)"
+                                dense
+                                class="ms-5"
+                              >
+                              </v-select>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-6">
+                              <v-select
+                                labreturn
+                                :items="schoolsname"
+                                @change="filterCourses($event)"
+                                dense
+                                class=""
+                              >
+                              </v-select>
+                            </div>
+
+                            <div class="col-md-6">
+                              <v-select
+                                labreturn
+                                :items="coursesname"
+                                @change="setCourse($event)"
+                                dense
+                                class="ms-5"
+                              >
+                              </v-select>
+                            </div>
+                          </div>
+                        </div>
+                      </fieldset>
+                    </div>
                   </div>
-                  <div>.</div>
-                  <div>.</div>
+                  <div>
+                    <div class="d-flex justify-end mb-10 mr-10">
+                      <v-btn
+                        class="btn bg-slate-800 text-bold text-uppercase"
+                        @click="save"
+                      >
+                        Gravar
+                        <i class="icon-arrow-right14 position-right"></i>
+                      </v-btn>
+                    </div>
+                    <div>.</div>
+                    <div>.</div>
+                  </div>
                 </div>
-              </div>
-            </v-form>
-          </v-card>
-        </v-dialog>
-        <v-dialog v-model="dialogDelete" max-width="500px">
-          <v-card>
-            <v-card-title class="text-h5"
-              >Voce tem certeza que quer deletar este dado?</v-card-title
-            >
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="closeDelete"
-                >Cacelar</v-btn
+              </v-form>
+            </v-card>
+          </v-dialog>
+          <v-dialog v-model="dialogDelete" max-width="500px">
+            <v-card>
+              <v-card-title class="text-h5"
+                >Voce tem certeza que quer deletar este dado?</v-card-title
               >
-              <v-btn color="blue darken-1" text @click="deleteItemConfirm"
-                >OK</v-btn
-              >
-              <v-spacer></v-spacer>
-            </v-card-actions>
-          </v-card>
-        </v-dialog>
-      </v-toolbar>
-    </template>
-    <template v-slot:item.actions="{ item }">
-      <v-icon small class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
-      <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
-    </template>
-    <template v-slot:no-data>
-      <v-btn color="primary" @click="initialize"> Redefinir </v-btn>
-    </template>
-  </v-data-table>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn color="blue darken-1" text @click="closeDelete"
+                  >Cacelar</v-btn
+                >
+                <v-btn color="blue darken-1" text @click="deleteItemConfirm"
+                  >OK</v-btn
+                >
+                <v-spacer></v-spacer>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
+        </v-toolbar>
+      </template>
+      <template v-slot:item.actions="{ item }">
+        <v-icon small class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
+        <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
+      </template>
+      <template v-slot:no-data>
+        <v-btn color="primary" @click="initialize"> Redefinir </v-btn>
+      </template>
+    </v-data-table>
+  </v-card>
 </template>
 <script>
-import readXlsxFile from 'read-excel-file';
+import readXlsxFile from "read-excel-file";
 import { mapGetters, mapActions } from "vuex";
 import AddCandidate from "./AddCandidate.vue";
 export default {
@@ -295,8 +322,9 @@ export default {
       { text: "Validados", value: "VALIDADO" },
       { text: "Nao Validados", value: "PENDENTE" },
     ],
-    user:null,
+    user: null,
     opcoescurso: [
+      { text: "Todos", value: "0" },
       { text: "12.a + 1", value: "12.a + 1" },
       { text: "12.a + 3", value: "12.a + 3" },
     ],
@@ -390,7 +418,7 @@ export default {
       val || this.closeDelete();
     },
   },
-methods: {
+  methods: {
     ...mapActions([
       "getSchools",
       "getProvinces",
@@ -398,7 +426,8 @@ methods: {
       "editCandidate",
       "addCandidate",
       "addCandidates",
-      "getCandidatesBySchool"
+      "getCandidatesBySchool",
+      "getDistricts",
     ]),
     initialize() {},
     filterProvinces() {
@@ -416,7 +445,7 @@ methods: {
       });
     },
     filterSchools(idDistrict) {
-      this.editedItem.district_id = idDistrict;
+      console.log(this.district);
       let index = this.district.findIndex((d) => {
         return idDistrict == d.id;
       });
@@ -425,6 +454,7 @@ methods: {
       });
     },
     filterCourses(idSchool) {
+      this.getCandidatesBySchool(idSchool);
       this.editedItem.school_id = idSchool;
       let index = this.schools.findIndex((d) => {
         return idSchool == d.id;
@@ -443,6 +473,38 @@ methods: {
       console.log(this.editedItem);
       this.contact = this.editedItem.contacts[0].contact;
       this.dialog = true;
+    },
+
+    exportToExcel() {
+      import("@/Export2Excel").then((excel) => {
+        const Header = ["Codigo", "Nome", "Genero", "Identificacao"];
+        const Field = ["id", "nome", "gender_id", "identificacao"];
+        const Data = this.FormatJSON(Field, this.candidates);
+        console.log("Data");
+        console.log(Data);
+        excel.export_json_to_excel({
+          header: Header, //Header Required
+          data: Data, //Specific data Required
+          filename: "Lista_De_Candidatos", //Optional
+          autoWidth: true, //Optional
+          bookType: "xlsx", //Optional
+        });
+      });
+    },
+    FormatJSON(FilterData, JsonData) {
+      return JsonData.map((v) =>
+        FilterData.map((j) => {
+          if (v[j] == 1 || v[j] == 2) {
+            if (v[j] == 1) {
+              return "Masculino";
+            } else if (v[j] == 2) {
+              return "Femenino";
+            }
+            return;
+          }
+          return v[j];
+        })
+      );
     },
 
     deleteItem(item) {
@@ -561,18 +623,23 @@ methods: {
         console.log("Import Simple Students")
         console.log(this.import_students)
       });*/
-
-    }
+    },
   },
-  created(){
-    this.user= JSON.parse(localStorage.getItem("user"));
+  created() {
+    this.user = JSON.parse(localStorage.getItem("user"));
+    console.log("LIST CAndidates");
+    console.log(this.user);
     this.initialize();
-    
   },
 
   mounted() {
     //this.getCandidates();
-    this.getCandidatesBySchool(this.user.school_id)
+    this.getDistricToSchools();
+    this.getDistricts();
+    if (this.user.role == "escola") {
+      console.log("this.getCandidatesBySchool(this.user.school_id);");
+      this.getCandidatesBySchool(this.user.school_id);
+    }
   },
 };
 </script>

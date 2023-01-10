@@ -10,14 +10,16 @@ import person from './modules/person';
 import calendar from './modules/calendar';
 import classe from './modules/classe';
 import school from './modules/school';
-import location from './modules/location';
-//import provinces from './modules/provinces';
-//import districts from './modules/districts';
+//import location from './modules/location';
+import provinces from './modules/provinces';
+import districts from './modules/districts';
 import subject from './modules/subject';
 import category from './modules/category';
 import candidate from './modules/candidate';
 import jury from './modules/jury';
 import login from './modules/login';
+import question from './modules/question';
+import avaliacao from './modules/avaliacao';
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -31,12 +33,15 @@ export default new Vuex.Store({
         calendar,
         classe,
         school,
-        location,
-        // provinces,
-        // districts,
+  //      location,
+        provinces,
+        districts,
         subject,
         category,
         candidate,
-        jury
+        jury,
+        login,
+        question,
+        avaliacao
     },
 });

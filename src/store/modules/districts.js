@@ -2,19 +2,13 @@
 import axios from '@/plugins/axios';
 
 const state = {
-    districts: [],
+    district: [],
     districtsName: [],
-    district: {
-        id: '',
-        name: '',
-        province: {},
-    },
+   
 };
 
 const getters = {
-    districts: (state) => state.districts,
     district: (state) => state.district,
-
     districtsName: (state) => state.districtsName,
 };
 
@@ -57,7 +51,10 @@ const actions = {
 
 const mutations = {
     getDistricts(state, payload) {
-        state.districts = payload;
+        state.district = payload;
+        console.log("kcdkmkndnck")
+        console.log(state.district)
+        console.log(payload)
         state.districtName = state.district.map((p) => {
             return { text: p.name, value: p.id };
         });

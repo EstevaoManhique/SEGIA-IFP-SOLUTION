@@ -15,7 +15,7 @@
     </v-layout>
     <v-divider></v-divider>
 
-    <q-menu :menu_type="menu_types" />
+    <q-menu :menu_type="menu_types" :user="user"/>
     <!-- -->
   </v-navigation-drawer>
 </template>
@@ -33,6 +33,9 @@ export default {
   },
   created() {
     this.createDrawerDialog();
+    console.log("User NavBar")
+    console.log(JSON.parse(localStorage.getItem("user")));
+    this.initialize();
   },
   computed: {
     ...mapGetters(['drawerDialog']),

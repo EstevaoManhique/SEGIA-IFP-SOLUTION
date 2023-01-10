@@ -6,7 +6,7 @@
           <v-tabs v-model="tabs" fixed-tabs>
             <v-tabs-slider></v-tabs-slider>
             <v-tab href="#mobile-tabs-5-2" class="primary--text">
-              Ficha de Importação dos Candidatos
+              Ficha de Importação das Respostas
             </v-tab>
           </v-tabs>
 
@@ -170,58 +170,14 @@
             </div>
           </v-row>
           <v-row>
-            <v-col cols="14" sm="6" md="4">
-              <v-select
-                label="Provincia"
-                dense
-                filled
-                mandatory
-                :items="filterProvinces()"
-                @change="filterDistricts($event)"
-              ></v-select>
-            </v-col>
-            <v-col cols="12" sm="6" md="4">
-              <v-select
-                label="Distrito"
-                dense
-                filled
-                mandatory
-                :items="districtsname"
-                @change="filterSchools($event)"
-              ></v-select>
-            </v-col>
-            <v-col cols="12" sm="6" md="4">
-              <v-select
-                label="Instituicao"
-                dense
-                filled
-                mandatory
-                :items="schoolsname"
-                @change="filterCourses($event)"
-              ></v-select>
-            </v-col>
-            <v-col cols="12" sm="6" md="4">
-              <v-select
-                label="Curso"
-                dense
-                filled
-                mandatory
-                :items="opcoescurso"
-                @change="setCourse($event)"
-              ></v-select>
-            </v-col>
-            <v-col cols="12" sm="6" md="4" class="ms-2">
-              <v-btn color="blue" @click="gravar"
-                >Confirmar importação de dados <v-icon>mdi-check</v-icon>
-              </v-btn>
-            </v-col>
-          </v-row>
-          <v-row>
             <v-col cols="12">
               <div class="panel-heading">
                 <h6 class="panel-title text-bold text-uppercase">
-                  Listagem de dados à importar
+                  Listagem de respostas à Corrigir
                 </h6>
+                <v-btn color="blue" @click="corrigirExames()"
+                  >Comecar a corrigir <v-icon>mdi-check</v-icon>
+                </v-btn>
                 <div class="heading-elements">
                   <ul class="icons-list">
                     <li><a data-action="collapse"></a></li>
@@ -270,7 +226,7 @@
         <v-col cols="12">
           <v-data-table
             :headers="headers"
-            :items="imported"
+            :items="avalImported"
             class="elevation-1 v-data-table"
           ></v-data-table>
         </v-col>
@@ -296,7 +252,7 @@
             </div>
           </div>
           <div class="d-flex justify-center">
-            <v-btn class="mb-3" color="success" @click="setOf">Ok</v-btn>
+            <v-btn class="mb-3" color="success">Ok</v-btn>
           </div>
         </v-card>
       </v-dialog>
@@ -309,206 +265,305 @@ import readXlsxFile, { Integer } from "read-excel-file";
 import simpleFile from "@/store/modules/schemes/importStudentSimple.js";
 import { mapGetters, mapActions } from "vuex";
 export default {
-  name: "ImportStudent",
+  name: "ImportAnswers",
   data() {
     return {
       tabs: null,
-      opcoescurso: [
-        { text: "12.a + 1", value: 1 },
-        { text: "12.a + 3", value: 2 },
-      ],
       link_modelo_simp:
         "http://localhost:8002/assets/modelos_excel/imp_segia_candidatos_modelo.xlsx",
       link_modelo:
         "http://localhost:8002/assets/modelos_excel/imp_segia_alunos_modelo.xlsx",
 
       headersImport: [
-        /*{ text: "#", value: "id", width: "auto" },
-         */ {
-          text: "Nome",
+        {
+          text: "Candidato",
           align: "start",
           sortable: false,
-          value: "nome",
+          value: "numero",
           width: "auto",
         },
-        /*{
-          text: "Outros Nomes",
-          value: "outrosNomes",
-          width: "150px",
+        {
+          text: "Disciplina",
+          value: "disciplina",
+          width: "auto",
+          sortable: false,
         },
-        { text: "Data de Nascimento", value: "birth_date", width: "150px" },
-        */ { text: "Genero", value: "gender.descricao", width: "auto" },
-        { text: "Identificacao", value: "identificacao", width: "auto" },
-        /*{ text: "Provincia", value: "province.name", width: "auto" },
-        { text: "Distrito", value: "district.name", width: "auto" },
-        */ { text: "Media 12.a", value: "media_12a", width: "auto" },
-        /*{ text: "Instituto de Formacao", value: "school.name", width: "150px" },
-        { text: "Curso", value: "course.description", width: "auto" },
-        { text: "Estado", value: "state", width: "auto" },*/
+        {
+          text: "Sinaletica",
+          value: "sinaletica",
+          width: "auto",
+          sortable: false,
+        },
+        { text: "P1", value: "p1", width: "auto", sortable: false },
+        { text: "P2", value: "p2", width: "auto", sortable: false },
+        { text: "P3", value: "p3", width: "auto", sortable: false },
+        { text: "P4", value: "p4", width: "auto", sortable: false },
+        { text: "P5", value: "p5", width: "auto", sortable: false },
+        { text: "P6", value: "p6", width: "auto", sortable: false },
+        { text: "P7", value: "p7", width: "auto", sortable: false },
+        { text: "P8", value: "p8", width: "auto", sortable: false },
+        { text: "P9", value: "p9", width: "auto", sortable: false },
+        { text: "P10", value: "p10", width: "auto", sortable: false },
+        { text: "P11", value: "p11", width: "auto", sortable: false },
+        { text: "P12", value: "p12", width: "auto", sortable: false },
+        { text: "P13", value: "p13", width: "auto", sortable: false },
+        { text: "P14", value: "p14", width: "auto", sortable: false },
+        { text: "P15", value: "p15", width: "auto", sortable: false },
+        { text: "P16", value: "p16", width: "auto", sortable: false },
+        { text: "P17", value: "p17", width: "auto", sortable: false },
+        { text: "P18", value: "p18", width: "auto", sortable: false },
+        { text: "P19", value: "p19", width: "auto", sortable: false },
+        { text: "P20", value: "p20", width: "auto", sortable: false },
+        { text: "P21", value: "p21", width: "auto", sortable: false },
+        { text: "P22", value: "p22", width: "auto", sortable: false },
+        { text: "P23", value: "p23", width: "auto", sortable: false },
+        { text: "P24", value: "p24", width: "auto", sortable: false },
+        { text: "P25", value: "p25", width: "auto", sortable: false },
+        { text: "P26", value: "p26", width: "auto", sortable: false },
+        { text: "P27", value: "p27", width: "auto", sortable: false },
+        { text: "P28", value: "p28", width: "auto", sortable: false },
+        { text: "P29", value: "p29", width: "auto", sortable: false },
+        { text: "P30", value: "p30", width: "auto", sortable: false },
+        { text: "P21", value: "p31", width: "auto", sortable: false },
+        { text: "P32", value: "p32", width: "auto", sortable: false },
+        { text: "P33", value: "p33", width: "auto", sortable: false },
+        { text: "P34", value: "p34", width: "auto", sortable: false },
+        { text: "P35", value: "p35", width: "auto", sortable: false },
+        { text: "P36", value: "p36", width: "auto", sortable: false },
+        { text: "P37", value: "p37", width: "auto", sortable: false },
+        { text: "P38", value: "p38", width: "auto", sortable: false },
+        { text: "P39", value: "p39", width: "auto", sortable: false },
+        { text: "P40", value: "p40", width: "auto", sortable: false },
       ],
       headers: [
-        { text: "#", value: "id", width: "auto" },
+        { text: "Codigo", value: "candidate_id", width: "auto", sortable: false },
         {
           text: "Nome",
-          align: "start",
           sortable: false,
-          value: "nome",
-          width: "120px",
+          value: "candidate.nome",
+          width: "auto",
         },
         {
-          text: "Outros Nomes",
-          value: "outrosNomes",
-          width: "150px",
+          text: "Portugues",
+          value: "portugues",
+          width: "auto",
+          sortable: false,
         },
-        { text: "Data de Nascimento", value: "birth_date", width: "150px" },
-        { text: "Genero", value: "gender.descricao", width: "120px" },
-        { text: "Identificacao", value: "identificacao", width: "120px" },
-        { text: "Provincia", value: "province.name", width: "120px" },
-        { text: "Distrito", value: "district.name", width: "120px" },
-        { text: "Media 12.a", value: "media_12a", width: "120px" },
-        { text: "Instituto de Formacao", value: "school.name", width: "150px" },
-        { text: "Curso", value: "course.description", width: "120px" },
-        { text: "Estado", value: "state", width: "120px" },
+        {
+          text: "Matematica",
+          value: "matematica",
+          width: "auto",
+          sortable: false,
+        },
+        {
+          text: "Entrevista",
+          value: "entrevista",
+          width: "auto",
+          sortable: false,
+        },
       ],
-      dialogDelete: false,
-      districtsname: null,
-      provincesname: null,
-      schoolsname: null,
-      coursesname: null,
       import_candidates: [],
-      simpleFile,
       editedItem: {
-        id: null,
-        nome: null,
-        outrosNomes: null,
-        contacts: [{ contact: null, id: null }],
-        birth_date: null,
-        identificacao: null,
-        gender: {},
-        district: {},
-        school: {},
-        course: {},
-        province: {},
-        media_12a: null,
-        gender_id: null,
-        isValidated: null,
-        contact_id: null,
-        ifpcode: null,
+        portugues: null,
+        matematica: null,
+        entrevista: null,
+        candidate_id: null,
       },
       defaultItem: {
-        id: null,
-        nome: null,
-        outrosNomes: null,
-        contacts: [{ contact: null, id: null }],
-        birth_date: null,
-        identificacao: null,
-        gender: {},
-        district: {},
-        school: {},
-        course: {},
-        province: {},
-        media_12a: null,
-        gender_id: null,
-        isValidated: null,
-        contact_id: null,
-        ifpcode: null,
+        portugues: null,
+        matematica: null,
+        entrevista: null,
+        candidate_id: null,
       },
-      province_id: null,
-      school_id: null,
-      district_id: null,
-      course_id: null,
-      IFPCODEE: null,
-
-      user: null,
     };
   },
   computed: {
-    ...mapGetters(["provinces", "district", "schools", "imported", "data"]),
+    ...mapGetters(["questionsByExam", "avaliacoes", "avaliacao", "avalImported"]),
   },
   mounted() {
-    this.getProvinces();
-    //this.getDistricToSchools();
-    this.getSchools();
-    this.getDistricts();
+    this.getAvaliacoes();
   },
   created() {
     this.user = JSON.parse(localStorage.getItem("user"));
-    this.initialize();
+    console.log(this.user);
   },
   methods: {
-    ...mapActions([
-      "getProvinces",
-      "getDistricToSchools",
-      "getSchools",
-      "addCandidates",
-      "getDistricts",
-    ]),
+    ...mapActions(["getQuestionsByExam", "getAvaliacoes", "addAvaliacao", "addAvaliacoes"]),
     import_modelo_simples() {
       console.log("Modelo Usado");
       const input = document.getElementById("fileSimples");
       const file = input.files[0];
       const schema = {
-        Codigo: {
-          prop: "id",
-        },
-        "NOME COMPLETO": {
-          prop: "nome",
-          type: String,
-        },
-        "Outros Nomes": {
-          prop: "outrosNomes",
-          type: String,
-        },
-        "Data de Nascimento": {
-          prop: "birth_date",
-          type: Date,
-        },
-        SEXO: {
-          prop: "gender.descricao",
-          type: String,
-        },
-        "NR. DOC.": {
-          prop: "identificacao",
-          type: String,
-        },
-        PROVÍNCIA: {
-          prop: "province.name",
-          type: String,
-        },
-        Distrito: {
-          prop: "district.name",
-          type: String,
-        },
-        MEDIA: {
-          prop: "media_12a",
+        Número: {
+          prop: "numero",
           type: Number,
         },
-        "Instituto de Formacao": {
-          prop: "school.name",
+        Disciplina: {
+          prop: "disciplina",
+          type: Number,
+        },
+        Sinalética: {
+          prop: "sinaletica",
           type: String,
         },
-        Curso: {
-          prop: "course.description",
+        P1: {
+          prop: "p1",
           type: String,
         },
-        Estado: {
-          prop: "state",
+        P2: {
+          prop: "p2",
           type: String,
         },
-        province_id: {
-          prop: "province_id",
+        P3: {
+          prop: "p3",
           type: String,
         },
-        district_id: {
-          prop: "district_id",
+        P4: {
+          prop: "p4",
           type: String,
         },
-        school_id: {
-          prop: "school_id",
+        P5: {
+          prop: "p5",
           type: String,
         },
-        ifpcode: {
-          prop: "ifpcode",
+        P6: {
+          prop: "p6",
+          type: String,
+        },
+        P7: {
+          prop: "p7",
+          type: String,
+        },
+        P8: {
+          prop: "p8",
+          type: String,
+        },
+        P9: {
+          prop: "p9",
+          type: String,
+        },
+        P10: {
+          prop: "p10",
+          type: String,
+        },
+        P11: {
+          prop: "p11",
+          type: String,
+        },
+        P12: {
+          prop: "p12",
+          type: String,
+        },
+        P13: {
+          prop: "p13",
+          type: String,
+        },
+        P14: {
+          prop: "p14",
+          type: String,
+        },
+        P15: {
+          prop: "p15",
+          type: String,
+        },
+        P16: {
+          prop: "p16",
+          type: String,
+        },
+        P17: {
+          prop: "p17",
+          type: String,
+        },
+        P18: {
+          prop: "p18",
+          type: String,
+        },
+        P19: {
+          prop: "p19",
+          type: String,
+        },
+        P20: {
+          prop: "p20",
+          type: String,
+        },
+        P21: {
+          prop: "p21",
+          type: String,
+        },
+        P22: {
+          prop: "p22",
+          type: String,
+        },
+        P23: {
+          prop: "p23",
+          type: String,
+        },
+        P24: {
+          prop: "p24",
+          type: String,
+        },
+        P25: {
+          prop: "p25",
+          type: String,
+        },
+        P26: {
+          prop: "p26",
+          type: String,
+        },
+        P27: {
+          prop: "p27",
+          type: String,
+        },
+        P28: {
+          prop: "p28",
+          type: String,
+        },
+        P29: {
+          prop: "p29",
+          type: String,
+        },
+        P30: {
+          prop: "p30",
+          type: String,
+        },
+        P31: {
+          prop: "p31",
+          type: String,
+        },
+        P32: {
+          prop: "p32",
+          type: String,
+        },
+        P33: {
+          prop: "p33",
+          type: String,
+        },
+        P34: {
+          prop: "p34",
+          type: String,
+        },
+        P35: {
+          prop: "p35",
+          type: String,
+        },
+        P36: {
+          prop: "p36",
+          type: String,
+        },
+        P37: {
+          prop: "p37",
+          type: String,
+        },
+        P38: {
+          prop: "p38",
+          type: String,
+        },
+        P39: {
+          prop: "p39",
+          type: String,
+        },
+        P40: {
+          prop: "p40",
           type: String,
         },
       };
@@ -518,86 +573,67 @@ export default {
         errors.length === 0;
 
         this.import_candidates = rows;
-        console.log("Import Candidates USed");
+        console.log("Import Candidates Used");
         console.log(this.import_candidates);
+        let examId = this.import_candidates[0].disciplina;
+        this.getQuestionsByExam(examId);
       });
     },
-    gravar() {
-      var candidates = [];
+    corrigirExames() {
+      let avaliacoes = [];
+      let nota = 0;
+      let aval = {
+        portugues: null,
+        matematica: null,
+        entrevista: null,
+        candidate_id: null,
+      };
 
-      this.import_candidates.forEach((candidate) => {
-        this.editedItem = this.defaultItem;
-        this.editedItem = Object.assign({}, candidate);
-        this.editedItem.birth_date = 2000 - 20 - 20;
+      this.import_candidates.map((candidate) => {
+        let idCandidato = candidate.numero;
+        let idDisciplina = candidate.disciplina;
+        delete candidate.disciplina;
+        delete candidate.numero;
+        delete candidate.sinaletica;
 
-        this.editedItem.province_id = candidate.province_id
-        this.editedItem.district_id = candidate.district_id
-        this.editedItem.school_id = candidate.school_id
-        this.editedItem.ifpcode = candidate.ifpcode
-        this.editedItem.course_id = this.course_id;
-
-        this.editedItem.identificacao = candidate.identificacao;
-        this.editedItem.media_12a = candidate.media_12a;
-        this.editedItem.nome = candidate.nome;
-        this.editedItem.outrosNomes = "outrosNomes";
-        this.editedItem.newcontact = "000000000";
-
-        console.log(candidate.ifpcode)
-        if (this.editedItem["gender.descricao"] == "M") {
-          this.editedItem.gender_id = 1;
-        } else {
-          this.editedItem.gender_id = 2;
+        var props = Object.keys(candidate);
+        
+        for (var i = 0; i < props.length; i++) {
+          if (candidate[props[i]] == this.questionsByExam[i].resposta) {
+            nota = nota + this.questionsByExam[i].cotacao;
+          } else {
+          }
         }
+        //console.log("candidato");
+        //console.log(candidate);
+        if(idDisciplina==2){
+          aval.portugues = nota;
+        }else if(idDisciplina==1){
+          aval.matematica = nota;
+        }
+        aval.candidate_id = idCandidato;
+        
+        
+        //aval.entrevista = nota;
+        
+        this.editedItem = this.defaultItem;
+        this.editedItem = Object.assign({}, aval);
 
-        candidates.push(this.editedItem);
+        if(this.editedItem.candidate_id){
+          avaliacoes.push(this.editedItem);
+        }
+      
+        nota = 0;
+        aval.candidate_id = null;
+        aval.portugues = null;
+        aval.matematica = null;
+        aval.entrevista = null;
       });
 
-      this.import_candidates = [];
-      console.log("candidates");
-      console.log(candidates);
-      this.addCandidates(candidates);
-      this.dialogDelete = true;
-    },
-    filterProvinces() {
-      return this.provinces.map((province) => {
-        return { text: province.name, value: province.id };
-      });
-    },
-    filterDistricts(idProvince) {
-      this.province_id = idProvince;
-      let index = this.provinces.findIndex((p) => {
-        return idProvince == p.id;
-      });
-      this.districtsname = this.provinces[index].districts.map((district) => {
-        return { text: district.name, value: district.id };
-      });
-    },
-    filterSchools(idDistrict) {
-      console.log(this.district);
-      this.district_id = idDistrict;
-      let index = this.district.findIndex((d) => {
-        return idDistrict == d.id;
-      });
-      this.schoolsname = this.district[index].schools.map((s) => {
-        return { text: s.name, value: s.id };
-      });
-    },
-    filterCourses(idSchool) {
-      this.school_id = idSchool;
+      console.log("Avaliacoes");
+      console.log(avaliacoes);
 
-      let index = this.schools.findIndex((d) => {
-        return idSchool == d.id;
-      });
-      this.ifpcode = this.schools[index].cod;
-      this.coursesname = this.schools[index].courses.map((s) => {
-        return { text: s.description, value: s.id };
-      });
-    },
-    setCourse(idCourse) {
-      this.course_id = idCourse;
-    },
-    setOf() {
-      this.dialogDelete = false;
+      this.addAvaliacoes(avaliacoes)
     },
   },
 };
